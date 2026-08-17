@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apps by AZZI — native, private Mac tools</title>
+<meta name="description" content="A small family of native, private, local-first macOS apps: Vitals, Breeze, StealthShare, Aura and WhisperType.">
+<style>
+  /* Light (default) + dark, so it matches whichever app embeds it */
+  :root{
+    --bg:#f6f6f9; --card:#ffffff; --line:rgba(0,0,0,.09); --tx:#15151b; --mut:#5c5c6e;
+    --dim:#8a8a99; --g1:#ff3d9a; --g2:#7c4dff; --chip:rgba(124,77,255,.1);
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0a0a10; --card:#15151f; --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84; --chip:rgba(124,77,255,.16); }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--tx);font:15px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:26px 20px 40px}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:940px;margin:0 auto}
+  header{text-align:center;margin-bottom:26px}
+  .kicker{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--g1);margin-bottom:8px}
+  header h1{font-size:clamp(22px,3.4vw,30px);font-weight:800;letter-spacing:-.6px}
+  header p{color:var(--mut);margin-top:8px;font-size:15px;max-width:52ch;margin-left:auto;margin-right:auto}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px}
+  @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+  .card{display:flex;gap:15px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .15s ease,border-color .15s ease}
+  .card:hover{transform:translateY(-2px);border-color:rgba(124,77,255,.4)}
+  .icon{width:60px;height:60px;border-radius:14px;flex:none;box-shadow:0 4px 14px rgba(0,0,0,.14)}
+  .body h2{font-size:17px;font-weight:750;letter-spacing:-.2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .tag{font-size:12.5px;color:var(--g1);font-weight:600;margin-top:1px}
+  .desc{font-size:13.5px;color:var(--mut);margin-top:8px}
+  .chip{font-size:10px;font-weight:700;letter-spacing:.3px;padding:2px 7px;border-radius:999px;background:var(--chip);color:var(--g2)}
+  @media (prefers-color-scheme: dark){ .chip{color:#c9b6ff} }
+  .link{display:inline-flex;align-items:center;gap:4px;margin-top:11px;font-size:12.5px;font-weight:650;color:var(--g2)}
+  @media (prefers-color-scheme: dark){ .link{color:#b49bff} }
+  .link:hover{text-decoration:underline}
+  footer{text-align:center;color:var(--dim);font-size:12px;margin-top:30px}
+  .ph{font-size:10px;opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">✦ Native · Private · Local-first</span>
+    <h1>A small family of Mac apps</h1>
+    <p>Each one native, fast, and built to keep your data on your Mac — nothing sent anywhere.</p>
+  </header>
+
+  <div class="grid">
+    <!-- Update each href with the real App Store / download URL when ready. -->
+    <a class="card" href="#" data-app="vitals">
+      <img class="icon" src="assets/apps/vitals.png" alt="Vitals">
+      <div class="body">
+        <h2>Vitals <span class="chip">$9.99</span></h2>
+        <div class="tag">Your Mac's vital signs, in the menu bar</div>
+        <div class="desc">Live CPU, GPU, memory, network, heat and battery — plus local-LLM detection &amp; speed tests, 30-day history and native widgets.</div>
+        <span class="link">Learn more →</span>
+      </div>
+    </a>
+
+    <a class="card" href="#" data-app="breeze">
+      <img class="icon" src="assets/apps/breeze.png" alt="Breeze">
+      <div class="body">
+        <h2>Breeze</h2>
+        <div class="tag">Clean up &amp; speed up your Mac</div>
+        <div class="desc">Reclaim disk space, remove apps with their leftovers, find duplicates and free system junk — one-click, review-first, nothing deleted without you.</div>
+        <span class="link">Learn more →</span>
+      </div>
+    </a>
+
+    <a class="card" href="#" data-app="stealthshare">
+      <img class="icon" src="assets/apps/stealthshare.png" alt="StealthShare">
+      <div class="body">
+        <h2>StealthShare</h2>
+        <div class="tag">Screen privacy for screen sharing</div>
+        <div class="desc">Blurs confidential app windows, hides your desktop behind a clean mask, sets a neutral wallpaper and can auto-activate the moment a call starts.</div>
+        <span class="link">Learn more →</span>
+      </div>
+    </a>
+
+    <a class="card" href="#" data-app="aura">
+      <img class="icon" src="assets/apps/aura.png" alt="Aura">
+      <div class="body">
+        <h2>Aura</h2>
+        <div class="tag">Offline AI text assistant</div>
+        <div class="desc">Select text in any app, press ⇧⌘P, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</div>
+        <span class="link">Learn more →</span>
+      </div>
+    </a>
+
+    <a class="card" href="#" data-app="whispertype">
+      <img class="icon" src="assets/apps/whispertype.png" alt="WhisperType">
+      <div class="body">
+        <h2>WhisperType</h2>
+        <div class="tag">Local voice dictation</div>
+        <div class="desc">Press ⌥Space and just talk. On-device Whisper transcribes your speech and types it straight into any text field — private, and fast on Apple Silicon.</div>
+        <span class="link">Learn more →</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>Made by AZZI OLFATI · <span class="ph">links open each app's page — update when live</span></footer>
+</div>
+</body>
+</html>
