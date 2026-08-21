@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Vitals</title>
+<meta name="description" content="Vitals collects nothing. No account, no analytics, no ads, no servers of ours — every reading stays on your Mac. Here's exactly what that means.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#ff3d9a; --g2:#7c4dff; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .back{font-size:14px;color:var(--mut)}
+  .back:hover{color:var(--tx)}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .updated{color:var(--dim);font-size:13.5px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  .legal h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  .legal h3{font-size:15px;font-weight:700;margin-top:22px;color:var(--tx)}
+  .legal p{color:var(--mut);font-size:15px;margin-top:12px}
+  .legal ul{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .legal li{color:var(--mut);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+  .legal li .ck{color:var(--good);font-weight:800;flex:none}
+  .card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:18px}
+  .card p{margin-top:0}
+  .ph{color:#c98a2a;font-size:12.5px;border:1px dashed rgba(201,138,42,.5);padding:1px 8px;border-radius:6px;background:rgba(201,138,42,.08);display:inline-block}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="index.html"><img src="assets/icon.png" alt="Vitals icon">Vitals</a>
+    <a class="back" href="index.html">← Back to Vitals</a>
+  </nav>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: August 2026</p>
+  <p class="intro">The short version: Vitals collects <strong>nothing</strong>. There's no account, no analytics, no advertising, and no servers of ours in the loop. Every reading it takes lives on your Mac and stays there. This page explains exactly what that means, including the handful of things that do touch the network — and only because you asked them to.</p>
+
+  <div class="legal">
+    <h2>What Vitals reads</h2>
+    <p>Vitals reads your Mac's own system state to show you CPU, GPU, memory, disk, network, battery, Bluetooth device battery, temperatures and fan speeds. All of this is read locally through standard macOS APIs and, for a few advanced Pro features, a handful of Apple-signed system tools already on every Mac. None of it is uploaded, synced, or sent anywhere — it's rendered straight into the menu bar, the popover, the dashboard and the widgets, and nowhere else.</p>
+
+    <h2>What's stored, and where</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span><strong>Metrics history</strong> (used by the 30-day History &amp; Reports features) is written to a local file in your user Library — never to iCloud, never off your Mac.</span></li>
+        <li><span class="ck">✓</span><span><strong>Your Pro trial's start date</strong> is stored once in the macOS Keychain, the same secure, local, per-app storage macOS uses for passwords. It's used only to compute how many trial days are left — it never leaves your Mac.</span></li>
+        <li><span class="ck">✓</span><span><strong>Preferences</strong> (theme, layout, alert thresholds you set) are stored in standard macOS app preferences, local to your Mac.</span></li>
+      </ul>
+    </div>
+
+    <h2>The few things that touch the network — only when you ask</h2>
+    <h3>Phone alerts</h3>
+    <p>If you choose to turn on threshold alerts and type in a webhook address (for an optional third-party service such as ntfy.sh), Vitals sends the alert text to that address when a threshold trips — and nowhere else. Leave the field empty and nothing is ever sent.</p>
+    <h3>Public IP lookup</h3>
+    <p>Only when you press "Reveal my public IP," Vitals makes one request to a public IP-echo service to read the address back to you. This never happens automatically.</p>
+    <h3>Local-LLM tools</h3>
+    <p>The local-AI speed test and model library talk only to model servers already running on your own Mac (localhost, any port) — nothing is sent over the internet.</p>
+
+    <h2>The location permission you may be asked for</h2>
+    <p>The Wi-Fi tools ask for "Location When In Use" access. This is a macOS platform requirement, not something Vitals actually uses: since macOS Sonoma, Apple's CoreWLAN framework — which reads nearby Wi-Fi network names, bands and channels — only hands that information to apps with an authorized location client. Vitals never reads, stores, or transmits your location itself; the permission exists purely to unlock that Wi-Fi API.</p>
+
+    <h2>Children's privacy</h2>
+    <p>Vitals is not directed at children and does not knowingly collect information from anyone, of any age — there's simply nothing collected, full stop.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy ever changes, the update will be posted on this page with a new "Last updated" date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? <span class="ph">Contact email coming soon</span></p>
+  </div>
+</div></main>
+
+<footer><div class="foot">
+  <a class="brand" href="index.html" style="font-size:16px"><img src="assets/icon.png" alt="" style="width:24px;height:24px;border-radius:6px">Vitals</a>
+  <div class="links">
+    <a href="support.html">Support</a>
+    <a href="index.html#pricing">Pricing</a>
+  </div>
+  <div>© 2026 Vitals. Made for macOS.</div>
+</div></footer>
+
+</body>
+</html>
