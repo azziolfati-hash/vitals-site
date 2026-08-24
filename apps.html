@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apps by AZZI — native, private Mac tools</title>
-<meta name="description" content="A small family of native, private, local-first macOS apps: Vitals, Breeze, StealthShare, Aura and WhisperType.">
+<title>Apps by HANNCREST — native, private Mac tools</title>
+<meta name="description" content="A small family of native, private, local-first macOS apps from HANNCREST: Vitals, Breeze, StealthShare, Aura and WhisperType.">
 <style>
   /* Light (default) + dark, so it matches whichever app embeds it */
   :root{
@@ -36,16 +36,22 @@
   .link{display:inline-flex;align-items:center;gap:4px;margin-top:11px;font-size:12.5px;font-weight:650;color:var(--g2)}
   @media (prefers-color-scheme: dark){ .link{color:#b49bff} }
   .link:hover{text-decoration:underline}
+  .card.soon{opacity:.72}
+  .card.soon:hover{transform:none;border-color:var(--line)}
+  .chip.soon{background:rgba(0,0,0,.06);color:var(--dim)}
+  @media (prefers-color-scheme: dark){ .chip.soon{background:rgba(255,255,255,.08);color:var(--dim)} }
+  .soonlabel{display:inline-flex;align-items:center;gap:4px;margin-top:11px;font-size:12.5px;font-weight:650;color:var(--dim)}
   footer{text-align:center;color:var(--dim);font-size:12px;margin-top:30px}
+  footer a{color:var(--mut)} footer a:hover{color:var(--tx)}
   .ph{font-size:10px;opacity:.7}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <span class="kicker">✦ Native · Private · Local-first</span>
+    <span class="kicker">✦ HANNCREST · Native · Private · Local-first</span>
     <h1>A small family of Mac apps</h1>
-    <p>Each one native, fast, and built to keep your data on your Mac — nothing sent anywhere.</p>
+    <p>Each one native, fast, and built to keep your data on your Mac — nothing sent anywhere. Vitals is out now; the rest are on the way.</p>
   </header>
 
   <div class="grid">
@@ -55,53 +61,53 @@
       <div class="body">
         <h2>Vitals <span class="chip">14-day free trial</span></h2>
         <div class="tag">Your Mac's vital signs, in the menu bar</div>
-        <div class="desc">Live CPU, GPU, memory, network, heat, battery &amp; Bluetooth device battery — plus local-LLM tools, 30-day history, crash watch and native widgets. Free to monitor forever; $9.99 once to go deep.</div>
+        <div class="desc">Live CPU, GPU, memory, network, heat, battery &amp; Bluetooth device battery — plus local-LLM tools, 30-day history, crash watch and a live desktop widget. Free to monitor forever; $9.99 once to go deep.</div>
         <span class="link">Learn more →</span>
       </div>
     </a>
 
-    <a class="card" href="#" data-app="breeze">
+    <div class="card soon" data-app="breeze">
       <img class="icon" src="assets/apps/breeze.png" alt="Breeze">
       <div class="body">
-        <h2>Breeze</h2>
+        <h2>Breeze <span class="chip soon">Coming soon</span></h2>
         <div class="tag">Clean up &amp; speed up your Mac</div>
         <div class="desc">Reclaim disk space, remove apps with their leftovers, find duplicates and free system junk — one-click, review-first, nothing deleted without you.</div>
-        <span class="link">Learn more →</span>
+        <span class="soonlabel">In development</span>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="#" data-app="stealthshare">
+    <div class="card soon" data-app="stealthshare">
       <img class="icon" src="assets/apps/stealthshare.png" alt="StealthShare">
       <div class="body">
-        <h2>StealthShare</h2>
+        <h2>StealthShare <span class="chip soon">Coming soon</span></h2>
         <div class="tag">Screen privacy for screen sharing</div>
         <div class="desc">Blurs confidential app windows, hides your desktop behind a clean mask, sets a neutral wallpaper and can auto-activate the moment a call starts.</div>
-        <span class="link">Learn more →</span>
+        <span class="soonlabel">In development</span>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="#" data-app="aura">
+    <div class="card soon" data-app="aura">
       <img class="icon" src="assets/apps/aura.png" alt="Aura">
       <div class="body">
-        <h2>Aura</h2>
+        <h2>Aura <span class="chip soon">Coming soon</span></h2>
         <div class="tag">Offline AI text assistant</div>
         <div class="desc">Select text in any app, press ⇧⌘P, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</div>
-        <span class="link">Learn more →</span>
+        <span class="soonlabel">In development</span>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="#" data-app="whispertype">
+    <div class="card soon" data-app="whispertype">
       <img class="icon" src="assets/apps/whispertype.png" alt="WhisperType">
       <div class="body">
-        <h2>WhisperType</h2>
+        <h2>WhisperType <span class="chip soon">Coming soon</span></h2>
         <div class="tag">Local voice dictation</div>
         <div class="desc">Press ⌥Space and just talk. On-device Whisper transcribes your speech and types it straight into any text field — private, and fast on Apple Silicon.</div>
-        <span class="link">Learn more →</span>
+        <span class="soonlabel">In development</span>
       </div>
-    </a>
+    </div>
   </div>
 
-  <footer>Made by AZZI OLFATI · <span class="ph">links open each app's page — update when live</span></footer>
+  <footer>Made by HANNCREST · <a href="mailto:contact@HANNCREST.com">contact@HANNCREST.com</a></footer>
 </div>
 </body>
 </html>
