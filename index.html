@@ -49,7 +49,9 @@
   .hero{position:relative;border-radius:32px;overflow:hidden;min-height:min(92vh,860px);display:flex;align-items:center;justify-content:center;text-align:center;
     background:radial-gradient(120% 95% at 50% -5%,#171226 0%,#0c0a16 32%,#050509 64%,#000000 100%)}
   #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
-  .hero-glow{position:absolute;left:50%;bottom:-40%;transform:translateX(-50%);width:118%;height:66%;background:radial-gradient(ellipse at center,rgba(124,77,255,.32),rgba(255,61,154,.12) 42%,transparent 66%);filter:blur(22px);pointer-events:none}
+  .hero-glow{position:absolute;left:50%;top:-16%;transform:translateX(-50%);width:108%;height:58%;background:radial-gradient(ellipse at center,rgba(124,77,255,.36),rgba(255,61,154,.14) 42%,transparent 66%);filter:blur(24px);pointer-events:none}
+  /* smooth fade at the bottom so the hero blends into the page / the wires below */
+  .hero-fade{position:absolute;left:0;right:0;bottom:0;height:34%;z-index:2;pointer-events:none;background:linear-gradient(to bottom,transparent,#000 92%)}
   .hero-inner{position:relative;z-index:2;padding:120px 24px 132px;max-width:900px}
   .hero-logo{display:block;width:min(220px,52vw);height:auto;margin:0 auto;filter:drop-shadow(0 8px 30px rgba(124,77,255,.5))}
   .hero h1{font-size:clamp(38px,7vw,80px);line-height:1.02;font-weight:850;letter-spacing:-1.6px;margin:26px auto 0;max-width:16ch}
@@ -88,27 +90,23 @@
   .app.soon{opacity:.82}.app.soon:hover{transform:none;border-color:var(--line);box-shadow:none}
   .soonlabel{display:inline-block;margin-top:15px;font-size:13px;font-weight:600;color:var(--dim)}
 
-  /* "Wiring" border-draw: a gradient traces around each card as it scrolls into view */
-  @property --wire{syntax:'<angle>';inherits:false;initial-value:0deg}
-  .app{isolation:isolate}
-  .app::after{
-    content:"";position:absolute;inset:0;border-radius:inherit;padding:1.7px;pointer-events:none;z-index:3;opacity:0;
-    background:conic-gradient(from -90deg,
-      var(--g3) 0deg, var(--g2) calc(var(--wire)*.55), var(--g1) calc(var(--wire)*.9),
-      #fff var(--wire), transparent var(--wire), transparent 360deg);
-    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-            mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;mask-composite:exclude;
-  }
-  .app.in::after{animation:wiredraw 1.5s cubic-bezier(.4,0,.2,1) forwards}
-  .app.in .go .arrow{animation:none}
-  @keyframes wiredraw{
-    0%{--wire:0deg;opacity:0}
-    6%{opacity:1}
-    62%{--wire:360deg;opacity:1}
-    100%{--wire:360deg;opacity:0}
-  }
-  @media(prefers-reduced-motion:reduce){ .app::after{display:none} }
+  /* WIRE CONNECTOR — lines flow out of the logo and fan down to the app boxes on scroll */
+  .connect{position:relative;padding-top:12px;margin-top:-20px}
+  .connect-mark{display:block;width:66px;height:auto;margin:0 auto 0;filter:drop-shadow(0 6px 20px rgba(124,77,255,.5));position:relative;z-index:2}
+  .wires{display:block;width:100%;height:230px;margin-top:-6px}
+  @media(max-width:600px){ .wires{height:150px} }
+  .wires path{fill:none;stroke:url(#wireGrad);stroke-width:2.4;stroke-linecap:round;
+    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s cubic-bezier(.45,.05,.35,1)}
+  .connect.in .wires path{stroke-dashoffset:0}
+  .connect.in .wires path:nth-child(1){transition-delay:.02s}
+  .connect.in .wires path:nth-child(2){transition-delay:.10s}
+  .connect.in .wires path:nth-child(3){transition-delay:.18s}
+  .connect.in .wires path:nth-child(4){transition-delay:.26s}
+  .connect.in .wires path:nth-child(5){transition-delay:.34s}
+  .connect.in .wires path:nth-child(6){transition-delay:.42s}
+  .connect.in .wires path:nth-child(7){transition-delay:.50s}
+  .connect.in .wires path:nth-child(8){transition-delay:.58s}
+  @media(prefers-reduced-motion:reduce){ .wires path{stroke-dashoffset:0;transition:none} }
 
   /* VALUES */
   .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
@@ -163,6 +161,7 @@
     <section class="hero">
       <canvas id="sky"></canvas>
       <div class="hero-glow"></div>
+      <div class="hero-fade"></div>
       <div class="hero-inner">
         <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">
         <h1>Native Mac apps, built on <span class="grad-text">higher ground</span>.</h1>
@@ -180,8 +179,31 @@
     <div class="wrap">
       <p class="eyebrow reveal">The apps</p>
       <h2 class="title reveal d1">A growing family of Mac tools.</h2>
-      <p class="lead reveal d2">One is out now; the rest are in the works. Each one native, private, and built to do one thing exceptionally well.</p>
+    </div>
 
+    <!-- Wires flow out of the logo and fan down into the app boxes as you scroll -->
+    <div class="connect reveal">
+      <img class="connect-mark" src="assets/hanncrest-mark-light.svg" alt="">
+      <svg class="wires" viewBox="0 0 1000 230" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#d9d0ff"/>
+            <stop offset=".5" stop-color="#7c4dff"/>
+            <stop offset="1" stop-color="#ff3d9a"/>
+          </linearGradient>
+        </defs>
+        <path pathLength="1" d="M500,0 C500,90 90,120 90,230"/>
+        <path pathLength="1" style="opacity:.4"  d="M500,0 C500,95 230,125 230,230"/>
+        <path pathLength="1" d="M500,0 C500,100 360,130 360,230"/>
+        <path pathLength="1" style="opacity:.45" d="M500,0 C500,105 460,135 460,230"/>
+        <path pathLength="1" d="M500,0 C500,105 540,135 540,230"/>
+        <path pathLength="1" style="opacity:.45" d="M500,0 C500,100 640,130 640,230"/>
+        <path pathLength="1" d="M500,0 C500,95 770,125 770,230"/>
+        <path pathLength="1" style="opacity:.4"  d="M500,0 C500,90 910,120 910,230"/>
+      </svg>
+    </div>
+
+    <div class="wrap">
       <div class="apps">
         <a class="app lead-app reveal" href="vitals/">
           <img class="ico" src="assets/apps/vitals.png" alt="Vitals">
@@ -302,7 +324,7 @@
       stars = Array.from({length:count}, ()=>({
         x:Math.random()*W, y:Math.random()*H,
         r:Math.random()*1.6+0.4,
-        vy:-(Math.random()*0.25+0.05), vx:(Math.random()-0.5)*0.12,
+        vy:(Math.random()*0.35+0.09), vx:(Math.random()-0.5)*0.10,
         a:Math.random()*0.6+0.2, tw:Math.random()*0.02+0.004,
         c:COLORS[Math.floor(Math.random()*COLORS.length)]
       }));
@@ -313,7 +335,7 @@
       phase+=0.01;
       for(const s of stars){
         s.y+=s.vy; s.x+=s.vx;
-        if(s.y<-4){s.y=H+4;s.x=Math.random()*W;}
+        if(s.y>H+4){s.y=-4;s.x=Math.random()*W;}
         if(s.x<-4)s.x=W+4; if(s.x>W+4)s.x=-4;
         const tw=s.a+Math.sin(phase*6+s.x)*0.18;
         ctx.beginPath();
