@@ -102,10 +102,21 @@
   .wire-node{fill:#ff5aa8;transition:opacity .15s linear}
   @media(prefers-reduced-motion:reduce){ .wires path{stroke-dashoffset:0!important;transition:none}.wire-node{opacity:1!important} }
 
-  /* Boxes wired together — a node + connector line sits in the gap above each card */
+  /* Boxes alternate left/right and are joined by breeze-style routed traces.
+     The traces (SVG) are built in JS from each box's real position, so they always line up. */
   .apps{position:relative}
-  .app + .app::before{content:"";position:absolute;left:50%;top:-18px;transform:translateX(-50%);width:2px;height:18px;background:linear-gradient(to bottom,rgba(124,77,255,.55),rgba(124,77,255,.10))}
-  .app + .app::after{content:"";position:absolute;left:50%;top:-4px;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--g2);box-shadow:0 0 12px rgba(124,77,255,.9)}
+  .app{position:relative;z-index:1}
+  .box-wires{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+  .box-wires .bw{fill:none;stroke:url(#wireGrad2);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
+  .box-wires .bw-dot{fill:#caa8ff;transition:opacity .15s linear}
+  @media(min-width:721px){
+    .apps{gap:38px}
+    .app{width:56%;justify-self:start}
+    .app.lead-app{width:100%}
+    .app:nth-child(2n){justify-self:end}   /* even cards align right → zigzag */
+  }
+  @media(prefers-reduced-motion:reduce){ .box-wires .bw{stroke-dashoffset:0!important;transition:none}.box-wires .bw-dot{opacity:1} }
 
   /* VALUES */
   .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
@@ -330,6 +341,62 @@
     window.addEventListener('resize', drawWires);
   }
 
+  // Breeze-style routed traces between the alternating app boxes. Built from each box's
+  // real position (so alignment is exact at any width), and scroll-linked like the fan.
+  const NS='http://www.w3.org/2000/svg';
+  const appsEl=document.querySelector('.apps');
+  let boxWires=[];
+  function buildBoxWires(){
+    if(!appsEl) return;
+    let svg=appsEl.querySelector('.box-wires');
+    if(!svg){ svg=document.createElementNS(NS,'svg'); svg.setAttribute('class','box-wires'); svg.setAttribute('aria-hidden','true'); svg.setAttribute('preserveAspectRatio','none'); appsEl.appendChild(svg); }
+    const cards=Array.from(appsEl.querySelectorAll('.app'));
+    boxWires=[]; svg.innerHTML='';
+    const wide=window.matchMedia('(min-width:721px)').matches;
+    if(!wide || cards.length<2){ return; }
+    const base=appsEl.getBoundingClientRect();
+    svg.setAttribute('viewBox','0 0 '+base.width+' '+base.height);
+    const defs=document.createElementNS(NS,'defs');
+    defs.innerHTML='<linearGradient id="wireGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9d0ff"/><stop offset=".5" stop-color="#7c4dff"/><stop offset="1" stop-color="#ff3d9a"/></linearGradient>';
+    svg.appendChild(defs);
+    for(let i=0;i<cards.length-1;i++){
+      const a=cards[i].getBoundingClientRect(), b=cards[i+1].getBoundingClientRect();
+      const sx=a.left+a.width/2-base.left, sy=a.bottom-base.top;
+      const ex=b.left+b.width/2-base.left, ey=b.top-base.top;
+      const midY=(sy+ey)/2, dir=ex>=sx?1:-1;
+      const r=Math.max(6,Math.min(20,(Math.abs(ex-sx)/2)||20,(ey-sy)/2||20));
+      const d='M '+sx+' '+sy+' L '+sx+' '+(midY-r)+' Q '+sx+' '+midY+' '+(sx+dir*r)+' '+midY+
+              ' L '+(ex-dir*r)+' '+midY+' Q '+ex+' '+midY+' '+ex+' '+(midY+r)+' L '+ex+' '+ey;
+      const p=document.createElementNS(NS,'path');
+      p.setAttribute('d',d); p.setAttribute('pathLength','1'); p.setAttribute('class','bw');
+      svg.appendChild(p);
+      const dots=[[sx,midY],[ex,midY]].map(function(pt){
+        const c=document.createElementNS(NS,'circle');
+        c.setAttribute('cx',pt[0]); c.setAttribute('cy',pt[1]); c.setAttribute('r','4.5'); c.setAttribute('class','bw-dot');
+        c.style.opacity='0'; svg.appendChild(c); return c;
+      });
+      boxWires.push({p:p,dots:dots,target:cards[i+1]});
+    }
+    drawBoxWires();
+  }
+  function drawBoxWires(){
+    const vh=window.innerHeight||800;
+    for(const w of boxWires){
+      if(reduceMotion){ w.p.style.strokeDashoffset='0'; w.dots.forEach(function(d){d.style.opacity='1';}); continue; }
+      const r=w.target.getBoundingClientRect();
+      let prog=(vh - r.top)/(vh*0.55); prog=Math.max(0,Math.min(1,prog));
+      w.p.style.strokeDashoffset=(1-prog).toFixed(3);
+      const o=Math.max(0,Math.min(1,(prog-0.4)*2.4)).toFixed(2);
+      w.dots.forEach(function(d){d.style.opacity=o;});
+    }
+  }
+  if(appsEl){
+    buildBoxWires();
+    window.addEventListener('scroll', ()=>requestAnimationFrame(drawBoxWires), {passive:true});
+    let rt; window.addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(buildBoxWires,150); });
+    window.addEventListener('load', buildBoxWires);
+  }
+
   // Animated starfield in the hero (breeze-style drifting particles)
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const cv = document.getElementById('sky');
@@ -350,8 +417,9 @@
         c:COLORS[Math.floor(Math.random()*COLORS.length)]
       }));
     }
-    let phase=0;
+    let phase=0, running=true;
     function frame(){
+      if(!running) return;
       ctx.clearRect(0,0,W,H);
       phase+=0.01;
       for(const s of stars){
@@ -367,6 +435,13 @@
     }
     resize(); frame();
     window.addEventListener('resize', resize);
+    // Pause the starfield when the hero scrolls out of view (saves CPU, keeps the page smooth).
+    const heroEl=document.querySelector('.hero');
+    if(heroEl && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(es){
+        es.forEach(function(e){ const was=running; running=e.isIntersecting; if(running && !was) requestAnimationFrame(frame); });
+      },{threshold:0}).observe(heroEl);
+    }
   }
 </script>
 </body>
