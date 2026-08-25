@@ -9,14 +9,13 @@
 <meta property="og:description" content="Native, private, local-first apps for macOS. Nothing leaves your Mac. Starting with Vitals.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.hanncrest.com/">
-<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="icon" type="image/svg+xml" href="assets/hanncrest-mark-light.svg">
 <style>
   :root{
-    --bg:#07070c; --bg2:#0d0d16; --card:#14141e; --card2:#1a1a26;
-    --line:rgba(255,255,255,.09); --tx:#f5f5f9; --mut:#9a9ab2; --dim:#6a6a82;
+    --bg:#06060b; --panel:#0f1020; --card:#14141f; --card2:#1a1a26;
+    --line:rgba(255,255,255,.09); --tx:#f5f5f9; --mut:#a0a0ba; --dim:#6a6a82;
     --g1:#ff3d9a; --g2:#7c4dff; --g3:#4dc9ff; --good:#34d399;
     --grad:linear-gradient(135deg,var(--g1),var(--g2));
-    --grad3:linear-gradient(120deg,var(--g1),var(--g2) 55%,var(--g3));
     --maxw:1120px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -24,92 +23,109 @@
   body{background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .grad-text{background:var(--grad3);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer;border:0}
-  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(124,77,255,.35)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(255,61,154,.4)}
-  .btn-ghost{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--line)}
-  .btn-ghost:hover{background:rgba(255,255,255,.1)}
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.2px;background:rgba(124,77,255,.12);color:#c9b6ff;border:1px solid rgba(124,77,255,.28)}
+  .grad-text{background:linear-gradient(120deg,var(--g1),var(--g2) 55%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:999px;font-weight:650;font-size:15.5px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;cursor:pointer;border:0}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 34px rgba(124,77,255,.4)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(255,61,154,.45)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:var(--tx);border:1px solid var(--line);backdrop-filter:blur(6px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14)}
+  .btn .arrow{transition:transform .2s ease}
+  .btn:hover .arrow{transform:translateX(3px)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.3px;background:rgba(255,255,255,.08);color:#d9d3ff;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px)}
 
   /* NAV */
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(7,7,12,.72);border-bottom:1px solid var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  header.scrolled{backdrop-filter:saturate(160%) blur(14px);background:rgba(6,6,11,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:70px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:1.5px}
   .brandmark{width:36px;height:27px;flex:none}
   .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
   .navlinks a:hover{color:var(--tx)}
-  .navlinks .btn{padding:9px 16px;font-size:14px}
-  @media(max-width:720px){.navlinks a:not(.btn){display:none}}
+  .navlinks .btn{padding:10px 20px;font-size:14px}
+  @media(max-width:760px){.navlinks a:not(.btn){display:none}}
 
-  /* HERO */
-  .hero{position:relative;padding:104px 0 56px;text-align:center;overflow:hidden}
-  .hero::before{content:"";position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:1000px;height:680px;background:radial-gradient(ellipse at center,rgba(124,77,255,.30),rgba(255,61,154,.10) 45%,transparent 68%);filter:blur(30px);pointer-events:none}
-  .hero-logo{position:relative;display:block;width:min(340px,74%);height:auto;margin:16px auto 0}
-  .hero h1{position:relative;font-size:clamp(24px,3.6vw,40px);line-height:1.12;font-weight:800;letter-spacing:-.8px;max-width:20ch;margin:26px auto 0}
-  .hero p.sub{position:relative;color:var(--mut);font-size:clamp(16px,2.1vw,20px);max-width:56ch;margin:20px auto 0}
-  .hero .cta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
-
-  /* TRUST STRIP */
-  .trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin:44px 0 0}
-  .trust span{display:inline-flex;align-items:center;gap:8px}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--good)}
+  /* HERO CARD (breeze-style inset rounded card + animated sky) */
+  .hero-shell{padding:14px 14px 0}
+  .hero{position:relative;border-radius:32px;overflow:hidden;min-height:min(92vh,860px);display:flex;align-items:center;justify-content:center;text-align:center;
+    background:radial-gradient(120% 100% at 50% 0%,#241a4d 0%,#161334 34%,#0c0a20 68%,#080713 100%)}
+  #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .hero-glow{position:absolute;left:50%;bottom:-38%;transform:translateX(-50%);width:120%;height:70%;background:radial-gradient(ellipse at center,rgba(124,77,255,.45),rgba(255,61,154,.18) 40%,transparent 66%);filter:blur(20px);pointer-events:none}
+  .hero-inner{position:relative;z-index:2;padding:120px 24px 132px;max-width:900px}
+  .hero-logo{display:block;width:min(220px,52vw);height:auto;margin:0 auto;filter:drop-shadow(0 8px 30px rgba(124,77,255,.5))}
+  .hero h1{font-size:clamp(38px,7vw,80px);line-height:1.02;font-weight:850;letter-spacing:-1.6px;margin:26px auto 0;max-width:16ch}
+  .hero p.sub{color:#c8c6e6;font-size:clamp(16px,2.2vw,21px);max-width:52ch;margin:22px auto 0}
+  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .spark{display:inline-block;animation:twinkle 2.6s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
 
   /* SECTIONS */
-  section{padding:72px 0}
-  .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
-  h2.title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
+  section{padding:88px 0}
+  .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--g1)}
+  h2.title{text-align:center;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
   .lead{text-align:center;color:var(--mut);font-size:18px;max-width:60ch;margin:16px auto 0}
 
+  /* trust / backed strip */
+  .strip{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin-top:44px}
+  .strip span{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--good);box-shadow:0 0 10px var(--good)}
+
   /* APPS */
-  .apps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:48px}
-  .app{display:flex;gap:20px;align-items:flex-start;background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:24px 26px;transition:border-color .2s,transform .2s}
-  .app:hover{border-color:rgba(124,77,255,.4);transform:translateY(-2px)}
+  .apps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:52px}
+  .app{display:flex;gap:20px;align-items:flex-start;background:linear-gradient(180deg,var(--card),#101019);border:1px solid var(--line);border-radius:20px;padding:26px 28px;transition:border-color .25s,transform .25s,box-shadow .25s}
+  .app:hover{border-color:rgba(124,77,255,.45);transform:translateY(-3px);box-shadow:0 22px 60px rgba(0,0,0,.45)}
   .app.lead-app{background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
-  .app .ico{width:62px;height:62px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+  .app .ico{width:64px;height:64px;border-radius:16px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.4)}
   .app .meta{flex:1;min-width:0}
-  .app h3{font-size:20px;font-weight:750;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .app .tagline{color:var(--g1);font-size:13.5px;font-weight:600;margin-top:2px}
-  .app p{color:var(--mut);font-size:14.5px;margin-top:10px;max-width:70ch}
-  .app .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13.5px;font-weight:650;color:#c9b6ff}
-  .app .go:hover{text-decoration:underline}
-  .chip{font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+  .app h3{font-size:21px;font-weight:750;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .app .tagline{color:var(--g1);font-size:13.5px;font-weight:600;margin-top:3px}
+  .app p{color:var(--mut);font-size:14.5px;margin-top:11px;max-width:72ch}
+  .app .go{display:inline-flex;align-items:center;gap:6px;margin-top:15px;font-size:13.5px;font-weight:650;color:#c9b6ff}
+  .app .go .arrow{transition:transform .2s}
+  .app:hover .go .arrow{transform:translateX(3px)}
+  .chip{font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:3px 10px;border-radius:999px;text-transform:uppercase}
   .chip.live{background:rgba(52,211,153,.14);color:#5ee7b0;border:1px solid rgba(52,211,153,.3)}
   .chip.soon{background:rgba(255,255,255,.07);color:var(--dim);border:1px solid var(--line)}
-  .app.soon{opacity:.82}
-  .app.soon:hover{transform:none;border-color:var(--line)}
-  .soonlabel{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:var(--dim)}
+  .app.soon{opacity:.82}.app.soon:hover{transform:none;border-color:var(--line);box-shadow:none}
+  .soonlabel{display:inline-block;margin-top:15px;font-size:13px;font-weight:600;color:var(--dim)}
 
   /* VALUES */
-  .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+  .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
   @media(max-width:860px){.values{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:480px){.values{grid-template-columns:1fr}}
-  .val{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
-  .val .vico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(124,77,255,.14);border:1px solid rgba(124,77,255,.28);font-size:21px;margin-bottom:14px}
+  .val{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .25s,border-color .25s}
+  .val:hover{transform:translateY(-3px);border-color:rgba(124,77,255,.35)}
+  .val .vico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(124,77,255,.14);border:1px solid rgba(124,77,255,.28);font-size:22px;margin-bottom:15px}
   .val h3{font-size:16.5px;font-weight:700;letter-spacing:-.2px}
-  .val p{color:var(--mut);font-size:14px;margin-top:7px}
+  .val p{color:var(--mut);font-size:14px;margin-top:8px}
 
   /* FINAL */
-  .final{text-align:center;padding:96px 0 40px}
-  .final h2{font-size:clamp(28px,4.2vw,46px);font-weight:800;letter-spacing:-1px}
+  .final{position:relative;text-align:center;padding:100px 0 60px;overflow:hidden}
+  .final h2{font-size:clamp(30px,4.6vw,52px);font-weight:850;letter-spacing:-1.2px}
   .final p{color:var(--mut);margin-top:14px;font-size:18px;max-width:52ch;margin-left:auto;margin-right:auto}
-  .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
 
   /* FOOTER */
-  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:13.5px}
+  footer{border-top:1px solid var(--line);padding:44px 0;color:var(--dim);font-size:13.5px}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
   .foot .links{display:flex;gap:22px;flex-wrap:wrap}
+
+  /* SCROLL REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .spark{animation:none}
+    html{scroll-behavior:auto}
+  }
 </style>
 </head>
 <body>
 
-<header>
+<header id="hdr">
   <div class="wrap"><nav>
-    <a class="brand" href="#top">
-      <img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="">
-      HANNCREST
-    </a>
+    <a class="brand" href="#top"><img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="">HANNCREST</a>
     <div class="navlinks">
       <a href="#apps">Apps</a>
       <a href="#values">Why us</a>
@@ -121,43 +137,41 @@
 
 <main id="top">
   <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <span class="pill">✦ Native · Private · Local-first · Apple Silicon</span>
-      <img class="hero-logo" src="assets/hanncrest-logo-light.svg" alt="HANNCREST">
-      <h1>Native Mac apps that respect your machine — and your privacy.</h1>
-      <p class="sub">A small studio building fast, featherweight macOS tools with no accounts, no telemetry and no subscriptions. Everything runs and stays on your Mac.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="#apps">See the apps</a>
-        <a class="btn btn-ghost" href="vitals/">Explore Vitals →</a>
+  <div class="hero-shell">
+    <section class="hero">
+      <canvas id="sky"></canvas>
+      <div class="hero-glow"></div>
+      <div class="hero-inner">
+        <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">
+        <h1>Native Mac apps, built on <span class="grad-text">higher ground</span>. <span class="spark grad-text">✦</span></h1>
+        <p class="sub">A small studio crafting fast, featherweight macOS tools — no accounts, no telemetry, no subscriptions. Everything runs and stays on your Mac.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="vitals/">Explore Vitals <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="#apps">See all apps</a>
+        </div>
       </div>
-      <div class="trust">
-        <span><i class="dot"></i>100% native SwiftUI</span>
-        <span><i class="dot"></i>No account, no telemetry</span>
-        <span><i class="dot"></i>One-time pricing, never subscriptions</span>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <!-- APPS -->
   <section id="apps">
     <div class="wrap">
-      <p class="eyebrow">The apps</p>
-      <h2 class="title">A growing family of Mac tools.</h2>
-      <p class="lead">One is out now; the rest are in the works. Each one native, private, and built to do one thing exceptionally well.</p>
+      <p class="eyebrow reveal">The apps</p>
+      <h2 class="title reveal d1">A growing family of Mac tools.</h2>
+      <p class="lead reveal d2">One is out now; the rest are in the works. Each one native, private, and built to do one thing exceptionally well.</p>
 
       <div class="apps">
-        <a class="app lead-app" href="vitals/">
+        <a class="app lead-app reveal" href="vitals/">
           <img class="ico" src="assets/apps/vitals.png" alt="Vitals">
           <div class="meta">
             <h3>Vitals <span class="chip live">Available now</span></h3>
             <div class="tagline">Your Mac's vital signs, in the menu bar</div>
             <p>Live CPU, GPU, memory, network, heat, battery and Bluetooth device battery — plus tools no other menu-bar app has: local-LLM detection &amp; speed tests, 30-day history, S.M.A.R.T. disk health, crash &amp; panic watch, and a live desktop widget. Free to monitor forever; $9.99 once to go deep, after a 14-day free trial.</p>
-            <span class="go">Explore Vitals →</span>
+            <span class="go">Explore Vitals <span class="arrow">→</span></span>
           </div>
         </a>
 
-        <div class="app soon">
+        <div class="app soon reveal">
           <img class="ico" src="assets/apps/breeze.png" alt="Breeze">
           <div class="meta">
             <h3>Breeze <span class="chip soon">Coming soon</span></h3>
@@ -167,7 +181,7 @@
           </div>
         </div>
 
-        <div class="app soon">
+        <div class="app soon reveal">
           <img class="ico" src="assets/apps/stealthshare.png" alt="StealthShare">
           <div class="meta">
             <h3>StealthShare <span class="chip soon">Coming soon</span></h3>
@@ -177,7 +191,7 @@
           </div>
         </div>
 
-        <div class="app soon">
+        <div class="app soon reveal">
           <img class="ico" src="assets/apps/aura.png" alt="Aura">
           <div class="meta">
             <h3>Aura <span class="chip soon">Coming soon</span></h3>
@@ -187,7 +201,7 @@
           </div>
         </div>
 
-        <div class="app soon">
+        <div class="app soon reveal">
           <img class="ico" src="assets/apps/whispertype.png" alt="WhisperType">
           <div class="meta">
             <h3>WhisperType <span class="chip soon">Coming soon</span></h3>
@@ -203,24 +217,25 @@
   <!-- VALUES -->
   <section id="values" style="padding-top:20px">
     <div class="wrap">
-      <p class="eyebrow">What every HANNCREST app shares</p>
-      <h2 class="title">Built on a few firm rules.</h2>
+      <p class="eyebrow reveal">What every HANNCREST app shares</p>
+      <h2 class="title reveal d1">Built on a few firm rules.</h2>
       <div class="values">
-        <div class="val"><div class="vico">⚡️</div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
-        <div class="val"><div class="vico">🔒</div><h3>Private by design</h3><p>No account, no sign-in, no analytics. Your data is never collected, stored off-device, or sold.</p></div>
-        <div class="val"><div class="vico">🖥️</div><h3>Local-first</h3><p>Everything runs on your Mac. Apps talk only to what's already on your machine — nothing is uploaded.</p></div>
-        <div class="val"><div class="vico">🏷️</div><h3>Honest pricing</h3><p>Generous free tiers and one-time purchases. No subscriptions, ever — buy once, own it.</p></div>
+        <div class="val reveal">   <div class="vico">⚡️</div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
+        <div class="val reveal d1"><div class="vico">🔒</div><h3>Private by design</h3><p>No account, no sign-in, no analytics. Your data is never collected, stored off-device, or sold.</p></div>
+        <div class="val reveal d2"><div class="vico">🏔️</div><h3>Local-first</h3><p>Everything runs on your Mac. Apps talk only to what's already on your machine — nothing is uploaded.</p></div>
+        <div class="val reveal d3"><div class="vico">🏷️</div><h3>Honest pricing</h3><p>Generous free tiers and one-time purchases. No subscriptions, ever — buy once, own it.</p></div>
       </div>
     </div>
   </section>
 
   <!-- FINAL CTA -->
   <section class="final">
-    <div class="wrap">
-      <h2>Start with <span class="grad-text">Vitals</span>.</h2>
-      <p>Know your Mac inside out — native, lightweight, and free to try. No card, no account, no subscription.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="vitals/">Explore Vitals →</a>
+    <div class="hero-glow" style="bottom:-52%;opacity:.7"></div>
+    <div class="wrap" style="position:relative;z-index:2">
+      <h2 class="reveal">Start with <span class="grad-text">Vitals</span>.</h2>
+      <p class="reveal d1">Know your Mac inside out — native, lightweight, and free to try. No card, no account, no subscription.</p>
+      <div class="cta reveal d2">
+        <a class="btn btn-primary" href="vitals/">Explore Vitals <span class="arrow">→</span></a>
         <a class="btn btn-ghost" href="mailto:contact@hanncrest.com">Get in touch</a>
       </div>
     </div>
@@ -228,10 +243,7 @@
 </main>
 
 <footer><div class="wrap"><div class="foot">
-  <a class="brand" href="#top" style="font-size:15px">
-    <img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="" style="width:28px;height:21px">
-    HANNCREST
-  </a>
+  <a class="brand" href="#top" style="font-size:15px"><img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="" style="width:28px;height:21px">HANNCREST</a>
   <div class="links">
     <a href="vitals/">Vitals</a>
     <a href="vitals/privacy.html">Privacy</a>
@@ -241,5 +253,56 @@
   <div>© 2026 HANNCREST · Made for macOS.</div>
 </div></div></footer>
 
+<script>
+  // Sticky-nav background on scroll
+  const hdr = document.getElementById('hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 24);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Scroll-reveal via IntersectionObserver
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Animated starfield in the hero (breeze-style drifting particles)
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('sky');
+  if (cv && !reduce) {
+    const ctx = cv.getContext('2d');
+    let W, H, DPR, stars = [];
+    const COLORS = ['255,255,255','201,182,255','124,77,255','255,141,196','120,201,255'];
+    function resize(){
+      DPR = Math.min(window.devicePixelRatio||1, 2);
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+      const count = Math.min(150, Math.round(W*H/9000));
+      stars = Array.from({length:count}, ()=>({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.6+0.4,
+        vy:-(Math.random()*0.25+0.05), vx:(Math.random()-0.5)*0.12,
+        a:Math.random()*0.6+0.2, tw:Math.random()*0.02+0.004,
+        c:COLORS[Math.floor(Math.random()*COLORS.length)]
+      }));
+    }
+    let phase=0;
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      phase+=0.01;
+      for(const s of stars){
+        s.y+=s.vy; s.x+=s.vx;
+        if(s.y<-4){s.y=H+4;s.x=Math.random()*W;}
+        if(s.x<-4)s.x=W+4; if(s.x>W+4)s.x=-4;
+        const tw=s.a+Math.sin(phase*6+s.x)*0.18;
+        ctx.beginPath();
+        ctx.fillStyle='rgba('+s.c+','+Math.max(0.05,Math.min(1,tw))+')';
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(frame);
+    }
+    resize(); frame();
+    window.addEventListener('resize', resize);
+  }
+</script>
 </body>
 </html>
