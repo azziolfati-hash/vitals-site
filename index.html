@@ -53,6 +53,11 @@
   .trust span{display:inline-flex;align-items:center;gap:8px}
   .dot{width:6px;height:6px;border-radius:50%;background:var(--good)}
 
+  /* MENU-BAR STRIP */
+  .mbstrip{margin:44px auto 0;max-width:880px;text-align:center}
+  .mbstrip img{width:100%;border-radius:16px;border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.5);display:block}
+  .mbstrip figcaption{color:var(--mut);font-size:14.5px;margin-top:16px;max-width:60ch;margin-left:auto;margin-right:auto}
+
   /* SECTIONS */
   section{padding:70px 0}
   .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
@@ -100,7 +105,8 @@
   .price li.off{color:var(--dim)}
   .price li.off .ck{color:var(--dim)}
   .price .btn{width:100%;justify-content:center;margin-top:26px}
-  .price .tag{position:absolute;top:-13px;right:22px}
+  .price.pro{padding-top:52px}
+  .price .tag{position:absolute;top:16px;left:32px}
 
   /* PRIVACY BANNER */
   .privacy{background:linear-gradient(135deg,rgba(124,77,255,.1),rgba(255,61,154,.08));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
@@ -158,6 +164,12 @@
       <span><i class="dot"></i>No account, no telemetry</span>
       <span><i class="dot"></i>Made for Apple Silicon</span>
     </div>
+
+    <!-- MENU-BAR READOUT + LIVE GRAPHS -->
+    <figure class="mbstrip">
+      <img src="assets/shots/01b-menubar-graphs.png" alt="Vitals menu-bar readout with a live mini-graph beside CPU, GPU, memory, VRAM and network">
+      <figcaption>Add a live sparkline beside every number — CPU, GPU, memory, VRAM and network — right in your menu bar. Or keep it to just the Vitals mark; it's your call.</figcaption>
+    </figure>
   </div>
 
   <!-- FEATURES -->
