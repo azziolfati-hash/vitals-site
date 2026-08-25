@@ -3,15 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vitals — Your Mac's vital signs, in the menu bar</title>
-<meta name="description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.">
+<title>HANNCREST — native, private Mac apps</title>
+<meta name="description" content="HANNCREST builds native, private, local-first apps for macOS. Fast, featherweight, no accounts, no telemetry — your data never leaves your Mac. Starting with Vitals, a menu-bar system monitor.">
+<meta property="og:title" content="HANNCREST — native, private Mac apps">
+<meta property="og:description" content="Native, private, local-first apps for macOS. Nothing leaves your Mac. Starting with Vitals.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.hanncrest.com/">
 <link rel="icon" type="image/png" href="assets/icon.png">
 <style>
   :root{
-    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
-    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
-    --g1:#ff3d9a; --g2:#7c4dff; --good:#34d399;
+    --bg:#07070c; --bg2:#0d0d16; --card:#14141e; --card2:#1a1a26;
+    --line:rgba(255,255,255,.09); --tx:#f5f5f9; --mut:#9a9ab2; --dim:#6a6a82;
+    --g1:#ff3d9a; --g2:#7c4dff; --g3:#4dc9ff; --good:#34d399;
     --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --grad3:linear-gradient(120deg,var(--g1),var(--g2) 55%,var(--g3));
     --maxw:1120px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -19,124 +24,98 @@
   body{background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .grad-text{background:var(--grad3);-webkit-background-clip:text;background-clip:text;color:transparent}
   .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer;border:0}
   .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(124,77,255,.35)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(255,61,154,.4)}
   .btn-ghost{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--line)}
   .btn-ghost:hover{background:rgba(255,255,255,.1)}
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.2px;background:rgba(255,61,154,.12);color:#ff87c1;border:1px solid rgba(255,61,154,.25)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.2px;background:rgba(124,77,255,.12);color:#c9b6ff;border:1px solid rgba(124,77,255,.28)}
 
   /* NAV */
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(7,7,12,.72);border-bottom:1px solid var(--line)}
   nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
-  .brand img{width:30px;height:30px;border-radius:8px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:1.5px}
+  .logo{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;flex:none;box-shadow:0 4px 16px rgba(124,77,255,.4)}
+  .logo svg{width:17px;height:17px}
   .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
   .navlinks a:hover{color:var(--tx)}
   .navlinks .btn{padding:9px 16px;font-size:14px}
   @media(max-width:720px){.navlinks a:not(.btn){display:none}}
 
   /* HERO */
-  .hero{position:relative;padding:90px 0 40px;text-align:center;overflow:hidden}
-  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(124,77,255,.28),transparent 60%);filter:blur(30px);pointer-events:none}
-  .hero h1{position:relative;font-size:clamp(38px,6vw,68px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;max-width:14ch;margin:18px auto 0}
-  .hero p.sub{position:relative;color:var(--mut);font-size:clamp(17px,2.2vw,21px);max-width:56ch;margin:22px auto 0}
+  .hero{position:relative;padding:104px 0 56px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:1000px;height:680px;background:radial-gradient(ellipse at center,rgba(124,77,255,.30),rgba(255,61,154,.10) 45%,transparent 68%);filter:blur(30px);pointer-events:none}
+  .hero .wordmark{position:relative;font-size:clamp(46px,10vw,104px);font-weight:900;letter-spacing:2px;line-height:1;margin:20px auto 0}
+  .hero h1{position:relative;font-size:clamp(24px,3.6vw,40px);line-height:1.12;font-weight:800;letter-spacing:-.8px;max-width:20ch;margin:26px auto 0}
+  .hero p.sub{position:relative;color:var(--mut);font-size:clamp(16px,2.1vw,20px);max-width:56ch;margin:20px auto 0}
   .hero .cta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
-  .hero .note{position:relative;color:var(--dim);font-size:13px;margin-top:16px}
-  .shot-hero{position:relative;margin:56px auto 0;max-width:1000px;border-radius:16px;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
-  .shot-hero img{display:block;width:100%}
-  .shot-hero::after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
 
   /* TRUST STRIP */
-  .trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin:50px 0 10px}
+  .trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin:44px 0 0}
   .trust span{display:inline-flex;align-items:center;gap:8px}
   .dot{width:6px;height:6px;border-radius:50%;background:var(--good)}
 
-  /* MENU-BAR STRIP */
-  .mbstrip{margin:44px auto 0;max-width:880px;text-align:center}
-  .mbstrip img{width:100%;border-radius:16px;border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.5);display:block}
-  .mbstrip figcaption{color:var(--mut);font-size:14.5px;margin-top:16px;max-width:60ch;margin-left:auto;margin-right:auto}
-
   /* SECTIONS */
-  section{padding:70px 0}
+  section{padding:72px 0}
   .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
-  h2.title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:20ch}
+  h2.title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
   .lead{text-align:center;color:var(--mut);font-size:18px;max-width:60ch;margin:16px auto 0}
 
-  /* FEATURE GRID */
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
-  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:600px){.grid{grid-template-columns:1fr}}
-  .fcard{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .2s,transform .2s}
-  .fcard:hover{border-color:rgba(124,77,255,.4);transform:translateY(-3px)}
-  .fico{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:rgba(124,77,255,.14);border:1px solid rgba(124,77,255,.28);font-size:22px;margin-bottom:16px}
-  .fcard h3{font-size:18px;font-weight:700;letter-spacing:-.3px}
-  .fcard p{color:var(--mut);font-size:14.5px;margin-top:8px}
+  /* APPS */
+  .apps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:48px}
+  .app{display:flex;gap:20px;align-items:flex-start;background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:18px;padding:24px 26px;transition:border-color .2s,transform .2s}
+  .app:hover{border-color:rgba(124,77,255,.4);transform:translateY(-2px)}
+  .app.lead-app{background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
+  .app .ico{width:62px;height:62px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+  .app .meta{flex:1;min-width:0}
+  .app h3{font-size:20px;font-weight:750;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .app .tagline{color:var(--g1);font-size:13.5px;font-weight:600;margin-top:2px}
+  .app p{color:var(--mut);font-size:14.5px;margin-top:10px;max-width:70ch}
+  .app .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13.5px;font-weight:650;color:#c9b6ff}
+  .app .go:hover{text-decoration:underline}
+  .chip{font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+  .chip.live{background:rgba(52,211,153,.14);color:#5ee7b0;border:1px solid rgba(52,211,153,.3)}
+  .chip.soon{background:rgba(255,255,255,.07);color:var(--dim);border:1px solid var(--line)}
+  .app.soon{opacity:.82}
+  .app.soon:hover{transform:none;border-color:var(--line)}
+  .soonlabel{display:inline-block;margin-top:14px;font-size:13px;font-weight:600;color:var(--dim)}
 
-  /* SPLIT FEATURE (LLM) */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:24px}
-  @media(max-width:860px){.split{grid-template-columns:1fr;gap:28px}}
-  .split .shot{border-radius:14px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5);width:100%;display:block}
-  .split h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.6px;line-height:1.1}
-  .split p{color:var(--mut);font-size:16.5px;margin-top:16px}
-  .checks{margin-top:22px;display:flex;flex-direction:column;gap:12px}
-  .checks li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:15px}
-  .checks .ck{color:var(--g1);font-weight:800;flex:none}
+  /* VALUES */
+  .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+  @media(max-width:860px){.values{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.values{grid-template-columns:1fr}}
+  .val{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .val .vico{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(124,77,255,.14);border:1px solid rgba(124,77,255,.28);font-size:21px;margin-bottom:14px}
+  .val h3{font-size:16.5px;font-weight:700;letter-spacing:-.2px}
+  .val p{color:var(--mut);font-size:14px;margin-top:7px}
 
-  /* GALLERY */
-  .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:48px}
-  @media(max-width:700px){.gallery{grid-template-columns:1fr}}
-  .gallery figure{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-  .gallery img{display:block;width:100%}
-  .gallery figcaption{padding:14px 18px;color:var(--mut);font-size:13.5px;border-top:1px solid var(--line)}
-
-  /* PRICING */
-  .prices{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:820px;margin:52px auto 0}
-  @media(max-width:700px){.prices{grid-template-columns:1fr}}
-  .price{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px}
-  .price.pro{border-color:transparent;background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent;position:relative}
-  .price h3{font-size:15px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--mut)}
-  .price .amt{font-size:46px;font-weight:800;letter-spacing:-1.5px;margin-top:10px}
-  .price .amt small{font-size:15px;font-weight:600;color:var(--mut);letter-spacing:0}
-  .price ul{margin-top:22px;display:flex;flex-direction:column;gap:11px}
-  .price li{list-style:none;display:flex;gap:10px;font-size:14.5px;color:var(--tx)}
-  .price li .ck{color:var(--good);flex:none;font-weight:800}
-  .price li.off{color:var(--dim)}
-  .price li.off .ck{color:var(--dim)}
-  .price .btn{width:100%;justify-content:center;margin-top:26px}
-  .price.pro{padding-top:52px}
-  .price .tag{position:absolute;top:16px;left:32px}
-
-  /* PRIVACY BANNER */
-  .privacy{background:linear-gradient(135deg,rgba(124,77,255,.1),rgba(255,61,154,.08));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
-  .privacy h2{font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.6px}
-  .privacy p{color:var(--mut);max-width:60ch;margin:14px auto 0;font-size:16px}
-
-  /* CTA */
-  .final{text-align:center;padding:90px 0 40px}
-  .final h2{font-size:clamp(30px,4.5vw,50px);font-weight:800;letter-spacing:-1px}
-  .final p{color:var(--mut);margin-top:14px;font-size:18px}
+  /* FINAL */
+  .final{text-align:center;padding:96px 0 40px}
+  .final h2{font-size:clamp(28px,4.2vw,46px);font-weight:800;letter-spacing:-1px}
+  .final p{color:var(--mut);margin-top:14px;font-size:18px;max-width:52ch;margin-left:auto;margin-right:auto}
   .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
 
   /* FOOTER */
   footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:13.5px}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
-  .foot .links{display:flex;gap:22px}
-  .ph{color:#c98a2a;font-size:12px;border:1px dashed rgba(201,138,42,.5);padding:1px 7px;border-radius:6px;background:rgba(201,138,42,.08)}
+  .foot .links{display:flex;gap:22px;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap"><nav>
-    <a class="brand" href="#top"><img src="assets/icon.png" alt="Vitals icon">Vitals</a>
+    <a class="brand" href="#top">
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h3l2-6 4 12 3-9 2 3h4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      HANNCREST
+    </a>
     <div class="navlinks">
-      <a href="#features">Features</a>
-      <a href="#local-ai">Local LLM</a>
-      <a href="#pricing">Pricing</a>
-      <a class="btn btn-primary" href="#pricing">Get Vitals</a>
+      <a href="#apps">Apps</a>
+      <a href="#values">Why us</a>
+      <a href="mailto:contact@hanncrest.com">Contact</a>
+      <a class="btn btn-primary" href="vitals/">Get Vitals</a>
     </div>
   </nav></div>
 </header>
@@ -145,158 +124,122 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <span class="pill">✦ Native · Apple Silicon · Local-first</span>
-      <h1>Your Mac's <span class="grad-text">vital signs</span>, in the menu bar.</h1>
-      <p class="sub">A lightweight, native macOS monitor that watches CPU, GPU, memory, network, heat, battery and Bluetooth devices — plus tools no other menu-bar app has: live <strong>local-LLM detection &amp; speed tests</strong>, 30-day history, and plain-English crash &amp; panic alerts.</p>
+      <span class="pill">✦ Native · Private · Local-first · Apple Silicon</span>
+      <div class="wordmark grad-text">HANNCREST</div>
+      <h1>Native Mac apps that respect your machine — and your privacy.</h1>
+      <p class="sub">A small studio building fast, featherweight macOS tools with no accounts, no telemetry and no subscriptions. Everything runs and stays on your Mac.</p>
       <div class="cta">
-        <a class="btn btn-primary" href="#pricing">Try Pro free for 14 days</a>
-        <a class="btn btn-ghost" href="#features">See what it does</a>
+        <a class="btn btn-primary" href="#apps">See the apps</a>
+        <a class="btn btn-ghost" href="vitals/">Explore Vitals →</a>
       </div>
-      <p class="note">macOS 13+ · free 14-day trial · one-time $9.99 after · no subscription · nothing leaves your Mac</p>
-      <div class="shot-hero"><img src="assets/shots/02-dashboard.png" alt="Vitals dashboard showing live Mac health metrics"></div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="trust">
-      <span><i class="dot"></i>100% native SwiftUI</span>
-      <span><i class="dot"></i>Featherweight on resources</span>
-      <span><i class="dot"></i>No account, no telemetry</span>
-      <span><i class="dot"></i>Made for Apple Silicon</span>
-    </div>
-
-    <!-- MENU-BAR READOUT + LIVE GRAPHS -->
-    <figure class="mbstrip">
-      <img src="assets/shots/01b-menubar-graphs.png" alt="Vitals menu-bar readout with a live mini-graph beside CPU, GPU, memory, VRAM and network">
-      <figcaption>Add a live sparkline beside every number — CPU, GPU, memory, VRAM and network — right in your menu bar. Or keep it to just the Vitals mark; it's your call.</figcaption>
-    </figure>
-  </div>
-
-  <!-- FEATURES -->
-  <section id="features">
-    <div class="wrap">
-      <p class="eyebrow">Everything you want to know</p>
-      <h2 class="title">One glance. The whole machine.</h2>
-      <p class="lead">From a tidy menu-bar readout to a deep, chart-rich dashboard — Vitals shows you what's happening and what it means.</p>
-      <div class="grid">
-        <div class="fcard"><div class="fico">📊</div><h3>Menu-bar vitals</h3><p>Just the Vitals mark by default — clean and unobtrusive. Add live CPU, GPU, RAM &amp; network readouts with mini-graphs whenever you want. Click for a rich popover snapshot.</p></div>
-        <div class="fcard"><div class="fico">🧠</div><h3>Local-LLM tools</h3><p>Auto-detects Ollama, LM Studio, llama.cpp &amp; more on any port. Runs real tokens/sec speed tests and shows VRAM headroom.</p></div>
-        <div class="fcard"><div class="fico">📈</div><h3>30-day history</h3><p>Every metric charted over a month, searchable — with weekly reports you can export to CSV.</p></div>
-        <div class="fcard"><div class="fico">🌡️</div><h3>Heat, fans &amp; health</h3><p>Per-component temperatures, fan speeds, thermal throttling detection and S.M.A.R.T. disk health.</p></div>
-        <div class="fcard"><div class="fico">💥</div><h3>Crash &amp; panic watch</h3><p>Surfaces app crashes and kernel panics with a plain-English explanation of what actually happened.</p></div>
-        <div class="fcard"><div class="fico">🖥️</div><h3>Live desktop widget</h3><p>A floating, always-on-top panel that updates every second — not on a slow schedule. Drag it anywhere, expand it to the full dashboard, or jump to the overview window in one click.</p></div>
-        <div class="fcard"><div class="fico">🔋</div><h3>Bluetooth &amp; peripherals</h3><p>Battery level for your connected keyboard, mouse, trackpad and headphones, right alongside your Mac's own battery.</p></div>
-        <div class="fcard"><div class="fico">🔔</div><h3>Smart alerts</h3><p>Customizable threshold alerts, with an optional push to your iPhone the moment something needs attention.</p></div>
-        <div class="fcard"><div class="fico">🎨</div><h3>Deep customization</h3><p>Twelve themes, full menu-bar layout control, and a live desktop widget that matches how you like to work.</p></div>
+      <div class="trust">
+        <span><i class="dot"></i>100% native SwiftUI</span>
+        <span><i class="dot"></i>No account, no telemetry</span>
+        <span><i class="dot"></i>One-time pricing, never subscriptions</span>
       </div>
     </div>
   </section>
 
-  <!-- LOCAL AI SPLIT -->
-  <section id="local-ai" style="padding-top:20px">
+  <!-- APPS -->
+  <section id="apps">
     <div class="wrap">
-      <div class="split">
-        <div>
-          <span class="pill">The part no other monitor has</span>
-          <h2 style="margin-top:16px">Built for the <span class="grad-text">local-AI</span> era.</h2>
-          <p>Running models on your own Mac? Vitals finds every local inference server automatically — named or not, on any port — and tells you what's actually running and how fast.</p>
-          <ul class="checks">
-            <li><span class="ck">✓</span><span>Detects Ollama, LM Studio, llama.cpp, vLLM, Jan, GPT4All, KoboldCpp and more.</span></li>
-            <li><span class="ck">✓</span><span>One-tap speed test reports real <strong>tokens/second</strong> — the number people actually compare models by.</span></li>
-            <li><span class="ck">✓</span><span>Watches VRAM headroom and loaded-model details while you work.</span></li>
-            <li><span class="ck">✓</span><span>All local. It talks only to servers already on your machine — nothing is uploaded.</span></li>
-          </ul>
+      <p class="eyebrow">The apps</p>
+      <h2 class="title">A growing family of Mac tools.</h2>
+      <p class="lead">One is out now; the rest are in the works. Each one native, private, and built to do one thing exceptionally well.</p>
+
+      <div class="apps">
+        <a class="app lead-app" href="vitals/">
+          <img class="ico" src="assets/apps/vitals.png" alt="Vitals">
+          <div class="meta">
+            <h3>Vitals <span class="chip live">Available now</span></h3>
+            <div class="tagline">Your Mac's vital signs, in the menu bar</div>
+            <p>Live CPU, GPU, memory, network, heat, battery and Bluetooth device battery — plus tools no other menu-bar app has: local-LLM detection &amp; speed tests, 30-day history, S.M.A.R.T. disk health, crash &amp; panic watch, and a live desktop widget. Free to monitor forever; $9.99 once to go deep, after a 14-day free trial.</p>
+            <span class="go">Explore Vitals →</span>
+          </div>
+        </a>
+
+        <div class="app soon">
+          <img class="ico" src="assets/apps/breeze.png" alt="Breeze">
+          <div class="meta">
+            <h3>Breeze <span class="chip soon">Coming soon</span></h3>
+            <div class="tagline">Clean up &amp; speed up your Mac</div>
+            <p>Reclaim disk space, remove apps with their leftovers, find duplicates and free system junk — one-click, review-first, and nothing deleted without you.</p>
+            <span class="soonlabel">In development</span>
+          </div>
         </div>
-        <img class="shot" src="assets/shots/03-local-ai.png" alt="Vitals local LLM detection and speed test">
-      </div>
-    </div>
-  </section>
 
-  <!-- GALLERY -->
-  <section style="padding-top:20px">
-    <div class="wrap">
-      <p class="eyebrow">A closer look</p>
-      <h2 class="title">Depth when you want it.</h2>
-      <div class="gallery">
-        <figure><img src="assets/shots/01-menu-bar.png" alt="Menu bar readout"><figcaption>Live menu-bar readout &amp; popover snapshot</figcaption></figure>
-        <figure><img src="assets/shots/07-health.png" alt="Health score"><figcaption>A health score that names what's wrong</figcaption></figure>
-        <figure><img src="assets/shots/05-network.png" alt="Network tools"><figcaption>Network quality, Wi-Fi scan &amp; per-app traffic</figcaption></figure>
-        <figure><img src="assets/shots/06-history.png" alt="30-day history"><figcaption>30 days of every metric, charted</figcaption></figure>
-        <figure><img src="assets/shots/04-energy.png" alt="Energy and battery"><figcaption>Live power draw &amp; energy by app</figcaption></figure>
-        <figure><img src="assets/shots/08-thermals.png" alt="Thermals and fans"><figcaption>Per-component temperatures &amp; fan control</figcaption></figure>
-        <figure><img src="assets/shots/09-themes.png" alt="Themes"><figcaption>Twelve themes to match your setup</figcaption></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section id="pricing">
-    <div class="wrap">
-      <p class="eyebrow">Simple, honest pricing</p>
-      <h2 class="title">Free to monitor. <span class="grad-text">14 days</span> free to go deep.</h2>
-      <p class="lead">Use the menu-bar readout, popover and live desktop widget free, forever. Try every single Pro feature free for 14 days — no card required. Keep it with one $9.99 purchase, once, ever.</p>
-      <div class="prices">
-        <div class="price">
-          <h3>Free</h3>
-          <div class="amt">$0<small> / forever</small></div>
-          <ul>
-            <li><span class="ck">✓</span>Live menu-bar readout (CPU, RAM, network)</li>
-            <li><span class="ck">✓</span>Rich popover snapshot &amp; Overview</li>
-            <li><span class="ck">✓</span>Live, always-on-top desktop widget</li>
-            <li><span class="ck">✓</span>Twelve themes</li>
-            <li><span class="ck">✓</span>Full Pro access for your first 14 days</li>
-          </ul>
-          <a class="btn btn-ghost" href="#download">Download free</a>
+        <div class="app soon">
+          <img class="ico" src="assets/apps/stealthshare.png" alt="StealthShare">
+          <div class="meta">
+            <h3>StealthShare <span class="chip soon">Coming soon</span></h3>
+            <div class="tagline">Screen privacy for screen sharing</div>
+            <p>Blurs confidential app windows, hides your desktop behind a clean mask, sets a neutral wallpaper and can auto-activate the moment a call starts.</p>
+            <span class="soonlabel">In development</span>
+          </div>
         </div>
-        <div class="price pro">
-          <span class="pill tag">14-day free trial</span>
-          <h3 class="grad-text">Vitals Pro</h3>
-          <div class="amt">$9.99<small> once, after your trial</small></div>
-          <ul>
-            <li><span class="ck">✓</span>Everything in Free, plus…</li>
-            <li><span class="ck">✓</span>Full performance dashboard (per-core, memory pressure)</li>
-            <li><span class="ck">✓</span>Local-LLM tools, speed tests &amp; VRAM</li>
-            <li><span class="ck">✓</span>Network tools, thermals, fans &amp; S.M.A.R.T.</li>
-            <li><span class="ck">✓</span>Bluetooth device battery &amp; deep menu-bar customization</li>
-            <li><span class="ck">✓</span>30-day history, reports &amp; CSV export</li>
-            <li><span class="ck">✓</span>Crash/panic watch, alerts, anomaly detection &amp; iPhone push</li>
-            <li><span class="ck">✓</span>All future Pro features included</li>
-          </ul>
-          <a class="btn btn-primary" href="#download">Start your free trial</a>
+
+        <div class="app soon">
+          <img class="ico" src="assets/apps/aura.png" alt="Aura">
+          <div class="meta">
+            <h3>Aura <span class="chip soon">Coming soon</span></h3>
+            <div class="tagline">Offline AI text assistant</div>
+            <p>Select text in any app, press ⇧⌘P, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</p>
+            <span class="soonlabel">In development</span>
+          </div>
+        </div>
+
+        <div class="app soon">
+          <img class="ico" src="assets/apps/whispertype.png" alt="WhisperType">
+          <div class="meta">
+            <h3>WhisperType <span class="chip soon">Coming soon</span></h3>
+            <div class="tagline">Local voice dictation</div>
+            <p>Press ⌥Space and just talk. On-device Whisper transcribes your speech and types it straight into any text field — private, and fast on Apple Silicon.</p>
+            <span class="soonlabel">In development</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRIVACY -->
-  <section style="padding-top:10px"><div class="wrap">
-    <div class="privacy">
-      <h2>What happens on your Mac, stays on your Mac.</h2>
-      <p>Vitals has no account, no sign-in and no analytics. It reads your system locally and talks to nothing but the servers already running on your machine. Your data is never collected, stored off-device, or sold.</p>
+  <!-- VALUES -->
+  <section id="values" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">What every HANNCREST app shares</p>
+      <h2 class="title">Built on a few firm rules.</h2>
+      <div class="values">
+        <div class="val"><div class="vico">⚡️</div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
+        <div class="val"><div class="vico">🔒</div><h3>Private by design</h3><p>No account, no sign-in, no analytics. Your data is never collected, stored off-device, or sold.</p></div>
+        <div class="val"><div class="vico">🖥️</div><h3>Local-first</h3><p>Everything runs on your Mac. Apps talk only to what's already on your machine — nothing is uploaded.</p></div>
+        <div class="val"><div class="vico">🏷️</div><h3>Honest pricing</h3><p>Generous free tiers and one-time purchases. No subscriptions, ever — buy once, own it.</p></div>
+      </div>
     </div>
-  </div></section>
+  </section>
 
   <!-- FINAL CTA -->
-  <section class="final" id="download"><div class="wrap">
-    <h2>Know your Mac.</h2>
-    <p>Native, lightweight, and free to try — no card, no account, no subscription.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="#">Download for macOS <span class="ph">link soon</span></a>
-      <a class="btn btn-ghost" href="#">Mac App Store <span class="ph">coming soon</span></a>
+  <section class="final">
+    <div class="wrap">
+      <h2>Start with <span class="grad-text">Vitals</span>.</h2>
+      <p>Know your Mac inside out — native, lightweight, and free to try. No card, no account, no subscription.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="vitals/">Explore Vitals →</a>
+        <a class="btn btn-ghost" href="mailto:contact@hanncrest.com">Get in touch</a>
+      </div>
     </div>
-    <p class="note" style="color:var(--dim);margin-top:18px">Requires macOS 13 Ventura or later. Universal (Apple Silicon &amp; Intel).</p>
-  </div></section>
+  </section>
 </main>
 
 <footer><div class="wrap"><div class="foot">
-  <a class="brand" href="#top" style="font-size:16px"><img src="assets/icon.png" alt="" style="width:24px;height:24px">Vitals</a>
+  <a class="brand" href="#top" style="font-size:15px">
+    <span class="logo" style="width:24px;height:24px"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h3l2-6 4 12 3-9 2 3h4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    HANNCREST
+  </a>
   <div class="links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="support.html">Support</a>
-    <a href="#pricing">Pricing</a>
-    <a href="mailto:contact@HANNCREST.com">Contact</a>
+    <a href="vitals/">Vitals</a>
+    <a href="vitals/privacy.html">Privacy</a>
+    <a href="vitals/support.html">Support</a>
+    <a href="mailto:contact@hanncrest.com">contact@hanncrest.com</a>
   </div>
-  <div>© 2026 HANNCREST · Vitals is a HANNCREST app.</div>
+  <div>© 2026 HANNCREST · Made for macOS.</div>
 </div></div></footer>
 
 </body>
