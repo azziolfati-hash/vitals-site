@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <mask id="triangle-mask">
+      <rect width="800" height="600" fill="white" />
+      <polygon points="200,380 380,380 290,224.1" fill="black" stroke="black" stroke-width="24" stroke-linejoin="miter" />
+      <polygon points="420,380 600,380 510,224.1" fill="black" stroke="black" stroke-width="24" stroke-linejoin="miter" />
+    </mask>
+  </defs>
+  <g stroke="#f4f4f8" stroke-width="24" stroke-linejoin="miter" stroke-miterlimit="10" fill="none">
+    <g mask="url(#triangle-mask)">
+      <polyline points="226.8,380 400,80 573.2,380" />
+      <polyline points="290,370 400,180 510,370" />
+    </g>
+    <polygon points="200,380 380,380 290,224.1" />
+    <polygon points="420,380 600,380 510,224.1" />
+  </g>
+  <text x="400" y="490" font-family="'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif" font-weight="700" font-size="64" letter-spacing="0.1em" fill="#f4f4f8" text-anchor="middle">HANNCREST</text>
+</svg>

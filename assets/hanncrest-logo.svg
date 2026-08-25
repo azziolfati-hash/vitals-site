@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <!-- Definitions for the transparency mask -->
+  <defs>
+    <mask id="triangle-mask">
+      <!-- White makes everything visible by default -->
+      <rect width="800" height="600" fill="white" />
+      <!-- Black shapes hide the background lines exactly where the front triangles sit -->
+      <polygon points="200,380 380,380 290,224.1" fill="black" stroke="black" stroke-width="24" stroke-linejoin="miter" />
+      <polygon points="420,380 600,380 510,224.1" fill="black" stroke="black" stroke-width="24" stroke-linejoin="miter" />
+    </mask>
+  </defs>
+
+  <!-- Graphics Container -->
+  <g stroke="#4A4A4A" stroke-width="24" stroke-linejoin="miter" stroke-miterlimit="10" fill="none">
+    
+    <!-- BACKGROUND MOUNTAINS (Masked so they don't show through the front) -->
+    <g mask="url(#triangle-mask)">
+      <!-- Outer/Highest Peak -->
+      <polyline points="226.8,380 400,80 573.2,380" />
+      <!-- Inner Peak -->
+      <polyline points="290,370 400,180 510,370" />
+    </g>
+
+    <!-- FOREGROUND TRIANGLES -->
+    <!-- Left Triangle -->
+    <polygon points="200,380 380,380 290,224.1" />
+    <!-- Right Triangle -->
+    <polygon points="420,380 600,380 510,224.1" />
+  </g>
+
+  <!-- BRAND TEXT -->
+  <text x="400" y="490" font-family="'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="700" font-size="64" letter-spacing="0.1em" fill="#4A4A4A" text-anchor="middle">HANNCREST</text>
+</svg>

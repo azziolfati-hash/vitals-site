@@ -36,8 +36,7 @@
   header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(7,7,12,.72);border-bottom:1px solid var(--line)}
   nav{display:flex;align-items:center;justify-content:space-between;height:64px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:1.5px}
-  .logo{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;flex:none;box-shadow:0 4px 16px rgba(124,77,255,.4)}
-  .logo svg{width:17px;height:17px}
+  .brandmark{width:36px;height:27px;flex:none}
   .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
   .navlinks a:hover{color:var(--tx)}
   .navlinks .btn{padding:9px 16px;font-size:14px}
@@ -46,7 +45,7 @@
   /* HERO */
   .hero{position:relative;padding:104px 0 56px;text-align:center;overflow:hidden}
   .hero::before{content:"";position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:1000px;height:680px;background:radial-gradient(ellipse at center,rgba(124,77,255,.30),rgba(255,61,154,.10) 45%,transparent 68%);filter:blur(30px);pointer-events:none}
-  .hero .wordmark{position:relative;font-size:clamp(46px,10vw,104px);font-weight:900;letter-spacing:2px;line-height:1;margin:20px auto 0}
+  .hero-logo{position:relative;display:block;width:min(340px,74%);height:auto;margin:16px auto 0}
   .hero h1{position:relative;font-size:clamp(24px,3.6vw,40px);line-height:1.12;font-weight:800;letter-spacing:-.8px;max-width:20ch;margin:26px auto 0}
   .hero p.sub{position:relative;color:var(--mut);font-size:clamp(16px,2.1vw,20px);max-width:56ch;margin:20px auto 0}
   .hero .cta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
@@ -108,7 +107,7 @@
 <header>
   <div class="wrap"><nav>
     <a class="brand" href="#top">
-      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h3l2-6 4 12 3-9 2 3h4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="">
       HANNCREST
     </a>
     <div class="navlinks">
@@ -125,7 +124,7 @@
   <section class="hero">
     <div class="wrap">
       <span class="pill">✦ Native · Private · Local-first · Apple Silicon</span>
-      <div class="wordmark grad-text">HANNCREST</div>
+      <img class="hero-logo" src="assets/hanncrest-logo-light.svg" alt="HANNCREST">
       <h1>Native Mac apps that respect your machine — and your privacy.</h1>
       <p class="sub">A small studio building fast, featherweight macOS tools with no accounts, no telemetry and no subscriptions. Everything runs and stays on your Mac.</p>
       <div class="cta">
@@ -230,7 +229,7 @@
 
 <footer><div class="wrap"><div class="foot">
   <a class="brand" href="#top" style="font-size:15px">
-    <span class="logo" style="width:24px;height:24px"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12h3l2-6 4 12 3-9 2 3h4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="" style="width:28px;height:21px">
     HANNCREST
   </a>
   <div class="links">
