@@ -90,23 +90,22 @@
   .app.soon{opacity:.82}.app.soon:hover{transform:none;border-color:var(--line);box-shadow:none}
   .soonlabel{display:inline-block;margin-top:15px;font-size:13px;font-weight:600;color:var(--dim)}
 
-  /* WIRE CONNECTOR — lines flow out of the logo and fan down to the app boxes on scroll */
-  .connect{position:relative;padding-top:12px;margin-top:-20px}
-  .connect-mark{display:block;width:66px;height:auto;margin:0 auto 0;filter:drop-shadow(0 6px 20px rgba(124,77,255,.5));position:relative;z-index:2}
-  .wires{display:block;width:100%;height:230px;margin-top:-6px}
+  /* WIRE CONNECTOR — lines flow out of the logo and fan down to the app boxes.
+     Drawing is scroll-linked (see JS): draws as you scroll down, retracts scrolling up.
+     Width is capped to the boxes' width so every wire lands on the boxes, not past them. */
+  .connect{position:relative;max-width:920px;margin:-14px auto 0;padding:0 24px}
+  .connect-mark{display:block;width:62px;height:auto;margin:0 auto;filter:drop-shadow(0 6px 20px rgba(124,77,255,.55));position:relative;z-index:2}
+  .wires{display:block;width:100%;height:210px;margin-top:-4px}
   @media(max-width:600px){ .wires{height:150px} }
   .wires path{fill:none;stroke:url(#wireGrad);stroke-width:2.4;stroke-linecap:round;
-    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s cubic-bezier(.45,.05,.35,1)}
-  .connect.in .wires path{stroke-dashoffset:0}
-  .connect.in .wires path:nth-child(1){transition-delay:.02s}
-  .connect.in .wires path:nth-child(2){transition-delay:.10s}
-  .connect.in .wires path:nth-child(3){transition-delay:.18s}
-  .connect.in .wires path:nth-child(4){transition-delay:.26s}
-  .connect.in .wires path:nth-child(5){transition-delay:.34s}
-  .connect.in .wires path:nth-child(6){transition-delay:.42s}
-  .connect.in .wires path:nth-child(7){transition-delay:.50s}
-  .connect.in .wires path:nth-child(8){transition-delay:.58s}
-  @media(prefers-reduced-motion:reduce){ .wires path{stroke-dashoffset:0;transition:none} }
+    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
+  .wire-node{fill:#ff5aa8;transition:opacity .15s linear}
+  @media(prefers-reduced-motion:reduce){ .wires path{stroke-dashoffset:0!important;transition:none}.wire-node{opacity:1!important} }
+
+  /* Boxes wired together — a node + connector line sits in the gap above each card */
+  .apps{position:relative}
+  .app + .app::before{content:"";position:absolute;left:50%;top:-18px;transform:translateX(-50%);width:2px;height:18px;background:linear-gradient(to bottom,rgba(124,77,255,.55),rgba(124,77,255,.10))}
+  .app + .app::after{content:"";position:absolute;left:50%;top:-4px;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:var(--g2);box-shadow:0 0 12px rgba(124,77,255,.9)}
 
   /* VALUES */
   .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
@@ -182,7 +181,7 @@
     </div>
 
     <!-- Wires flow out of the logo and fan down into the app boxes as you scroll -->
-    <div class="connect reveal">
+    <div class="connect">
       <img class="connect-mark" src="assets/hanncrest-mark-light.svg" alt="">
       <svg class="wires" viewBox="0 0 1000 230" preserveAspectRatio="none" aria-hidden="true">
         <defs>
@@ -308,6 +307,28 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Scroll-linked wire drawing: wires draw as the connector scrolls up into view and
+  // retract as it scrolls back down — tied to scroll position, not a one-time trigger.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const connect = document.querySelector('.connect');
+  const wires = connect ? Array.from(connect.querySelectorAll('.wires path')) : [];
+  if (connect && wires.length && !reduceMotion){
+    const drawWires = ()=>{
+      const r = connect.getBoundingClientRect();
+      const vh = window.innerHeight || 800;
+      // 0 when the connector's top is at the bottom of the viewport; 1 by ~72% up the screen.
+      let p = (vh - r.top) / (vh * 0.72);
+      p = Math.max(0, Math.min(1, p));
+      for (let i=0;i<wires.length;i++){
+        const o = Math.max(0, Math.min(1, 1 - (p*1.18 - i*0.03)));  // slight per-wire stagger
+        wires[i].style.strokeDashoffset = o.toFixed(3);
+      }
+    };
+    drawWires();
+    window.addEventListener('scroll', ()=>requestAnimationFrame(drawWires), {passive:true});
+    window.addEventListener('resize', drawWires);
+  }
 
   // Animated starfield in the hero (breeze-style drifting particles)
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
