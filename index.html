@@ -108,11 +108,11 @@
   .app{position:relative;z-index:1}
   .box-wires{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
   .box-wires .bw{fill:none;stroke:url(#wireGrad2);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
-    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
-  .box-wires .bw-dot{fill:#caa8ff;transition:opacity .15s linear}
+    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .1s linear}
+  .box-wires .bw-dot{fill:#fff;filter:drop-shadow(0 0 6px rgba(160,120,255,.95));transition:opacity .15s linear}
   @media(min-width:721px){
-    .apps{gap:38px}
-    .app{width:56%;justify-self:start}
+    .apps{gap:92px}          /* room for the wire to drop from the box's middle before turning */
+    .app{width:52%;justify-self:start}
     .app.lead-app{width:100%}
     .app:nth-child(2n){justify-self:end}   /* even cards align right → zigzag */
   }
@@ -370,24 +370,32 @@
       const p=document.createElementNS(NS,'path');
       p.setAttribute('d',d); p.setAttribute('pathLength','1'); p.setAttribute('class','bw');
       svg.appendChild(p);
-      const dots=[[sx,midY],[ex,midY]].map(function(pt){
-        const c=document.createElementNS(NS,'circle');
-        c.setAttribute('cx',pt[0]); c.setAttribute('cy',pt[1]); c.setAttribute('r','4.5'); c.setAttribute('class','bw-dot');
-        c.style.opacity='0'; svg.appendChild(c); return c;
-      });
-      boxWires.push({p:p,dots:dots,target:cards[i+1]});
+      // one bright dot that rides the draw head along the wire
+      const dot=document.createElementNS(NS,'circle');
+      dot.setAttribute('r','5'); dot.setAttribute('class','bw-dot'); dot.style.opacity='0';
+      svg.appendChild(dot);
+      boxWires.push({p:p,dot:dot,target:cards[i+1]});
     }
     drawBoxWires();
   }
   function drawBoxWires(){
     const vh=window.innerHeight||800;
     for(const w of boxWires){
-      if(reduceMotion){ w.p.style.strokeDashoffset='0'; w.dots.forEach(function(d){d.style.opacity='1';}); continue; }
+      const len=w.p.getTotalLength?w.p.getTotalLength():0;
+      if(reduceMotion){
+        w.p.style.strokeDashoffset='0';
+        if(len){const e=w.p.getPointAtLength(len);w.dot.setAttribute('cx',e.x);w.dot.setAttribute('cy',e.y);w.dot.style.opacity='1';}
+        continue;
+      }
       const r=w.target.getBoundingClientRect();
-      let prog=(vh - r.top)/(vh*0.55); prog=Math.max(0,Math.min(1,prog));
+      // Draw completes by the time the target box reaches the MIDDLE of the screen (sooner).
+      let prog=(vh - r.top)/(vh*0.5); prog=Math.max(0,Math.min(1,prog));
       w.p.style.strokeDashoffset=(1-prog).toFixed(3);
-      const o=Math.max(0,Math.min(1,(prog-0.4)*2.4)).toFixed(2);
-      w.dots.forEach(function(d){d.style.opacity=o;});
+      if(prog>0.002 && len){
+        const pt=w.p.getPointAtLength(prog*len);        // dot rides the leading edge of the draw
+        w.dot.setAttribute('cx',pt.x.toFixed(1)); w.dot.setAttribute('cy',pt.y.toFixed(1));
+        w.dot.style.opacity='1';
+      } else { w.dot.style.opacity='0'; }
     }
   }
   if(appsEl){
