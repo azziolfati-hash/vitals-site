@@ -173,6 +173,105 @@
     </figure>
   </div>
 
+  <!-- LIVE PREVIEW — the app's actual charts (rings + area/line sparklines + dual net chart), animated -->
+  <section id="live" style="padding-top:8px">
+    <div class="wrap" style="text-align:center">
+      <p class="eyebrow">Not a screenshot</p>
+      <h2 class="title">Watch it move.</h2>
+      <p class="lead" style="margin:0 auto 26px">The exact rings and charts Vitals draws — processor, graphics and network — running live, right here.</p>
+
+      <style>
+        .vp{width:100%;max-width:560px;margin:0 auto;text-align:left;background:#14161b;border:1px solid #262a31;border-radius:16px;padding:18px;box-shadow:0 12px 44px rgba(0,0,0,.28);color:#e8e9ec}
+        .vp-head{display:flex;align-items:baseline;gap:9px;margin-bottom:14px}
+        .vp-title{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#c9cbd2}
+        .vp-sub{font-size:10.5px;color:#6b7078;letter-spacing:.04em}
+        .vp-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+        .vp-cell{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:9px}
+        .vp-label{font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--c,#e8e9ec)}
+        .vp-ringwrap{position:relative;width:74px;height:74px;margin:0 auto}
+        .vp-ring{width:74px;height:74px;display:block}
+        .vp-track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:6}
+        .vp-arc{fill:none;stroke-width:6;stroke-linecap:butt;transition:stroke-dashoffset .45s cubic-bezier(.4,0,.2,1)}
+        .vp-ringval{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+        .vp-spark{width:100%;height:auto;display:block}
+        .vp-net{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:12px}
+        .vp-nethead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+        .vp-netread{display:flex;gap:12px;font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}
+        .vp-peak{margin-left:auto;font-size:10px;color:#6b7078;font-variant-numeric:tabular-nums}
+        .vp-netchart{width:100%;height:auto;display:block}
+        .vp-foot{font-size:10.5px;color:#6b7078;margin-top:11px}
+        @media(max-width:520px){.vp-top{grid-template-columns:1fr}}
+      </style>
+
+      <div class="vp">
+        <div class="vp-head"><span class="vp-title">Live preview</span><span class="vp-sub">sample data</span></div>
+        <div class="vp-top">
+          <div class="vp-cell">
+            <span class="vp-label" style="--c:#818cf8">Processor</span>
+            <div class="vp-ringwrap">
+              <svg class="vp-ring" viewBox="0 0 74 74"><circle class="vp-track" cx="37" cy="37" r="30"/><circle id="cpuArc" class="vp-arc" cx="37" cy="37" r="30" stroke="#6366F1" transform="rotate(-90 37 37)"/></svg>
+              <div class="vp-ringval" id="cpuVal">—</div>
+            </div>
+            <svg class="vp-spark" viewBox="0 0 200 44">
+              <defs><linearGradient id="gcpu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6366F1" stop-opacity="0.28"/><stop offset="1" stop-color="#6366F1" stop-opacity="0"/></linearGradient></defs>
+              <path id="cpuArea" fill="url(#gcpu)"/><path id="cpuLine" fill="none" stroke="#6366F1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><circle id="cpuDot" r="2" fill="#6366F1"/>
+            </svg>
+          </div>
+          <div class="vp-cell">
+            <span class="vp-label" style="--c:#f472b6">Graphics</span>
+            <div class="vp-ringwrap">
+              <svg class="vp-ring" viewBox="0 0 74 74"><circle class="vp-track" cx="37" cy="37" r="30"/><circle id="gpuArc" class="vp-arc" cx="37" cy="37" r="30" stroke="#EC4899" transform="rotate(-90 37 37)"/></svg>
+              <div class="vp-ringval" id="gpuVal">—</div>
+            </div>
+            <svg class="vp-spark" viewBox="0 0 200 44">
+              <defs><linearGradient id="ggpu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EC4899" stop-opacity="0.28"/><stop offset="1" stop-color="#EC4899" stop-opacity="0"/></linearGradient></defs>
+              <path id="gpuArea" fill="url(#ggpu)"/><path id="gpuLine" fill="none" stroke="#EC4899" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><circle id="gpuDot" r="2" fill="#EC4899"/>
+            </svg>
+          </div>
+        </div>
+        <div class="vp-net">
+          <div class="vp-nethead">
+            <span class="vp-label" style="--c:#e8e9ec">Network</span>
+            <span class="vp-netread"><span id="netDown" style="color:#06B6D4">↓ —</span><span id="netUp" style="color:#22C55E">↑ —</span></span>
+            <span class="vp-peak" id="netPeak">peak —</span>
+          </div>
+          <svg class="vp-netchart" viewBox="0 0 520 130">
+            <defs>
+              <linearGradient id="gup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22C55E" stop-opacity="0.28"/><stop offset="1" stop-color="#22C55E" stop-opacity="0"/></linearGradient>
+              <linearGradient id="gdn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06B6D4" stop-opacity="0.28"/><stop offset="1" stop-color="#06B6D4" stop-opacity="0"/></linearGradient>
+            </defs>
+            <g stroke="rgba(255,255,255,0.06)" stroke-width="1"><line x1="0" y1="1" x2="520" y2="1"/><line x1="0" y1="65" x2="520" y2="65"/><line x1="0" y1="129" x2="520" y2="129"/></g>
+            <path id="upArea" fill="url(#gup)"/><path id="upLine" fill="none" stroke="#22C55E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+            <path id="dnArea" fill="url(#gdn)"/><path id="dnLine" fill="none" stroke="#06B6D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+            <circle id="upDot" r="2.4" fill="#22C55E"/><circle id="dnDot" r="2.4" fill="#06B6D4"/>
+          </svg>
+        </div>
+        <p class="vp-foot">The same rings and charts Vitals draws — shown here with sample data.</p>
+      </div>
+
+      <script>
+      (function(){
+        var N=48,$=function(id){return document.getElementById(id)};
+        if(!$('cpuArc'))return;
+        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var R=30,CIRC=2*Math.PI*R;['cpuArc','gpuArc'].forEach(function(id){$(id).style.strokeDasharray=CIRC});
+        function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+        function series(v,W,H,peak){var n=v.length,p=[];for(var i=0;i<n;i++){var x=n===1?W:W*i/(n-1);var y=Math.max(1,H*(1-(v[i]/peak)*0.92)-1);p.push([x,y])}var c=p.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1)});return{line:'M'+c.join(' L'),area:'M'+p[0][0].toFixed(1)+','+H+' L'+c.join(' L')+' L'+p[n-1][0].toFixed(1)+','+H+' Z',last:p[n-1]}}
+        function rate(b){return b>=1048576?(b/1048576).toFixed(1)+' MB/s':b>=1024?Math.round(b/1024)+' KB/s':Math.round(b)+' B/s'}
+        var cpu=[],gpu=[],dn=[],up=[],c=0.2,g=0.1,d=40000,u=15000;
+        function t(){c=clamp(c+(Math.random()*2-1)*0.1,0.03,0.99);if(Math.random()<0.1)c=0.55+Math.random()*0.4;g=clamp(g+(Math.random()*2-1)*0.07,0.01,0.97);if(Math.random()<0.08)g=0.4+Math.random()*0.5;d=clamp(d*0.6+Math.random()*40000,0,14*1048576);if(Math.random()<0.14)d=(1.5+Math.random()*10)*1048576;u=clamp(u*0.6+Math.random()*20000,0,3*1048576);if(Math.random()<0.1)u=(0.4+Math.random()*1.8)*1048576}
+        for(var i=0;i<N;i++){t();cpu.push(c);gpu.push(g);dn.push(d);up.push(u)}
+        function spark(p,v){var s=series(v,200,44,1);$(p+'Area').setAttribute('d',s.area);$(p+'Line').setAttribute('d',s.line);$(p+'Dot').setAttribute('cx',s.last[0]);$(p+'Dot').setAttribute('cy',s.last[1])}
+        function ring(p,v){$(p+'Arc').style.strokeDashoffset=CIRC*(1-clamp(v,0,1));$(p+'Val').textContent=Math.round(v*100)+'%'}
+        function net(){var peak=Math.max(Math.max.apply(null,dn),Math.max.apply(null,up),64*1024);var su=series(up,520,130,peak),sd=series(dn,520,130,peak);$('upArea').setAttribute('d',su.area);$('upLine').setAttribute('d',su.line);$('dnArea').setAttribute('d',sd.area);$('dnLine').setAttribute('d',sd.line);$('upDot').setAttribute('cx',su.last[0]);$('upDot').setAttribute('cy',su.last[1]);$('dnDot').setAttribute('cx',sd.last[0]);$('dnDot').setAttribute('cy',sd.last[1]);$('netDown').textContent='↓ '+rate(dn[N-1]);$('netUp').textContent='↑ '+rate(up[N-1]);$('netPeak').textContent='peak '+rate(peak)}
+        function draw(){ring('cpu',cpu[N-1]);ring('gpu',gpu[N-1]);spark('cpu',cpu);spark('gpu',gpu);net()}
+        function step(){t();cpu.push(c);cpu.shift();gpu.push(g);gpu.shift();dn.push(d);dn.shift();up.push(u);up.shift();draw()}
+        draw();if(!reduce){setInterval(function(){if(!document.hidden)step()},780)}
+      })();
+      </script>
+    </div>
+  </section>
+
   <!-- FEATURES -->
   <section id="features">
     <div class="wrap">
