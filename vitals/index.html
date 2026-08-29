@@ -154,32 +154,7 @@
         <a class="btn btn-ghost" href="#features">See what it does</a>
       </div>
       <p class="note">macOS 13+ · free 14-day trial · one-time $9.99 after · no subscription · nothing leaves your Mac</p>
-      <div class="shot-hero"><img src="../assets/shots/02-dashboard.png" alt="Vitals dashboard showing live Mac health metrics"></div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="trust">
-      <span><i class="dot"></i>100% native SwiftUI</span>
-      <span><i class="dot"></i>Featherweight on resources</span>
-      <span><i class="dot"></i>No account, no telemetry</span>
-      <span><i class="dot"></i>Made for Apple Silicon</span>
-    </div>
-
-    <!-- MENU-BAR READOUT + LIVE GRAPHS -->
-    <figure class="mbstrip">
-      <img src="../assets/shots/01b-menubar-graphs.png" alt="Vitals menu-bar readout with a live mini-graph beside CPU, GPU, memory, VRAM and network">
-      <figcaption>Add a live sparkline beside every number — CPU, GPU, memory, VRAM and network — right in your menu bar. Or keep it to just the Vitals mark; it's your call.</figcaption>
-    </figure>
-  </div>
-
-  <!-- LIVE PREVIEW — the app's actual charts (rings + area/line sparklines + dual net chart), animated -->
-  <section id="live" style="padding-top:8px">
-    <div class="wrap" style="text-align:center">
-      <p class="eyebrow">Not a screenshot</p>
-      <h2 class="title">Watch it move.</h2>
-      <p class="lead" style="margin:0 auto 26px">The exact rings and charts Vitals draws — processor, graphics and network — running live, right here.</p>
-
+      <div class="shot-hero">
       <style>
         .vp{width:100%;max-width:560px;margin:0 auto;text-align:left;background:#14161b;border:1px solid #262a31;border-radius:16px;padding:18px;box-shadow:0 12px 44px rgba(0,0,0,.28);color:#e8e9ec}
         .vp-head{display:flex;align-items:baseline;gap:9px;margin-bottom:14px}
@@ -201,9 +176,21 @@
         .vp-netchart{width:100%;height:auto;display:block}
         .vp-foot{font-size:10.5px;color:#6b7078;margin-top:11px}
         @media(max-width:520px){.vp-top{grid-template-columns:1fr}}
+              .appwin{max-width:600px;margin:22px auto 0;background:#0d0f13;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+        .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#191b21;border-bottom:1px solid rgba(255,255,255,.06)}
+        .appbar .tl{width:11px;height:11px;border-radius:50%;display:inline-block}
+        .appbar .r{background:#ff5f57}.appbar .y{background:#febc2e}.appbar .g{background:#28c840}
+        .appbar .apptitle{margin-left:10px;font-size:12px;color:#9a9ab2;font-weight:600}
+        .appbar .livedot{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:#8a8aa0;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+        .appbar .livedot i{width:7px;height:7px;border-radius:50%;background:#28c840;box-shadow:0 0 0 0 rgba(40,200,64,.6);animation:vpblink 1.6s infinite}
+        @keyframes vpblink{0%{box-shadow:0 0 0 0 rgba(40,200,64,.55)}70%{box-shadow:0 0 0 7px rgba(40,200,64,0)}100%{box-shadow:0 0 0 0 rgba(40,200,64,0)}}
+        .appbody{padding:16px;background:radial-gradient(120% 120% at 50% 0%,#15151f,#0d0f13)}
+        .appwin .vp{background:transparent;border:0;box-shadow:none;padding:2px;max-width:none;margin:0;text-align:left}
       </style>
-
-      <div class="vp">
+      <div class="appwin">
+        <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Vitals — Overview</span><span class="livedot"><i></i>Live</span></div>
+        <div class="appbody">
+          <div class="vp">
         <div class="vp-head"><span class="vp-title">Live preview</span><span class="vp-sub">sample data</span></div>
         <div class="vp-top">
           <div class="vp-cell">
@@ -248,7 +235,8 @@
         </div>
         <p class="vp-foot">The same rings and charts Vitals draws — shown here with sample data.</p>
       </div>
-
+        </div>
+      </div>
       <script>
       (function(){
         var N=48,$=function(id){return document.getElementById(id)};
@@ -269,10 +257,35 @@
         draw();if(!reduce){setInterval(function(){if(!document.hidden)step()},780)}
       })();
       </script>
+      </div>
     </div>
   </section>
 
-  <!-- FEATURES -->
+  <div class="wrap">
+    <div class="trust">
+      <span><i class="dot"></i>100% native SwiftUI</span>
+      <span><i class="dot"></i>Featherweight on resources</span>
+      <span><i class="dot"></i>No account, no telemetry</span>
+      <span><i class="dot"></i>Made for Apple Silicon</span>
+    </div>
+
+    <!-- MENU-BAR READOUT + LIVE GRAPHS -->
+    <figure class="mbstrip">
+      <img src="../assets/shots/01b-menubar-graphs.png" alt="Vitals menu-bar readout with a live mini-graph beside CPU, GPU, memory, VRAM and network">
+      <figcaption>Add a live sparkline beside every number — CPU, GPU, memory, VRAM and network — right in your menu bar. Or keep it to just the Vitals mark; it's your call.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Full dashboard screenshot (relocated from the hero, which now shows the live charts) -->
+  <section id="dashboard" style="padding-top:8px">
+    <div class="wrap" style="text-align:center">
+      <p class="eyebrow">The whole machine, one window</p>
+      <h2 class="title">A dashboard for every part of your Mac.</h2>
+      <div class="shot-hero" style="margin-top:22px"><img src="../assets/shots/02-dashboard.png" alt="Vitals dashboard showing the health score, memory and processor cards"></div>
+    </div>
+  </section>
+
+    <!-- FEATURES -->
   <section id="features">
     <div class="wrap">
       <p class="eyebrow">Everything you want to know</p>
