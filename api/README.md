@@ -15,7 +15,7 @@ The shared bug/feedback endpoint for every app (Breeze, Vitals, …). Apps POST 
 1. Create a [Resend](https://resend.com) account and **verify the `hanncrest.com` domain** in it.
 2. In the Vercel project → **Settings → Environment Variables**, add:
    - `RESEND_API_KEY` — your Resend API key
-   - *(optional)* `REPORT_TO_EMAIL` — recipient (default `contact@hanncrest.com`)
+   - *(optional)* `REPORT_TO_EMAIL` — comma-separated recipients (default `contact@hanncrest.com, hanncrest@gmail.com`)
    - *(optional)* `REPORT_FROM_EMAIL` — verified sender (default `HANNCREST Reports <reports@hanncrest.com>`)
 3. Redeploy. Done — reports now arrive as email, with the reporter's address as **Reply-To** when they gave one.
 

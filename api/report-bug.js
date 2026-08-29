@@ -12,7 +12,10 @@
 // Without RESEND_API_KEY set, the endpoint still returns 200 and logs the full report to the Vercel
 // function logs, so nothing is lost and the app's "Send Report" never errors while you finish setup.
 
-const TO_ADDRESS = process.env.REPORT_TO_EMAIL || 'contact@hanncrest.com';
+// Recipients — every report goes to both the domain inbox and the Gmail backup. Override with a
+// comma-separated REPORT_TO_EMAIL if you ever want to change the list.
+const TO_ADDRESSES = (process.env.REPORT_TO_EMAIL || 'contact@hanncrest.com, hanncrest@gmail.com')
+  .split(',').map((s) => s.trim()).filter(Boolean);
 const FROM_ADDRESS = process.env.REPORT_FROM_EMAIL || 'HANNCREST Reports <reports@hanncrest.com>';
 
 function esc(s) {
@@ -124,7 +127,7 @@ module.exports = async (req, res) => {
       headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: FROM_ADDRESS,
-        to: [TO_ADDRESS],
+        to: TO_ADDRESSES,
         subject,
         text,
         html,
