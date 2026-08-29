@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Breeze</title>
+<meta name="description" content="Breeze collects nothing. No account, no analytics, no ads, no servers of ours — every scan stays on your Mac, and everything it removes goes to the Trash. Here's exactly what that means.">
+<link rel="icon" type="image/png" href="../assets/apps/breeze.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#22c3ec; --g2:#1585cf; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .back{font-size:14px;color:var(--mut)}
+  .back:hover{color:var(--tx)}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .updated{color:var(--dim);font-size:13.5px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  .legal h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  .legal h3{font-size:15px;font-weight:700;margin-top:22px;color:var(--tx)}
+  .legal p{color:var(--mut);font-size:15px;margin-top:12px}
+  .legal ul{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .legal li{color:var(--mut);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+  .legal li .ck{color:var(--good);font-weight:800;flex:none}
+  .card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:18px}
+  .card p{margin-top:0}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="index.html"><img src="../assets/apps/breeze.png" alt="Breeze icon">Breeze</a>
+    <a class="back" href="index.html">← Back to Breeze</a>
+  </nav>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: August 2026</p>
+  <p class="intro">The short version: Breeze collects <strong>nothing</strong>. There's no account, no analytics, no advertising, and no servers of ours in the loop. Every scan it runs happens on your Mac and stays there, and everything it removes goes to your Trash — nothing is permanently deleted until you empty it yourself. This page explains exactly what that means.</p>
+
+  <div class="legal">
+    <h2>What Breeze reads</h2>
+    <p>To find what's safe to clean, Breeze reads your Mac's own file system and system state locally — caches, logs, app leftovers, duplicates, large and old files, installed apps, storage capacity, memory, battery and disk health. All of it is read through standard macOS APIs and a handful of Apple-signed system tools already on every Mac. None of it is uploaded, synced, or sent anywhere — it's shown to you in the app and nowhere else.</p>
+
+    <h2>What Breeze removes, and how</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span>Everything Breeze cleans is <strong>moved to the Trash</strong>, not destroyed — so you can always recover it until you empty the Trash yourself.</span></li>
+        <li><span class="ck">✓</span><span>The one exception is the optional <strong>Secure Shredder</strong>, which permanently overwrites a file — and only ever when you explicitly ask it to, with its own separate confirmation.</span></li>
+        <li><span class="ck">✓</span><span>Every cleanup is <strong>scan → review → confirm</strong>: Breeze shows you exactly what it found, with sizes, before anything moves. Ambiguous items are never pre-selected.</span></li>
+      </ul>
+    </div>
+
+    <h2>What's stored, and where</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span><strong>Preferences</strong> (theme, schedule, the modules you enable) are kept in standard macOS app preferences, local to your Mac.</span></li>
+        <li><span class="ck">✓</span><span><strong>Cleanup history</strong> (so you can review and undo what Breeze did) is written to a local file in your user Library — never to iCloud, never off your Mac.</span></li>
+        <li><span class="ck">✓</span><span><strong>Your Breeze Pro purchase</strong> is validated through the App Store / StoreKit under your own Apple ID. Breeze stores no payment details.</span></li>
+      </ul>
+    </div>
+
+    <h2>The few things that touch the network — only when you ask</h2>
+    <h3>Update checks</h3>
+    <p>When you open the Updates section, Breeze checks which of your apps and your macOS have newer versions available, using the same public update sources those apps already use (Homebrew, the Mac App Store, and each app's own update feed). It reports what it finds — it never installs anything without you, and it sends none of your data in the process.</p>
+    <h3>Network speed test</h3>
+    <p>Only when you press "Run speed test" in the Network module, Breeze measures your connection against a public test endpoint. This never happens automatically.</p>
+
+    <h2>The permissions Breeze asks for</h2>
+    <p>Breeze asks for <strong>Full Disk Access</strong> so it can scan and clean protected locations across your Mac — this is a macOS platform permission you grant in System Settings, and it lets Breeze see the files it needs to; it doesn't send anything anywhere. Depending on what you scan, macOS may also prompt for access to specific folders (like Downloads, Pictures or your media library); those, too, are local access grants and nothing is transmitted.</p>
+
+    <h2>Children's privacy</h2>
+    <p>Breeze is not directed at children and does not knowingly collect information from anyone, of any age — there's simply nothing collected, full stop.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy ever changes, the update will be posted on this page with a new "Last updated" date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? Email <a href="mailto:contact@hanncrest.com" style="font-weight:600">contact@hanncrest.com</a>.</p>
+  </div>
+</div></main>
+
+<footer><div class="foot">
+  <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/apps/breeze.png" alt="" style="width:24px;height:24px;border-radius:6px">Breeze</a>
+  <div class="links">
+    <a href="support.html">Support</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · Breeze is a HANNCREST app.</div>
+</div></footer>
+
+</body>
+</html>

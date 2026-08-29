@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breeze — Clean up &amp; speed up your Mac</title>
+<meta name="description" content="Breeze is a native macOS cleaner and tune-up app. Reclaim disk space, uninstall apps with every leftover, map your storage, find duplicates, free system junk and watch your Mac's health — one-click, review-first, nothing deleted without you. Everything stays on your Mac.">
+<link rel="icon" type="image/png" href="../assets/apps/breeze.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#22c3ec; --g2:#1585cf; --good:#34d399; --warn:#f0a23b; --danger:#ef5a5a;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer;border:0}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(21,133,207,.35)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(34,195,236,.4)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.2px;background:rgba(34,195,236,.12);color:#7fdcf3;border:1px solid rgba(34,195,236,.25)}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
+  .navlinks a:hover{color:var(--tx)}
+  .navlinks .btn{padding:9px 16px;font-size:14px}
+  @media(max-width:720px){.navlinks a:not(.btn){display:none}}
+
+  /* HERO */
+  .hero{position:relative;padding:90px 0 40px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(21,133,207,.28),transparent 60%);filter:blur(30px);pointer-events:none}
+  .hero h1{position:relative;font-size:clamp(38px,6vw,68px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;max-width:15ch;margin:18px auto 0}
+  .hero p.sub{position:relative;color:var(--mut);font-size:clamp(17px,2.2vw,21px);max-width:57ch;margin:22px auto 0}
+  .hero .cta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .hero .note{position:relative;color:var(--dim);font-size:13px;margin-top:16px}
+
+  /* TRUST STRIP */
+  .trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin:50px 0 10px}
+  .trust span{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--good)}
+
+  /* SHOT */
+  .shot-hero{position:relative;margin:56px auto 0;max-width:1000px;border-radius:16px;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+  .shot-hero img{display:block;width:100%}
+
+  /* SECTIONS */
+  section{padding:70px 0}
+  .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h2.title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
+  .lead{text-align:center;color:var(--mut);font-size:18px;max-width:62ch;margin:16px auto 0}
+
+  /* FEATURE GRID */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .fcard{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .2s,transform .2s}
+  .fcard:hover{border-color:rgba(34,195,236,.4);transform:translateY(-3px)}
+  .fico{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:rgba(34,195,236,.14);border:1px solid rgba(34,195,236,.28);font-size:22px;margin-bottom:16px}
+  .fcard h3{font-size:18px;font-weight:700;letter-spacing:-.3px}
+  .fcard p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  /* SPLIT */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:24px}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:28px}}
+  .split h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.6px;line-height:1.1}
+  .split p{color:var(--mut);font-size:16.5px;margin-top:16px}
+  .checks{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+  .checks li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:15px}
+  .checks .ck{color:var(--g1);font-weight:800;flex:none}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative}
+  .step .n{font-size:13px;font-weight:800;letter-spacing:.4px;color:var(--g1)}
+  .step h3{font-size:18px;font-weight:700;margin-top:8px}
+  .step p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  /* PRICING */
+  .prices{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:820px;margin:52px auto 0}
+  @media(max-width:700px){.prices{grid-template-columns:1fr}}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px}
+  .price.pro{border-color:transparent;background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent;position:relative}
+  .price h3{font-size:15px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--mut)}
+  .price .amt{font-size:46px;font-weight:800;letter-spacing:-1.5px;margin-top:10px}
+  .price .amt small{font-size:15px;font-weight:600;color:var(--mut);letter-spacing:0}
+  .price ul{margin-top:22px;display:flex;flex-direction:column;gap:11px}
+  .price li{list-style:none;display:flex;gap:10px;font-size:14.5px;color:var(--tx)}
+  .price li .ck{color:var(--good);flex:none;font-weight:800}
+  .price .btn{width:100%;justify-content:center;margin-top:26px}
+  .price.pro{padding-top:52px}
+  .price .tag{position:absolute;top:16px;left:32px}
+
+  /* PRIVACY / SAFETY */
+  .privacy{background:linear-gradient(135deg,rgba(21,133,207,.1),rgba(34,195,236,.08));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
+  .privacy h2{font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.6px}
+  .privacy p{color:var(--mut);max-width:62ch;margin:14px auto 0;font-size:16px}
+
+  /* CTA */
+  .final{text-align:center;padding:90px 0 40px}
+  .final h2{font-size:clamp(30px,4.5vw,50px);font-weight:800;letter-spacing:-1px}
+  .final p{color:var(--mut);margin-top:14px;font-size:18px}
+  .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:13.5px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+  .ph{color:#c98a2a;font-size:12px;border:1px dashed rgba(201,138,42,.5);padding:1px 7px;border-radius:6px;background:rgba(201,138,42,.08)}
+
+  /* ---- animated Smart-Scan preview (sample data, pure CSS/SVG/JS) ---- */
+  .appwin{max-width:600px;margin:0 auto;background:#0d0f13;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#191b21;border-bottom:1px solid rgba(255,255,255,.06)}
+  .appbar .tl{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .appbar .r{background:#ff5f57}.appbar .y{background:#febc2e}.appbar .g{background:#28c840}
+  .appbar .apptitle{margin-left:10px;font-size:12px;color:#9a9ab2;font-weight:600}
+  .appbar .livedot{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:#8a8aa0;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .appbar .livedot i{width:7px;height:7px;border-radius:50%;background:#28c840;animation:bzblink 1.6s infinite}
+  @keyframes bzblink{0%{box-shadow:0 0 0 0 rgba(40,200,64,.55)}70%{box-shadow:0 0 0 7px rgba(40,200,64,0)}100%{box-shadow:0 0 0 0 rgba(40,200,64,0)}}
+  .appbody{padding:18px;background:radial-gradient(120% 120% at 50% 0%,#15151f,#0d0f13);text-align:left;color:#e8e9ec}
+  .bz-top{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:520px){.bz-top{grid-template-columns:1fr}}
+  .bz-cell{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:14px;display:flex;align-items:center;gap:14px}
+  .bz-ringwrap{position:relative;width:84px;height:84px;flex:none}
+  .bz-ring{width:84px;height:84px;display:block}
+  .bz-track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:7}
+  .bz-arc{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .5s cubic-bezier(.2,.8,.2,1)}
+  .bz-ringval{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .bz-ringval b{font-size:22px;font-weight:700;line-height:1}
+  .bz-ringval span{font-size:9px;color:#6b7078;letter-spacing:.05em;margin-top:2px}
+  .bz-clabel{font-size:11px;font-weight:700;letter-spacing:.02em;color:#c9cbd2}
+  .bz-csub{font-size:11px;color:#6b7078;margin-top:3px}
+  .bz-bars{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:14px;margin-top:14px}
+  .bz-barrow{display:flex;align-items:center;gap:10px;font-size:11.5px;font-variant-numeric:tabular-nums}
+  .bz-barrow+.bz-barrow{margin-top:11px}
+  .bz-barname{width:92px;color:#c9cbd2;font-weight:600;flex:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bz-track2{flex:1;height:8px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+  .bz-fill{height:100%;border-radius:5px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+  .bz-barval{width:64px;text-align:right;color:#8a8aa0;flex:none}
+  .bz-foot{font-size:10.5px;color:#6b7078;margin-top:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><nav>
+    <a class="brand" href="#top"><img src="../assets/apps/breeze.png" alt="Breeze icon">Breeze</a>
+    <div class="navlinks">
+      <a href="/">← HANNCREST</a>
+      <a href="#features">Features</a>
+      <a href="#uninstaller">Uninstaller</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn btn-primary" href="#pricing">Get Breeze</a>
+    </div>
+  </nav></div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="pill">✦ Native · Apple Silicon · Local-first</span>
+      <h1>Clean up &amp; <span class="grad-text">speed up</span> your Mac.</h1>
+      <p class="sub">A native macOS cleaner that shows you exactly where your space went and gets it back — a real app uninstaller with every leftover, an interactive storage map, duplicate finder, and a live health score. <strong>One click, review-first, nothing deleted without you.</strong></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#pricing">Get Breeze</a>
+        <a class="btn btn-ghost" href="#features">See what it does</a>
+      </div>
+      <p class="note">macOS 14+ · free core, Breeze Pro unlocks the rest · nothing leaves your Mac</p>
+
+      <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Breeze — Smart Scan</span><span class="livedot"><i></i>Live</span></div>
+          <div class="appbody">
+            <div class="bz-top">
+              <div class="bz-cell">
+                <div class="bz-ringwrap">
+                  <svg class="bz-ring" viewBox="0 0 84 84"><circle class="bz-track" cx="42" cy="42" r="34"/><circle id="hsArc" class="bz-arc" cx="42" cy="42" r="34" stroke="#34d399" transform="rotate(-90 42 42)"/></svg>
+                  <div class="bz-ringval"><b id="hsVal" style="color:#34d399">0</b><span>of 100</span></div>
+                </div>
+                <div>
+                  <div class="bz-clabel">Health Score</div>
+                  <div class="bz-csub">Disk · memory · junk · startup · protection</div>
+                </div>
+              </div>
+              <div class="bz-cell">
+                <div class="bz-ringwrap">
+                  <svg class="bz-ring" viewBox="0 0 84 84">
+                    <defs><linearGradient id="bzgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22c3ec"/><stop offset="1" stop-color="#1585cf"/></linearGradient></defs>
+                    <circle class="bz-track" cx="42" cy="42" r="34"/><circle id="rcArc" class="bz-arc" cx="42" cy="42" r="34" stroke="url(#bzgrad)" transform="rotate(-90 42 42)"/>
+                  </svg>
+                  <div class="bz-ringval"><b id="rcVal" style="color:#7fdcf3">0</b><span id="rcUnit">GB</span></div>
+                </div>
+                <div>
+                  <div class="bz-clabel">Reclaimable</div>
+                  <div class="bz-csub">Caches, logs &amp; leftovers — to the Trash</div>
+                </div>
+              </div>
+            </div>
+            <div class="bz-bars">
+              <div class="bz-barrow"><span class="bz-barname">Macintosh HD</span><span class="bz-track2"><span class="bz-fill" id="b1" style="background:linear-gradient(90deg,#22c3ec,#1585cf)"></span></span><span class="bz-barval">116 GB free</span></div>
+              <div class="bz-barrow"><span class="bz-barname">Multimedia</span><span class="bz-track2"><span class="bz-fill" id="b2" style="background:linear-gradient(90deg,#f0a23b,#ef5a5a)"></span></span><span class="bz-barval" style="color:#ef7a7a">100% full</span></div>
+              <div class="bz-barrow"><span class="bz-barname">EVO990P</span><span class="bz-track2"><span class="bz-fill" id="b3" style="background:linear-gradient(90deg,#22c3ec,#1585cf)"></span></span><span class="bz-barval">1.6 TB free</span></div>
+              <div class="bz-foot">The same rings and bars Breeze draws — shown here with sample data.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var $=function(id){return document.getElementById(id)};
+        if(!$('hsArc'))return;
+        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var R=34,CIRC=2*Math.PI*R;['hsArc','rcArc'].forEach(function(id){$(id).style.strokeDasharray=CIRC});
+        function ring(id,frac){$(id).style.strokeDashoffset=CIRC*(1-Math.max(0,Math.min(1,frac)))}
+        // Count-up like the real app: fast out of the gate, easing into the target.
+        function countUp(el,target,dur,fmt){
+          var t0=null;fmt=fmt||function(v){return Math.round(v)};
+          function fr(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur);var e=1-Math.pow(1-p,3);el.textContent=fmt(target*e);if(p<1)requestAnimationFrame(fr)}
+          requestAnimationFrame(fr);
+        }
+        function run(){
+          ring('hsArc',0.90);ring('rcArc',0.62);
+          $('b1').style.width='49%';$('b2').style.width='100%';$('b3').style.width='11%';
+          if(reduce){$('hsVal').textContent='90';$('rcVal').textContent='1.2';$('rcUnit').textContent='GB';return}
+          countUp($('hsVal'),90,1300);
+          countUp($('rcVal'),1.2,1600,function(v){return v.toFixed(1)});
+        }
+        // Kick off shortly after load so the sweep is visible.
+        if(reduce){run()}else{setTimeout(run,250)}
+      })();
+      </script>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="trust">
+      <span><i class="dot"></i>100% native SwiftUI</span>
+      <span><i class="dot"></i>Moves to Trash, never shreds</span>
+      <span><i class="dot"></i>No account, no telemetry</span>
+      <span><i class="dot"></i>Made for Apple Silicon</span>
+    </div>
+  </div>
+
+  <!-- REAL SCREENSHOT -->
+  <section id="dashboard" style="padding-top:18px">
+    <div class="wrap" style="text-align:center">
+      <p class="eyebrow">One window, the whole Mac</p>
+      <h2 class="title">A health score, and one click to act on it.</h2>
+      <p class="lead">Open Breeze and see your Mac's health, every volume's free space, live memory and disk S.M.A.R.T. — with a single Clean that sweeps caches, logs and leftovers to the Trash.</p>
+      <div class="shot-hero" style="margin-top:34px"><img src="../assets/shots/breeze/01-smart-scan.png" alt="Breeze Smart Scan — health score, storage volumes, memory and disk health"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <p class="eyebrow">Everything you need to reclaim space</p>
+      <h2 class="title">Find it, understand it, get it back.</h2>
+      <p class="lead">From a one-click Smart Scan to a folder-by-folder storage map — Breeze shows you what's taking room and what's safe to remove.</p>
+      <div class="grid">
+        <div class="fcard"><div class="fico">✨</div><h3>Smart Scan</h3><p>A live Health Score across disk, memory, junk, startup and protection — with a one-click Clean that sweeps caches, logs and leftovers to the Trash.</p></div>
+        <div class="fcard"><div class="fico">🗺️</div><h3>Storage map</h3><p>An interactive, folder-by-folder map of where your space actually goes — click in, reveal any item in Finder, watch bars turn red as a drive fills.</p></div>
+        <div class="fcard"><div class="fico">🧹</div><h3>Real uninstaller</h3><p>Removes an app <em>and</em> every leftover — preferences, caches, containers, login items — and finds every copy on disk, not just the one you clicked.</p></div>
+        <div class="fcard"><div class="fico">📦</div><h3>Leftovers</h3><p>Orphaned files from apps you already deleted, including hidden data folders — grouped, with anything ambiguous held back for your review.</p></div>
+        <div class="fcard"><div class="fico">👬</div><h3>Duplicates &amp; similar photos</h3><p>Hash-based duplicate finder and a perceptual-hash similar-photo sweep to clear redundant copies and near-identical shots.</p></div>
+        <div class="fcard"><div class="fico">🧠</div><h3>Memory &amp; health</h3><p>Live memory pressure and composition, battery health, disk S.M.A.R.T. and wear, network throughput, and a disk-space forecast.</p></div>
+        <div class="fcard"><div class="fico">🕰️</div><h3>Unused apps</h3><p>Apps you genuinely haven't touched in months — judged by real activity, not just an often-missing "last opened" date.</p></div>
+        <div class="fcard"><div class="fico">🔄</div><h3>Updates</h3><p>Outdated apps across Homebrew, the Mac App Store and direct downloads — plus pending macOS updates, in one place.</p></div>
+        <div class="fcard"><div class="fico">🛡️</div><h3>Privacy &amp; protection</h3><p>Clear browsing and app traces, and let Breeze Guard watch for known adware and suspicious startup items in the background.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UNINSTALLER SPLIT -->
+  <section id="uninstaller" style="padding-top:20px">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <span class="pill">The part drag-to-Trash gets wrong</span>
+          <h2 style="margin-top:16px">A <span class="grad-text">real</span> uninstaller.</h2>
+          <p>Dragging an app to the Trash leaves its preferences, caches, containers and login items behind — quietly eating gigabytes for apps you thought were gone. Breeze finds all of it and removes it together.</p>
+          <ul class="checks">
+            <li><span class="ck">✓</span><span>Finds <strong>every copy</strong> of an app on disk, not just the one in /Applications.</span></li>
+            <li><span class="ck">✓</span><span>Sweeps preferences, caches, containers, login items, launch agents and receipts.</span></li>
+            <li><span class="ck">✓</span><span>Catches hidden data folders apps create outside the usual Library locations.</span></li>
+            <li><span class="ck">✓</span><span>Anything it can't be certain about is <strong>held back for review</strong> — never auto-selected.</span></li>
+          </ul>
+        </div>
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Breeze — Leftovers</span></div>
+          <div class="appbody" style="font-size:13px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#22c3ec,#1585cf);flex:none"></span>
+              <div><div style="font-weight:600">Preferences &amp; caches</div><div style="color:#6b7078;font-size:11px">com.example.app · 6 items</div></div>
+              <span style="margin-left:auto;color:#7fdcf3;font-weight:700">2.1 GB</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px;margin-top:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#22c3ec,#1585cf);flex:none"></span>
+              <div><div style="font-weight:600">Containers</div><div style="color:#6b7078;font-size:11px">Saved app state &amp; support · 3 items</div></div>
+              <span style="margin-left:auto;color:#7fdcf3;font-weight:700">840 MB</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#191b21;border:1px dashed #3a3f49;border-radius:10px;margin-top:10px;opacity:.9">
+              <span style="width:26px;height:26px;border-radius:7px;background:#2a2f38;display:grid;place-items:center;flex:none">🔍</span>
+              <div><div style="font-weight:600;color:#f0c674">Hidden home folder — review</div><div style="color:#6b7078;font-size:11px">Held back · confirm the app is uninstalled</div></div>
+              <span style="margin-left:auto;color:#8a8aa0;font-weight:700">14 GB</span>
+            </div>
+            <div style="color:#6b7078;font-size:11px;margin-top:12px">Ambiguous items start unticked — you decide.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Safe by design</p>
+      <h2 class="title">Scan → Review → Clean.</h2>
+      <p class="lead">Breeze never deletes on a hunch. Every cleanup shows you exactly what it found, and everything it removes goes to the Trash — so you can always get it back.</p>
+      <div class="steps">
+        <div class="step"><div class="n">STEP 1</div><h3>Scan</h3><p>A read-only pass across caches, logs, leftovers, duplicates and large files — with real sizes, nothing touched yet.</p></div>
+        <div class="step"><div class="n">STEP 2</div><h3>Review</h3><p>See every item grouped by category and size. Uncheck anything you want to keep; ambiguous items start unticked.</p></div>
+        <div class="step"><div class="n">STEP 3</div><h3>Clean</h3><p>One click moves your selection to the Trash. Nothing is permanently deleted until you empty it yourself.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Simple, honest pricing</p>
+      <h2 class="title">Free to clean. <span class="grad-text">Pro</span> to go deep.</h2>
+      <p class="lead">The essentials — Smart Scan, the Storage map, Applications and Memory — are free. Breeze Pro is a one-time purchase that unlocks the deeper modules. No subscription.</p>
+      <div class="prices">
+        <div class="price">
+          <h3>Free</h3>
+          <div class="amt">$0<small> / forever</small></div>
+          <ul>
+            <li><span class="ck">✓</span>Smart Scan &amp; live Health Score</li>
+            <li><span class="ck">✓</span>Interactive Storage map</li>
+            <li><span class="ck">✓</span>Applications &amp; real uninstaller</li>
+            <li><span class="ck">✓</span>Memory, battery &amp; disk health</li>
+            <li><span class="ck">✓</span>System junk &amp; Reclaim space</li>
+          </ul>
+          <a class="btn btn-ghost" href="#download">Download free</a>
+        </div>
+        <div class="price pro">
+          <span class="pill tag">One-time unlock</span>
+          <h3 class="grad-text">Breeze Pro</h3>
+          <div class="amt"><span class="ph">price soon</span></div>
+          <ul>
+            <li><span class="ck">✓</span>Everything in Free, plus…</li>
+            <li><span class="ck">✓</span>Leftovers &amp; hidden-data cleanup</li>
+            <li><span class="ck">✓</span>Duplicates, Similar photos &amp; Large/old files</li>
+            <li><span class="ck">✓</span>Developer junk, Purgeable space &amp; System data</li>
+            <li><span class="ck">✓</span>Privacy traces, Protection &amp; Auto-clean</li>
+            <li><span class="ck">✓</span>Startup, Maintenance, Trash &amp; History</li>
+            <li><span class="ck">✓</span>All future Pro features included</li>
+          </ul>
+          <a class="btn btn-primary" href="#download">Get Breeze Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section style="padding-top:10px"><div class="wrap">
+    <div class="privacy">
+      <h2>What happens on your Mac, stays on your Mac.</h2>
+      <p>Breeze has no account, no sign-in and no analytics. It scans your Mac locally and sends nothing anywhere. Everything it removes goes to the Trash — nothing is permanently deleted until you empty it yourself.</p>
+    </div>
+  </div></section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="download"><div class="wrap">
+    <h2>Get your space back.</h2>
+    <p>Native, lightweight, and free to start — no card, no account, no subscription.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#">Download for macOS <span class="ph">link soon</span></a>
+      <a class="btn btn-ghost" href="#">Mac App Store <span class="ph">coming soon</span></a>
+    </div>
+    <p class="note" style="color:var(--dim);margin-top:18px">Requires macOS 14 Sonoma or later. Universal (Apple Silicon &amp; Intel).</p>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><div class="foot">
+  <a class="brand" href="#top" style="font-size:16px"><img src="../assets/apps/breeze.png" alt="" style="width:24px;height:24px;border-radius:6px">Breeze</a>
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="support.html">Support</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · Breeze is a HANNCREST app.</div>
+</div></div></footer>
+
+</body>
+</html>

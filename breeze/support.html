@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Breeze</title>
+<meta name="description" content="Get help with Breeze — what's free vs. Breeze Pro, Full Disk Access, restoring a purchase, and how Breeze keeps your files safe.">
+<link rel="icon" type="image/png" href="../assets/apps/breeze.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#22c3ec; --g2:#1585cf; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .back{font-size:14px;color:var(--mut)}
+  .back:hover{color:var(--tx)}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  .faq{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+  .qa{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .qa h3{font-size:15px;font-weight:700}
+  .qa p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  .contact{background:linear-gradient(135deg,rgba(21,133,207,.1),rgba(34,195,236,.08));border:1px solid var(--line);border-radius:20px;padding:32px;margin-top:20px;text-align:center}
+  .contact h2{margin-top:0}
+  .contact p{color:var(--mut);font-size:15px;margin-top:10px}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="index.html"><img src="../assets/apps/breeze.png" alt="Breeze icon">Breeze</a>
+    <a class="back" href="index.html">← Back to Breeze</a>
+  </nav>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Support</span>
+  <h1>Need a hand?</h1>
+  <p class="intro">Answers to the most common questions below — or reach us directly if you're still stuck.</p>
+
+  <h2>Common questions</h2>
+  <div class="faq">
+    <div class="qa">
+      <h3>Is Breeze safe? Could it delete something I need?</h3>
+      <p>Breeze is built around scan → review → confirm. It shows you exactly what it found, with sizes, and everything it removes goes to the <strong>Trash</strong> — nothing is permanently deleted until you empty it yourself. Anything it can't be certain about (like a leftover it can't prove belongs to a removed app) starts unticked for you to review. System and Apple apps and protected paths are never touched.</p>
+    </div>
+    <div class="qa">
+      <h3>What's free, and what needs Breeze Pro?</h3>
+      <p>The essentials are free forever: Smart Scan and the Health Score, the interactive Storage map, Applications with the real uninstaller, and Memory. Breeze Pro is a one-time purchase that unlocks the deeper modules — Leftovers, Duplicates, Similar photos, Large &amp; old files, Developer junk, Privacy, Auto-clean, Protection and more.</p>
+    </div>
+    <div class="qa">
+      <h3>Why does Breeze need Full Disk Access?</h3>
+      <p>To scan and clean protected locations across your Mac, Breeze needs Full Disk Access, which you grant under System Settings → Privacy &amp; Security → Full Disk Access. It's a local permission — it lets Breeze see the files it works with and sends nothing anywhere. After granting it, relaunch Breeze so the scanners can see everything.</p>
+    </div>
+    <div class="qa">
+      <h3>I bought Breeze Pro on another Mac — how do I restore it?</h3>
+      <p>Open Breeze → Breeze Pro and tap "Restore." If you bought through the Mac App Store, this restores your purchase from the same Apple ID with no extra charge.</p>
+    </div>
+    <div class="qa">
+      <h3>The Purgeable space section shows nothing — is that a bug?</h3>
+      <p>That section reclaims Time Machine local snapshots. If Time Machine isn't keeping local snapshots on that Mac, there's genuinely nothing there to remove, so it will show an empty state — that's correct, not a bug. When snapshots do exist, Breeze lists them with the space they're using.</p>
+    </div>
+    <div class="qa">
+      <h3>Why is one feature missing or limited in the App Store version?</h3>
+      <p>A few features (like quitting other processes or some system-level cleanup) need access that Apple's App Store sandbox doesn't allow — those work fully in the direct-download build. Everything else works the same in both.</p>
+    </div>
+  </div>
+
+  <div class="contact">
+    <h2>Still need help?</h2>
+    <p>Send us a message and we'll get back to you, usually within a couple of business days.</p>
+    <p><a href="mailto:contact@hanncrest.com" style="font-weight:600">contact@hanncrest.com</a></p>
+  </div>
+</div></main>
+
+<footer><div class="foot">
+  <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/apps/breeze.png" alt="" style="width:24px;height:24px;border-radius:6px">Breeze</a>
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · Breeze is a HANNCREST app.</div>
+</div></footer>
+
+</body>
+</html>
