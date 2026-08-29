@@ -150,10 +150,12 @@ model, and the `BugReportView` sheet.
   be sent") and, if the endpoint is down, **Copy details** to send by hand.
 
 ### 4. The backend
-The endpoint is a single Vercel serverless function shared by all apps; it routes/tags by the
-`app` field. Until it exists, the POST fails gracefully and the user falls back to **Copy details**
-— the app side is complete and forward-compatible. When you build the function, no app needs a
-rebuild (and the URL is overridable via `defaults write <bundle-id> APP.bugReportURL "…"`).
+The endpoint is a single Vercel serverless function shared by all apps — **`api/report-bug.js`** in
+this repo (see `api/README.md`). It tags by the `app` field and emails each report via Resend with a
+clear subject (`🐞 [AppName] <snippet> — vX.Y.Z`). A new app needs **no backend work** — just send
+the same JSON with its own `app` tag. To enable email delivery, set `RESEND_API_KEY` in Vercel and
+verify the sending domain; until then it returns 200 and logs the report. The per-app URL is
+overridable without a rebuild via `defaults write <bundle-id> APP.bugReportURL "…"`.
 
 ---
 
