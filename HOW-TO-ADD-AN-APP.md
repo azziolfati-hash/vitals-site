@@ -107,6 +107,56 @@ Non-sandboxed Developer-ID builds need nothing.
 
 ---
 
+## Part C — the "Report a Bug" reporter
+
+Every app ships the same user-initiated bug reporter that POSTs JSON to **one shared endpoint**
+(`https://hanncrest.com/api/report-bug`), tagged by the `app` field. Reference implementations:
+`Vitals → Sources/Vitals/BugReport.swift` and `Breeze → Sources/CleanUp/Features/BugReport/BugReportView.swift`.
+
+### 1. Drop in the reporter
+Copy `BugReportView.swift` and change four things:
+```swift
+enum BugReportConfig {
+    static let defaultEndpoint = "https://hanncrest.com/api/report-bug"   // shared by every app
+    static let appTag = "APP"                                            // this app's tag
+    static var endpoint: URL {
+        let s = UserDefaults.standard.string(forKey: "APP.bugReportURL") ?? defaultEndpoint
+        return URL(string: s) ?? URL(string: defaultEndpoint)!
+    }
+}
+```
+- Point `proStatus` at the app's own license (`LicenseStore.shared` in Breeze, `Pro.shared` in
+  Vitals) — or drop it if the app has no Pro tier.
+- Map the outcome/header colors to the app's `Palette`.
+- Update the header copy ("…the makers of App Name").
+
+Everything else is identical: the `BugReporter` (collect → preview → POST), the two-tier privacy
+model, and the `BugReportView` sheet.
+
+### 2. Wire it in
+- Add an observable flag (`var showBugReport = false`) to the app model.
+- Present the sheet where the main UI lives: `.sheet(isPresented: $model.showBugReport) { BugReportView() }`.
+- Add an **app-menu item** "Report a Bug…" that opens the window and flips the flag.
+- Optional but nice: a visible entry in the app's settings/control panel (Breeze adds a
+  "Report a bug" row that calls `onOpen(nil); model.showBugReport = true`).
+
+### 3. The privacy contract (keep it intact — reviewers rely on it)
+- **Nothing is ever sent in the background** — only on an explicit "Send Report" tap.
+- **Basic tier (always):** the user's message, app version/build, macOS version, and an email
+  *only if they typed one*.
+- **Diagnostics tier (opt-in toggle):** an anonymous hardware/state profile (Mac model, CPU/RAM,
+  locale, uptime, thermal state, Pro status). No name, account, files, location, or persistent id;
+  the report id is random per report. The user can inspect the exact JSON ("Show exactly what will
+  be sent") and, if the endpoint is down, **Copy details** to send by hand.
+
+### 4. The backend
+The endpoint is a single Vercel serverless function shared by all apps; it routes/tags by the
+`app` field. Until it exists, the POST fails gracefully and the user falls back to **Copy details**
+— the app side is complete and forward-compatible. When you build the function, no app needs a
+rebuild (and the URL is overridable via `defaults write <bundle-id> APP.bugReportURL "…"`).
+
+---
+
 ## Why it's built this way
 The app list, prices, copy and links live on **one web page**. Change the website and **every app
 updates instantly — no rebuild, no resubmit.** Only the hub URL is baked into each binary, and even
