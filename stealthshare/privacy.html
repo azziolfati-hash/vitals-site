@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — StealthShare</title>
+<meta name="description" content="StealthShare collects nothing and never records your screen. No account, no analytics, no servers of ours — it hides things locally while you share, and puts everything back when you're done. Here's exactly what that means.">
+<link rel="icon" type="image/png" href="../assets/apps/stealthshare.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#4b8bff; --g2:#6a5cf0; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .back{font-size:14px;color:var(--mut)}
+  .back:hover{color:var(--tx)}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .updated{color:var(--dim);font-size:13.5px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  .legal h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  .legal h3{font-size:15px;font-weight:700;margin-top:22px;color:var(--tx)}
+  .legal p{color:var(--mut);font-size:15px;margin-top:12px}
+  .legal ul{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .legal li{color:var(--mut);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+  .legal li .ck{color:var(--good);font-weight:800;flex:none}
+  .card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:18px}
+  .card p{margin-top:0}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="index.html"><img src="../assets/apps/stealthshare.png" alt="StealthShare icon">StealthShare</a>
+    <a class="back" href="index.html">← Back to StealthShare</a>
+  </nav>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: August 2026</p>
+  <p class="intro">The short version: StealthShare collects <strong>nothing</strong> and <strong>never records your screen</strong>. There's no account, no analytics, no advertising, and no servers of ours in the loop. It hides things on your Mac while you share, and puts them all back when you're done. This page explains exactly what that means.</p>
+
+  <div class="legal">
+    <h2>What StealthShare does — and doesn't — see</h2>
+    <p>StealthShare is a curtain, not a camera. It <strong>does not record, capture, screenshot, or stream</strong> your display, ever. To hide the right things at the right time, it reads a small amount of local system state through standard macOS APIs — the list of apps that are currently running (to detect calls and know which windows to mask), and, on the direct-download build, whether any app is actively using the camera or microphone. None of this is stored or sent anywhere; it's used in the moment and discarded.</p>
+
+    <h2>What it changes while you share — all temporary</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span>Masks the confidential app windows you choose (Slack, Messages, Mail, and any you add) with an on-screen cover — visible to your audience, still readable to you.</span></li>
+        <li><span class="ck">✓</span><span>Hides desktop icons and Mac widgets, swaps in a neutral wallpaper, and turns on a Focus so notification banners are held.</span></li>
+        <li><span class="ck">✓</span><span>Every one of these is <strong>reversed</strong> the moment Privacy Mode turns off — and StealthShare also restores everything if it quits, so nothing is left changed.</span></li>
+      </ul>
+    </div>
+
+    <h2>Your calendar (only if you turn Calendar Auto-Arm on)</h2>
+    <p>If you enable Calendar Auto-Arm, StealthShare requests <strong>read-only</strong> access to your macOS Calendar so it can arm Privacy Mode shortly before a scheduled Zoom, Teams or Meet event. It reads event times and the meeting link only, entirely on your Mac, to decide when to switch on — it never modifies your calendar and never uploads or transmits your events. If you leave the feature off, StealthShare doesn't touch your calendar at all.</p>
+
+    <h2>What's stored, and where</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span><strong>Your settings</strong> (which protections are on, your app-blur list, the hotkey) are kept in standard macOS app preferences, local to your Mac.</span></li>
+        <li><span class="ck">✓</span><span>There is <strong>no history file, no log of your calls, and no record</strong> of what was on your screen — StealthShare has nothing like that to keep.</span></li>
+        <li><span class="ck">✓</span><span>Your purchase is validated through the App Store / StoreKit under your own Apple ID. StealthShare stores no payment details.</span></li>
+      </ul>
+    </div>
+
+    <h2>The only two things that ever touch the network</h2>
+    <h3>The "More Apps" panel</h3>
+    <p>The More Apps section loads a single web page from hanncrest.com that lists our other Mac apps. It's a read-only page — opening it sends no personal data, and tapping an app just opens its page in your browser.</p>
+    <h3>"Report a Bug" — only when you send one</h3>
+    <p>If you choose to file a bug report, StealthShare sends only what you can see and approve first: your message, the app and macOS version, and — <em>only</em> if you leave the optional diagnostics toggle on — an anonymous hardware profile (Mac model, CPU/RAM, locale, uptime, thermal state). It contains no name, account, files, location, or any identifier that ties two reports together. Nothing is ever sent in the background; a report leaves your Mac only when you tap <strong>Send Report</strong>, and you can inspect the exact contents beforehand.</p>
+
+    <h2>The permissions StealthShare asks for</h2>
+    <p>To do its job, StealthShare may ask for <strong>Screen Recording</strong> and <strong>Accessibility</strong> permission — these let it position the masks over the right windows; despite the name, "Screen Recording" access is what macOS requires to read window layout, and StealthShare uses it only for that, never to record. It also uses macOS <strong>Shortcuts</strong> to toggle a Focus for Do Not Disturb, and (optionally) read-only <strong>Calendar</strong> access as described above. All are local macOS permissions you grant in System Settings; none of them send anything anywhere.</p>
+
+    <h2>Children's privacy</h2>
+    <p>StealthShare is not directed at children and does not knowingly collect information from anyone, of any age — there's simply nothing collected, full stop.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy ever changes, the update will be posted on this page with a new "Last updated" date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? Email <a href="mailto:contact@hanncrest.com" style="font-weight:600">contact@hanncrest.com</a>.</p>
+  </div>
+</div></main>
+
+<footer><div class="foot">
+  <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/apps/stealthshare.png" alt="" style="width:24px;height:24px;border-radius:6px">StealthShare</a>
+  <div class="links">
+    <a href="support.html">Support</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · StealthShare is a HANNCREST app.</div>
+</div></footer>
+
+</body>
+</html>

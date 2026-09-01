@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — Aura</title>
+<meta name="description" content="Get help with Aura — the shortcut, granting Accessibility, choosing an engine, downloading the on-device model, and how Aura keeps your text private.">
+<link rel="icon" type="image/png" href="../assets/apps/aura.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#6fa8ff; --g2:#a06bf0; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .back{font-size:14px;color:var(--mut)}
+  .back:hover{color:var(--tx)}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  .faq{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+  .qa{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+  .qa h3{font-size:15px;font-weight:700}
+  .qa p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  .contact{background:linear-gradient(135deg,rgba(160,107,240,.1),rgba(111,168,255,.08));border:1px solid var(--line);border-radius:20px;padding:32px;margin-top:20px;text-align:center}
+  .contact h2{margin-top:0}
+  .contact p{color:var(--mut);font-size:15px;margin-top:10px}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="index.html"><img src="../assets/apps/aura.png" alt="Aura icon">Aura</a>
+    <a class="back" href="index.html">← Back to Aura</a>
+  </nav>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Support</span>
+  <h1>Need a hand?</h1>
+  <p class="intro">Answers to the most common questions below — or reach us directly if you're still stuck.</p>
+
+  <h2>Common questions</h2>
+  <div class="faq">
+    <div class="qa">
+      <h3>How do I use Aura?</h3>
+      <p>Select text in any app, then press <strong>⇧⌘P</strong>. Aura reads the selection, rewrites it with the active mode, and pastes the result back over it. A floating HUD shows the text streaming in — press <strong>esc</strong> at any point to cancel; your original text and clipboard are left untouched. You can also right-click a selection and choose <strong>Services → Aura</strong>.</p>
+    </div>
+    <div class="qa">
+      <h3>Nothing happens when I press the shortcut.</h3>
+      <p>Aura needs <strong>Accessibility</strong> permission to read your selection and paste the result back. Grant it in System Settings → Privacy &amp; Security → Accessibility, make sure Aura is switched on, and relaunch it. If it worked before and stopped after an update, remove Aura from the Accessibility list with "–" and trigger it once more to be re-prompted.</p>
+    </div>
+    <div class="qa">
+      <h3>Does my text get sent to the cloud?</h3>
+      <p>No. Every engine Aura uses runs on your Mac — Apple Intelligence, Aura's own downloaded model, or a local server on <code>127.0.0.1</code>. Your selected text is never uploaded to HANNCREST or any third party. There is no cloud rewrite mode.</p>
+    </div>
+    <div class="qa">
+      <h3>Which engine should I use?</h3>
+      <p>Leave it on <strong>Automatic</strong> and Aura picks the best one available: Apple Intelligence if your Mac has it, otherwise Aura's own model, then a local server, then the built-in no-AI cleanup. If you'd rather force a specific engine, choose it in Settings → Engine.</p>
+    </div>
+    <div class="qa">
+      <h3>Do I have to download anything?</h3>
+      <p>Only if you want Aura's own model. On macOS 26+ with Apple Intelligence, nothing needs downloading. Otherwise, open Settings → Model and download a model once (the Balanced 1.82 GB model is the default) — after that it runs offline on your Mac's GPU. Apple Silicon is recommended for the on-device models.</p>
+    </div>
+    <div class="qa">
+      <h3>Can I add my own instructions?</h3>
+      <p>Yes. Use the Custom Instruction field in the menu-bar panel for a one-off, or save reusable <strong>presets</strong> in Settings → Presets — "reply politely declining", "tighten for Slack", "translate to German" — each with its own keyboard shortcut.</p>
+    </div>
+    <div class="qa">
+      <h3>How much is Aura, and is it a subscription?</h3>
+      <p>Aura is a one-time purchase of <strong>$24.99</strong> — no subscription and no account. That unlocks every mode, every engine, unlimited presets, and future updates.</p>
+    </div>
+  </div>
+
+  <div class="contact">
+    <h2>Still need help?</h2>
+    <p>Send us a message and we'll get back to you, usually within a couple of business days.</p>
+    <p><a href="mailto:contact@hanncrest.com" style="font-weight:600">contact@hanncrest.com</a></p>
+  </div>
+</div></main>
+
+<footer><div class="foot">
+  <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/apps/aura.png" alt="" style="width:24px;height:24px;border-radius:6px">Aura</a>
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · Aura is a HANNCREST app.</div>
+</div></footer>
+
+</body>
+</html>

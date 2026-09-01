@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StealthShare — Screen privacy for screen sharing</title>
+<meta name="description" content="StealthShare is a native macOS menu-bar app that keeps your screen safe when you share it. Blur confidential app windows, hide your desktop icons and widgets, drop in a neutral wallpaper, silence notifications, and auto-arm the moment a call starts — one hotkey, nothing recorded, everything stays on your Mac.">
+<link rel="icon" type="image/png" href="../assets/apps/stealthshare.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#4b8bff; --g2:#6a5cf0; --good:#34d399; --warn:#f0a23b; --danger:#ef5a5a;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer;border:0}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(106,92,240,.35)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(75,139,255,.4)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.2px;background:rgba(75,139,255,.12);color:#9fc0ff;border:1px solid rgba(75,139,255,.25)}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
+  .navlinks a:hover{color:var(--tx)}
+  .navlinks .btn{padding:9px 16px;font-size:14px}
+  @media(max-width:720px){.navlinks a:not(.btn){display:none}}
+
+  /* HERO */
+  .hero{position:relative;padding:90px 0 40px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(91,92,240,.28),transparent 60%);filter:blur(30px);pointer-events:none}
+  .hero h1{position:relative;font-size:clamp(38px,6vw,68px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;max-width:15ch;margin:18px auto 0}
+  .hero p.sub{position:relative;color:var(--mut);font-size:clamp(17px,2.2vw,21px);max-width:58ch;margin:22px auto 0}
+  .hero .cta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .hero .note{position:relative;color:var(--dim);font-size:13px;margin-top:16px}
+
+  /* TRUST STRIP */
+  .trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin:50px 0 10px}
+  .trust span{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--good)}
+
+  /* SHOT */
+  .shot-hero{position:relative;margin:56px auto 0;max-width:1000px;border-radius:16px;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+  .shot-hero img{display:block;width:100%}
+
+  /* SECTIONS */
+  section{padding:70px 0}
+  .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h2.title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
+  .lead{text-align:center;color:var(--mut);font-size:18px;max-width:62ch;margin:16px auto 0}
+
+  /* FEATURE GRID */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .fcard{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .2s,transform .2s}
+  .fcard:hover{border-color:rgba(75,139,255,.4);transform:translateY(-3px)}
+  .fico{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:rgba(75,139,255,.14);border:1px solid rgba(75,139,255,.28);font-size:22px;margin-bottom:16px}
+  .fcard h3{font-size:18px;font-weight:700;letter-spacing:-.3px}
+  .fcard p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  /* SPLIT */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:24px}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:28px}}
+  .split h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.6px;line-height:1.1}
+  .split p{color:var(--mut);font-size:16.5px;margin-top:16px}
+  .checks{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+  .checks li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:15px}
+  .checks .ck{color:var(--g1);font-weight:800;flex:none}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative}
+  .step .n{font-size:13px;font-weight:800;letter-spacing:.4px;color:var(--g1)}
+  .step h3{font-size:18px;font-weight:700;margin-top:8px}
+  .step p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  /* PRICING */
+  .prices{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:820px;margin:52px auto 0}
+  @media(max-width:700px){.prices{grid-template-columns:1fr}}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px}
+  .price.pro{border-color:transparent;background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent;position:relative}
+  .price h3{font-size:15px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--mut)}
+  .price .amt{font-size:46px;font-weight:800;letter-spacing:-1.5px;margin-top:10px}
+  .price .amt small{font-size:15px;font-weight:600;color:var(--mut);letter-spacing:0}
+  .price ul{margin-top:22px;display:flex;flex-direction:column;gap:11px}
+  .price li{list-style:none;display:flex;gap:10px;font-size:14.5px;color:var(--tx)}
+  .price li .ck{color:var(--good);flex:none;font-weight:800}
+  .price .btn{width:100%;justify-content:center;margin-top:26px}
+  .price.pro{padding-top:52px}
+  .price .tag{position:absolute;top:16px;left:32px}
+
+  /* PRIVACY / SAFETY */
+  .privacy{background:linear-gradient(135deg,rgba(75,139,255,.1),rgba(106,92,240,.08));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
+  .privacy h2{font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.6px}
+  .privacy p{color:var(--mut);max-width:62ch;margin:14px auto 0;font-size:16px}
+
+  /* CTA */
+  .final{text-align:center;padding:90px 0 40px}
+  .final h2{font-size:clamp(30px,4.5vw,50px);font-weight:800;letter-spacing:-1px}
+  .final p{color:var(--mut);margin-top:14px;font-size:18px}
+  .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:13.5px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+  .ph{color:#c98a2a;font-size:12px;border:1px dashed rgba(201,138,42,.5);padding:1px 7px;border-radius:6px;background:rgba(201,138,42,.08)}
+
+  /* ---- app-window chrome (shared) ---- */
+  .appwin{max-width:600px;margin:0 auto;background:#0d0f13;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#191b21;border-bottom:1px solid rgba(255,255,255,.06)}
+  .appbar .tl{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .appbar .r{background:#ff5f57}.appbar .y{background:#febc2e}.appbar .g{background:#28c840}
+  .appbar .apptitle{margin-left:10px;font-size:12px;color:#9a9ab2;font-weight:600}
+  .appbar .livedot{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:#8a8aa0;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .appbar .livedot i{width:7px;height:7px;border-radius:50%;background:#28c840;animation:ssblink 1.6s infinite}
+  @keyframes ssblink{0%{box-shadow:0 0 0 0 rgba(40,200,64,.55)}70%{box-shadow:0 0 0 7px rgba(40,200,64,0)}100%{box-shadow:0 0 0 0 rgba(40,200,64,0)}}
+  .appbody{padding:18px;background:radial-gradient(120% 120% at 50% 0%,#15151f,#0d0f13);text-align:left;color:#e8e9ec}
+
+  /* ---- animated Privacy-Mode preview (sample UI, pure CSS/JS) ---- */
+  .ss-status{display:flex;align-items:center;gap:13px;padding:14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid #23272f;transition:background .5s,border-color .5s}
+  .ss-status.on{background:rgba(52,211,153,.10);border-color:rgba(52,211,153,.35)}
+  .ss-shield{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:19px;background:rgba(255,255,255,.06);color:#8a8aa0;transition:background .5s,color .5s}
+  .ss-status.on .ss-shield{background:rgba(52,211,153,.18);color:#34d399}
+  .ss-stitle{font-size:14px;font-weight:700;color:#c9cbd2;transition:color .5s}
+  .ss-status.on .ss-stitle{color:#34d399}
+  .ss-ssub{font-size:11.5px;color:#6b7078;margin-top:2px}
+  .ss-switch{margin-left:auto;width:38px;height:22px;border-radius:999px;background:#3a3f49;position:relative;flex:none;transition:background .45s}
+  .ss-switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .45s}
+  .ss-status.on .ss-switch{background:#34d399}
+  .ss-status.on .ss-switch::after{transform:translateX(16px)}
+
+  .ss-rows{margin-top:12px;background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:4px 12px}
+  .ss-row{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .ss-row:last-child{border-bottom:0}
+  .ss-chip{width:26px;height:26px;border-radius:7px;flex:none;display:grid;place-items:center;font-size:13px;background:rgba(75,139,255,.14);color:#9fc0ff}
+  .ss-label{font-size:12.5px;font-weight:600;color:#d4d6dd}
+  .ss-tog{margin-left:auto;width:32px;height:19px;border-radius:999px;background:#3a3f49;position:relative;flex:none;transition:background .4s}
+  .ss-tog::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;transition:transform .4s}
+  .ss-row.on .ss-tog{background:var(--g1)}
+  .ss-row.on .ss-tog::after{transform:translateX(13px)}
+
+  .ss-share{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid #23272f;background:#0b0d11}
+  .ss-sharebar{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7078;padding:8px 12px;background:#141821;border-bottom:1px solid #23272f}
+  .ss-sharebar i{width:6px;height:6px;border-radius:50%;background:var(--danger);display:inline-block}
+  .ss-desk{position:relative;height:110px;background:linear-gradient(135deg,#1c2740,#141a2b);padding:14px}
+  .ss-conf{width:190px;background:#0f1420;border:1px solid #263048;border-radius:9px;padding:10px 12px;transition:filter .6s}
+  .ss-conf .h{font-size:11px;font-weight:700;color:#cdd3e0}
+  .ss-conf .l{height:6px;border-radius:3px;background:#2a3550;margin-top:7px}
+  .ss-conf .l.s{width:70%}
+  .ss-mask{position:absolute;inset:0;display:grid;place-items:center;gap:6px;background:rgba(11,13,17,.34);backdrop-filter:blur(2px);opacity:0;transition:opacity .6s;font-size:12px;font-weight:700;color:#dfe3ee}
+  .ss-mask .lock{font-size:20px}
+  .ss-share.masked .ss-conf{filter:blur(7px)}
+  .ss-share.masked .ss-mask{opacity:1}
+  .ss-foot{font-size:10.5px;color:#6b7078;margin-top:12px;text-align:center}
+  @media(prefers-reduced-motion:reduce){
+    .ss-status,.ss-shield,.ss-stitle,.ss-switch,.ss-switch::after,.ss-tog,.ss-tog::after,.ss-conf,.ss-mask{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><nav>
+    <a class="brand" href="#top"><img src="../assets/apps/stealthshare.png" alt="StealthShare icon">StealthShare</a>
+    <div class="navlinks">
+      <a href="/">← HANNCREST</a>
+      <a href="#features">Features</a>
+      <a href="#masking">Window masking</a>
+      <a href="#auto">Auto-arm</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn btn-primary" href="#pricing">Get StealthShare</a>
+    </div>
+  </nav></div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="pill">✦ Native · Menu bar · Local-first</span>
+      <h1>Share your screen. <span class="grad-text">Not your secrets.</span></h1>
+      <p class="sub">StealthShare is a native macOS menu-bar app that guards your screen the instant you share it — <strong>blurring confidential windows, hiding your desktop, silencing notifications and swapping in a clean wallpaper</strong>. One hotkey, or fully automatic the moment a call starts.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#pricing">Get StealthShare</a>
+        <a class="btn btn-ghost" href="#features">See what it does</a>
+      </div>
+      <p class="note">macOS 14+ · 14-day free trial, then $9.99 once · nothing recorded, nothing leaves your Mac</p>
+
+      <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">StealthShare — Privacy Mode</span><span class="livedot"><i></i>Live</span></div>
+          <div class="appbody">
+            <div class="ss-status" id="ssStatus">
+              <div class="ss-shield">🛡️</div>
+              <div>
+                <div class="ss-stitle" id="ssStitle">Privacy Mode Off</div>
+                <div class="ss-ssub">Press ⌘⇧P — or let it arm itself on a call</div>
+              </div>
+              <div class="ss-switch"></div>
+            </div>
+
+            <div class="ss-rows">
+              <div class="ss-row" data-row><span class="ss-chip">🖥️</span><span class="ss-label">Hide desktop icons</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">🔲</span><span class="ss-label">Hide Mac widgets</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">🌙</span><span class="ss-label">Do Not Disturb</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">🖼️</span><span class="ss-label">Studio backdrop wallpaper</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">🫥</span><span class="ss-label">Blur Slack &amp; Messages</span><span class="ss-tog"></span></div>
+            </div>
+
+            <div class="ss-share" id="ssShare">
+              <div class="ss-sharebar"><i></i>What your audience sees</div>
+              <div class="ss-desk">
+                <div class="ss-conf">
+                  <div class="h">Slack · #finance-private</div>
+                  <div class="l"></div><div class="l s"></div>
+                </div>
+                <div class="ss-mask"><span class="lock">🔒</span>Hidden while sharing</div>
+              </div>
+            </div>
+            <div class="ss-foot">The real Privacy Mode toggles — shown here with sample apps.</div>
+          </div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var status=document.getElementById('ssStatus');
+        var stitle=document.getElementById('ssStitle');
+        var share=document.getElementById('ssShare');
+        var rows=[].slice.call(document.querySelectorAll('[data-row]'));
+        if(!status)return;
+        function armOn(){ status.classList.add('on'); if(stitle)stitle.textContent='Privacy Mode Active'; }
+        if(reduce){
+          armOn(); rows.forEach(function(r){r.classList.add('on')}); if(share)share.classList.add('masked'); return;
+        }
+        setTimeout(armOn,350);
+        rows.forEach(function(r,i){ setTimeout(function(){ r.classList.add('on'); }, 620+i*170); });
+        setTimeout(function(){ if(share)share.classList.add('masked'); }, 620+rows.length*170+250);
+      })();
+      </script>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="trust">
+      <span><i class="dot"></i>100% native SwiftUI</span>
+      <span><i class="dot"></i>Never records your screen</span>
+      <span><i class="dot"></i>No account, no telemetry</span>
+      <span><i class="dot"></i>Restores everything when you're done</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <p class="eyebrow">Everything that could leak, handled</p>
+      <h2 class="title">One switch. Your whole screen, made safe.</h2>
+      <p class="lead">Screen sharing exposes far more than the tab you meant to show — private chats, desktop clutter, a message banner at the worst moment. StealthShare closes every one of those gaps at once.</p>
+      <div class="grid">
+        <div class="fcard"><div class="fico">🫥</div><h3>Confidential window masking</h3><p>Slack, Messages, Mail, WhatsApp and any app you add are blurred in the shared feed — but stay perfectly readable to you. Nothing to close, nothing to move.</p></div>
+        <div class="fcard"><div class="fico">🖥️</div><h3>Desktop &amp; widget hiding</h3><p>Tucks away every desktop icon and Mac widget behind a clean surface, so a messy desktop or a revealing filename never shows up mid-call.</p></div>
+        <div class="fcard"><div class="fico">🖼️</div><h3>Studio backdrop</h3><p>Swaps in a neutral, professional wallpaper the moment you go live — and puts your own back the instant you're done.</p></div>
+        <div class="fcard"><div class="fico">🔕</div><h3>Notification blocker</h3><p>Holds banners while you share so no message preview pops up on screen. After the call it tells you how long they were held and which comms apps to check.</p></div>
+        <div class="fcard"><div class="fico">🎥</div><h3>Meeting auto-detect</h3><p>Arms itself the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime goes live — and can catch any app using your camera or mic.</p></div>
+        <div class="fcard"><div class="fico">📅</div><h3>Calendar auto-arm</h3><p>Reads your calendar (locally, read-only) and turns Privacy Mode on about 60 seconds before a scheduled Zoom / Teams / Meet call — you're protected before you even join.</p></div>
+        <div class="fcard"><div class="fico">⌨️</div><h3>One global hotkey</h3><p>Press ⌘⇧P anywhere to arm or disarm instantly. No hunting for a menu when someone says "can you share your screen?"</p></div>
+        <div class="fcard"><div class="fico">↩️</div><h3>Puts everything back</h3><p>Every change is temporary. End the call — or quit the app — and your icons, widgets, wallpaper and Focus return exactly as they were.</p></div>
+        <div class="fcard"><div class="fico">🔒</div><h3>Private by design</h3><p>StealthShare never records or captures your screen. It has no account and no analytics, and everything it does happens on your Mac.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WINDOW MASKING SPLIT -->
+  <section id="masking" style="padding-top:20px">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <span class="pill">The message you didn't want them to read</span>
+          <h2 style="margin-top:16px">Confidential windows, <span class="grad-text">blurred</span> — only for them.</h2>
+          <p>You shouldn't have to quit Slack and Messages before every screen share. StealthShare covers the windows you pick with a mask that's opaque in the shared feed but stays crisp on your own display.</p>
+          <ul class="checks">
+            <li><span class="ck">✓</span><span>Ships knowing <strong>Slack, Messages, Mail, WhatsApp</strong> and Safari private windows — add any other app in a click.</span></li>
+            <li><span class="ck">✓</span><span>Masked windows stay <strong>fully readable to you</strong> — you keep working, your audience sees a clean surface.</span></li>
+            <li><span class="ck">✓</span><span>Masks follow the windows as they move, and lift the instant Privacy Mode turns off.</span></li>
+            <li><span class="ck">✓</span><span>Pairs with desktop-icon hiding so a private filename never flashes on screen either.</span></li>
+          </ul>
+        </div>
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">StealthShare — App Blurring</span></div>
+          <div class="appbody" style="font-size:13px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#4b8bff,#6a5cf0);flex:none;display:grid;place-items:center">💬</span>
+              <div><div style="font-weight:600">Slack</div><div style="color:#6b7078;font-size:11px">Masked while sharing</div></div>
+              <span style="margin-left:auto;color:#9fc0ff;font-weight:700">On</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#4b8bff,#6a5cf0);flex:none;display:grid;place-items:center">✉️</span>
+              <div><div style="font-weight:600">Messages</div><div style="color:#6b7078;font-size:11px">Masked while sharing</div></div>
+              <span style="margin-left:auto;color:#9fc0ff;font-weight:700">On</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#4b8bff,#6a5cf0);flex:none;display:grid;place-items:center">📧</span>
+              <div><div style="font-weight:600">Mail</div><div style="color:#6b7078;font-size:11px">Masked while sharing</div></div>
+              <span style="margin-left:auto;color:#9fc0ff;font-weight:700">On</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#191b21;border:1px dashed #3a3f49;border-radius:10px;opacity:.9">
+              <span style="width:26px;height:26px;border-radius:7px;background:#2a2f38;display:grid;place-items:center;flex:none">＋</span>
+              <div><div style="font-weight:600;color:#c9cbd2">Add custom application…</div><div style="color:#6b7078;font-size:11px">Anything with a window you'd rather hide</div></div>
+            </div>
+            <div style="color:#6b7078;font-size:11px;margin-top:2px">Sample list — you choose exactly what gets masked.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTO-ARM SPLIT -->
+  <section id="auto" style="padding-top:20px">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <span class="pill">Because you'll forget — everyone does</span>
+          <h2 style="margin-top:16px">Arms itself <span class="grad-text">before</span> you hit share.</h2>
+          <p>The riskiest moment is the one you didn't plan for. StealthShare watches for calls two ways, so protection is already on before your screen is ever visible.</p>
+          <ul class="checks">
+            <li><span class="ck">✓</span><span><strong>Meeting detection:</strong> engages the instant Zoom, Microsoft Teams, Google Meet, a Slack huddle or FaceTime becomes active.</span></li>
+            <li><span class="ck">✓</span><span><strong>Catch-all camera/mic watch</strong> covers meeting apps that aren't on the list (direct-download build).</span></li>
+            <li><span class="ck">✓</span><span><strong>Calendar auto-arm</strong> reads your schedule locally and arms ~60 seconds before an invited Zoom / Teams / Meet event.</span></li>
+            <li><span class="ck">✓</span><span>Works with Google &amp; Exchange calendars added to macOS — no separate sign-in.</span></li>
+          </ul>
+        </div>
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">StealthShare — Auto-Detect</span></div>
+          <div class="appbody" style="font-size:13px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:rgba(52,211,153,.10);border:1px solid rgba(52,211,153,.30);border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:rgba(52,211,153,.2);color:#34d399;flex:none;display:grid;place-items:center">🎥</span>
+              <div><div style="font-weight:600;color:#34d399">In meeting: Zoom</div><div style="color:#6b7078;font-size:11px">Privacy Mode armed automatically</div></div>
+              <span style="margin-left:auto;width:8px;height:8px;border-radius:50%;background:#34d399;flex:none"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:rgba(239,90,90,.16);color:#ef7a7a;flex:none;display:grid;place-items:center">📅</span>
+              <div><div style="font-weight:600">Weekly sync · Google Meet</div><div style="color:#6b7078;font-size:11px">Auto-arm in 1 min</div></div>
+              <span style="margin-left:auto;color:#8a8aa0;font-weight:700">10:00</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:rgba(75,139,255,.16);color:#9fc0ff;flex:none;display:grid;place-items:center">📡</span>
+              <div><div style="font-weight:600">Camera / mic watch</div><div style="color:#6b7078;font-size:11px">Covers apps not in the list</div></div>
+              <span style="margin-left:auto;color:#9fc0ff;font-weight:700">On</span>
+            </div>
+            <div style="color:#6b7078;font-size:11px;margin-top:2px">Sample state — arms before your screen is ever shared.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Nothing permanent, ever</p>
+      <h2 class="title">Arm → Share → Restore.</h2>
+      <p class="lead">StealthShare never captures your screen and never changes anything for good. Everything it does is a temporary curtain that drops the moment you're finished.</p>
+      <div class="steps">
+        <div class="step"><div class="n">STEP 1</div><h3>Arm</h3><p>Press ⌘⇧P, flip the switch, or let a call arm it for you. Your chosen protections snap on together in an instant.</p></div>
+        <div class="step"><div class="n">STEP 2</div><h3>Share</h3><p>Present with confidence. Confidential windows are masked, the desktop is clean, banners are held and the wallpaper is neutral.</p></div>
+        <div class="step"><div class="n">STEP 3</div><h3>Restore</h3><p>End Privacy Mode and everything reverts — icons, widgets, wallpaper and Focus back exactly as they were, with a note on any held notifications.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Simple, honest pricing</p>
+      <h2 class="title">Try it free. <span class="grad-text">Own it</span> for $9.99.</h2>
+      <p class="lead">Use every feature free for 14 days. If it saves you one awkward moment, keep it forever with a single one-time purchase — no subscription, ever.</p>
+      <div class="prices">
+        <div class="price">
+          <h3>14-day trial</h3>
+          <div class="amt">$0<small> / 14 days</small></div>
+          <ul>
+            <li><span class="ck">✓</span>Every feature unlocked</li>
+            <li><span class="ck">✓</span>Confidential window masking</li>
+            <li><span class="ck">✓</span>Desktop, widget &amp; wallpaper control</li>
+            <li><span class="ck">✓</span>Meeting &amp; calendar auto-arm</li>
+            <li><span class="ck">✓</span>No account, no card to start</li>
+          </ul>
+          <a class="btn btn-ghost" href="#download">Start free trial</a>
+        </div>
+        <div class="price pro">
+          <span class="pill tag">One-time unlock</span>
+          <h3 class="grad-text">StealthShare</h3>
+          <div class="amt">$9.99<small> once</small></div>
+          <ul>
+            <li><span class="ck">✓</span>Everything in the trial, kept forever</li>
+            <li><span class="ck">✓</span>Confidential window masking &amp; blur</li>
+            <li><span class="ck">✓</span>Desktop / widget hiding &amp; Studio backdrop</li>
+            <li><span class="ck">✓</span>Notification blocker with after-call review</li>
+            <li><span class="ck">✓</span>Meeting detection &amp; Calendar auto-arm</li>
+            <li><span class="ck">✓</span>Global hotkey &amp; all future updates</li>
+          </ul>
+          <a class="btn btn-primary" href="#download">Get StealthShare</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section style="padding-top:10px"><div class="wrap">
+    <div class="privacy">
+      <h2>A privacy app that respects yours.</h2>
+      <p>StealthShare never records, captures or screenshots your display — it simply hides things while you share. There's no account, no sign-in and no analytics, and everything it does happens on your Mac. The only time it touches the network is to load the "More Apps" list and, if you ever choose to, send a bug report you can inspect first.</p>
+    </div>
+  </div></section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="download"><div class="wrap">
+    <h2>Never over-share your screen again.</h2>
+    <p>Native, lightweight, and free to try — no card, no account, no subscription.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#">Download for macOS <span class="ph">link soon</span></a>
+      <a class="btn btn-ghost" href="#">Mac App Store <span class="ph">coming soon</span></a>
+    </div>
+    <p class="note" style="color:var(--dim);margin-top:18px">Requires macOS 14 Sonoma or later. Universal (Apple Silicon &amp; Intel).</p>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><div class="foot">
+  <a class="brand" href="#top" style="font-size:16px"><img src="../assets/apps/stealthshare.png" alt="" style="width:24px;height:24px;border-radius:6px">StealthShare</a>
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="support.html">Support</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · StealthShare is a HANNCREST app.</div>
+</div></div></footer>
+
+</body>
+</html>

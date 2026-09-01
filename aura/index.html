@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura — Offline AI text assistant for Mac</title>
+<meta name="description" content="Aura rewrites your writing right where you type. Select text in any macOS app, press ⇧⌘P, and it's proofread, clarified, shortened or reworded in place — running entirely on your Mac. No account, no cloud, nothing sent anywhere.">
+<link rel="icon" type="image/png" href="../assets/apps/aura.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#6fa8ff; --g2:#a06bf0; --good:#34d399; --warn:#f0a23b; --danger:#ef5a5a;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;transition:transform .15s ease,box-shadow .15s ease;cursor:pointer;border:0}
+  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 30px rgba(160,107,240,.35)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 38px rgba(111,168,255,.4)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:var(--tx);border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(255,255,255,.1)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.2px;background:rgba(111,168,255,.12);color:#bcd3ff;border:1px solid rgba(111,168,255,.25)}
+
+  /* NAV */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
+  .navlinks a:hover{color:var(--tx)}
+  .navlinks .btn{padding:9px 16px;font-size:14px}
+  @media(max-width:720px){.navlinks a:not(.btn){display:none}}
+
+  /* HERO */
+  .hero{position:relative;padding:90px 0 40px;text-align:center;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse at center,rgba(160,107,240,.26),transparent 60%);filter:blur(30px);pointer-events:none}
+  .hero h1{position:relative;font-size:clamp(38px,6vw,68px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;max-width:16ch;margin:18px auto 0}
+  .hero p.sub{position:relative;color:var(--mut);font-size:clamp(17px,2.2vw,21px);max-width:58ch;margin:22px auto 0}
+  .hero .cta{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .hero .note{position:relative;color:var(--dim);font-size:13px;margin-top:16px}
+
+  /* TRUST STRIP */
+  .trust{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin:50px 0 10px}
+  .trust span{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--good)}
+
+  /* SHOT */
+  .shot-hero{position:relative;margin:56px auto 0;max-width:1000px;border-radius:16px;border:1px solid var(--line);box-shadow:0 40px 120px rgba(0,0,0,.6);overflow:hidden}
+  .shot-hero img{display:block;width:100%}
+
+  /* SECTIONS */
+  section{padding:70px 0}
+  .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h2.title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
+  .lead{text-align:center;color:var(--mut);font-size:18px;max-width:62ch;margin:16px auto 0}
+
+  /* FEATURE GRID */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.grid{grid-template-columns:1fr}}
+  .fcard{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:26px;transition:border-color .2s,transform .2s}
+  .fcard:hover{border-color:rgba(160,107,240,.4);transform:translateY(-3px)}
+  .fico{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:rgba(160,107,240,.14);border:1px solid rgba(160,107,240,.28);font-size:22px;margin-bottom:16px}
+  .fcard h3{font-size:18px;font-weight:700;letter-spacing:-.3px}
+  .fcard p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  /* SPLIT */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:24px}
+  @media(max-width:860px){.split{grid-template-columns:1fr;gap:28px}}
+  .split h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.6px;line-height:1.1}
+  .split p{color:var(--mut);font-size:16.5px;margin-top:16px}
+  .checks{margin-top:22px;display:flex;flex-direction:column;gap:12px}
+  .checks li{list-style:none;display:flex;gap:11px;align-items:flex-start;font-size:15px}
+  .checks .ck{color:var(--g1);font-weight:800;flex:none}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative}
+  .step .n{font-size:13px;font-weight:800;letter-spacing:.4px;color:var(--g1)}
+  .step h3{font-size:18px;font-weight:700;margin-top:8px}
+  .step p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  /* PRICING */
+  .prices{display:grid;grid-template-columns:1fr;gap:22px;max-width:460px;margin:52px auto 0}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px 32px}
+  .price.pro{border-color:transparent;background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent;position:relative;padding-top:52px}
+  .price h3{font-size:15px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--mut)}
+  .price .amt{font-size:52px;font-weight:800;letter-spacing:-1.5px;margin-top:10px}
+  .price .amt small{font-size:15px;font-weight:600;color:var(--mut);letter-spacing:0}
+  .price ul{margin-top:22px;display:flex;flex-direction:column;gap:11px}
+  .price li{list-style:none;display:flex;gap:10px;font-size:14.5px;color:var(--tx)}
+  .price li .ck{color:var(--good);flex:none;font-weight:800}
+  .price .btn{width:100%;justify-content:center;margin-top:26px}
+  .price .tag{position:absolute;top:16px;left:32px}
+
+  /* PRIVACY / SAFETY */
+  .privacy{background:linear-gradient(135deg,rgba(160,107,240,.1),rgba(111,168,255,.08));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
+  .privacy h2{font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.6px}
+  .privacy p{color:var(--mut);max-width:62ch;margin:14px auto 0;font-size:16px}
+
+  /* CTA */
+  .final{text-align:center;padding:90px 0 40px}
+  .final h2{font-size:clamp(30px,4.5vw,50px);font-weight:800;letter-spacing:-1px}
+  .final p{color:var(--mut);margin-top:14px;font-size:18px}
+  .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:13.5px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+  .ph{color:#c98a2a;font-size:12px;border:1px dashed rgba(201,138,42,.5);padding:1px 7px;border-radius:6px;background:rgba(201,138,42,.08)}
+
+  /* ---- animated rewrite preview (sample text, pure CSS/JS) ---- */
+  .appwin{max-width:620px;margin:0 auto;background:#0d0f13;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#191b21;border-bottom:1px solid rgba(255,255,255,.06)}
+  .appbar .tl{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .appbar .r{background:#ff5f57}.appbar .y{background:#febc2e}.appbar .g{background:#28c840}
+  .appbar .apptitle{margin-left:10px;font-size:12px;color:#9a9ab2;font-weight:600}
+  .appbar .modechip{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:#c9b6ff;text-transform:uppercase;letter-spacing:.08em;font-weight:700;background:rgba(160,107,240,.16);border:1px solid rgba(160,107,240,.3);padding:3px 9px;border-radius:999px}
+  .appbody{padding:20px;background:radial-gradient(120% 120% at 50% 0%,#15151f,#0d0f13);text-align:left;color:#e8e9ec}
+  .au-label{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6b7078;margin-bottom:7px}
+  .au-card{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:14px 16px;font-size:14.5px;line-height:1.55}
+  .au-orig{color:#8a8f98}
+  .au-result{margin-top:16px}
+  .au-result .au-card{border-color:rgba(160,107,240,.35);background:linear-gradient(180deg,rgba(160,107,240,.06),#1a1d23);min-height:3.1em}
+  .au-out{color:#f4f4f8}
+  .au-caret{display:inline-block;width:2px;height:1.05em;background:var(--g2);margin-left:1px;vertical-align:-2px;animation:aublink 1s step-end infinite}
+  @keyframes aublink{50%{opacity:0}}
+  .au-foot{font-size:10.5px;color:#6b7078;margin-top:14px;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><nav>
+    <a class="brand" href="#top"><img src="../assets/apps/aura.png" alt="Aura icon">Aura</a>
+    <div class="navlinks">
+      <a href="/">← HANNCREST</a>
+      <a href="#features">Features</a>
+      <a href="#engines">Engines</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn btn-primary" href="#pricing">Get Aura</a>
+    </div>
+  </nav></div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="pill">✦ Native · Apple Silicon · 100% offline</span>
+      <h1>Rewrite anything, <span class="grad-text">right where you type</span>.</h1>
+      <p class="sub">Select text in any Mac app, press <strong>⇧⌘P</strong>, and Aura rewrites it in place — proofread, clarified, shortened, reworded to your instruction. The whole thing runs on this Mac. <strong>Nothing is ever sent anywhere.</strong></p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#pricing">Get Aura</a>
+        <a class="btn btn-ghost" href="#features">See what it does</a>
+      </div>
+      <p class="note">macOS 14+ · one-time $24.99, no subscription · nothing leaves your Mac</p>
+
+      <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Aura</span><span class="modechip" id="auMode">Proofread</span></div>
+          <div class="appbody">
+            <div class="au-label">Your selection</div>
+            <div class="au-card au-orig" id="auOrig">their going to the meeting tommorow at 3</div>
+            <div class="au-result">
+              <div class="au-label">Aura rewrites it in place</div>
+              <div class="au-card"><span class="au-out" id="auOut"></span><span class="au-caret" id="auCaret"></span></div>
+            </div>
+            <div class="au-foot">The same rewrite Aura does — shown here with sample text.</div>
+          </div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var out=document.getElementById('auOut'),orig=document.getElementById('auOrig'),
+            mode=document.getElementById('auMode'),caret=document.getElementById('auCaret');
+        if(!out)return;
+        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Sample selection → rewrite pairs, one per mode, cycled like the real HUD.
+        var samples=[
+          {m:'Proofread', o:"their going to the meeting tommorow at 3", r:"They're going to the meeting tomorrow at 3."},
+          {m:'Improve clarity', o:"the thing is basically we should maybe try to get it done kinda soon", r:"We should aim to finish this soon."},
+          {m:'Make concise', o:"I just wanted to quickly reach out and check whether you might have had a chance to look at the document", r:"Have you had a chance to review the document?"},
+          {m:'Formal', o:"hey — can you send over the numbers when you get a sec? thanks!", r:"Could you please send over the figures at your convenience? Thank you."}
+        ];
+        if(reduce){
+          var s=samples[0];orig.textContent=s.o;out.textContent=s.r;mode.textContent=s.m;caret.style.display='none';return;
+        }
+        var i=0;
+        function typeOut(text,done){
+          out.textContent='';var n=0;
+          (function step(){
+            if(n<=text.length){out.textContent=text.slice(0,n);n++;setTimeout(step,22);}
+            else{setTimeout(done,1900);}
+          })();
+        }
+        function run(){
+          var s=samples[i];
+          mode.textContent=s.m;orig.textContent=s.o;
+          setTimeout(function(){
+            typeOut(s.r,function(){ i=(i+1)%samples.length; run(); });
+          },650);
+        }
+        setTimeout(run,500);
+      })();
+      </script>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="trust">
+      <span><i class="dot"></i>100% native SwiftUI</span>
+      <span><i class="dot"></i>Runs on-device — no cloud</span>
+      <span><i class="dot"></i>No account, no telemetry</span>
+      <span><i class="dot"></i>Works in every app</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <p class="eyebrow">One shortcut, eight ways to rewrite</p>
+      <h2 class="title">The right words, without leaving the app you're in.</h2>
+      <p class="lead">Aura reads your selection, rewrites it the way you asked, and pastes the result straight back over it. A floating HUD shows the text streaming in — press <strong>esc</strong> to cancel, and your original is left untouched.</p>
+      <div class="grid">
+        <div class="fcard"><div class="fico">✅</div><h3>Proofread</h3><p>Fixes spelling, grammar and punctuation while keeping your exact wording. The default, and there's a second shortcut that always proofreads.</p></div>
+        <div class="fcard"><div class="fico">💡</div><h3>Improve clarity</h3><p>Rewrites tangled sentences for clarity and flow — same meaning, easier to read.</p></div>
+        <div class="fcard"><div class="fico">✂️</div><h3>Make concise</h3><p>The same points in fewer words. Ideal for trimming a rambling paragraph down to what matters.</p></div>
+        <div class="fcard"><div class="fico">🎓</div><h3>Formal &amp; friendly</h3><p>Raise the register to formal, objective prose — or warm it up into a conversational tone. Your choice, per rewrite.</p></div>
+        <div class="fcard"><div class="fico">➕</div><h3>Expand &amp; bullet points</h3><p>Add supporting detail and reasoning, or restructure a block of text into a clean bullet list.</p></div>
+        <div class="fcard"><div class="fico">⌨️</div><h3>Custom instruction &amp; presets</h3><p>Type any instruction — "reply politely declining", "translate to German" — and save your favourites as presets, each with its own shortcut.</p></div>
+        <div class="fcard"><div class="fico">🪟</div><h3>Works everywhere</h3><p>Mail, Notes, Chrome, VS Code, Slack, Pages — anywhere you can select text. Also available from the right-click Services menu.</p></div>
+        <div class="fcard"><div class="fico">👁️</div><h3>Review before replacing</h3><p>For anything longer than a sentence or two, Aura shows the result with Insert / Discard instead of replacing it blind. There's an undo shortcut too.</p></div>
+        <div class="fcard"><div class="fico">🔒</div><h3>Private by design</h3><p>Every model runs on this Mac. No account, no sign-in, no analytics, and nothing sent to a server — yours or anyone's.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGINES SPLIT -->
+  <section id="engines" style="padding-top:20px">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <span class="pill">Four engines, picked automatically</span>
+          <h2 style="margin-top:16px">Runs on <span class="grad-text">your Mac</span>, not someone's server.</h2>
+          <p>Aura chooses the best engine that's actually available — best result for the least cost to you — and you can pin a specific one in Settings. Whichever it uses, the text never leaves your Mac.</p>
+          <ul class="checks">
+            <li><span class="ck">✓</span><span><strong>Apple Intelligence</strong> — the on-device model built into macOS 26+. No download, nothing to set up.</span></li>
+            <li><span class="ck">✓</span><span><strong>Aura's own model</strong> — one click downloads a quantized Llama that runs in-process on the GPU via MLX. Offline forever after.</span></li>
+            <li><span class="ck">✓</span><span><strong>Local server</strong> — point Aura at LM Studio or Ollama on localhost. Loopback only, so it stays offline.</span></li>
+            <li><span class="ck">✓</span><span><strong>Built-in cleanup</strong> — a no-AI grammar/mechanics pass that always works, even before you download a thing.</span></li>
+          </ul>
+        </div>
+        <div class="appwin">
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Aura — Engine</span></div>
+          <div class="appbody" style="font-size:13px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#6fa8ff,#a06bf0);flex:none;display:grid;place-items:center"></span>
+              <div><div style="font-weight:600">Apple Intelligence</div><div style="color:#6b7078;font-size:11px">On-device · macOS 26+</div></div>
+              <span style="margin-left:auto;color:#34d399;font-weight:700">✓ Ready</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid rgba(160,107,240,.35);border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#6fa8ff,#a06bf0);flex:none;display:grid;place-items:center">📦</span>
+              <div><div style="font-weight:600">Aura's own model · Llama 3.2 3B</div><div style="color:#6b7078;font-size:11px">1.82 GB · runs on the GPU via MLX</div></div>
+              <span style="margin-left:auto;color:#c9b6ff;font-weight:700">In use</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:#2a2f38;flex:none;display:grid;place-items:center">🖥️</span>
+              <div><div style="font-weight:600">Local server</div><div style="color:#6b7078;font-size:11px">LM Studio / Ollama · 127.0.0.1</div></div>
+              <span style="margin-left:auto;color:#8a8aa0;font-weight:700">Optional</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
+              <span style="width:26px;height:26px;border-radius:7px;background:#2a2f38;flex:none;display:grid;place-items:center">🔤</span>
+              <div><div style="font-weight:600">Built-in cleanup</div><div style="color:#6b7078;font-size:11px">No AI · always available</div></div>
+              <span style="margin-left:auto;color:#34d399;font-weight:700">✓ Ready</span>
+            </div>
+            <div style="color:#6b7078;font-size:11px;margin-top:2px">Sample state — Aura picks the best available engine automatically.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Three seconds, start to finish</p>
+      <h2 class="title">Select → Shortcut → Replaced.</h2>
+      <p class="lead">No copy-pasting into a chat window, no switching apps. Aura works inline, wherever your cursor already is.</p>
+      <div class="steps">
+        <div class="step"><div class="n">STEP 1</div><h3>Select</h3><p>Highlight any text in any app — an email, a commit message, a Slack draft, a paragraph in Pages.</p></div>
+        <div class="step"><div class="n">STEP 2</div><h3>Press ⇧⌘P</h3><p>Aura reads the selection and rewrites it with the active mode on this Mac. The HUD shows it streaming in.</p></div>
+        <div class="step"><div class="n">STEP 3</div><h3>Done</h3><p>The result is pasted back over your selection — or held for review if it's long. Undo any time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Simple, honest pricing</p>
+      <h2 class="title">One price. <span class="grad-text">Yours to keep.</span></h2>
+      <p class="lead">A single one-time purchase unlocks all of Aura — every mode, every engine, presets, and all future updates. No subscription, no account, no add-ons.</p>
+      <div class="prices">
+        <div class="price pro">
+          <span class="pill tag">One-time purchase</span>
+          <h3 class="grad-text">Aura</h3>
+          <div class="amt">$24.99<small> once</small></div>
+          <ul>
+            <li><span class="ck">✓</span>All eight rewrite modes + custom instructions</li>
+            <li><span class="ck">✓</span>Unlimited presets, each with its own shortcut</li>
+            <li><span class="ck">✓</span>All four engines, including Aura's own model</li>
+            <li><span class="ck">✓</span>Right-click Services &amp; the floating HUD</li>
+            <li><span class="ck">✓</span>Runs fully offline — nothing ever leaves your Mac</li>
+            <li><span class="ck">✓</span>Free updates, no subscription</li>
+          </ul>
+          <a class="btn btn-primary" href="#download">Get Aura <span class="ph">link soon</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section id="privacy" style="padding-top:10px"><div class="wrap">
+    <div class="privacy">
+      <h2>What you write on your Mac, stays on your Mac.</h2>
+      <p>Aura has no account, no sign-in and no analytics. Your text is rewritten by a model running on this Mac and is never uploaded, synced, or sent to any server — ours or anyone else's. The only thing it ever downloads is the optional local model, once.</p>
+    </div>
+  </div></section>
+
+  <!-- FINAL CTA -->
+  <section class="final" id="download"><div class="wrap">
+    <h2>Write better, everywhere.</h2>
+    <p>Native, lightweight, and completely private — a one-time purchase, no subscription.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#">Download for macOS <span class="ph">link soon</span></a>
+      <a class="btn btn-ghost" href="#">Mac App Store <span class="ph">coming soon</span></a>
+    </div>
+    <p class="note" style="color:var(--dim);margin-top:18px">Requires macOS 14 Sonoma or later. Apple Silicon recommended for on-device models.</p>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><div class="foot">
+  <a class="brand" href="#top" style="font-size:16px"><img src="../assets/apps/aura.png" alt="" style="width:24px;height:24px;border-radius:6px">Aura</a>
+  <div class="links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="support.html">Support</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · Aura is a HANNCREST app.</div>
+</div></div></footer>
+
+</body>
+</html>

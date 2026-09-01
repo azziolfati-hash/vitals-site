@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Aura</title>
+<meta name="description" content="Aura collects nothing. No account, no analytics, no servers of ours — your text is rewritten by a model running on your Mac and never leaves it. Here's exactly what that means.">
+<link rel="icon" type="image/png" href="../assets/apps/aura.png">
+<style>
+  :root{
+    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
+    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
+    --g1:#6fa8ff; --g2:#a06bf0; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .back{font-size:14px;color:var(--mut)}
+  .back:hover{color:var(--tx)}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .updated{color:var(--dim);font-size:13.5px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  .legal h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  .legal h3{font-size:15px;font-weight:700;margin-top:22px;color:var(--tx)}
+  .legal p{color:var(--mut);font-size:15px;margin-top:12px}
+  .legal ul{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .legal li{color:var(--mut);font-size:15px;display:flex;gap:10px;align-items:flex-start}
+  .legal li .ck{color:var(--good);font-weight:800;flex:none}
+  .card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-top:18px}
+  .card p{margin-top:0}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:22px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="brand" href="index.html"><img src="../assets/apps/aura.png" alt="Aura icon">Aura</a>
+    <a class="back" href="index.html">← Back to Aura</a>
+  </nav>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: August 2026</p>
+  <p class="intro">The short version: Aura collects <strong>nothing</strong>. There's no account, no analytics, no advertising, and no servers of ours in the loop. Your text is rewritten by a language model running on your own Mac, and it is never uploaded, synced, or sent anywhere. This page explains exactly what that means.</p>
+
+  <div class="legal">
+    <h2>What Aura reads</h2>
+    <p>When you press the shortcut, Aura reads the text you have <strong>selected</strong> in the frontmost app, so it can rewrite it. It reads that selection only at the moment you ask, through standard macOS Accessibility and pasteboard APIs, and only to produce the rewrite you requested. It does not read your screen, log your keystrokes, or watch what you type the rest of the time.</p>
+
+    <h2>Where the rewriting happens</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span>Rewrites run on a model <strong>on your Mac</strong> — Apple Intelligence (built into macOS), Aura's own downloaded model running on the GPU via MLX, or a local server you point it at on <code>127.0.0.1</code>.</span></li>
+        <li><span class="ck">✓</span><span>The local-server option only accepts <strong>loopback addresses</strong>, so even that path stays on your machine.</span></li>
+        <li><span class="ck">✓</span><span>Your selected text is <strong>never</strong> transmitted to HANNCREST or any third party. There is no cloud rewrite mode.</span></li>
+      </ul>
+    </div>
+
+    <h2>What's stored, and where</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span><strong>Preferences</strong> (your default mode, presets, shortcuts, engine choice) are kept in standard macOS app preferences, local to your Mac.</span></li>
+        <li><span class="ck">✓</span><span><strong>Recent rewrites</strong> are kept briefly in memory so you can undo or copy the original — they are not written to any server, and are not synced to iCloud.</span></li>
+        <li><span class="ck">✓</span><span><strong>Downloaded models</strong> are stored in your user Library so they only download once. You can remove them any time from Settings → Model.</span></li>
+      </ul>
+    </div>
+
+    <h2>The one thing that touches the network — only when you ask</h2>
+    <h3>Downloading a model</h3>
+    <p>If you choose "Aura's own model," Aura downloads the quantized model weights once from a public model host (Hugging Face). That's a one-time file download, initiated by you; no text or personal data is sent as part of it. After it completes, Aura works entirely offline. Apple Intelligence requires no download at all, and the local-server option talks only to software you run yourself.</p>
+
+    <h3>Reporting a bug</h3>
+    <p>If you open "Report a Bug" and tap Send, Aura sends the message you wrote — and, only if you leave the optional diagnostics toggle on, an anonymous hardware profile (Mac model, CPU/RAM, macOS version, locale, uptime, thermal state). It never includes your name, account, files, the text you rewrite, or any identifier that ties two reports together. Nothing is ever sent unless you explicitly tap Send.</p>
+
+    <h2>The permissions Aura asks for</h2>
+    <p>Aura asks for <strong>Accessibility</strong> access so it can read your selected text and paste the rewrite back into the field you're working in. This is a macOS platform permission you grant in System Settings → Privacy &amp; Security → Accessibility. It is a local access grant that lets Aura interact with other apps' text on your behalf; it does not send anything anywhere.</p>
+
+    <h2>Children's privacy</h2>
+    <p>Aura is not directed at children and does not knowingly collect information from anyone, of any age — there's simply nothing collected, full stop.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If this policy ever changes, the update will be posted on this page with a new "Last updated" date.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy? Email <a href="mailto:contact@hanncrest.com" style="font-weight:600">contact@hanncrest.com</a>.</p>
+  </div>
+</div></main>
+
+<footer><div class="foot">
+  <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/apps/aura.png" alt="" style="width:24px;height:24px;border-radius:6px">Aura</a>
+  <div class="links">
+    <a href="support.html">Support</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="mailto:contact@hanncrest.com">Contact</a>
+  </div>
+  <div>© 2026 HANNCREST · Aura is a HANNCREST app.</div>
+</div></footer>
+
+</body>
+</html>
