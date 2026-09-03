@@ -145,21 +145,50 @@
   .ss-row.on .ss-tog{background:var(--g1)}
   .ss-row.on .ss-tog::after{transform:translateX(13px)}
 
-  .ss-share{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid #23272f;background:#0b0d11}
-  .ss-sharebar{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7078;padding:8px 12px;background:#141821;border-bottom:1px solid #23272f}
-  .ss-sharebar i{width:6px;height:6px;border-radius:50%;background:var(--danger);display:inline-block}
-  .ss-desk{position:relative;height:110px;background:linear-gradient(135deg,#1c2740,#141a2b);padding:14px}
-  .ss-conf{width:190px;background:#0f1420;border:1px solid #263048;border-radius:9px;padding:10px 12px;transition:filter .6s}
-  .ss-conf .h{font-size:11px;font-weight:700;color:#cdd3e0}
-  .ss-conf .l{height:6px;border-radius:3px;background:#2a3550;margin-top:7px}
-  .ss-conf .l.s{width:70%}
-  .ss-mask{position:absolute;inset:0;display:grid;place-items:center;gap:6px;background:rgba(11,13,17,.34);backdrop-filter:blur(2px);opacity:0;transition:opacity .6s;font-size:12px;font-weight:700;color:#dfe3ee}
-  .ss-mask .lock{font-size:20px}
-  .ss-share.masked .ss-conf{filter:blur(7px)}
-  .ss-share.masked .ss-mask{opacity:1}
-  .ss-foot{font-size:10.5px;color:#6b7078;margin-top:12px;text-align:center}
+  .ss-share{margin-top:16px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#070d14;box-shadow:0 16px 44px rgba(0,0,0,.6)}
+  .ss-sharebar{display:flex;align-items:center;justify-content:space-between;font-size:10.5px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:#8599a8;padding:9px 14px;background:#0d1824;border-bottom:1px solid rgba(255,255,255,.08)}
+  .ss-live-tag{display:inline-flex;align-items:center;gap:7px}
+  .ss-live-tag i{width:7px;height:7px;border-radius:50%;background:var(--danger);display:inline-block;animation:ssblink 1.4s infinite}
+  .ss-mode-tag{color:#4dc9ff;font-size:10px;font-weight:700}
+
+  .ss-desk{position:relative;min-height:210px;padding:16px 14px;overflow:hidden;transition:background .6s ease;
+    background:radial-gradient(ellipse at 75% 25%,rgba(40,90,140,.45),transparent 65%),linear-gradient(135deg,#0d1c2d,#07121c)}
+  .ss-desk.masked-desk{background:linear-gradient(to bottom,#060e17,#0a1520)}
+
+  /* Desktop files */
+  .ss-desk-icons{position:absolute;top:16px;right:16px;display:flex;flex-direction:column;gap:9px;z-index:1;transition:opacity .5s ease,transform .5s ease}
+  .ss-share.masked .ss-desk-icons{opacity:0;transform:scale(.92);pointer-events:none}
+  .ss-dfile{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.10);padding:4px 9px;border-radius:7px;font-size:10.5px;font-weight:600;color:#c0d2df;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+  .ss-dfile-ico{font-size:13px}
+
+  /* macOS Open Email Window */
+  .ss-mailwin{position:relative;z-index:2;max-width:390px;margin:0 auto;background:rgba(18,29,42,.92);border:1px solid rgba(255,255,255,.16);border-radius:12px;box-shadow:0 18px 45px rgba(0,0,0,.65);overflow:hidden}
+  .ss-mailcontent{transition:filter .5s ease,opacity .5s ease;padding:11px 14px}
+  .ss-share.masked .ss-mailcontent{filter:blur(8px);opacity:.32}
+
+  .ss-mailbar{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08)}
+  .ss-traffic{display:flex;gap:5px}
+  .ss-traffic span{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .ss-traffic .r{background:#ff5f56}
+  .ss-traffic .y{background:#ffbd2e}
+  .ss-traffic .g{background:#27c93f}
+  .ss-mailtitle{margin-left:6px;font-size:11px;font-weight:700;color:#9fb6c6;display:flex;align-items:center;gap:5px}
+
+  .ss-mailhdr{border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:7px;margin-bottom:7px}
+  .ss-mailsubj{font-size:12px;font-weight:750;color:#fff;margin-bottom:2px}
+  .ss-mailfrom{font-size:10.5px;color:#7e97a9}
+  .ss-mailbody{font-size:11.5px;line-height:1.45;color:#bed1df}
+  .ss-mailcode{color:#5ee7b0;font-weight:800;background:rgba(94,231,176,.14);border:1px solid rgba(94,231,176,.3);padding:1px 5px;border-radius:4px;font-variant-numeric:tabular-nums}
+
+  /* Privacy Mask Overlay */
+  .ss-mask{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:3;opacity:0;pointer-events:none;transition:opacity .5s ease,transform .5s ease;transform:scale(.96)}
+  .ss-share.masked .ss-mask{opacity:1;transform:scale(1)}
+  .ss-mask-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(7,16,25,.94);border:1.5px solid rgba(77,201,255,.5);border-radius:999px;font-size:12px;font-weight:800;color:#7fe3ff;box-shadow:0 8px 26px rgba(0,0,0,.7),0 0 20px rgba(77,201,255,.3)}
+  .ss-mask-sub{font-size:10px;font-weight:600;color:#9fb6c6;background:rgba(5,11,20,.85);padding:3px 9px;border-radius:6px;border:1px solid rgba(255,255,255,.08)}
+
+  .ss-foot{font-size:10.5px;color:#8599a8;margin-top:12px;text-align:center}
   @media(prefers-reduced-motion:reduce){
-    .ss-status,.ss-shield,.ss-stitle,.ss-switch,.ss-switch::after,.ss-tog,.ss-tog::after,.ss-conf,.ss-mask{transition:none}
+    .ss-status,.ss-shield,.ss-stitle,.ss-switch,.ss-switch::after,.ss-tog,.ss-tog::after,.ss-mailcontent,.ss-mask,.ss-desk-icons{transition:none}
   }
 
   /* Glassmorphism Chamfered Specular Edges */
@@ -413,42 +442,116 @@
             </div>
 
             <div class="ss-rows">
-              <div class="ss-row" data-row><span class="ss-chip">🖥️</span><span class="ss-label">Hide desktop icons</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">🖥️</span><span class="ss-label">Mask entire desktop &amp; wallpaper</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">📁</span><span class="ss-label">Hide desktop icons &amp; files</span><span class="ss-tog"></span></div>
               <div class="ss-row" data-row><span class="ss-chip">🔲</span><span class="ss-label">Hide Mac widgets</span><span class="ss-tog"></span></div>
-              <div class="ss-row" data-row><span class="ss-chip">🌙</span><span class="ss-label">Do Not Disturb</span><span class="ss-tog"></span></div>
-              <div class="ss-row" data-row><span class="ss-chip">🖼️</span><span class="ss-label">Studio backdrop wallpaper</span><span class="ss-tog"></span></div>
-              <div class="ss-row" data-row><span class="ss-chip">🫥</span><span class="ss-label">Blur Slack &amp; Messages</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">🌙</span><span class="ss-label">Silence notifications (Do Not Disturb)</span><span class="ss-tog"></span></div>
+              <div class="ss-row" data-row><span class="ss-chip">✉️</span><span class="ss-label">Blur Mail, Slack &amp; Messages</span><span class="ss-tog"></span></div>
             </div>
 
             <div class="ss-share" id="ssShare">
-              <div class="ss-sharebar"><i></i>What your audience sees</div>
-              <div class="ss-desk">
-                <div class="ss-conf">
-                  <div class="h">Slack · #finance-private</div>
-                  <div class="l"></div><div class="l s"></div>
+              <div class="ss-sharebar">
+                <div class="ss-live-tag"><i></i>Live Audience View (Screen Share)</div>
+                <span class="ss-mode-tag" id="ssModeTag">Normal View</span>
+              </div>
+              <div class="ss-desk" id="ssDesk">
+                <!-- Desktop files that get masked -->
+                <div class="ss-desk-icons">
+                  <div class="ss-dfile"><span class="ss-dfile-ico">📄</span>Tax_Returns_2025.pdf</div>
+                  <div class="ss-dfile"><span class="ss-dfile-ico">🔐</span>passwords_backup.csv</div>
+                  <div class="ss-dfile"><span class="ss-dfile-ico">📊</span>Pitch_Deck_Confidential.key</div>
                 </div>
-                <div class="ss-mask"><span class="lock">🔒</span>Hidden while sharing</div>
+
+                <!-- macOS Open Email Window -->
+                <div class="ss-mailwin">
+                  <div class="ss-mailbar">
+                    <div class="ss-traffic">
+                      <span class="r"></span>
+                      <span class="y"></span>
+                      <span class="g"></span>
+                    </div>
+                    <div class="ss-mailtitle">
+                      <span>✉️</span> Mail — Inbox (Confidential)
+                    </div>
+                  </div>
+                  <div class="ss-mailcontent">
+                    <div class="ss-mailhdr">
+                      <div class="ss-mailsubj">Re: Confidential Q3 Acquisition &amp; Wire Details</div>
+                      <div class="ss-mailfrom">From: Alex Rivera &lt;alex@partner-investors.com&gt;</div>
+                    </div>
+                    <div class="ss-mailbody">
+                      Wire transfer of $482,500.00 initiated to account #****-4819. One-time verification code: <span class="ss-mailcode">481920</span>. Please confirm once received.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Privacy Mask Overlay -->
+                <div class="ss-mask">
+                  <div class="ss-mask-pill">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span>Mail &amp; Desktop Masked by StealthShare</span>
+                  </div>
+                  <div class="ss-mask-sub">Desktop files hidden · confidential email blurred from call audience</div>
+                </div>
               </div>
             </div>
-            <div class="ss-foot">The real Privacy Mode toggles — shown here with sample apps.</div>
+            <div class="ss-foot">Click Privacy Mode toggle above to preview protection live.</div>
           </div>
         </div>
       </div>
       <script>
       (function(){
-        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var status=document.getElementById('ssStatus');
-        var stitle=document.getElementById('ssStitle');
-        var share=document.getElementById('ssShare');
-        var rows=[].slice.call(document.querySelectorAll('[data-row]'));
-        if(!status)return;
-        function armOn(){ status.classList.add('on'); if(stitle)stitle.textContent='Privacy Mode Active'; }
-        if(reduce){
-          armOn(); rows.forEach(function(r){r.classList.add('on')}); if(share)share.classList.add('masked'); return;
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var status = document.getElementById('ssStatus');
+        var stitle = document.getElementById('ssStitle');
+        var ssub = document.querySelector('.ss-ssub');
+        var share = document.getElementById('ssShare');
+        var desk = document.getElementById('ssDesk');
+        var modeTag = document.getElementById('ssModeTag');
+        var rows = [].slice.call(document.querySelectorAll('[data-row]'));
+        if(!status) return;
+
+        var isArmed = false;
+        function setPrivacy(active){
+          isArmed = active;
+          if(active){
+            status.classList.add('on');
+            if(stitle) stitle.textContent = 'Privacy Mode Active';
+            if(ssub) ssub.textContent = 'Screen protected · Click to toggle';
+            rows.forEach(function(r){ r.classList.add('on'); });
+            if(share) share.classList.add('masked');
+            if(desk) desk.classList.add('masked-desk');
+            if(modeTag) modeTag.textContent = '🛡️ Privacy Mask On';
+          } else {
+            status.classList.remove('on');
+            if(stitle) stitle.textContent = 'Privacy Mode Off';
+            if(ssub) ssub.textContent = 'Press ⌥⌘P — or click to test';
+            rows.forEach(function(r){ r.classList.remove('on'); });
+            if(share) share.classList.remove('masked');
+            if(desk) desk.classList.remove('masked-desk');
+            if(modeTag) modeTag.textContent = 'Normal View';
+          }
         }
-        setTimeout(armOn,350);
-        rows.forEach(function(r,i){ setTimeout(function(){ r.classList.add('on'); }, 620+i*170); });
-        setTimeout(function(){ if(share)share.classList.add('masked'); }, 620+rows.length*170+250);
+
+        status.style.cursor = 'pointer';
+        status.addEventListener('click', function(){
+          setPrivacy(!isArmed);
+        });
+
+        if(reduce){
+          setPrivacy(true);
+          return;
+        }
+
+        // Demo sequence: starts unmasked, arms after delay, and loops periodically for showcase
+        setTimeout(function(){
+          setPrivacy(true);
+          setInterval(function(){
+            setPrivacy(!isArmed);
+          }, 4500);
+        }, 900);
       })();
       </script>
     </div>
