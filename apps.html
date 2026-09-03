@@ -24,11 +24,24 @@
   .kicker{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
   header h1{font-size:clamp(24px,3.8vw,34px);font-weight:800;letter-spacing:-.8px}
   header p{color:var(--mut);margin-top:10px;font-size:15.5px;max-width:54ch;margin-left:auto;margin-right:auto}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px;perspective:1200px}
   @media (max-width:680px){ .grid{grid-template-columns:1fr} }
-  .card{display:flex;gap:16px;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:18px;padding:22px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;backdrop-filter:blur(8px)}
-  .card:hover{transform:translateY(-3px);border-color:rgba(127,227,255,.45);box-shadow:0 16px 40px rgba(0,0,0,.5)}
-  .icon{width:60px;height:60px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+  .card{display:flex;gap:16px;background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:18px;padding:22px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(0,0,0,.35),0 16px 40px rgba(0,0,0,.45);
+    backdrop-filter:blur(8px);position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform,box-shadow;
+    transition:border-color .25s,transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+  .card > *{position:relative;z-index:2}
+  .card .icon{width:60px;height:60px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .25s ease;transform:translateZ(18px)}
+  .card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;
+    background:radial-gradient(380px circle at var(--mouse-x,-999px) var(--mouse-y,-999px),rgba(77,201,255,.14),transparent 70%);
+    opacity:0;transition:opacity .35s ease;pointer-events:none;z-index:1}
+  .card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;
+    background:radial-gradient(340px circle at var(--mouse-x,-999px) var(--mouse-y,-999px),rgba(127,227,255,.75),rgba(77,201,255,.2) 40%,transparent 65%);
+    -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    pointer-events:none;opacity:0;transition:opacity .35s ease;z-index:3}
+  .card:hover::before, .card:hover::after{opacity:1}
+  .card:hover{border-color:rgba(127,227,255,.45);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 24px 60px rgba(0,0,0,.6),0 0 40px rgba(77,201,255,.14)}
   .body h2{font-size:18px;font-weight:750;letter-spacing:-.3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .tag{font-size:13px;color:var(--teal2);font-weight:600;margin-top:3px}
   .desc{font-size:13.5px;color:var(--mut);margin-top:9px;line-height:1.55}
@@ -40,6 +53,26 @@
   footer{text-align:center;color:var(--dim);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);padding-top:24px}
   footer a{color:var(--mut)} footer a:hover{color:var(--tx)}
   .ph{font-size:10px;opacity:.7}
+
+  /* 3D Mac Keycaps */
+  kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:22px;padding:0 6px;margin:0 2px;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;font-size:11px;font-weight:600;
+    color:var(--ice);background:linear-gradient(180deg,#242d38 0%,#151d27 100%);border:1px solid rgba(255,255,255,.18);
+    border-bottom:2px solid rgba(0,0,0,.7);border-radius:5px;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 2px 5px rgba(0,0,0,.45);
+    vertical-align:middle;user-select:none;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease}
+  kbd:hover{background:linear-gradient(180deg,#2c3744 0%,#19232f 100%);border-color:rgba(127,227,255,.4)}
+  kbd:active,kbd.active{transform:translateY(1.5px);border-bottom-width:1px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1px 2px rgba(0,0,0,.3)}
+
+  /* Ambient Aurora Mesh Glows */
+  .aurora-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .aurora-orb{position:absolute;border-radius:50%;filter:blur(115px);opacity:.20;will-change:transform}
+  .orb-1{width:500px;height:500px;top:8%;left:-120px;background:radial-gradient(circle,#4dc9ff,#0c2233);animation:floatOrb1 24s ease-in-out infinite alternate}
+  .orb-2{width:580px;height:580px;top:45%;right:-140px;background:radial-gradient(circle,#1d698a,#050b14);animation:floatOrb2 30s ease-in-out infinite alternate}
+  .orb-3{width:460px;height:460px;bottom:12%;left:22%;background:radial-gradient(circle,#2aa7e0,#0a1a24);animation:floatOrb3 26s ease-in-out infinite alternate}
+  @keyframes floatOrb1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(110px,70px) scale(1.15)}}
+  @keyframes floatOrb2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-100px,-80px) scale(1.2)}}
+  @keyframes floatOrb3{0%{transform:translate(0,0) scale(1)}100%{transform:translate(70px,-50px) scale(1.12)}}
+  @media(prefers-reduced-motion:reduce){.aurora-orb{animation:none}}
 
   /* ---------- MOUNTAIN SCENE ---------- */
   .scene{position:absolute;top:0;left:0;right:0;height:960px;z-index:0;overflow:hidden;
@@ -205,6 +238,13 @@
 </div>
 <div class="veil"></div>
 
+<!-- Ambient Aurora Mesh Glows -->
+<div class="aurora-ambient" aria-hidden="true">
+  <div class="aurora-orb orb-1"></div>
+  <div class="aurora-orb orb-2"></div>
+  <div class="aurora-orb orb-3"></div>
+</div>
+
 <div class="content">
 <div class="wrap">
   <header>
@@ -226,7 +266,7 @@
       <div class="body">
         <h2>Vitals <span class="chip">14-day free trial</span></h2>
         <div class="tag">Your Mac's vital signs, in the menu bar</div>
-        <div class="desc">Live CPU, GPU, memory, network, heat, battery &amp; Bluetooth device battery — plus local-LLM tools, 30-day history, crash watch and a live desktop widget. Free to monitor forever; $9.99 once to go deep.</div>
+        <div class="desc">Live CPU, GPU, memory, network, heat, battery &amp; Bluetooth device battery (<kbd>⌥</kbd><kbd>V</kbd>) — plus local-LLM tools, 30-day history, crash watch and a live desktop widget. Free to monitor forever; $9.99 once to go deep.</div>
         <span class="link">Learn more →</span>
       </div>
     </a>
@@ -246,7 +286,7 @@
       <div class="body">
         <h2>StealthShare <span class="chip">14-day free trial</span></h2>
         <div class="tag">Screen privacy for screen sharing</div>
-        <div class="desc">Blurs confidential app windows, hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts. Free for 14 days, then $9.99 once — and it never records your screen.</div>
+        <div class="desc">Blurs confidential app windows instantly (<kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd>), hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts. Free for 14 days, then $9.99 once.</div>
         <span class="link">Learn more →</span>
       </div>
     </a>
@@ -256,7 +296,7 @@
       <div class="body">
         <h2>Aura <span class="chip">One-time $24.99</span></h2>
         <div class="tag">Offline AI text assistant</div>
-        <div class="desc">Select text in any app, press ⇧⌘P, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</div>
+        <div class="desc">Select text in any app, press <kbd>⇧</kbd><kbd>⌥</kbd><kbd>R</kbd>, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</div>
         <span class="link">Learn more →</span>
       </div>
     </a>
@@ -266,7 +306,7 @@
       <div class="body">
         <h2>WhisperType <span class="chip">One-time $19.99</span></h2>
         <div class="tag">Local voice dictation</div>
-        <div class="desc">Press ⌥Space and just talk. On-device Whisper transcribes your speech on the Apple Neural Engine and types it straight into any text field — no cloud, no account, your voice never leaves your Mac.</div>
+        <div class="desc">Press <kbd>⌥</kbd> <kbd>Space</kbd> and just talk. On-device Whisper transcribes your speech on the Apple Neural Engine and types it straight into any text field — no cloud, no account, your voice never leaves your Mac.</div>
         <span class="link">Learn more →</span>
       </div>
     </a>
@@ -312,6 +352,54 @@
     if(sceneEl&&'IntersectionObserver'in window){
       new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
     }
+  })();
+
+  // Card Spotlight & 3D Tilt
+  (function(){
+    const cards = document.querySelectorAll('.card');
+    if(!cards.length) return;
+    const isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    cards.forEach(card => {
+      let rect = null, trx = 0, try_ = 0, crx = 0, cry = 0, hov = false, aid = null;
+      card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); hov = true; if(!isReduced && !aid) aid = requestAnimationFrame(render); });
+      card.addEventListener('mousemove', e => {
+        if(!rect) rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x.toFixed(1)}px`);
+        card.style.setProperty('--mouse-y', `${y.toFixed(1)}px`);
+        if(!isReduced) {
+          const nx = Math.max(0, Math.min(1, x / rect.width));
+          const ny = Math.max(0, Math.min(1, y / rect.height));
+          try_ = (nx - 0.5) * 10;
+          trx = (0.5 - ny) * 10;
+        }
+      });
+      card.addEventListener('mouseleave', () => {
+        hov = false; trx = 0; try_ = 0;
+        card.style.setProperty('--mouse-x', `-999px`);
+        card.style.setProperty('--mouse-y', `-999px`);
+      });
+      function render() {
+        crx += (trx - crx) * 0.12;
+        cry += (try_ - cry) * 0.12;
+        if(hov || Math.abs(crx) > 0.02 || Math.abs(cry) > 0.02) {
+          card.style.transform = `perspective(1000px) rotateX(${crx.toFixed(2)}deg) rotateY(${cry.toFixed(2)}deg) translateY(${hov ? '-4px' : '0px'}) scale3d(${hov ? 1.015 : 1}, ${hov ? 1.015 : 1}, 1)`;
+          card.style.boxShadow = hov ? `inset 0 1px 0 rgba(255,255,255,.35), 0 24px 60px rgba(0,0,0,.6), 0 0 40px rgba(77,201,255,.14)` : '';
+          aid = requestAnimationFrame(render);
+        } else {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+          aid = null;
+        }
+      }
+    });
+    document.querySelectorAll('kbd').forEach(k => {
+      k.addEventListener('click', () => {
+        k.classList.add('active');
+        setTimeout(() => k.classList.remove('active'), 150);
+      });
+    });
   })();
 </script>
 </body>

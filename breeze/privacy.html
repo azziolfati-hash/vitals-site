@@ -49,6 +49,31 @@
   .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
   .foot .links{display:flex;gap:22px}
 
+  /* Glassmorphism Chamfered Specular Edges */
+  .card, .qa, .fcard, .plan, .feat, .box, .pill, .vp-cell, .vp-net, .appwin {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.35), 0 18px 45px rgba(0,0,0,.4);
+  }
+
+  /* 3D Mac Keycaps */
+  kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:22px;padding:0 6px;margin:0 2px;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;font-size:11px;font-weight:600;
+    color:var(--ice);background:linear-gradient(180deg,#242d38 0%,#151d27 100%);border:1px solid rgba(255,255,255,.18);
+    border-bottom:2px solid rgba(0,0,0,.7);border-radius:5px;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 2px 5px rgba(0,0,0,.45);
+    vertical-align:middle;user-select:none;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease}
+  kbd:hover{background:linear-gradient(180deg,#2c3744 0%,#19232f 100%);border-color:rgba(127,227,255,.4)}
+  kbd:active,kbd.active{transform:translateY(1.5px);border-bottom-width:1px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1px 2px rgba(0,0,0,.3)}
+
+  /* Ambient Aurora Mesh Glows */
+  .aurora-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .aurora-orb{position:absolute;border-radius:50%;filter:blur(115px);opacity:.20;will-change:transform}
+  .orb-1{width:500px;height:500px;top:8%;left:-120px;background:radial-gradient(circle,#4dc9ff,#0c2233);animation:floatOrb1 24s ease-in-out infinite alternate}
+  .orb-2{width:580px;height:580px;top:45%;right:-140px;background:radial-gradient(circle,#1d698a,#050b14);animation:floatOrb2 30s ease-in-out infinite alternate}
+  .orb-3{width:460px;height:460px;bottom:12%;left:22%;background:radial-gradient(circle,#2aa7e0,#0a1a24);animation:floatOrb3 26s ease-in-out infinite alternate}
+  @keyframes floatOrb1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(110px,70px) scale(1.15)}}
+  @keyframes floatOrb2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-100px,-80px) scale(1.2)}}
+  @keyframes floatOrb3{0%{transform:translate(0,0) scale(1)}100%{transform:translate(70px,-50px) scale(1.12)}}
+  @media(prefers-reduced-motion:reduce){.aurora-orb{animation:none}}
+
   /* ---------- MOUNTAIN SCENE ---------- */
   .scene{position:absolute;top:0;left:0;right:0;height:900px;z-index:0;overflow:hidden;
     background:linear-gradient(to bottom,#050b14 0%,#0c2233 42%,#17465c 66%,#0f3547 80%,#081722 100%)}
@@ -121,6 +146,12 @@
   </svg>
 </div>
 <div class="veil"></div>
+<!-- Ambient Aurora Mesh Glows -->
+<div class="aurora-ambient" aria-hidden="true">
+  <div class="aurora-orb orb-1"></div>
+  <div class="aurora-orb orb-2"></div>
+  <div class="aurora-orb orb-3"></div>
+</div>
 
 <div class="content">
 <header>
@@ -226,6 +257,12 @@
       new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
     }
   })();
+document.querySelectorAll('kbd').forEach(k => {
+    k.addEventListener('click', () => {
+      k.classList.add('active');
+      setTimeout(() => k.classList.remove('active'), 150);
+    });
+  });
 </script>
 </body>
 </html>
