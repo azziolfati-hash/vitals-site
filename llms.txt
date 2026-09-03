@@ -31,7 +31,7 @@ For complete, unabridged documentation of all apps, features, technical architec
 - **Summary**: Screen privacy utility for screen sharing. Blurs confidential application windows (Slack, Mail, Messages), hides desktop icons/widgets, applies neutral wallpaper, silences notifications, and auto-arms during video calls.
 - **Privacy Guarantee**: Never records, screenshots, or streams display content. Operates exclusively via local overlay window masking.
 - **Platform**: macOS 13.0+, Apple Silicon & Intel.
-- **Pricing**: 14-day free trial; one-time US$9.99 purchase.
+- **Pricing**: 14-day free trial; one-time US$14.99 purchase.
 - **Support**: https://www.hanncrest.com/stealthshare/support.html
 - **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html
 

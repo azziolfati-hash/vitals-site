@@ -56,7 +56,7 @@
   - **Notification Hold**: Automatic suppression of banner notifications and sound alerts during active sharing sessions via macOS Focus / Shortcuts integration.
   - **Auto-Arm Intelligence**: Automatically enables privacy shields upon detecting active video call processes or camera/mic usage, or 60 seconds prior to scheduled calendar events.
   - **Zero Recording Architecture**: StealthShare does not capture, record, encode, or transmit video frames. It relies purely on native window coordinate masking.
-- **Pricing**: 14-day free trial with all features enabled. One-time purchase of $9.99 USD with lifetime updates.
+- **Pricing**: 14-day free trial with all features enabled. One-time purchase of $14.99 USD with lifetime updates.
 
 ### App 4: Aura
 - **Canonical URL**: https://www.hanncrest.com/aura/

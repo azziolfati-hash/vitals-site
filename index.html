@@ -132,11 +132,15 @@
   @media(prefers-reduced-motion:reduce){.aurora-orb{animation:none}}
 
   /* ---------- D: HERO PLAYGROUND & APP CHROME ---------- */
-  .stage{position:relative;max-width:1040px;margin:42px auto 0;padding:0 24px;perspective:1400px}
+  .stage{position:relative;max-width:1040px;margin:42px auto 0;padding:0 24px}
   .stage::before{content:"";position:absolute;left:50%;top:4%;transform:translateX(-50%);width:82%;height:78%;
     background:radial-gradient(ellipse at center,rgba(77,201,255,.45),rgba(77,201,255,.08) 50%,transparent 72%);filter:blur(36px);z-index:-1}
   .device{border-radius:18px;border:1px solid rgba(255,255,255,.16);overflow:hidden;background:rgba(10,20,28,.82);backdrop-filter:blur(16px);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 40px 120px rgba(0,0,0,.7);transform-style:preserve-3d;will-change:transform}
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 40px 120px rgba(0,0,0,.7);transition:border-color .3s ease,box-shadow .3s ease}
+  .device:hover{
+    border-color:rgba(127,227,255,.45);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 45px 130px rgba(0,0,0,.75),0 0 60px rgba(77,201,255,.20);
+  }
   .device .bar{display:flex;align-items:center;gap:8px;padding:12px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.035)}
   .device .bar i{width:11px;height:11px;border-radius:50%;display:block}
   .device .bar .r{background:#ff5f57}.device .bar .y{background:#febc2e}.device .bar .g{background:#28c840}
@@ -971,7 +975,7 @@
           <div class="meta">
             <h3>StealthShare <span class="chip">Available now</span></h3>
             <div class="tagline">Screen privacy for screen sharing</div>
-            <p>Blurs confidential app windows instantly (<kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd>), hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts — without ever recording your screen. Free for 14 days, then $9.99 once.</p>
+            <p>Blurs confidential app windows instantly (<kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd>), hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts — without ever recording your screen. Free for 14 days, then $14.99 once.</p>
             <span class="go">Explore StealthShare <span class="arrow">→</span></span>
             <div class="preview pv-stealth">
               <div class="mac-notif">
@@ -1349,37 +1353,6 @@
       card.addEventListener('mousemove', onMove);
       card.addEventListener('mouseleave', onLeave);
     });
-
-    // 3D Perspective Tilt on the Hero Playground Device
-    const stage = document.querySelector('.stage');
-    const device = document.querySelector('.device');
-    if(stage && device && !isReduced) {
-      let rect = null, trx = 0, try_ = 0, crx = 0, cry = 0, hov = false, aid = null;
-      stage.addEventListener('mouseenter', () => { rect = stage.getBoundingClientRect(); hov = true; if(!aid) aid = requestAnimationFrame(animDevice); });
-      stage.addEventListener('mousemove', e => {
-        if(!rect) rect = stage.getBoundingClientRect();
-        const nx = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        const ny = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
-        try_ = (nx - 0.5) * 8;
-        trx = (0.5 - ny) * 8;
-      });
-      stage.addEventListener('mouseleave', () => { hov = false; trx = 0; try_ = 0; });
-      function animDevice() {
-        crx += (trx - crx) * 0.1;
-        cry += (try_ - cry) * 0.1;
-        if(hov || Math.abs(crx) > 0.02 || Math.abs(cry) > 0.02) {
-          device.style.transform = `perspective(1200px) rotateX(${crx.toFixed(2)}deg) rotateY(${cry.toFixed(2)}deg) scale3d(${hov ? 1.01 : 1}, ${hov ? 1.01 : 1}, 1)`;
-          device.style.boxShadow = hov
-            ? `inset 0 1px 0 rgba(255,255,255,.35), 0 45px 130px rgba(0,0,0,.75), 0 0 60px rgba(77,201,255,.16)`
-            : '';
-          aid = requestAnimationFrame(animDevice);
-        } else {
-          device.style.transform = '';
-          device.style.boxShadow = '';
-          aid = null;
-        }
-      }
-    }
   })();
 
   // ---------- D: Hero Interactive Playground Logic ----------
