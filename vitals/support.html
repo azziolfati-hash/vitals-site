@@ -68,28 +68,89 @@
 <meta name="twitter:title" content="Support — Vitals">
 <meta name="twitter:description" content="Get help with Vitals — the free 14-day Pro trial, restoring a purchase, or reaching us directly.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-vitals.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.hanncrest.com/"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hanncrest.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Vitals",
+          "item": "https://www.hanncrest.com/vitals/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Support",
+          "item": "https://www.hanncrest.com/vitals/support.html"
+        }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Vitals",
-      "item": "https://www.hanncrest.com/vitals/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Support",
-      "item": "https://www.hanncrest.com/vitals/support.html"
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/vitals/support.html#faq",
+      "name": "Vitals Support & FAQ",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://www.hanncrest.com/vitals/support.html"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Vitals",
+        "url": "https://www.hanncrest.com/vitals/"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the free trial work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every Pro feature unlocks automatically the moment you install Vitals — no card, no account, no sign-up. You get 14 full days to use everything: the performance dashboard, local-LLM tools, 30-day history, Bluetooth device battery, alerts, and the rest. After day 14 it returns to the free tier until you buy Vitals Pro with a single $9.99 purchase."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "My trial ended — can I get more time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The trial is one per install and is meant to give you a fair, full look at Pro before deciding. If something went wrong with your specific trial (a crash, a bug, a Mac migration that reset it unexpectedly), get in touch and we'll sort it out."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I bought Vitals Pro on another Mac — how do I restore it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open Vitals → Settings, and tap 'Restore' in the Pro section. If you bought through the Mac App Store, this restores your purchase from the same Apple ID with no extra charge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Vitals slow down my Mac or drain the battery?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No — Vitals is built natively in Swift and SwiftUI to be featherweight. It samples system metrics on a lightweight timer and does no background processing beyond that."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why don't I see a specific Pro feature?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A few advanced features (like detailed S.M.A.R.T. disk health) need direct hardware access that Apple's App Store sandbox doesn't allow — those work fully in the direct-download build. Everything else works the same in both."
+          }
+        }
+      ]
     }
   ]
 }

@@ -67,28 +67,97 @@
 <meta name="twitter:title" content="Support — Breeze">
 <meta name="twitter:description" content="Get help with Breeze — what&#x27;s free vs. Breeze Pro, Full Disk Access, restoring a purchase, and how Breeze keeps your files safe.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-breeze.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.hanncrest.com/"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hanncrest.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Breeze",
+          "item": "https://www.hanncrest.com/breeze/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Support",
+          "item": "https://www.hanncrest.com/breeze/support.html"
+        }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Breeze",
-      "item": "https://www.hanncrest.com/breeze/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Support",
-      "item": "https://www.hanncrest.com/breeze/support.html"
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/breeze/support.html#faq",
+      "name": "Breeze Support & FAQ",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://www.hanncrest.com/breeze/support.html"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Breeze",
+        "url": "https://www.hanncrest.com/breeze/"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Breeze safe? Could it delete something I need?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Breeze is built around scan → review → confirm. It shows you exactly what it found, with sizes, and everything it removes goes to the Trash — nothing is permanently deleted until you empty it yourself. Anything it can't be certain about starts unticked for you to review. System and Apple apps and protected paths are never touched."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's free, and what needs Breeze Pro?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The essentials are free forever: Smart Scan and the Health Score, the interactive Storage map, Applications with the real uninstaller, and Memory. Breeze Pro is a one-time purchase that unlocks deeper modules — Leftovers, Duplicates, Similar photos, Large & old files, Developer junk, Privacy, Auto-clean, and Protection."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does Breeze need Full Disk Access?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "To scan and clean protected locations across your Mac, Breeze needs Full Disk Access under System Settings → Privacy & Security → Full Disk Access. It is a local permission that lets Breeze see the files it works with and sends nothing anywhere."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I bought Breeze Pro on another Mac — how do I restore it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Open Breeze → Breeze Pro and tap 'Restore.' If you bought through the Mac App Store, this restores your purchase from the same Apple ID with no extra charge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "The Purgeable space section shows nothing — is that a bug?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "That section reclaims Time Machine local snapshots. If Time Machine isn't keeping local snapshots on that Mac, there's genuinely nothing there to remove, so it will show an empty state — that's correct, not a bug."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is one feature missing or limited in the App Store version?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A few features (like quitting other processes or some system-level cleanup) need access that Apple's App Store sandbox doesn't allow — those work fully in the direct-download build. Everything else works the same in both."
+          }
+        }
+      ]
     }
   ]
 }

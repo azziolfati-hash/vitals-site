@@ -208,6 +208,7 @@
 <meta name="twitter:title" content="HANNCREST — native, private Mac apps">
 <meta name="twitter:description" content="HANNCREST builds native, private, local-first apps for macOS. Fast, featherweight, no accounts, no telemetry — your data never leaves your Mac. Starting with Vitals, a menu-bar system monitor.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-hanncrest.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -219,7 +220,41 @@
       "url": "https://www.hanncrest.com/",
       "logo": "https://www.hanncrest.com/assets/apple-touch-icon.png",
       "description": "HANNCREST builds native, private, local-first apps for macOS.",
-      "email": "contact@hanncrest.com"
+      "email": "contact@hanncrest.com",
+      "knowsAbout": [
+        "macOS App Development",
+        "Apple Silicon Optimization",
+        "Swift & SwiftUI",
+        "On-Device Local AI",
+        "Privacy-Preserving Software"
+      ],
+      "hasPart": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Vitals",
+          "url": "https://www.hanncrest.com/vitals/"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Breeze",
+          "url": "https://www.hanncrest.com/breeze/"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "StealthShare",
+          "url": "https://www.hanncrest.com/stealthshare/"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "Aura",
+          "url": "https://www.hanncrest.com/aura/"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "WhisperType",
+          "url": "https://www.hanncrest.com/whispertype/"
+        }
+      ]
     },
     {
       "@type": "WebSite",
@@ -230,6 +265,29 @@
       "publisher": {
         "@id": "https://www.hanncrest.com/#organization"
       }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/#faq",
+      "name": "HANNCREST Studio FAQ",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What principles guide HANNCREST apps?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HANNCREST apps are 100% native (built with Swift & SwiftUI), local-first, private by design (no accounts, telemetry, or third-party servers), and offer honest pricing with no subscriptions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which macOS platforms and chips do HANNCREST apps support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All HANNCREST apps support macOS 13 (Ventura) or later as universal binaries optimized for Apple Silicon (M1, M2, M3, M4) and Intel Macs."
+          }
+        }
+      ]
     }
   ]
 }
@@ -251,15 +309,16 @@
 
 <div class="content">
   <header id="hdr"><div class="wrap"><nav>
-    <a class="brand" href="#top"><img src="assets/hanncrest-mark-light.svg" alt="">HANNCREST</a>
+    <a class="brand" href="#top"><img src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">HANNCREST</a>
     <div class="navlinks">
       <a href="#apps">Apps</a><a href="#values">Why us</a><a href="mailto:contact@hanncrest.com">Contact</a>
       <a class="btn btn-primary" href="vitals/">Get Vitals</a>
     </div>
   </nav></div></header>
 
+  <main id="top">
   <!-- HERO -->
-  <div class="hero" id="top">
+  <div class="hero">
     <span class="pill">◆ Native · Private · Local-first</span>
     <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">
     <h1>Native Mac apps, built on <span class="grad-text">higher ground.</span></h1>
@@ -280,7 +339,7 @@
 
     <!-- Fan wires flow out of the mark into the app boxes as you scroll -->
     <div class="connect">
-      <img class="connect-mark" src="assets/hanncrest-mark-light.svg" alt="">
+      <img class="connect-mark" src="assets/hanncrest-mark-light.svg" alt="HANNCREST mountain crest mark">
       <svg class="wires" viewBox="0 0 1000 230" preserveAspectRatio="none" aria-hidden="true">
         <defs><linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#e6f7ff"/><stop offset=".5" stop-color="#4dc9ff"/><stop offset="1" stop-color="#2aa7e0"/>
@@ -398,9 +457,10 @@
       </div>
     </div>
   </section>
+  </main>
 
   <footer><div class="wrap"><div class="foot">
-    <a class="brand" href="#top" style="font-size:15px"><img src="assets/hanncrest-mark-light.svg" alt="" style="width:28px;height:21px">HANNCREST</a>
+    <a class="brand" href="#top" style="font-size:15px"><img src="assets/hanncrest-mark-light.svg" alt="HANNCREST mark" style="width:28px;height:21px">HANNCREST</a>
     <div class="links"><a href="vitals/">Vitals</a><a href="vitals/privacy.html">Privacy</a><a href="vitals/support.html">Support</a><a href="mailto:contact@hanncrest.com">contact@hanncrest.com</a></div>
     <div>© 2026 HANNCREST · Made for macOS.</div>
   </div></div></footer>

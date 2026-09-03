@@ -170,22 +170,51 @@
 <meta name="twitter:title" content="Breeze — Clean up &amp; speed up your Mac">
 <meta name="twitter:description" content="Breeze is a native macOS cleaner and tune-up app. Reclaim disk space, uninstall apps with every leftover, map your storage, find duplicates, free system junk and watch your Mac&#x27;s health — one-click, review-first, nothing deleted without you. Everything stays on your Mac.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-breeze.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "SoftwareApplication",
+      "@id": "https://www.hanncrest.com/breeze/#app",
       "name": "Breeze",
       "url": "https://www.hanncrest.com/breeze/",
       "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "macOS",
+      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
       "description": "Breeze is a native macOS cleaner and tune-up app. Reclaim disk space, uninstall apps with every leftover, map your storage, find duplicates, free system junk and watch your Mac's health — one-click, review-first, nothing deleted without you. Everything stays on your Mac.",
       "image": "https://www.hanncrest.com/assets/og/og-breeze.png",
       "inLanguage": "en",
       "publisher": {
         "@id": "https://www.hanncrest.com/#organization"
-      }
+      },
+      "author": {
+        "@id": "https://www.hanncrest.com/#organization"
+      },
+      "softwareVersion": "1.0.0",
+      "featureList": [
+        "Smart Scan disk cleanup and Mac Health Score",
+        "Deep app uninstaller with orphaned leftover cleanup",
+        "Interactive visual folder storage map",
+        "Duplicate file and similar photo finder",
+        "Developer junk cleaner (Xcode derived data, node_modules, build caches)",
+        "Review-first safety: files moved to Trash rather than instant permanent deletion",
+        "Zero telemetry and private on-device operation"
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Breeze Free",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "name": "Breeze Pro (one-time)",
+          "price": "19.99",
+          "priceCurrency": "USD"
+        }
+      ]
     },
     {
       "@type": "BreadcrumbList",
@@ -201,6 +230,37 @@
           "position": 2,
           "name": "Breeze",
           "item": "https://www.hanncrest.com/breeze/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/breeze/#faq",
+      "name": "Breeze Frequently Asked Questions",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Breeze safe to use on macOS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Breeze is designed with a strict review-first policy. It moves removed files to the macOS Trash so you can always recover them, and never touches critical system files or protected paths."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What features in Breeze are free forever?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Smart Scan, the live Mac Health Score, interactive storage mapping, application uninstaller, and memory diagnostics are free forever."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Breeze require a subscription?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Breeze Pro is available as a single one-time purchase with no recurring subscription fees."
+          }
         }
       ]
     }

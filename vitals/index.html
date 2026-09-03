@@ -145,23 +145,38 @@
 <meta name="twitter:title" content="Vitals — Your Mac&#x27;s vital signs, in the menu bar">
 <meta name="twitter:description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-vitals.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "SoftwareApplication",
+      "@id": "https://www.hanncrest.com/vitals/#app",
       "name": "Vitals",
       "url": "https://www.hanncrest.com/vitals/",
       "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "macOS",
+      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
       "description": "Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.",
       "image": "https://www.hanncrest.com/assets/og/og-vitals.png",
       "inLanguage": "en",
       "publisher": {
         "@id": "https://www.hanncrest.com/#organization"
       },
+      "author": {
+        "@id": "https://www.hanncrest.com/#organization"
+      },
       "softwareVersion": "1.0.0",
+      "featureList": [
+        "Live menu bar CPU, RAM, GPU, and Network stats",
+        "Local LLM detection and inference speed tests (Ollama, LM Studio, Apple Intelligence)",
+        "30-day historical performance tracking",
+        "S.M.A.R.T. disk health analysis",
+        "Bluetooth and peripheral battery monitor",
+        "Crash and kernel panic watcher with plain-English insights",
+        "Customizable desktop widget",
+        "100% on-device private processing with zero telemetry"
+      ],
       "offers": [
         {
           "@type": "Offer",
@@ -191,6 +206,37 @@
           "position": 2,
           "name": "Vitals",
           "item": "https://www.hanncrest.com/vitals/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/vitals/#faq",
+      "name": "Vitals Frequently Asked Questions",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Vitals free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Vitals is free to monitor your Mac's core metrics forever. Pro features come with an automatic 14-day free trial, followed by an optional one-time purchase of $9.99 with no subscriptions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What macOS versions and hardware are supported by Vitals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Vitals supports macOS 13.0 (Ventura) and later, and is natively compiled for both Apple Silicon (M1/M2/M3/M4) and Intel Macs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Vitals collect analytics or send data to external servers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Vitals operates 100% locally on your Mac with zero telemetry, zero analytics, and no accounts. All sensor and performance data remains strictly on your machine."
+          }
         }
       ]
     }

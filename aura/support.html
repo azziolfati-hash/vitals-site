@@ -67,28 +67,105 @@
 <meta name="twitter:title" content="Support — Aura">
 <meta name="twitter:description" content="Get help with Aura — the shortcut, granting Accessibility, choosing an engine, downloading the on-device model, and how Aura keeps your text private.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-aura.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.hanncrest.com/"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hanncrest.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Aura",
+          "item": "https://www.hanncrest.com/aura/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Support",
+          "item": "https://www.hanncrest.com/aura/support.html"
+        }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Aura",
-      "item": "https://www.hanncrest.com/aura/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Support",
-      "item": "https://www.hanncrest.com/aura/support.html"
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/aura/support.html#faq",
+      "name": "Aura Support & FAQ",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://www.hanncrest.com/aura/support.html"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Aura",
+        "url": "https://www.hanncrest.com/aura/"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I use Aura?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Select text in any app, then press ⇧⌘P. Aura reads the selection, rewrites it with the active mode, and pastes the result back over it. A floating HUD shows the text streaming in — press esc at any point to cancel; your original text and clipboard are left untouched. You can also right-click a selection and choose Services → Aura."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Nothing happens when I press the shortcut.",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aura needs Accessibility permission to read your selection and paste the result back. Grant it in System Settings → Privacy & Security → Accessibility, make sure Aura is switched on, and relaunch it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does my text get sent to the cloud?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every engine Aura uses runs on your Mac — Apple Intelligence, Aura's own downloaded model, or a local server on 127.0.0.1. Your selected text is never uploaded to HANNCREST or any third party. There is no cloud rewrite mode."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which engine should I use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Leave it on Automatic and Aura picks the best one available: Apple Intelligence if your Mac has it, otherwise Aura's own model, then a local server, then the built-in no-AI cleanup. If you'd rather force a specific engine, choose it in Settings → Engine."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to download anything?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only if you want Aura's own model. On macOS with Apple Intelligence, nothing needs downloading. Otherwise, open Settings → Model and download a model once (the Balanced 1.82 GB model is default) — after that it runs offline on your Mac's GPU."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I add my own instructions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Use the Custom Instruction field in the menu-bar panel for a one-off, or save reusable presets in Settings → Presets each with its own keyboard shortcut."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much is Aura, and is it a subscription?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aura is a one-time purchase of $24.99 — no subscription and no account. That unlocks every mode, every engine, unlimited presets, and future updates."
+          }
+        }
+      ]
     }
   ]
 }

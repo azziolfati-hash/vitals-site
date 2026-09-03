@@ -67,28 +67,97 @@
 <meta name="twitter:title" content="Support — StealthShare">
 <meta name="twitter:description" content="Get help with StealthShare — the free trial and one-time price, the permissions it needs, how window masking works, auto-arming for calls, and restoring a purchase.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-stealthshare.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  "@graph": [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.hanncrest.com/"
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.hanncrest.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "StealthShare",
+          "item": "https://www.hanncrest.com/stealthshare/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Support",
+          "item": "https://www.hanncrest.com/stealthshare/support.html"
+        }
+      ]
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "StealthShare",
-      "item": "https://www.hanncrest.com/stealthshare/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Support",
-      "item": "https://www.hanncrest.com/stealthshare/support.html"
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/stealthshare/support.html#faq",
+      "name": "StealthShare Support & FAQ",
+      "isPartOf": {
+        "@type": "WebPage",
+        "@id": "https://www.hanncrest.com/stealthshare/support.html"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "StealthShare",
+        "url": "https://www.hanncrest.com/stealthshare/"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does StealthShare record my screen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No — never. StealthShare is the opposite of a recorder: it hides things while you share and captures nothing. It doesn't screenshot, record, or stream your display, and it keeps no log of your calls or what was on screen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's free, and what does it cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every feature is unlocked free for 14 days — no account or card needed to start. After the trial, StealthShare is a single one-time purchase of $9.99 that keeps it forever. There is no subscription."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does it ask for Screen Recording permission if it never records?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "macOS puts the ability to read window positions and titles behind the 'Screen Recording' permission — that's what StealthShare uses it for, so it can place masks over the exact windows you asked it to hide. It reads layout only, and records nothing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does window masking work — will my audience see my Slack?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When Privacy Mode is on, StealthShare covers each app you've chosen with an on-screen mask. Your audience sees the mask; you still see the window normally so you can keep working."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can it turn on automatically when a call starts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. StealthShare can auto-arm the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime becomes active, and can also watch for any app using your camera or mic, or arm 60 seconds before calendar meetings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "I bought StealthShare on another Mac — how do I restore it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you bought through the Mac App Store, open StealthShare and choose Restore Purchases — it restores from the same Apple ID at no extra charge."
+          }
+        }
+      ]
     }
   ]
 }

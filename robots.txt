@@ -33,6 +33,9 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
 User-agent: Applebot
 Allow: /
 
@@ -54,4 +57,17 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
+User-agent: Diffbot
+Allow: /
+
+User-agent: ImagesiftBot
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+# Sitemaps & LLM context indexes
 Sitemap: https://www.hanncrest.com/sitemap.xml
+# LLMs.txt index: https://www.hanncrest.com/llms.txt
+# LLMs Full index: https://www.hanncrest.com/llms-full.txt
+

@@ -155,22 +155,44 @@
 <meta name="twitter:title" content="Aura — Offline AI text assistant for Mac">
 <meta name="twitter:description" content="Aura rewrites your writing right where you type. Select text in any macOS app, press ⇧⌘P, and it&#x27;s proofread, clarified, shortened or reworded in place — running entirely on your Mac. No account, no cloud, nothing sent anywhere.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-aura.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "SoftwareApplication",
+      "@id": "https://www.hanncrest.com/aura/#app",
       "name": "Aura",
       "url": "https://www.hanncrest.com/aura/",
       "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "macOS",
+      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
       "description": "Aura rewrites your writing right where you type. Select text in any macOS app, press ⇧⌘P, and it's proofread, clarified, shortened or reworded in place — running entirely on your Mac. No account, no cloud, nothing sent anywhere.",
       "image": "https://www.hanncrest.com/assets/og/og-aura.png",
       "inLanguage": "en",
       "publisher": {
         "@id": "https://www.hanncrest.com/#organization"
-      }
+      },
+      "author": {
+        "@id": "https://www.hanncrest.com/#organization"
+      },
+      "softwareVersion": "1.0.0",
+      "featureList": [
+        "In-place text rewriting in any macOS app with Shift-Cmd-P",
+        "Multiple rewrite modes: Proofread, Clarify, Shorten, Expand, Professional, Casual",
+        "100% on-device AI inference using Apple Intelligence, local LLM, or embedded engine",
+        "Custom presets with designated hotkeys",
+        "Zero data transmission or server logging",
+        "Native Swift / SwiftUI lightweight architecture"
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Aura (one-time purchase)",
+          "price": "24.99",
+          "priceCurrency": "USD"
+        }
+      ]
     },
     {
       "@type": "BreadcrumbList",
@@ -186,6 +208,37 @@
           "position": 2,
           "name": "Aura",
           "item": "https://www.hanncrest.com/aura/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/aura/#faq",
+      "name": "Aura Frequently Asked Questions",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Aura rewrite text locally without cloud AI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aura uses on-device models powered by the Apple Neural Engine / GPU or Apple Intelligence directly on macOS. Your selected text is never uploaded to any remote server."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Aura a subscription or a one-time purchase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aura is a one-time purchase of $24.99 with no recurring fees, no accounts, and lifetime access to future updates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What shortcut triggers Aura?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Press Shift-Command-P (⇧⌘P) after selecting any text in any macOS application to open Aura's rewrite HUD."
+          }
         }
       ]
     }

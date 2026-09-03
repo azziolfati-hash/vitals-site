@@ -173,22 +173,44 @@
 <meta name="twitter:title" content="WhisperType — Local voice dictation for your Mac">
 <meta name="twitter:description" content="WhisperType is a native macOS dictation app. Press ⌥Space and just talk — on-device Whisper transcribes your speech on the Apple Neural Engine and types it into any text field. No cloud, no account, your voice never leaves your Mac.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-whispertype.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "SoftwareApplication",
+      "@id": "https://www.hanncrest.com/whispertype/#app",
       "name": "WhisperType",
       "url": "https://www.hanncrest.com/whispertype/",
       "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "macOS",
+      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
       "description": "WhisperType is a native macOS dictation app. Press ⌥Space and just talk — on-device Whisper transcribes your speech on the Apple Neural Engine and types it into any text field. No cloud, no account, your voice never leaves your Mac.",
       "image": "https://www.hanncrest.com/assets/og/og-whispertype.png",
       "inLanguage": "en",
       "publisher": {
         "@id": "https://www.hanncrest.com/#organization"
-      }
+      },
+      "author": {
+        "@id": "https://www.hanncrest.com/#organization"
+      },
+      "softwareVersion": "1.0.0",
+      "featureList": [
+        "Global keyboard shortcut (Option-Space) to dictate anywhere on macOS",
+        "On-device OpenAI Whisper speech-to-text running on Apple Neural Engine",
+        "Fully offline transcription with no audio ever recorded or uploaded",
+        "Multiple models available: Tiny, Base, Small, Large, and Large Turbo",
+        "Multi-language dictation support",
+        "Push-to-talk or toggle dictation modes"
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "WhisperType (one-time)",
+          "price": "19.99",
+          "priceCurrency": "USD"
+        }
+      ]
     },
     {
       "@type": "BreadcrumbList",
@@ -204,6 +226,37 @@
           "position": 2,
           "name": "WhisperType",
           "item": "https://www.hanncrest.com/whispertype/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/whispertype/#faq",
+      "name": "WhisperType Frequently Asked Questions",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does WhisperType send my voice recordings to the cloud?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All speech-to-text recognition runs locally on your Mac's Apple Neural Engine and GPU. Your voice data never leaves your computer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does WhisperType require an internet connection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An internet connection is only needed once to download your selected Whisper model. Afterwards, dictation is 100% offline."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is WhisperType priced?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WhisperType is a single one-time purchase of $19.99 with no subscription fees."
+          }
         }
       ]
     }

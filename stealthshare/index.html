@@ -190,22 +190,50 @@
 <meta name="twitter:title" content="StealthShare — Screen privacy for screen sharing">
 <meta name="twitter:description" content="StealthShare is a native macOS menu-bar app that keeps your screen safe when you share it. Blur confidential app windows, hide your desktop icons and widgets, drop in a neutral wallpaper, silence notifications, and auto-arm the moment a call starts — one hotkey, nothing recorded, everything stays on your Mac.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-stealthshare.png">
+<meta name="author" content="HANNCREST">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "SoftwareApplication",
+      "@id": "https://www.hanncrest.com/stealthshare/#app",
       "name": "StealthShare",
       "url": "https://www.hanncrest.com/stealthshare/",
       "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "macOS",
+      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
       "description": "StealthShare is a native macOS menu-bar app that keeps your screen safe when you share it. Blur confidential app windows, hide your desktop icons and widgets, drop in a neutral wallpaper, silence notifications, and auto-arm the moment a call starts — one hotkey, nothing recorded, everything stays on your Mac.",
       "image": "https://www.hanncrest.com/assets/og/og-stealthshare.png",
       "inLanguage": "en",
       "publisher": {
         "@id": "https://www.hanncrest.com/#organization"
-      }
+      },
+      "author": {
+        "@id": "https://www.hanncrest.com/#organization"
+      },
+      "softwareVersion": "1.0.0",
+      "featureList": [
+        "Confidential app window blurring during screensharing",
+        "Instant clean desktop masking and neutral wallpaper toggle",
+        "Automatic notification silencing via macOS Focus",
+        "Smart auto-arm triggers on Zoom, Teams, Meet, Slack huddles, and FaceTime",
+        "Calendar integration to arm prior to scheduled meetings",
+        "Zero screen recording, zero streaming, zero network transmission"
+      ],
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "14-Day Free Trial",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "name": "StealthShare License (one-time)",
+          "price": "9.99",
+          "priceCurrency": "USD"
+        }
+      ]
     },
     {
       "@type": "BreadcrumbList",
@@ -221,6 +249,37 @@
           "position": 2,
           "name": "StealthShare",
           "item": "https://www.hanncrest.com/stealthshare/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.hanncrest.com/stealthshare/#faq",
+      "name": "StealthShare Frequently Asked Questions",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does StealthShare record or stream my screen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. StealthShare never records, screenshots, or streams your screen. It applies local on-screen overlays to mask private windows."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does StealthShare auto-activate on conference calls?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. StealthShare can automatically activate Privacy Mode when you join meetings in Zoom, Microsoft Teams, Google Meet, Slack, FaceTime, or when mic/camera activity is detected."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does StealthShare cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "StealthShare comes with a 14-day free trial, followed by a one-time purchase of $9.99 with no subscription."
+          }
         }
       ]
     }

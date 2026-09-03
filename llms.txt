@@ -1,21 +1,59 @@
 # HANNCREST
 
-> HANNCREST builds native, private, local-first apps for macOS. Every app is fast, featherweight, and respects your privacy — no accounts, no telemetry, no subscriptions, and your data never leaves your Mac.
+> HANNCREST is an independent software studio building native, private, local-first applications for macOS. Every app is built with Swift & SwiftUI, operates without user accounts or telemetry, requires no recurring subscriptions, and processes data entirely on the user's Mac.
 
-## Apps
-- [Vitals](https://www.hanncrest.com/vitals/): your Mac's vital signs in the menu bar — CPU, GPU, memory, network, heat, battery and Bluetooth device battery, plus local-LLM detection & speed tests, 30-day history, S.M.A.R.T. disk health, crash & panic watch, and a live desktop widget. Free to monitor forever; Pro is a one-time US$9.99 after a 14-day trial.
-- [Breeze](https://www.hanncrest.com/breeze/): clean up & speed up your Mac — reclaim disk space, remove apps with their leftovers, map storage folder-by-folder, find duplicates and free system junk. Review-first; nothing deleted without you.
-- [StealthShare](https://www.hanncrest.com/stealthshare/): screen privacy for screen sharing — blur confidential app windows, hide your desktop behind a clean mask, hold notifications, and auto-activate when a call starts — without ever recording your screen.
-- [Aura](https://www.hanncrest.com/aura/): offline AI text assistant — select text in any app and proofread, clarify, shorten or reword it in place, running entirely on your Mac.
-- [WhisperType](https://www.hanncrest.com/whispertype/): local voice dictation — on-device Whisper transcribes your speech on the Apple Neural Engine and types it into any text field; your voice never leaves your Mac.
+For complete, unabridged documentation of all apps, features, technical architecture, and FAQs, see [llms-full.txt](https://www.hanncrest.com/llms-full.txt).
 
-## More
-- [All apps](https://www.hanncrest.com/apps.html)
-- Each app has a support page (e.g. https://www.hanncrest.com/vitals/support.html) and a privacy policy (e.g. https://www.hanncrest.com/vitals/privacy.html).
-- Contact: contact@hanncrest.com
+## Core Principles
+- **Truly Native**: Written in Swift & SwiftUI for macOS — no Electron, no Chromium, no web wrappers. Light on CPU, memory, and battery.
+- **Private by Design**: Zero telemetry, zero analytics, zero external logging. No account creation required.
+- **Local-First & Offline**: Metrics, AI inference, file management, and speech transcription run strictly on-device.
+- **Honest Pricing**: Generous free tiers and one-time purchases with lifetime access. No subscriptions, ever.
 
-## Key facts
-- Platform: macOS 13 or later; universal (Apple Silicon and Intel).
-- Pricing: generous free tiers and one-time purchases — no subscriptions, ever.
-- Privacy: no accounts, no analytics, no servers of their own; everything runs and stays on the user's Mac.
-- Built natively in Swift & SwiftUI — no Electron, no web wrappers — so the apps stay light on CPU, memory and battery.
+## Applications
+
+### [Vitals](https://www.hanncrest.com/vitals/)
+- **Summary**: Lightweight menu-bar system monitor with local-LLM tools, 30-day historical metrics, S.M.A.R.T. disk health, Bluetooth battery tracking, crash watch, and desktop widgets.
+- **Platform**: macOS 13.0+ (Ventura, Sonoma, Sequoia), Apple Silicon & Intel.
+- **Pricing**: Free forever for core monitoring; Pro is a one-time US$9.99 purchase following a 14-day free trial.
+- **Support**: https://www.hanncrest.com/vitals/support.html
+- **Privacy Policy**: https://www.hanncrest.com/vitals/privacy.html
+
+### [Breeze](https://www.hanncrest.com/breeze/)
+- **Summary**: Native disk cleaner and Mac maintenance utility. Features Smart Scan, Health Score, deep application uninstaller with leftover cleanup, visual storage map, duplicate finder, and developer junk cleanup.
+- **Safety**: Review-first policy. Unselected items remain untouched; deleted files move to Trash rather than instant permanent deletion.
+- **Platform**: macOS 13.0+, Apple Silicon & Intel.
+- **Pricing**: Core scan and uninstaller free; Breeze Pro is a one-time US$19.99 purchase.
+- **Support**: https://www.hanncrest.com/breeze/support.html
+- **Privacy Policy**: https://www.hanncrest.com/breeze/privacy.html
+
+### [StealthShare](https://www.hanncrest.com/stealthshare/)
+- **Summary**: Screen privacy utility for screen sharing. Blurs confidential application windows (Slack, Mail, Messages), hides desktop icons/widgets, applies neutral wallpaper, silences notifications, and auto-arms during video calls.
+- **Privacy Guarantee**: Never records, screenshots, or streams display content. Operates exclusively via local overlay window masking.
+- **Platform**: macOS 13.0+, Apple Silicon & Intel.
+- **Pricing**: 14-day free trial; one-time US$9.99 purchase.
+- **Support**: https://www.hanncrest.com/stealthshare/support.html
+- **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html
+
+### [Aura](https://www.hanncrest.com/aura/)
+- **Summary**: Offline AI writing and text rewriting assistant. Select text in any macOS app and press Shift-Command-P (⇧⌘P) to proofread, clarify, shorten, or reword text in place.
+- **Engine**: Runs 100% on-device using Apple Intelligence, local LLMs, or embedded neural models. Zero network transmission.
+- **Platform**: macOS 13.0+, Apple Silicon recommended for on-device models.
+- **Pricing**: One-time US$24.99 purchase.
+- **Support**: https://www.hanncrest.com/aura/support.html
+- **Privacy Policy**: https://www.hanncrest.com/aura/privacy.html
+
+### [WhisperType](https://www.hanncrest.com/whispertype/)
+- **Summary**: On-device voice dictation for macOS powered by OpenAI Whisper running on the Apple Neural Engine. Press Option-Space (⌥Space) to transcribe speech into any focused text field.
+- **Privacy Guarantee**: Operates completely offline after initial model download. Audio is never saved to disk or uploaded.
+- **Platform**: macOS 13.0+, Apple Silicon & Intel.
+- **Pricing**: One-time US$19.99 purchase.
+- **Support**: https://www.hanncrest.com/whispertype/support.html
+- **Privacy Policy**: https://www.hanncrest.com/whispertype/privacy.html
+
+## Key Links & Reference
+- **Homepage**: https://www.hanncrest.com/
+- **Apps Catalog**: https://www.hanncrest.com/apps.html
+- **Sitemap**: https://www.hanncrest.com/sitemap.xml
+- **Full Text LLM Guide**: https://www.hanncrest.com/llms-full.txt
+- **Contact & Developer Inquiries**: contact@hanncrest.com

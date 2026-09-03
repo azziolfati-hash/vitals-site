@@ -1,0 +1,120 @@
+# HANNCREST — Full Text Knowledge Base
+
+> Comprehensive technical specification, application documentation, privacy architecture, pricing models, and FAQ index for HANNCREST macOS applications.
+
+## 1. About HANNCREST
+- **Studio Name**: HANNCREST
+- **Website**: https://www.hanncrest.com/
+- **Publisher Email**: contact@hanncrest.com
+- **Target Operating System**: macOS 13.0 Ventura, macOS 14 Sonoma, macOS 15 Sequoia, and later.
+- **Architectures Supported**: Universal binaries for Apple Silicon (M1, M2, M3, M4) and Intel x86_64.
+- **Tech Stack**: 100% native Swift, SwiftUI, AppKit, Metal, CoreML, Apple Neural Engine. No Electron, no web wrappers, no Chromium.
+
+### Guiding Principles
+1. **Privacy Absolute**: No user tracking, no telemetry, no Google Analytics, no Mixpanel, no crash uploaders unless initiated by the user. No user accounts or login required.
+2. **Local-First & Offline**: All metrics calculation, AI text rewriting, disk indexing, and speech recognition occur strictly on local CPU/GPU/Neural Engine silicon.
+3. **No Subscriptions**: Generous free tiers with perpetual one-time purchase licenses. Buy once, own forever.
+
+---
+
+## 2. Product Catalog & Technical Deep Dives
+
+### App 1: Vitals
+- **Canonical URL**: https://www.hanncrest.com/vitals/
+- **Tagline**: Your Mac's vital signs in the menu bar.
+- **Category**: System Monitor & Diagnostics Utility.
+- **Key Capabilities**:
+  - **Menu Bar Monitor**: Real-time stats for CPU utilization, RAM usage & memory pressure, GPU compute load, network upload/download throughput, thermal levels & fan speeds, internal battery state of charge, and connected Bluetooth peripheral battery levels (AirPods, Magic Mouse, Magic Keyboard, Bluetooth headsets).
+  - **Local LLM Intelligence**: Automatically detects running local LLM inference engines (Ollama, LM Studio, Llama.cpp, Apple Intelligence) and measures real-time tokens-per-second inference speed, model name, and GPU VRAM footprint.
+  - **30-Day Historical Logging**: On-device lightweight time-series logging to spot memory leaks, thermal throttling triggers, and runaway background processes over time.
+  - **Storage & S.M.A.R.T. Health**: Real-time SSD wear levels, TBW (terabytes written), read/write endurance, and drive health indicators.
+  - **Crash Watcher**: Intercepts macOS crash logs and kernel panics, translating complex stack traces into actionable plain-English explanations.
+  - **Desktop Widget**: Live configurable desktop widget for continuous glanceable monitoring.
+- **Pricing**: Free tier forever for core monitoring. Vitals Pro is a one-time purchase of $9.99 USD following a 14-day full-featured free trial.
+
+### App 2: Breeze
+- **Canonical URL**: https://www.hanncrest.com/breeze/
+- **Tagline**: Clean up & speed up your Mac.
+- **Category**: Storage Optimization & Maintenance Utility.
+- **Key Capabilities**:
+  - **Smart Scan & Health Score**: Unified health diagnostic that identifies junk files, cache bloat, memory leaks, and disk space bottlenecks with a single click.
+  - **True App Uninstaller**: Thoroughly removes macOS application bundles along with orphaned preferences (`~/Library/Preferences`), Application Support directories, caches (`~/Library/Caches`), daemons, and launch agents.
+  - **Visual Storage Map**: Interactive folder hierarchy explorer enabling instant visual identification of large directories and storage hogs.
+  - **Duplicate & Similar File Finder**: Byte-by-byte duplicate detector and visual similarity scanner for duplicate photos and downloaded assets.
+  - **Developer Junk Purger**: Specialized cleanups for Xcode DerivedData, simulator runtimes, npm `node_modules` caches, Gradle caches, CocoaPods caches, Docker VM remnants, and Python virtual environment bloat.
+  - **Safety Philosophy**: Review-first policy. Deletions move files safely to the macOS Trash (`~/.Trash`) rather than executing permanent destructive unlinks. System and SIP-protected files are strictly bypassed.
+- **Pricing**: Free tier includes Smart Scan, Health Score, Storage Map, and basic uninstaller. Breeze Pro is a one-time purchase of $19.99 USD.
+
+### App 3: StealthShare
+- **Canonical URL**: https://www.hanncrest.com/stealthshare/
+- **Tagline**: Screen privacy for screen sharing.
+- **Category**: Privacy & Presentation Utility.
+- **Key Capabilities**:
+  - **App Window Masking**: Blurs or masks designated sensitive application windows (Slack, Apple Messages, WhatsApp, Mail, 1Password, Notes) during presentations and screen share sessions.
+  - **Audience Separation**: The presenter retains full visibility to work while viewers on Zoom, Google Meet, Microsoft Teams, Slack huddle, or FaceTime see only an opaque or blurred privacy mask.
+  - **Desktop Cloak & Wallpaper Neutralizer**: Temporarily hides desktop icons and widgets and swaps the active wallpaper to a clean neutral background with one click.
+  - **Notification Hold**: Automatic suppression of banner notifications and sound alerts during active sharing sessions via macOS Focus / Shortcuts integration.
+  - **Auto-Arm Intelligence**: Automatically enables privacy shields upon detecting active video call processes or camera/mic usage, or 60 seconds prior to scheduled calendar events.
+  - **Zero Recording Architecture**: StealthShare does not capture, record, encode, or transmit video frames. It relies purely on native window coordinate masking.
+- **Pricing**: 14-day free trial with all features enabled. One-time purchase of $9.99 USD with lifetime updates.
+
+### App 4: Aura
+- **Canonical URL**: https://www.hanncrest.com/aura/
+- **Tagline**: Offline AI text assistant for Mac.
+- **Category**: Productivity & AI Writing Utility.
+- **Key Capabilities**:
+  - **In-Place Transformation**: Select text anywhere on macOS and press Shift-Command-P (`⇧⌘P`) to stream rewritten, proofread, or summarized text directly into the active application.
+  - **Rewrite Modes**: Proofread grammar & typos, Clarify tone, Shorten/condense, Expand, Make Professional, Make Casual, and Custom Prompts.
+  - **100% On-Device Engine**: Leverages Apple Intelligence on macOS Sequoia/future releases, locally downloaded quantized models running on the Apple Silicon GPU/Neural Engine, or connects to user-hosted local endpoints (e.g. `http://127.0.0.1:11434`).
+  - **Custom Presets**: Create unlimited customizable prompts linked to designated keyboard shortcuts.
+  - **No Cloud Required**: Text never leaves the computer. Works seamlessly without an active internet connection.
+- **Pricing**: One-time purchase of $24.99 USD.
+
+### App 5: WhisperType
+- **Canonical URL**: https://www.hanncrest.com/whispertype/
+- **Tagline**: Local voice dictation for Mac.
+- **Category**: Speech Recognition & Accessibility Utility.
+- **Key Capabilities**:
+  - **System-Wide Dictation**: Press Option-Space (`⌥Space`) from any text input field to begin high-accuracy speech-to-text transcription.
+  - **Apple Neural Engine Acceleration**: Powered by OpenAI Whisper models optimized natively for Apple Silicon, providing fast transcription with low power consumption.
+  - **Model Flexibility**: Supports multiple model tiers (Tiny, Base, Small, Large, and Large Turbo) depending on user accuracy needs and RAM capacity.
+  - **Multi-Language Support**: Accurate speech-to-text across dozens of world languages and accents.
+  - **100% Private & Offline**: Audio is transcribed in real-time in memory and inserted via macOS Accessibility API. Audio is never stored on disk or transmitted over the network.
+- **Pricing**: One-time purchase of $19.99 USD.
+
+---
+
+## 3. Frequently Asked Questions (FAQ)
+
+### General & Studio Questions
+- **Q: Are HANNCREST apps available on the Mac App Store or direct download?**
+  - A: Apps are offered both through the Mac App Store and direct downloads from hanncrest.com. Direct-download versions unlock advanced hardware-level diagnostics that standard App Store sandboxing restricts.
+- **Q: Do HANNCREST apps have subscriptions?**
+  - A: No. All HANNCREST applications use single, one-time payment licenses. Once purchased, users own the software forever.
+- **Q: Do HANNCREST apps collect personal data?**
+  - A: No. HANNCREST collects zero personal data, analytics, crash logs, or identifiers.
+
+### Vitals FAQ
+- **Q: Can Vitals monitor Apple Silicon thermal throttling?**
+  - A: Yes. Vitals monitors CPU/GPU thermal sensors and fan RPMs directly on Apple Silicon and Intel Macs.
+- **Q: How does local LLM detection work in Vitals?**
+  - A: Vitals inspects local system processes and ports for Ollama, LM Studio, and llama.cpp runtimes to benchmark token generation speeds and VRAM consumption.
+
+### Breeze FAQ
+- **Q: Why does Breeze require Full Disk Access?**
+  - A: Full Disk Access is required by macOS so Breeze can scan caches, application leftover files, and developer directories outside user space. All scanning is performed strictly locally.
+
+### StealthShare FAQ
+- **Q: Does StealthShare record video?**
+  - A: No. StealthShare never records or streams display output. It creates native visual masks over selected application windows.
+
+### Aura & WhisperType FAQ
+- **Q: Do Aura and WhisperType require an internet connection?**
+  - A: No. After the initial one-time model download, both Aura and WhisperType operate 100% offline.
+
+---
+
+## 4. Contact & Support
+- **Support Email**: contact@hanncrest.com
+- **Website**: https://www.hanncrest.com/
+- **Apps Catalog**: https://www.hanncrest.com/apps.html
