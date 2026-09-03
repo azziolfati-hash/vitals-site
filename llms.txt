@@ -1,0 +1,21 @@
+# HANNCREST
+
+> HANNCREST builds native, private, local-first apps for macOS. Every app is fast, featherweight, and respects your privacy — no accounts, no telemetry, no subscriptions, and your data never leaves your Mac.
+
+## Apps
+- [Vitals](https://www.hanncrest.com/vitals/): your Mac's vital signs in the menu bar — CPU, GPU, memory, network, heat, battery and Bluetooth device battery, plus local-LLM detection & speed tests, 30-day history, S.M.A.R.T. disk health, crash & panic watch, and a live desktop widget. Free to monitor forever; Pro is a one-time US$9.99 after a 14-day trial.
+- [Breeze](https://www.hanncrest.com/breeze/): clean up & speed up your Mac — reclaim disk space, remove apps with their leftovers, map storage folder-by-folder, find duplicates and free system junk. Review-first; nothing deleted without you.
+- [StealthShare](https://www.hanncrest.com/stealthshare/): screen privacy for screen sharing — blur confidential app windows, hide your desktop behind a clean mask, hold notifications, and auto-activate when a call starts — without ever recording your screen.
+- [Aura](https://www.hanncrest.com/aura/): offline AI text assistant — select text in any app and proofread, clarify, shorten or reword it in place, running entirely on your Mac.
+- [WhisperType](https://www.hanncrest.com/whispertype/): local voice dictation — on-device Whisper transcribes your speech on the Apple Neural Engine and types it into any text field; your voice never leaves your Mac.
+
+## More
+- [All apps](https://www.hanncrest.com/apps.html)
+- Each app has a support page (e.g. https://www.hanncrest.com/vitals/support.html) and a privacy policy (e.g. https://www.hanncrest.com/vitals/privacy.html).
+- Contact: contact@hanncrest.com
+
+## Key facts
+- Platform: macOS 13 or later; universal (Apple Silicon and Intel).
+- Pricing: generous free tiers and one-time purchases — no subscriptions, ever.
+- Privacy: no accounts, no analytics, no servers of their own; everything runs and stays on the user's Mac.
+- Built natively in Swift & SwiftUI — no Electron, no web wrappers — so the apps stay light on CPU, memory and battery.

@@ -5,183 +5,270 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HANNCREST — native, private Mac apps</title>
 <meta name="description" content="HANNCREST builds native, private, local-first apps for macOS. Fast, featherweight, no accounts, no telemetry — your data never leaves your Mac. Starting with Vitals, a menu-bar system monitor.">
-<meta property="og:title" content="HANNCREST — native, private Mac apps">
-<meta property="og:description" content="Native, private, local-first apps for macOS. Nothing leaves your Mac. Starting with Vitals.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.hanncrest.com/">
 <link rel="icon" type="image/svg+xml" href="assets/hanncrest-mark-light.svg">
 <style>
   :root{
-    --bg:#000000; --panel:#0b0b12; --card:#101019; --card2:#16161f;
-    --line:rgba(255,255,255,.09); --tx:#f5f5f9; --mut:#a0a0ba; --dim:#6a6a82;
-    --g1:#ff3d9a; --g2:#7c4dff; --g3:#4dc9ff; --good:#34d399;
-    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --sky-top:#050b14; --tx:#eaf2f7; --mut:#9fb6c6; --dim:#6d8598;
+    --card:#0c1a26; --card2:#0a1520; --line:rgba(255,255,255,.10);
+    --teal:#4dc9ff; --teal2:#7fe3ff; --ice:#cdeffb; --good:#34d399;
+    --grad:linear-gradient(135deg,var(--teal),#8ad0ff);
     --maxw:1120px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{background:var(--sky-top);color:var(--tx);font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-  .grad-text{background:linear-gradient(120deg,var(--g1),var(--g2) 55%,var(--g3));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:15px 26px;border-radius:999px;font-weight:650;font-size:15.5px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;cursor:pointer;border:0}
-  .btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 34px rgba(124,77,255,.4)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(255,61,154,.45)}
-  .btn-ghost{background:rgba(255,255,255,.08);color:var(--tx);border:1px solid var(--line);backdrop-filter:blur(6px)}
-  .btn-ghost:hover{background:rgba(255,255,255,.14)}
-  .btn .arrow{transition:transform .2s ease}
-  .btn:hover .arrow{transform:translateX(3px)}
-  .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.3px;background:rgba(255,255,255,.08);color:#d9d3ff;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(6px)}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  /* NAV */
-  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
-  header.scrolled{backdrop-filter:saturate(160%) blur(14px);background:rgba(0,0,0,.78);border-bottom:1px solid var(--line)}
-  nav{display:flex;align-items:center;justify-content:space-between;height:70px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:1.5px}
-  .brandmark{width:36px;height:27px;flex:none}
-  .navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--mut)}
+  /* ---------- MOUNTAIN SCENE (top-anchored) ---------- */
+  .scene{position:absolute;top:0;left:0;right:0;height:1180px;z-index:0;overflow:hidden;
+    background:linear-gradient(to bottom,#050b14 0%,#0c2233 42%,#17465c 66%,#0f3547 80%,#081722 100%)}
+  #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .scene .ranges{position:absolute;inset:0;width:100%;height:100%}
+  .scene::before{content:"";position:absolute;left:50%;top:44%;transform:translateX(-50%);width:90%;height:46%;
+    background:radial-gradient(ellipse at center,rgba(63,159,192,.5),transparent 62%);filter:blur(20px)}
+  .scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:360px;
+    background:linear-gradient(to bottom,transparent,var(--sky-top))}
+  .veil{position:absolute;top:0;left:0;right:0;height:1180px;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
+  .content{position:relative;z-index:2}
+
+  /* ---------- NAV ---------- */
+  header{position:fixed;top:0;left:0;right:0;z-index:30;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  header.scrolled{backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.72);border-bottom:1px solid var(--line)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:17px;letter-spacing:1.6px}
+  .brand img{width:34px;height:26px;filter:drop-shadow(0 4px 16px rgba(77,201,255,.5))}
+  .navlinks{display:flex;align-items:center;gap:26px;font-size:14.5px;color:var(--mut)}
   .navlinks a:hover{color:var(--tx)}
-  .navlinks .btn{padding:10px 20px;font-size:14px}
   @media(max-width:760px){.navlinks a:not(.btn){display:none}}
 
-  /* HERO CARD (breeze-style inset rounded card + animated sky) */
-  .hero-shell{padding:14px 14px 0}
-  .hero{position:relative;border-radius:32px;overflow:hidden;min-height:min(92vh,860px);display:flex;align-items:center;justify-content:center;text-align:center;
-    background:radial-gradient(120% 95% at 50% -5%,#171226 0%,#0c0a16 32%,#050509 64%,#000000 100%)}
-  #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
-  .hero-glow{position:absolute;left:50%;top:-16%;transform:translateX(-50%);width:108%;height:58%;background:radial-gradient(ellipse at center,rgba(124,77,255,.36),rgba(255,61,154,.14) 42%,transparent 66%);filter:blur(24px);pointer-events:none}
-  /* smooth fade at the bottom so the hero blends into the page / the wires below */
-  .hero-fade{position:absolute;left:0;right:0;bottom:0;height:34%;z-index:2;pointer-events:none;background:linear-gradient(to bottom,transparent,#000 92%)}
-  .hero-inner{position:relative;z-index:2;padding:120px 24px 132px;max-width:900px}
-  .hero-logo{display:block;width:min(220px,52vw);height:auto;margin:0 auto;filter:drop-shadow(0 8px 30px rgba(124,77,255,.5))}
-  .hero h1{font-size:clamp(38px,7vw,80px);line-height:1.02;font-weight:850;letter-spacing:-1.6px;margin:26px auto 0;max-width:16ch}
-  .hero p.sub{color:#c8c6e6;font-size:clamp(16px,2.2vw,21px);max-width:52ch;margin:22px auto 0}
-  .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
-  .spark{display:inline-block;animation:twinkle 2.6s ease-in-out infinite}
-  @keyframes twinkle{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:999px;font-weight:650;font-size:15px;transition:transform .18s,box-shadow .18s,background .18s;cursor:pointer;border:0}
+  .btn-primary{background:#eef7fc;color:#0a1a24;box-shadow:0 12px 34px rgba(77,201,255,.28)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px rgba(77,201,255,.42)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:var(--tx);border:1px solid var(--line);backdrop-filter:blur(6px)}
+  .btn-ghost:hover{background:rgba(255,255,255,.15)}
+  .btn .arrow{transition:transform .2s}.btn:hover .arrow{transform:translateX(3px)}
+  .navlinks .btn{padding:9px 18px;font-size:14px}
 
-  /* SECTIONS */
+  /* ---------- HERO ---------- */
+  .hero{padding:150px 24px 30px;text-align:center;max-width:920px;margin:0 auto}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 15px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.4px;
+    background:rgba(77,201,255,.12);color:var(--ice);border:1px solid rgba(127,227,255,.3);backdrop-filter:blur(6px)}
+  .hero-logo{display:block;width:min(150px,34vw);height:auto;margin:18px auto 0;filter:drop-shadow(0 10px 34px rgba(77,201,255,.55))}
+  .hero h1{font-size:clamp(40px,7.2vw,78px);line-height:1.03;font-weight:850;letter-spacing:-1.8px;margin:20px auto 0;max-width:15ch}
+  .hero p.sub{color:#cfe2ee;font-size:clamp(16px,2.1vw,20px);max-width:56ch;margin:22px auto 0}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .trust{margin-top:22px;font-size:13px;color:var(--dim);letter-spacing:.3px}
+
+  /* ---------- DEVICE MOCKUP ---------- */
+  .stage{position:relative;max-width:1000px;margin:48px auto 0;padding:0 24px}
+  .stage::before{content:"";position:absolute;left:50%;top:6%;transform:translateX(-50%);width:78%;height:72%;
+    background:radial-gradient(ellipse at center,rgba(77,201,255,.5),rgba(77,201,255,.12) 45%,transparent 70%);filter:blur(30px);z-index:-1}
+  .device{border-radius:16px;border:1px solid rgba(255,255,255,.14);overflow:hidden;background:rgba(10,20,28,.7);backdrop-filter:blur(8px);box-shadow:0 40px 120px rgba(0,0,0,.6)}
+  .device .bar{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}
+  .device .bar i{width:11px;height:11px;border-radius:50%;display:block}
+  .device .bar .r{background:#ff5f57}.device .bar .y{background:#febc2e}.device .bar .g{background:#28c840}
+  .device .bar span{margin-left:10px;font-size:12px;color:var(--dim)}
+  .device img{display:block;width:100%;height:auto}
+
+  /* ---------- SECTION HEADS ---------- */
   section{padding:88px 0}
-  .eyebrow{text-align:center;font-size:13px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--g1)}
+  .eyebrow{text-align:center;font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--teal)}
   h2.title{text-align:center;font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.8px;margin:12px auto 0;max-width:22ch}
-  .lead{text-align:center;color:var(--mut);font-size:18px;max-width:60ch;margin:16px auto 0}
 
-  /* trust / backed strip */
-  .strip{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;color:var(--mut);font-size:14px;font-weight:500;margin-top:44px}
-  .strip span{display:inline-flex;align-items:center;gap:8px}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--good);box-shadow:0 0 10px var(--good)}
-
-  /* APPS */
-  .apps{display:grid;grid-template-columns:1fr;gap:18px;margin-top:52px}
-  .app{display:flex;gap:20px;align-items:flex-start;background:linear-gradient(180deg,var(--card),#101019);border:1px solid var(--line);border-radius:20px;padding:26px 28px;transition:border-color .25s,transform .25s,box-shadow .25s}
-  .app:hover{border-color:rgba(124,77,255,.45);transform:translateY(-3px);box-shadow:0 22px 60px rgba(0,0,0,.45)}
-  .app.lead-app{background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
-  .app .ico{width:64px;height:64px;border-radius:16px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.4)}
-  .app .meta{flex:1;min-width:0}
-  .app h3{font-size:21px;font-weight:750;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .app .tagline{color:var(--g1);font-size:13.5px;font-weight:600;margin-top:3px}
-  .app p{color:var(--mut);font-size:14.5px;margin-top:11px;max-width:72ch}
-  .app .go{display:inline-flex;align-items:center;gap:6px;margin-top:15px;font-size:13.5px;font-weight:650;color:#c9b6ff}
-  .app .go .arrow{transition:transform .2s}
-  .app:hover .go .arrow{transform:translateX(3px)}
-  .chip{font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:3px 10px;border-radius:999px;text-transform:uppercase}
-  .chip.live{background:rgba(52,211,153,.14);color:#5ee7b0;border:1px solid rgba(52,211,153,.3)}
-  .chip.soon{background:rgba(255,255,255,.07);color:var(--dim);border:1px solid var(--line)}
-  .app.soon{opacity:.82}.app.soon:hover{transform:none;border-color:var(--line);box-shadow:none}
-  .soonlabel{display:inline-block;margin-top:15px;font-size:13px;font-weight:600;color:var(--dim)}
-
-  /* WIRE CONNECTOR — lines flow out of the logo and fan down to the app boxes.
-     Drawing is scroll-linked (see JS): draws as you scroll down, retracts scrolling up.
-     Width is capped to the boxes' width so every wire lands on the boxes, not past them. */
-  .connect{position:relative;max-width:920px;margin:-14px auto 0;padding:0 24px}
-  .connect-mark{display:block;width:62px;height:auto;margin:0 auto;filter:drop-shadow(0 6px 20px rgba(124,77,255,.55));position:relative;z-index:2}
+  /* ---------- WIRE FAN (logo → apps) ---------- */
+  .connect{position:relative;max-width:920px;margin:6px auto 0;padding:0 24px}
+  .connect-mark{display:block;width:60px;height:auto;margin:0 auto;filter:drop-shadow(0 6px 20px rgba(77,201,255,.6));position:relative;z-index:2}
   .wires{display:block;width:100%;height:210px;margin-top:-4px}
-  @media(max-width:600px){ .wires{height:150px} }
-  .wires path{fill:none;stroke:url(#wireGrad);stroke-width:2.4;stroke-linecap:round;
-    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
-  .wire-node{fill:#ff5aa8;transition:opacity .15s linear}
-  @media(prefers-reduced-motion:reduce){ .wires path{stroke-dashoffset:0!important;transition:none}.wire-node{opacity:1!important} }
+  @media(max-width:600px){.wires{height:150px}}
+  .wires path{fill:none;stroke:url(#wireGrad);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
+  @media(prefers-reduced-motion:reduce){.wires path{stroke-dashoffset:0!important;transition:none}}
 
-  /* Boxes alternate left/right and are joined by breeze-style routed traces.
-     The traces (SVG) are built in JS from each box's real position, so they always line up. */
-  .apps{position:relative}
-  .app{position:relative;z-index:1}
+  /* ---------- APPS (zig-zag, wired) ---------- */
+  .apps{position:relative;display:grid;grid-template-columns:1fr;gap:18px;margin-top:2px}
+  .app{position:relative;z-index:1;display:flex;gap:20px;align-items:flex-start;
+    background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:20px;padding:24px 26px;backdrop-filter:blur(8px);
+    transition:border-color .25s,transform .25s,box-shadow .25s}
+  .app:hover{border-color:rgba(127,227,255,.5);transform:translateY(-3px);box-shadow:0 22px 60px rgba(0,0,0,.5)}
+  .app.lead-app{background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
+  .app .ico{width:60px;height:60px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.45)}
+  .app .meta{flex:1;min-width:0}
+  .app h3{font-size:20px;font-weight:750;letter-spacing:-.3px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .app .tagline{color:var(--teal2);font-size:13px;font-weight:600;margin-top:3px}
+  .app p{color:var(--mut);font-size:14px;margin-top:10px;max-width:72ch}
+  .app .go{display:inline-flex;align-items:center;gap:6px;margin-top:13px;font-size:13.5px;font-weight:650;color:var(--ice)}
+  .app .go .arrow{transition:transform .2s}.app:hover .go .arrow{transform:translateX(3px)}
+  .chip{font-size:10px;font-weight:700;letter-spacing:.4px;padding:3px 9px;border-radius:999px;text-transform:uppercase;background:rgba(52,211,153,.14);color:#5ee7b0;border:1px solid rgba(52,211,153,.3)}
   .box-wires{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
-  .box-wires .bw{fill:none;stroke:url(#wireGrad2);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;
-    stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .1s linear}
-  .box-wires .bw-dot{fill:#fff;filter:drop-shadow(0 0 6px rgba(160,120,255,.95));transition:opacity .15s linear}
+  .box-wires .bw{fill:none;stroke:url(#wireGrad2);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .1s linear}
+  .box-wires .bw-dot{fill:#eaffff;filter:drop-shadow(0 0 6px rgba(127,227,255,.95));transition:opacity .15s linear}
   @media(min-width:721px){
-    .apps{gap:92px}          /* room for the wire to drop from the box's middle before turning */
+    .apps{gap:92px}
     .app{width:52%;justify-self:start}
     .app.lead-app{width:100%}
-    .app:nth-child(2n){justify-self:end}   /* even cards align right → zigzag */
+    .app:nth-child(2n){justify-self:end}
   }
-  @media(prefers-reduced-motion:reduce){ .box-wires .bw{stroke-dashoffset:0!important;transition:none}.box-wires .bw-dot{opacity:1} }
+  @media(prefers-reduced-motion:reduce){.box-wires .bw{stroke-dashoffset:0!important;transition:none}.box-wires .bw-dot{opacity:1}}
 
-  /* VALUES */
-  .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:56px}
+  /* ---------- PER-APP MINI ANIMATIONS ---------- */
+  .preview{margin-top:16px;min-height:96px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);overflow:hidden;position:relative;display:flex;align-items:center;gap:16px;padding:14px 18px}
+
+  /* Vitals — three labelled gauges with live % */
+  .pv-vitals{gap:30px}
+  .pv-vitals .gauge{position:relative;width:62px;text-align:center;flex:none}
+  .pv-vitals .gauge svg{width:56px;height:56px;display:block;margin:0 auto;transform:rotate(-90deg)}
+  .pv-vitals .trk{fill:none;stroke:rgba(255,255,255,.10);stroke-width:5}
+  .pv-vitals .arc{fill:none;stroke-width:5;stroke-linecap:round}
+  .pv-vitals .num{position:absolute;top:19px;left:0;right:0;font-size:14px;font-weight:750;font-variant-numeric:tabular-nums}
+  .pv-vitals .lbl{display:block;margin-top:4px;font-size:10px;font-weight:650;letter-spacing:.6px;color:var(--mut)}
+
+  /* Breeze — junk cells cleared with a live GB-freed counter */
+  .pv-breeze{flex-direction:column;align-items:stretch;gap:10px}
+  .pv-breeze .binfo{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--mut)}
+  .pv-breeze .binfo b{color:var(--teal2);font-weight:700;font-variant-numeric:tabular-nums}
+  .pv-breeze .btrack{display:flex;align-items:center;gap:5px;height:20px}
+  .pv-breeze .cell{flex:1;height:18px;border-radius:4px;background:rgba(255,255,255,.14);transition:opacity .32s ease,transform .32s ease}
+  .pv-breeze .cell.j1{background:rgba(240,162,59,.55)}
+  .pv-breeze .cell.j2{background:rgba(127,227,255,.42)}
+  .pv-breeze .cell.j3{background:rgba(239,90,90,.45)}
+
+  /* StealthShare — a real message that blurs out while sharing */
+  .pv-stealth{flex-direction:column;align-items:flex-start;gap:8px}
+  .pv-stealth .mtext{animation:sBlur 4.4s ease-in-out infinite}
+  .pv-stealth .mline{font-size:13px;color:#e7eef4;margin-bottom:5px}
+  .pv-stealth .mline:last-child{margin-bottom:0}
+  .pv-stealth .mline b{color:#fff;font-weight:700}
+  @keyframes sBlur{0%,30%{filter:blur(0)}46%,86%{filter:blur(6px)}100%{filter:blur(0)}}
+  .pv-stealth .eye{font-size:10.5px;color:var(--ice);opacity:0;animation:sEye 4.4s ease-in-out infinite}
+  @keyframes sEye{0%,36%{opacity:0}50%,86%{opacity:1}100%{opacity:0}}
+
+  /* Aura — messy text rewritten clean */
+  .pv-aura{gap:14px}
+  .pv-aura .atag{font-size:10.5px;font-weight:700;color:var(--teal);letter-spacing:.6px;flex:none;padding-top:2px}
+  .pv-aura .atext{font-size:15px;transition:color .35s}
+  .pv-aura .atext.bad{color:var(--mut);text-decoration:underline wavy rgba(239,90,90,.95);text-underline-offset:4px}
+  .pv-aura .atext.good{color:var(--ice)}
+
+  /* WhisperType — voice waveform + dictated text */
+  .pv-whisper{gap:16px}
+  .pv-whisper .mic{display:flex;align-items:center;gap:9px;flex:none}
+  .pv-whisper .wave{display:flex;align-items:center;gap:3px;height:34px}
+  .pv-whisper .wave i{width:4px;height:16%;background:linear-gradient(var(--teal2),var(--teal));border-radius:3px;animation:wWave .9s ease-in-out infinite}
+  .pv-whisper .wave i:nth-child(2){animation-delay:.1s}.pv-whisper .wave i:nth-child(3){animation-delay:.2s}.pv-whisper .wave i:nth-child(4){animation-delay:.3s}.pv-whisper .wave i:nth-child(5){animation-delay:.15s}.pv-whisper .wave i:nth-child(6){animation-delay:.25s}.pv-whisper .wave i:nth-child(7){animation-delay:.05s}
+  @keyframes wWave{0%,100%{height:14%}50%{height:100%}}
+  .pv-whisper .wtyped{font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ice)}
+  .pv-whisper .wcar{color:var(--teal2);animation:wCaret .75s step-end infinite}
+  @keyframes wCaret{50%{opacity:0}}
+
+  /* ---------- VALUES ---------- */
+  .values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px}
   @media(max-width:860px){.values{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:480px){.values{grid-template-columns:1fr}}
-  .val{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .25s,border-color .25s}
-  .val:hover{transform:translateY(-3px);border-color:rgba(124,77,255,.35)}
-  .val .vico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(124,77,255,.14);border:1px solid rgba(124,77,255,.28);font-size:22px;margin-bottom:15px}
+  .val{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:24px;backdrop-filter:blur(8px);transition:transform .25s,border-color .25s}
+  .val:hover{transform:translateY(-3px);border-color:rgba(127,227,255,.4)}
+  .val .vico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(77,201,255,.14);border:1px solid rgba(77,201,255,.3);font-size:22px;margin-bottom:14px}
   .val h3{font-size:16.5px;font-weight:700;letter-spacing:-.2px}
   .val p{color:var(--mut);font-size:14px;margin-top:8px}
 
-  /* FINAL */
-  .final{position:relative;text-align:center;padding:100px 0 60px;overflow:hidden}
-  .final h2{font-size:clamp(30px,4.6vw,52px);font-weight:850;letter-spacing:-1.2px}
-  .final p{color:var(--mut);margin-top:14px;font-size:18px;max-width:52ch;margin-left:auto;margin-right:auto}
-  .final .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  /* ---------- FINAL ---------- */
+  .final{text-align:center;padding:90px 0 40px}
+  .final h2{font-size:clamp(30px,4.6vw,50px);font-weight:850;letter-spacing:-1.2px}
+  .final p{color:var(--mut);margin-top:14px;font-size:18px;max-width:52ch;margin:14px auto 0}
+  .final .cta{margin-top:30px}
 
-  /* FOOTER */
-  footer{border-top:1px solid var(--line);padding:44px 0;color:var(--dim);font-size:13.5px}
+  footer{border-top:1px solid var(--line);padding:44px 0;color:var(--dim);font-size:13.5px;background:rgba(5,11,20,.5)}
   .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
   .foot .links{display:flex;gap:22px;flex-wrap:wrap}
 
-  /* SCROLL REVEAL */
   .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
-  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
-  @media(prefers-reduced-motion:reduce){
-    .reveal{opacity:1;transform:none;transition:none}
-    .spark{animation:none}
-    html{scroll-behavior:auto}
-  }
+  .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+  .badge-test{position:fixed;bottom:14px;left:14px;z-index:40;font-size:11px;letter-spacing:.4px;color:#0a1a24;background:var(--teal2);padding:5px 10px;border-radius:999px;font-weight:700;opacity:.9}
 </style>
+<link rel="canonical" href="https://www.hanncrest.com/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="theme-color" content="#0a0a10">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HANNCREST">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://www.hanncrest.com/">
+<meta property="og:title" content="HANNCREST — native, private Mac apps">
+<meta property="og:description" content="HANNCREST builds native, private, local-first apps for macOS. Fast, featherweight, no accounts, no telemetry — your data never leaves your Mac. Starting with Vitals, a menu-bar system monitor.">
+<meta property="og:image" content="https://www.hanncrest.com/assets/og/og-hanncrest.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HANNCREST — native, private Mac apps">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HANNCREST — native, private Mac apps">
+<meta name="twitter:description" content="HANNCREST builds native, private, local-first apps for macOS. Fast, featherweight, no accounts, no telemetry — your data never leaves your Mac. Starting with Vitals, a menu-bar system monitor.">
+<meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-hanncrest.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.hanncrest.com/#organization",
+      "name": "HANNCREST",
+      "url": "https://www.hanncrest.com/",
+      "logo": "https://www.hanncrest.com/assets/apple-touch-icon.png",
+      "description": "HANNCREST builds native, private, local-first apps for macOS.",
+      "email": "contact@hanncrest.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.hanncrest.com/#website",
+      "url": "https://www.hanncrest.com/",
+      "name": "HANNCREST",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://www.hanncrest.com/#organization"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<header id="hdr">
-  <div class="wrap"><nav>
-    <a class="brand" href="#top"><img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="">HANNCREST</a>
+<!-- MOUNTAIN SCENE: gradient sky + animated stars (behind) + mountain ranges (front) -->
+<div class="scene">
+  <canvas id="sky"></canvas>
+  <svg class="ranges" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path d="M0,560 L150,470 L300,530 L470,430 L620,520 L780,450 L960,540 L1140,460 L1300,520 L1440,470 L1440,900 L0,900 Z" fill="#2c5568" opacity="0.5"/>
+    <path d="M0,640 L180,560 L360,630 L540,540 L700,620 L880,545 L1060,625 L1240,560 L1440,620 L1440,900 L0,900 Z" fill="#1c3d4f" opacity="0.85"/>
+    <path d="M0,720 L220,640 L430,715 L620,630 L820,710 L1020,640 L1220,715 L1440,660 L1440,900 L0,900 Z" fill="#122a38"/>
+    <path id="trees" fill="#070f16"/>
+  </svg>
+</div>
+<div class="veil"></div>
+
+<div class="content">
+  <header id="hdr"><div class="wrap"><nav>
+    <a class="brand" href="#top"><img src="assets/hanncrest-mark-light.svg" alt="">HANNCREST</a>
     <div class="navlinks">
-      <a href="#apps">Apps</a>
-      <a href="#values">Why us</a>
-      <a href="mailto:contact@hanncrest.com">Contact</a>
+      <a href="#apps">Apps</a><a href="#values">Why us</a><a href="mailto:contact@hanncrest.com">Contact</a>
       <a class="btn btn-primary" href="vitals/">Get Vitals</a>
     </div>
-  </nav></div>
-</header>
+  </nav></div></header>
 
-<main id="top">
   <!-- HERO -->
-  <div class="hero-shell">
-    <section class="hero">
-      <canvas id="sky"></canvas>
-      <div class="hero-glow"></div>
-      <div class="hero-fade"></div>
-      <div class="hero-inner">
-        <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">
-        <h1>Native Mac apps, built on <span class="grad-text">higher ground</span>.</h1>
-        <p class="sub">A small studio crafting fast, featherweight macOS tools — no accounts, no telemetry, no subscriptions. Everything runs and stays on your Mac.</p>
-        <div class="cta">
-          <a class="btn btn-primary" href="vitals/">Explore Vitals <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="#apps">See all apps</a>
-        </div>
-      </div>
-    </section>
+  <div class="hero" id="top">
+    <span class="pill">◆ Native · Private · Local-first</span>
+    <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">
+    <h1>Native Mac apps, built on <span class="grad-text">higher ground.</span></h1>
+    <p class="sub">A small studio crafting fast, featherweight macOS tools — no accounts, no telemetry, no subscriptions. Everything runs and stays on your Mac.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="vitals/">Explore Vitals <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="#apps">See all apps</a>
+    </div>
+    <div class="trust">Five apps · macOS 13+ · Apple Silicon &amp; Intel · Buy once, no subscriptions</div>
   </div>
 
   <!-- APPS -->
@@ -191,17 +278,13 @@
       <h2 class="title reveal d1">A growing family of Mac tools.</h2>
     </div>
 
-    <!-- Wires flow out of the logo and fan down into the app boxes as you scroll -->
+    <!-- Fan wires flow out of the mark into the app boxes as you scroll -->
     <div class="connect">
       <img class="connect-mark" src="assets/hanncrest-mark-light.svg" alt="">
       <svg class="wires" viewBox="0 0 1000 230" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#d9d0ff"/>
-            <stop offset=".5" stop-color="#7c4dff"/>
-            <stop offset="1" stop-color="#ff3d9a"/>
-          </linearGradient>
-        </defs>
+        <defs><linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e6f7ff"/><stop offset=".5" stop-color="#4dc9ff"/><stop offset="1" stop-color="#2aa7e0"/>
+        </linearGradient></defs>
         <path pathLength="1" d="M500,0 C500,90 90,120 90,230"/>
         <path pathLength="1" style="opacity:.4"  d="M500,0 C500,95 230,125 230,230"/>
         <path pathLength="1" d="M500,0 C500,100 360,130 360,230"/>
@@ -218,50 +301,72 @@
         <a class="app lead-app reveal" href="vitals/">
           <img class="ico" src="assets/apps/vitals.png" alt="Vitals">
           <div class="meta">
-            <h3>Vitals <span class="chip live">Available now</span></h3>
+            <h3>Vitals <span class="chip">Available now</span></h3>
             <div class="tagline">Your Mac's vital signs, in the menu bar</div>
             <p>Live CPU, GPU, memory, network, heat, battery and Bluetooth device battery — plus tools no other menu-bar app has: local-LLM detection &amp; speed tests, 30-day history, S.M.A.R.T. disk health, crash &amp; panic watch, and a live desktop widget. Free to monitor forever; $9.99 once to go deep, after a 14-day free trial.</p>
             <span class="go">Explore Vitals <span class="arrow">→</span></span>
+            <div class="preview pv-vitals">
+              <div class="gauge" data-k="CPU" data-c="#4dc9ff"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="16"/><circle class="arc" cx="22" cy="22" r="16"/></svg><span class="num">—</span><span class="lbl">CPU</span></div>
+              <div class="gauge" data-k="RAM" data-c="#9a86ff"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="16"/><circle class="arc" cx="22" cy="22" r="16"/></svg><span class="num">—</span><span class="lbl">RAM</span></div>
+              <div class="gauge" data-k="GPU" data-c="#34d399"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="16"/><circle class="arc" cx="22" cy="22" r="16"/></svg><span class="num">—</span><span class="lbl">GPU</span></div>
+            </div>
           </div>
         </a>
-
         <a class="app reveal" href="breeze/">
           <img class="ico" src="assets/apps/breeze.png" alt="Breeze">
           <div class="meta">
-            <h3>Breeze <span class="chip live">Available now</span></h3>
+            <h3>Breeze <span class="chip">Available now</span></h3>
             <div class="tagline">Clean up &amp; speed up your Mac</div>
             <p>Reclaim disk space, remove apps with their leftovers, map your storage folder-by-folder, find duplicates and free system junk — plus a live health score, memory and disk S.M.A.R.T. One-click, review-first, and nothing deleted without you.</p>
             <span class="go">Explore Breeze <span class="arrow">→</span></span>
+            <div class="preview pv-breeze">
+              <div class="binfo"><span class="bstat">Cleaning up junk…</span><b class="bnum">0.0 GB freed</b></div>
+              <div class="btrack">
+                <span class="cell j1"></span><span class="cell j2"></span><span class="cell"></span><span class="cell j3"></span><span class="cell j1"></span><span class="cell"></span><span class="cell j2"></span><span class="cell j1"></span><span class="cell j3"></span><span class="cell"></span><span class="cell j2"></span><span class="cell j1"></span>
+              </div>
+            </div>
           </div>
         </a>
-
         <a class="app reveal" href="stealthshare/">
           <img class="ico" src="assets/apps/stealthshare.png" alt="StealthShare">
           <div class="meta">
-            <h3>StealthShare <span class="chip live">Available now</span></h3>
+            <h3>StealthShare <span class="chip">Available now</span></h3>
             <div class="tagline">Screen privacy for screen sharing</div>
             <p>Blurs confidential app windows, hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts — without ever recording your screen. Free for 14 days, then $9.99 once.</p>
             <span class="go">Explore StealthShare <span class="arrow">→</span></span>
+            <div class="preview pv-stealth">
+              <div class="mtext">
+                <div class="mline">Verification code: <b>481920</b></div>
+                <div class="mline">Card ending <b>4471</b> · $2,940.00 due</div>
+              </div>
+              <span class="eye">🙈 Blurred while you screen-share</span>
+            </div>
           </div>
         </a>
-
         <a class="app reveal" href="aura/">
           <img class="ico" src="assets/apps/aura.png" alt="Aura">
           <div class="meta">
-            <h3>Aura <span class="chip live">Available now</span></h3>
+            <h3>Aura <span class="chip">Available now</span></h3>
             <div class="tagline">Offline AI text assistant</div>
             <p>Select text in any app, press ⇧⌘P, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</p>
             <span class="go">Explore Aura <span class="arrow">→</span></span>
+            <div class="preview pv-aura">
+              <span class="atag">✦ REWRITE</span>
+              <span class="atext bad">i cant recieve the email</span>
+            </div>
           </div>
         </a>
-
         <a class="app reveal" href="whispertype/">
           <img class="ico" src="assets/apps/whispertype.png" alt="WhisperType">
           <div class="meta">
-            <h3>WhisperType <span class="chip live">Available now</span></h3>
+            <h3>WhisperType <span class="chip">Available now</span></h3>
             <div class="tagline">Local voice dictation</div>
             <p>Press ⌥Space and just talk. On-device Whisper transcribes your speech on the Apple Neural Engine and types it straight into any text field — no cloud, no account, and your voice never leaves your Mac. One-time $19.99.</p>
             <span class="go">Explore WhisperType <span class="arrow">→</span></span>
+            <div class="preview pv-whisper">
+              <div class="mic"><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+              <div class="wtyped"><span class="wtext"></span><span class="wcar">▋</span></div>
+            </div>
           </div>
         </a>
       </div>
@@ -269,12 +374,12 @@
   </section>
 
   <!-- VALUES -->
-  <section id="values" style="padding-top:20px">
+  <section id="values" style="padding-top:10px">
     <div class="wrap">
       <p class="eyebrow reveal">What every HANNCREST app shares</p>
       <h2 class="title reveal d1">Built on a few firm rules.</h2>
       <div class="values">
-        <div class="val reveal">   <div class="vico">⚡️</div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
+        <div class="val reveal"><div class="vico">⚡️</div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
         <div class="val reveal d1"><div class="vico">🔒</div><h3>Private by design</h3><p>No account, no sign-in, no analytics. Your data is never collected, stored off-device, or sold.</p></div>
         <div class="val reveal d2"><div class="vico">🏔️</div><h3>Local-first</h3><p>Everything runs on your Mac. Apps talk only to what's already on your machine — nothing is uploaded.</p></div>
         <div class="val reveal d3"><div class="vico">🏷️</div><h3>Honest pricing</h3><p>Generous free tiers and one-time purchases. No subscriptions, ever — buy once, own it.</p></div>
@@ -282,10 +387,9 @@
     </div>
   </section>
 
-  <!-- FINAL CTA -->
+  <!-- FINAL -->
   <section class="final">
-    <div class="hero-glow" style="bottom:-52%;opacity:.7"></div>
-    <div class="wrap" style="position:relative;z-index:2">
+    <div class="wrap">
       <h2 class="reveal">Start with <span class="grad-text">Vitals</span>.</h2>
       <p class="reveal d1">Know your Mac inside out — native, lightweight, and free to try. No card, no account, no subscription.</p>
       <div class="cta reveal d2">
@@ -294,163 +398,159 @@
       </div>
     </div>
   </section>
-</main>
 
-<footer><div class="wrap"><div class="foot">
-  <a class="brand" href="#top" style="font-size:15px"><img class="brandmark" src="assets/hanncrest-mark-light.svg" alt="" style="width:28px;height:21px">HANNCREST</a>
-  <div class="links">
-    <a href="vitals/">Vitals</a>
-    <a href="vitals/privacy.html">Privacy</a>
-    <a href="vitals/support.html">Support</a>
-    <a href="mailto:contact@hanncrest.com">contact@hanncrest.com</a>
-  </div>
-  <div>© 2026 HANNCREST · Made for macOS.</div>
-</div></div></footer>
+  <footer><div class="wrap"><div class="foot">
+    <a class="brand" href="#top" style="font-size:15px"><img src="assets/hanncrest-mark-light.svg" alt="" style="width:28px;height:21px">HANNCREST</a>
+    <div class="links"><a href="vitals/">Vitals</a><a href="vitals/privacy.html">Privacy</a><a href="vitals/support.html">Support</a><a href="mailto:contact@hanncrest.com">contact@hanncrest.com</a></div>
+    <div>© 2026 HANNCREST · Made for macOS.</div>
+  </div></div></footer>
+</div>
 
 <script>
-  // Sticky-nav background on scroll
-  const hdr = document.getElementById('hdr');
-  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 24);
-  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Scroll-reveal via IntersectionObserver
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  // Sticky nav bg
+  const hdr=document.getElementById('hdr');
+  const onScroll=()=>hdr.classList.toggle('scrolled',scrollY>24);
+  onScroll(); addEventListener('scroll',onScroll,{passive:true});
+
+  // Scroll-reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // Scroll-linked wire drawing: wires draw as the connector scrolls up into view and
-  // retract as it scrolls back down — tied to scroll position, not a one-time trigger.
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const connect = document.querySelector('.connect');
-  const wires = connect ? Array.from(connect.querySelectorAll('.wires path')) : [];
-  if (connect && wires.length && !reduceMotion){
-    const drawWires = ()=>{
-      const r = connect.getBoundingClientRect();
-      const vh = window.innerHeight || 800;
-      // 0 when the connector's top is at the bottom of the viewport; 1 by ~72% up the screen.
-      let p = (vh - r.top) / (vh * 0.72);
-      p = Math.max(0, Math.min(1, p));
-      for (let i=0;i<wires.length;i++){
-        const o = Math.max(0, Math.min(1, 1 - (p*1.18 - i*0.03)));  // slight per-wire stagger
-        wires[i].style.strokeDashoffset = o.toFixed(3);
-      }
-    };
-    drawWires();
-    window.addEventListener('scroll', ()=>requestAnimationFrame(drawWires), {passive:true});
-    window.addEventListener('resize', drawWires);
-  }
+  // Pine tree line
+  (function(){
+    const trees=document.getElementById('trees'); if(!trees) return;
+    const baseY=772; let d=`M0,900 L0,${baseY}`, x=0;
+    while(x<1440){const w=6+Math.random()*10,h=26+Math.random()*72;
+      d+=` L${(x+w).toFixed(1)},${(baseY-h).toFixed(1)} L${(x+2*w).toFixed(1)},${baseY}`; x+=2*w*(.7+Math.random()*.5);}
+    d+=` L1440,${baseY} L1440,900 Z`; trees.setAttribute('d',d);
+  })();
 
-  // Breeze-style routed traces between the alternating app boxes. Built from each box's
-  // real position (so alignment is exact at any width), and scroll-linked like the fan.
-  const NS='http://www.w3.org/2000/svg';
-  const appsEl=document.querySelector('.apps');
-  let boxWires=[];
-  function buildBoxWires(){
-    if(!appsEl) return;
-    let svg=appsEl.querySelector('.box-wires');
-    if(!svg){ svg=document.createElementNS(NS,'svg'); svg.setAttribute('class','box-wires'); svg.setAttribute('aria-hidden','true'); svg.setAttribute('preserveAspectRatio','none'); appsEl.appendChild(svg); }
-    const cards=Array.from(appsEl.querySelectorAll('.app'));
-    boxWires=[]; svg.innerHTML='';
-    const wide=window.matchMedia('(min-width:721px)').matches;
-    if(!wide || cards.length<2){ return; }
-    const base=appsEl.getBoundingClientRect();
-    svg.setAttribute('viewBox','0 0 '+base.width+' '+base.height);
-    const defs=document.createElementNS(NS,'defs');
-    defs.innerHTML='<linearGradient id="wireGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9d0ff"/><stop offset=".5" stop-color="#7c4dff"/><stop offset="1" stop-color="#ff3d9a"/></linearGradient>';
-    svg.appendChild(defs);
-    for(let i=0;i<cards.length-1;i++){
-      const a=cards[i].getBoundingClientRect(), b=cards[i+1].getBoundingClientRect();
-      const sx=a.left+a.width/2-base.left, sy=a.bottom-base.top;
-      const ex=b.left+b.width/2-base.left, ey=b.top-base.top;
-      const midY=(sy+ey)/2, dir=ex>=sx?1:-1;
-      const r=Math.max(6,Math.min(20,(Math.abs(ex-sx)/2)||20,(ey-sy)/2||20));
-      const d='M '+sx+' '+sy+' L '+sx+' '+(midY-r)+' Q '+sx+' '+midY+' '+(sx+dir*r)+' '+midY+
-              ' L '+(ex-dir*r)+' '+midY+' Q '+ex+' '+midY+' '+ex+' '+(midY+r)+' L '+ex+' '+ey;
-      const p=document.createElementNS(NS,'path');
-      p.setAttribute('d',d); p.setAttribute('pathLength','1'); p.setAttribute('class','bw');
-      svg.appendChild(p);
-      // one bright dot that rides the draw head along the wire
-      const dot=document.createElementNS(NS,'circle');
-      dot.setAttribute('r','5'); dot.setAttribute('class','bw-dot'); dot.style.opacity='0';
-      svg.appendChild(dot);
-      boxWires.push({p:p,dot:dot,target:cards[i+1]});
-    }
-    drawBoxWires();
-  }
-  function drawBoxWires(){
-    const vh=window.innerHeight||800;
-    for(const w of boxWires){
-      const len=w.p.getTotalLength?w.p.getTotalLength():0;
-      if(reduceMotion){
-        w.p.style.strokeDashoffset='0';
-        if(len){const e=w.p.getPointAtLength(len);w.dot.setAttribute('cx',e.x);w.dot.setAttribute('cy',e.y);w.dot.style.opacity='1';}
-        continue;
-      }
-      const r=w.target.getBoundingClientRect();
-      // Draw completes by the time the target box reaches the MIDDLE of the screen (sooner).
-      let prog=(vh - r.top)/(vh*0.5); prog=Math.max(0,Math.min(1,prog));
-      w.p.style.strokeDashoffset=(1-prog).toFixed(3);
-      if(prog>0.002 && len){
-        const pt=w.p.getPointAtLength(prog*len);        // dot rides the leading edge of the draw
-        w.dot.setAttribute('cx',pt.x.toFixed(1)); w.dot.setAttribute('cy',pt.y.toFixed(1));
-        w.dot.style.opacity='1';
-      } else { w.dot.style.opacity='0'; }
-    }
-  }
-  if(appsEl){
-    buildBoxWires();
-    window.addEventListener('scroll', ()=>requestAnimationFrame(drawBoxWires), {passive:true});
-    let rt; window.addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(buildBoxWires,150); });
-    window.addEventListener('load', buildBoxWires);
-  }
-
-  // Animated starfield in the hero (breeze-style drifting particles)
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const cv = document.getElementById('sky');
-  if (cv && !reduce) {
-    const ctx = cv.getContext('2d');
-    let W, H, DPR, stars = [];
-    const COLORS = ['255,255,255','201,182,255','124,77,255','255,141,196','120,201,255'];
+  // Animated starfield (drifting, twinkling) in the sky, behind the mountains
+  (function(){
+    const cv=document.getElementById('sky'); if(!cv||reduce) return;
+    const ctx=cv.getContext('2d'); let W,H,DPR,stars=[];
+    const COLORS=['255,255,255','205,239,251','127,227,255','120,201,255','160,224,240'];
     function resize(){
-      DPR = Math.min(window.devicePixelRatio||1, 2);
-      W = cv.clientWidth; H = cv.clientHeight;
-      cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
-      const count = Math.min(150, Math.round(W*H/9000));
-      stars = Array.from({length:count}, ()=>({
-        x:Math.random()*W, y:Math.random()*H,
-        r:Math.random()*1.6+0.4,
-        vy:(Math.random()*0.35+0.09), vx:(Math.random()-0.5)*0.10,
-        a:Math.random()*0.6+0.2, tw:Math.random()*0.02+0.004,
-        c:COLORS[Math.floor(Math.random()*COLORS.length)]
-      }));
+      DPR=Math.min(devicePixelRatio||1,2); W=cv.clientWidth; H=cv.clientHeight;
+      cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+      const count=Math.min(150,Math.round(W*H/9000));
+      stars=Array.from({length:count},()=>({x:Math.random()*W,y:Math.random()*H*0.72,r:Math.random()*1.5+0.3,
+        vy:Math.random()*0.3+0.06,vx:(Math.random()-0.5)*0.08,a:Math.random()*0.6+0.2,c:COLORS[Math.floor(Math.random()*COLORS.length)]}));
     }
-    let phase=0, running=true;
-    function frame(){
-      if(!running) return;
-      ctx.clearRect(0,0,W,H);
-      phase+=0.01;
-      for(const s of stars){
-        s.y+=s.vy; s.x+=s.vx;
-        if(s.y>H+4){s.y=-4;s.x=Math.random()*W;}
-        if(s.x<-4)s.x=W+4; if(s.x>W+4)s.x=-4;
+    let phase=0,running=true;
+    function frame(){ if(!running) return; ctx.clearRect(0,0,W,H); phase+=0.01;
+      for(const s of stars){ s.y+=s.vy; s.x+=s.vx;
+        if(s.y>H*0.78){s.y=-4;s.x=Math.random()*W;} if(s.x<-4)s.x=W+4; if(s.x>W+4)s.x=-4;
         const tw=s.a+Math.sin(phase*6+s.x)*0.18;
-        ctx.beginPath();
-        ctx.fillStyle='rgba('+s.c+','+Math.max(0.05,Math.min(1,tw))+')';
-        ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill();
-      }
+        ctx.beginPath(); ctx.fillStyle='rgba('+s.c+','+Math.max(0.05,Math.min(1,tw))+')'; ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); }
       requestAnimationFrame(frame);
     }
-    resize(); frame();
-    window.addEventListener('resize', resize);
-    // Pause the starfield when the hero scrolls out of view (saves CPU, keeps the page smooth).
-    const heroEl=document.querySelector('.hero');
-    if(heroEl && 'IntersectionObserver' in window){
-      new IntersectionObserver(function(es){
-        es.forEach(function(e){ const was=running; running=e.isIntersecting; if(running && !was) requestAnimationFrame(frame); });
-      },{threshold:0}).observe(heroEl);
+    resize(); frame(); addEventListener('resize',resize);
+    const sceneEl=document.querySelector('.scene');
+    if(sceneEl&&'IntersectionObserver'in window){
+      new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
     }
-  }
+  })();
+
+  // Scroll-linked fan wires (logo → apps)
+  (function(){
+    const connect=document.querySelector('.connect');
+    const wires=connect?Array.from(connect.querySelectorAll('.wires path')):[];
+    if(!connect||!wires.length||reduce) return;
+    const draw=()=>{ const r=connect.getBoundingClientRect(), vh=innerHeight||800;
+      let p=Math.max(0,Math.min(1,(vh-r.top)/(vh*0.72)));
+      wires.forEach((w,i)=>w.style.strokeDashoffset=Math.max(0,Math.min(1,1-(p*1.18-i*0.03))).toFixed(3)); };
+    draw(); addEventListener('scroll',()=>requestAnimationFrame(draw),{passive:true}); addEventListener('resize',draw);
+  })();
+
+  // Box-to-box routed traces between the zig-zag app cards
+  (function(){
+    const NS='http://www.w3.org/2000/svg', appsEl=document.querySelector('.apps'); if(!appsEl) return;
+    let boxWires=[];
+    function build(){
+      let svg=appsEl.querySelector('.box-wires');
+      if(!svg){svg=document.createElementNS(NS,'svg');svg.setAttribute('class','box-wires');svg.setAttribute('preserveAspectRatio','none');appsEl.appendChild(svg);}
+      const cards=Array.from(appsEl.querySelectorAll('.app')); boxWires=[]; svg.innerHTML='';
+      if(!matchMedia('(min-width:721px)').matches||cards.length<2) return;
+      const base=appsEl.getBoundingClientRect(); svg.setAttribute('viewBox','0 0 '+base.width+' '+base.height);
+      const defs=document.createElementNS(NS,'defs');
+      defs.innerHTML='<linearGradient id="wireGrad2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6f7ff"/><stop offset=".5" stop-color="#4dc9ff"/><stop offset="1" stop-color="#2aa7e0"/></linearGradient>';
+      svg.appendChild(defs);
+      for(let i=0;i<cards.length-1;i++){
+        const a=cards[i].getBoundingClientRect(),b=cards[i+1].getBoundingClientRect();
+        const sx=a.left+a.width/2-base.left,sy=a.bottom-base.top,ex=b.left+b.width/2-base.left,ey=b.top-base.top;
+        const midY=(sy+ey)/2,dir=ex>=sx?1:-1,r=Math.max(6,Math.min(20,(Math.abs(ex-sx)/2)||20,(ey-sy)/2||20));
+        const d='M '+sx+' '+sy+' L '+sx+' '+(midY-r)+' Q '+sx+' '+midY+' '+(sx+dir*r)+' '+midY+' L '+(ex-dir*r)+' '+midY+' Q '+ex+' '+midY+' '+ex+' '+(midY+r)+' L '+ex+' '+ey;
+        const p=document.createElementNS(NS,'path'); p.setAttribute('d',d); p.setAttribute('pathLength','1'); p.setAttribute('class','bw'); svg.appendChild(p);
+        const dot=document.createElementNS(NS,'circle'); dot.setAttribute('r','5'); dot.setAttribute('class','bw-dot'); dot.style.opacity='0'; svg.appendChild(dot);
+        boxWires.push({p,dot,target:cards[i+1]});
+      }
+      drawBW();
+    }
+    function drawBW(){ const vh=innerHeight||800;
+      for(const w of boxWires){ const len=w.p.getTotalLength?w.p.getTotalLength():0;
+        if(reduce){w.p.style.strokeDashoffset='0';if(len){const e=w.p.getPointAtLength(len);w.dot.setAttribute('cx',e.x);w.dot.setAttribute('cy',e.y);w.dot.style.opacity='1';}continue;}
+        const r=w.target.getBoundingClientRect(); let prog=Math.max(0,Math.min(1,(vh-r.top)/(vh*0.5)));
+        w.p.style.strokeDashoffset=(1-prog).toFixed(3);
+        if(prog>0.002&&len){const pt=w.p.getPointAtLength(prog*len);w.dot.setAttribute('cx',pt.x.toFixed(1));w.dot.setAttribute('cy',pt.y.toFixed(1));w.dot.style.opacity='1';}else w.dot.style.opacity='0';
+      }
+    }
+    build(); addEventListener('scroll',()=>requestAnimationFrame(drawBW),{passive:true});
+    let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(build,150);}); addEventListener('load',build);
+  })();
+
+  // ---------- Per-app preview animations ----------
+  // Vitals — live % gauges
+  document.querySelectorAll('.pv-vitals .gauge').forEach(g=>{
+    const arc=g.querySelector('.arc'), num=g.querySelector('.num'), C=2*Math.PI*16;
+    arc.style.stroke=g.dataset.c; arc.style.strokeDasharray=C.toFixed(1); arc.style.transition='stroke-dashoffset .9s ease';
+    num.style.color=g.dataset.c;
+    const rng={CPU:[9,46],RAM:[42,74],GPU:[6,58]}[g.dataset.k]||[10,60];
+    const set=p=>{arc.style.strokeDashoffset=(C*(1-p/100)).toFixed(1); num.textContent=p+'%';};
+    set(Math.round((rng[0]+rng[1])/2));
+    if(!reduce) setInterval(()=>set(Math.round(rng[0]+Math.random()*(rng[1]-rng[0]))), 1600);
+  });
+
+  // Breeze — clear junk, count GB freed
+  document.querySelectorAll('.pv-breeze').forEach(b=>{
+    const cells=[...b.querySelectorAll('.cell')], num=b.querySelector('.bnum'), stat=b.querySelector('.bstat');
+    if(reduce){num.textContent='12.4 GB freed'; stat.textContent='Cleaned ✓'; return;}
+    let i=0, target=+(7+Math.random()*8).toFixed(1);
+    function step(){
+      if(i<cells.length){ cells[i].style.opacity=0; cells[i].style.transform='translateY(-9px) scale(.3)'; i++;
+        num.textContent=(target*i/cells.length).toFixed(1)+' GB freed'; setTimeout(step,165); }
+      else { stat.textContent='Cleaned ✓'; setTimeout(reset,1500); }
+    }
+    function reset(){ cells.forEach(c=>{c.style.opacity=1;c.style.transform='';}); i=0; target=+(7+Math.random()*8).toFixed(1);
+      num.textContent='0.0 GB freed'; stat.textContent='Cleaning up junk…'; setTimeout(step,500); }
+    setTimeout(step,700);
+  });
+
+  // Aura — rewrite messy text to clean
+  document.querySelectorAll('.pv-aura .atext').forEach(el=>{
+    const pairs=[["i cant recieve the email","I can't receive the email."],
+                 ["make this sound more better","Make this sound better."],
+                 ["we was going their yesterday","We were going there yesterday."]];
+    if(reduce){el.textContent=pairs[0][1]; el.className='atext good'; return;}
+    let k=0;
+    (function loop(){ const [bad,good]=pairs[k%pairs.length];
+      el.textContent=bad; el.className='atext bad';
+      setTimeout(()=>{el.textContent=good; el.className='atext good';},1600);
+      setTimeout(()=>{k++;loop();},3600); })();
+  });
+
+  // WhisperType — dictate: waveform + typewriter
+  document.querySelectorAll('.pv-whisper .wtext').forEach(el=>{
+    const lines=["Remind me to call the bank at 3.","Add oat milk to the shopping list.","Reply: sounds good, see you soon."];
+    if(reduce){el.textContent=lines[0]; return;}
+    let li=0;
+    function type(){ const s=lines[li%lines.length]; let i=0;
+      (function ch(){ el.textContent=s.slice(0,i); if(i++<=s.length) setTimeout(ch,42+Math.random()*45); else setTimeout(erase,1500); })(); }
+    function erase(){ let s=el.textContent; (function d(){ s=s.slice(0,-1); el.textContent=s; if(s.length) setTimeout(d,20); else {li++; setTimeout(type,340);} })(); }
+    type();
+  });
 </script>
 </body>
 </html>
