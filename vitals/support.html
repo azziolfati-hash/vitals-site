@@ -8,10 +8,11 @@
 <link rel="icon" type="image/png" href="../assets/icon.png">
 <style>
   :root{
-    --bg:#08080e; --bg2:#0e0e17; --card:#15151f; --card2:#1b1b27;
-    --line:rgba(255,255,255,.09); --tx:#f4f4f8; --mut:#9a9ab2; --dim:#6d6d84;
-    --g1:#ff3d9a; --g2:#7c4dff; --good:#34d399;
-    --grad:linear-gradient(135deg,var(--g1),var(--g2));
+    --bg:#050b14; --bg2:#081722; --card:#0c1a26; --card2:#0a1520;
+    --line:rgba(255,255,255,.10); --tx:#eaf2f7; --mut:#9fb6c6; --dim:#6d8598;
+    --teal:#4dc9ff; --teal2:#7fe3ff; --ice:#cdeffb; --good:#34d399;
+    --g1:#4dc9ff; --g2:#8ad0ff;
+    --grad:linear-gradient(135deg,var(--teal),#8ad0ff);
     --maxw:760px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -21,7 +22,7 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(8,8,14,.72);border-bottom:1px solid var(--line)}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.72);border-bottom:1px solid var(--line)}
   nav{display:flex;align-items:center;justify-content:space-between;height:64px;max-width:1120px;margin:0 auto;padding:0 24px}
   .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:18px;letter-spacing:-.2px}
   .brand img{width:30px;height:30px;border-radius:8px}
@@ -39,19 +40,32 @@
   .qa h3{font-size:15px;font-weight:700}
   .qa p{color:var(--mut);font-size:14.5px;margin-top:8px}
 
-  .contact{background:linear-gradient(135deg,rgba(124,77,255,.1),rgba(255,61,154,.08));border:1px solid var(--line);border-radius:20px;padding:32px;margin-top:20px;text-align:center}
+  .contact{background:linear-gradient(135deg,rgba(77,201,255,.10),rgba(127,227,255,.06));border:1px solid var(--line);border-radius:20px;padding:32px;margin-top:20px;text-align:center}
   .contact h2{margin-top:0}
   .contact p{color:var(--mut);font-size:15px;margin-top:10px}
   .ph{color:#c98a2a;font-size:13px;border:1px dashed rgba(201,138,42,.5);padding:3px 10px;border-radius:6px;background:rgba(201,138,42,.08);display:inline-block;margin-top:14px}
 
-  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px}
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px;background:rgba(5,11,20,.5)}
   .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
   .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
   .foot .links{display:flex;gap:22px}
+
+  /* ---------- MOUNTAIN SCENE ---------- */
+  .scene{position:absolute;top:0;left:0;right:0;height:900px;z-index:0;overflow:hidden;
+    background:linear-gradient(to bottom,#050b14 0%,#0c2233 42%,#17465c 66%,#0f3547 80%,#081722 100%)}
+  #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .scene .ranges{position:absolute;inset:0;width:100%;height:100%}
+  .scene::before{content:"";position:absolute;left:50%;top:44%;transform:translateX(-50%);width:90%;height:46%;
+    background:radial-gradient(ellipse at center,rgba(63,159,192,.5),transparent 62%);filter:blur(20px)}
+  .scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:360px;
+    background:linear-gradient(to bottom,transparent,var(--bg))}
+  .veil{position:absolute;top:0;left:0;right:0;height:900px;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
+  .content{position:relative;z-index:2}
 </style>
 <link rel="canonical" href="https://www.hanncrest.com/vitals/support.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="theme-color" content="#0a0a10">
+<meta name="theme-color" content="#050b14">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HANNCREST">
@@ -158,6 +172,19 @@
 </head>
 <body>
 
+<!-- MOUNTAIN SCENE: gradient sky + animated stars (behind) + mountain ranges (front) -->
+<div class="scene">
+  <canvas id="sky"></canvas>
+  <svg class="ranges" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path d="M0,560 L150,470 L300,530 L470,430 L620,520 L780,450 L960,540 L1140,460 L1300,520 L1440,470 L1440,900 L0,900 Z" fill="#2c5568" opacity="0.5"/>
+    <path d="M0,640 L180,560 L360,630 L540,540 L700,620 L880,545 L1060,625 L1240,560 L1440,620 L1440,900 L0,900 Z" fill="#1c3d4f" opacity="0.85"/>
+    <path d="M0,720 L220,640 L430,715 L620,630 L820,710 L1020,640 L1220,715 L1440,660 L1440,900 L0,900 Z" fill="#122a38"/>
+    <path id="trees" fill="#070f16"/>
+  </svg>
+</div>
+<div class="veil"></div>
+
+<div class="content">
 <header>
   <nav>
     <a class="brand" href="index.html"><img src="../assets/icon.png" alt="Vitals icon">Vitals</a>
@@ -210,6 +237,45 @@
   </div>
   <div>© 2026 HANNCREST · Vitals is a HANNCREST app.</div>
 </div></footer>
+</div>
 
+<script>
+  // Pine tree line
+  (function(){
+    const trees=document.getElementById('trees'); if(!trees) return;
+    const baseY=772; let d=`M0,900 L0,${baseY}`, x=0;
+    while(x<1440){const w=6+Math.random()*10,h=26+Math.random()*72;
+      d+=` L${(x+w).toFixed(1)},${(baseY-h).toFixed(1)} L${(x+2*w).toFixed(1)},${baseY}`; x+=2*w*(.7+Math.random()*.5);}
+    d+=` L1440,${baseY} L1440,900 Z`; trees.setAttribute('d',d);
+  })();
+
+  // Animated starfield
+  (function(){
+    const cv=document.getElementById('sky'); if(!cv) return;
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx=cv.getContext('2d'); let W,H,DPR,stars=[];
+    const COLORS=['255,255,255','205,239,251','127,227,255','120,201,255','160,224,240'];
+    function resize(){
+      DPR=Math.min(devicePixelRatio||1,2); W=cv.clientWidth; H=cv.clientHeight;
+      cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+      const count=Math.min(150,Math.round(W*H/9000));
+      stars=Array.from({length:count},()=>({x:Math.random()*W,y:Math.random()*H*0.72,r:Math.random()*1.5+0.3,
+        vy:Math.random()*0.3+0.06,vx:(Math.random()-0.5)*0.08,a:Math.random()*0.6+0.2,c:COLORS[Math.floor(Math.random()*COLORS.length)]}));
+    }
+    let phase=0,running=true;
+    function frame(){ if(!running) return; ctx.clearRect(0,0,W,H); phase+=0.01;
+      for(const s of stars){ s.y+=s.vy; s.x+=s.vx;
+        if(s.y>H*0.78){s.y=-4;s.x=Math.random()*W;} if(s.x<-4)s.x=W+4; if(s.x>W+4)s.x=-4;
+        const tw=s.a+Math.sin(phase*6+s.x)*0.18;
+        ctx.beginPath(); ctx.fillStyle='rgba('+s.c+','+Math.max(0.05,Math.min(1,tw))+')'; ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); }
+      requestAnimationFrame(frame);
+    }
+    resize(); frame(); addEventListener('resize',resize);
+    const sceneEl=document.querySelector('.scene');
+    if(sceneEl&&'IntersectionObserver'in window){
+      new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
+    }
+  })();
+</script>
 </body>
 </html>

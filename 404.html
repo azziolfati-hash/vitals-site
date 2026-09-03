@@ -28,11 +28,8 @@
     color: var(--tx);
     font: 16px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    padding: 32px 20px;
+    position: relative;
+    overflow-x: hidden;
   }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 680px; margin: auto; }
@@ -67,9 +64,35 @@
   footer { color: var(--dim); font-size: 13px; margin-top: 40px; }
   footer a { color: var(--mut); }
   footer a:hover { color: var(--tx); }
+
+  /* ---------- MOUNTAIN SCENE ---------- */
+  .scene{position:absolute;top:0;left:0;right:0;bottom:0;z-index:0;overflow:hidden;
+    background:linear-gradient(to bottom,#050b14 0%,#0c2233 42%,#17465c 66%,#0f3547 80%,#081722 100%)}
+  #sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .scene .ranges{position:absolute;inset:0;width:100%;height:100%}
+  .scene::before{content:"";position:absolute;left:50%;top:44%;transform:translateX(-50%);width:90%;height:46%;
+    background:radial-gradient(ellipse at center,rgba(63,159,192,.5),transparent 62%);filter:blur(20px)}
+  .scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:240px;
+    background:linear-gradient(to bottom,transparent,var(--bg))}
+  .veil{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
+  .content{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;text-align:center;padding:32px 20px}
 </style>
 </head>
 <body>
+<!-- MOUNTAIN SCENE: gradient sky + animated stars (behind) + mountain ranges (front) -->
+<div class="scene">
+  <canvas id="sky"></canvas>
+  <svg class="ranges" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <path d="M0,560 L150,470 L300,530 L470,430 L620,520 L780,450 L960,540 L1140,460 L1300,520 L1440,470 L1440,900 L0,900 Z" fill="#2c5568" opacity="0.5"/>
+    <path d="M0,640 L180,560 L360,630 L540,540 L700,620 L880,545 L1060,625 L1240,560 L1440,620 L1440,900 L0,900 Z" fill="#1c3d4f" opacity="0.85"/>
+    <path d="M0,720 L220,640 L430,715 L620,630 L820,710 L1020,640 L1220,715 L1440,660 L1440,900 L0,900 Z" fill="#122a38"/>
+    <path id="trees" fill="#070f16"/>
+  </svg>
+</div>
+<div class="veil"></div>
+
+<div class="content">
   <div></div>
   <main class="wrap">
     <a href="/"><img class="logo" src="/assets/hanncrest-mark-light.svg" alt="HANNCREST mark"></a>
@@ -85,5 +108,45 @@
   <footer>
     <p>© 2026 HANNCREST · Native, private Mac apps · <a href="mailto:contact@hanncrest.com">contact@hanncrest.com</a></p>
   </footer>
+</div>
+
+<script>
+  // Pine tree line
+  (function(){
+    const trees=document.getElementById('trees'); if(!trees) return;
+    const baseY=772; let d=`M0,900 L0,${baseY}`, x=0;
+    while(x<1440){const w=6+Math.random()*10,h=26+Math.random()*72;
+      d+=` L${(x+w).toFixed(1)},${(baseY-h).toFixed(1)} L${(x+2*w).toFixed(1)},${baseY}`; x+=2*w*(.7+Math.random()*.5);}
+    d+=` L1440,${baseY} L1440,900 Z`; trees.setAttribute('d',d);
+  })();
+
+  // Animated starfield
+  (function(){
+    const cv=document.getElementById('sky'); if(!cv) return;
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx=cv.getContext('2d'); let W,H,DPR,stars=[];
+    const COLORS=['255,255,255','205,239,251','127,227,255','120,201,255','160,224,240'];
+    function resize(){
+      DPR=Math.min(devicePixelRatio||1,2); W=cv.clientWidth; H=cv.clientHeight;
+      cv.width=W*DPR; cv.height=H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);
+      const count=Math.min(150,Math.round(W*H/9000));
+      stars=Array.from({length:count},()=>({x:Math.random()*W,y:Math.random()*H*0.72,r:Math.random()*1.5+0.3,
+        vy:Math.random()*0.3+0.06,vx:(Math.random()-0.5)*0.08,a:Math.random()*0.6+0.2,c:COLORS[Math.floor(Math.random()*COLORS.length)]}));
+    }
+    let phase=0,running=true;
+    function frame(){ if(!running) return; ctx.clearRect(0,0,W,H); phase+=0.01;
+      for(const s of stars){ s.y+=s.vy; s.x+=s.vx;
+        if(s.y>H*0.78){s.y=-4;s.x=Math.random()*W;} if(s.x<-4)s.x=W+4; if(s.x>W+4)s.x=-4;
+        const tw=s.a+Math.sin(phase*6+s.x)*0.18;
+        ctx.beginPath(); ctx.fillStyle='rgba('+s.c+','+Math.max(0.05,Math.min(1,tw))+')'; ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); }
+      requestAnimationFrame(frame);
+    }
+    resize(); frame(); addEventListener('resize',resize);
+    const sceneEl=document.querySelector('.scene');
+    if(sceneEl&&'IntersectionObserver'in window){
+      new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
+    }
+  })();
+</script>
 </body>
 </html>
