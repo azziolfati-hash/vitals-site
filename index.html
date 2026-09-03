@@ -365,15 +365,23 @@
   .pv-breeze .cell.j2{background:rgba(127,227,255,.42)}
   .pv-breeze .cell.j3{background:rgba(239,90,90,.45)}
 
-  /* StealthShare — a real message that blurs out while sharing */
-  .pv-stealth{flex-direction:column;align-items:flex-start;gap:8px}
-  .pv-stealth .mtext{animation:sBlur 4.4s ease-in-out infinite}
-  .pv-stealth .mline{font-size:13px;color:#e7eef4;margin-bottom:5px}
-  .pv-stealth .mline:last-child{margin-bottom:0}
-  .pv-stealth .mline b{color:#fff;font-weight:700}
-  @keyframes sBlur{0%,30%{filter:blur(0)}46%,86%{filter:blur(6px)}100%{filter:blur(0)}}
-  .pv-stealth .eye{font-size:10.5px;color:var(--ice);opacity:0;animation:sEye 4.4s ease-in-out infinite}
-  @keyframes sEye{0%,36%{opacity:0}50%,86%{opacity:1}100%{opacity:0}}
+  /* StealthShare — authentic macOS notification banner that blurs out */
+  .pv-stealth{padding:6px 8px;background:transparent;border:none}
+  .mac-notif{position:relative;width:100%;max-width:440px;background:rgba(18,28,40,.82);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:12px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 12px 30px rgba(0,0,0,.5);overflow:hidden}
+  .notif-content{animation:sNotifBlur 4.4s ease-in-out infinite}
+  .notif-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .notif-app{display:flex;align-items:center;gap:7px}
+  .notif-icon{width:18px;height:18px;border-radius:4.5px;background:#34c759;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 2px 6px rgba(52,199,89,.35)}
+  .notif-title{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:#94a9ba}
+  .notif-time{font-size:11px;color:#6d8598}
+  .notif-sender{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+  .notif-msg{font-size:12.5px;line-height:1.4;color:#c0d3e2}
+  .notif-code{color:#5ee7b0;font-weight:800;background:rgba(94,231,176,.12);border:1px solid rgba(94,231,176,.3);padding:1px 5px;border-radius:4px;letter-spacing:.5px;font-variant-numeric:tabular-nums}
+  .notif-mask{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;animation:sNotifMask 4.4s ease-in-out infinite}
+  .notif-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 14px;background:rgba(8,18,28,.92);border:1px solid rgba(77,201,255,.45);border-radius:999px;font-size:11.5px;font-weight:750;color:#7fe3ff;box-shadow:0 6px 20px rgba(0,0,0,.6),0 0 16px rgba(77,201,255,.3)}
+  @keyframes sNotifBlur{0%,28%{filter:blur(0);opacity:1}44%,84%{filter:blur(7px);opacity:.45}96%,100%{filter:blur(0);opacity:1}}
+  @keyframes sNotifMask{0%,32%{opacity:0;transform:scale(.94)}46%,82%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(.94)}}
+  @media(prefers-reduced-motion:reduce){.notif-content{animation:none;filter:blur(7px);opacity:.5}.notif-mask{animation:none;opacity:1}}
 
   /* Aura — messy text rewritten clean */
   .pv-aura{gap:14px}
@@ -966,11 +974,33 @@
             <p>Blurs confidential app windows instantly (<kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd>), hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts — without ever recording your screen. Free for 14 days, then $9.99 once.</p>
             <span class="go">Explore StealthShare <span class="arrow">→</span></span>
             <div class="preview pv-stealth">
-              <div class="mtext">
-                <div class="mline">Verification code: <b>481920</b></div>
-                <div class="mline">Card ending <b>4471</b> · $2,940.00 due</div>
+              <div class="mac-notif">
+                <div class="notif-content">
+                  <div class="notif-head">
+                    <div class="notif-app">
+                      <span class="notif-icon">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                      </span>
+                      <strong class="notif-title">MESSAGES</strong>
+                    </div>
+                    <span class="notif-time">now</span>
+                  </div>
+                  <div class="notif-body">
+                    <div class="notif-sender">Apple Security Verification</div>
+                    <div class="notif-msg">Your verification code is <span class="notif-code">481920</span>. Do not share this with anyone.</div>
+                  </div>
+                </div>
+                <div class="notif-mask">
+                  <span class="notif-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Masked by StealthShare
+                  </span>
+                </div>
               </div>
-              <span class="eye">🙈 Blurred while you screen-share</span>
             </div>
           </div>
         </a>
