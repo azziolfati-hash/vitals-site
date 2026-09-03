@@ -357,22 +357,41 @@
       <p class="note">macOS 13+ · free 14-day trial · one-time $9.99 after · no subscription · nothing leaves your Mac</p>
       <style>
         .vp{width:100%;max-width:560px;margin:0 auto;text-align:left;background:#14161b;border:1px solid #262a31;border-radius:16px;padding:18px;box-shadow:0 12px 44px rgba(0,0,0,.28);color:#e8e9ec}
-        .vp-top{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-        .vp-cell{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
-        .vp-label{font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--c,#e8e9ec)}
-        .vp-ringwrap{position:relative;width:74px;height:74px;margin:0 auto}
-        .vp-ring{width:74px;height:74px;display:block}
-        .vp-track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:7}
-        .vp-arc{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .5s cubic-bezier(.2,.8,.2,1)}
-        .vp-ringval{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
-        .vp-spark{width:100%;height:auto;display:block}
-        .vp-net{background:#1a1d23;border:1px solid #23272f;border-radius:12px;padding:12px}
+        .vp{width:100%;max-width:580px;margin:0 auto;text-align:left;color:#e8e9ec}
+        .vp-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
+        .vcard{background:#15181f;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(0,0,0,.35)}
+        .vc-head{display:flex;align-items:center;justify-content:space-between}
+        .vc-title{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:#f0f3f6}
+        .vc-icon{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
+        .ico-cpu{background:rgba(99,102,241,.18);color:#818cf8}
+        .ico-gpu{background:rgba(236,72,153,.18);color:#f472b6}
+        .vc-topstat{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:#94a3b8;font-variant-numeric:tabular-nums}
+        .vc-info{font-size:13px;color:#64748b;cursor:help;margin-left:2px}
+        .vc-body{display:flex;align-items:center;justify-content:space-between;gap:16px}
+        @media(max-width:520px){.vc-body{flex-direction:column;align-items:stretch;gap:12px}}
+        .vc-left{display:flex;align-items:center;gap:14px;flex-shrink:0}
+        .vc-dualring{position:relative;width:82px;height:82px;flex-shrink:0}
+        .vc-dualring svg{width:82px;height:82px;display:block}
+        .vr-trk{fill:none;stroke:rgba(255,255,255,0.08)}
+        .vr-arc{fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:46px 46px;transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+        .vc-center-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#38bdf8;font-variant-numeric:tabular-nums}
+        .vc-legend{display:flex;flex-direction:column;gap:5px;font-size:12px}
+        .vcl-row{display:flex;align-items:center;gap:6px}
+        .vcl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+        .vcl-row b{font-weight:750;color:#f0f3f6;font-variant-numeric:tabular-nums;min-width:30px}
+        .vcl-lbl{color:#94a3b8;font-weight:500}
+        .vcl-sub{color:#64748b;font-size:10.5px;margin-left:13px;font-variant-numeric:tabular-nums}
+        .vc-right{flex:1;min-width:140px;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+        .vc-sparkline{width:100%;height:46px;display:block;overflow:visible}
+        .vc-sparklabel{font-size:10px;color:#64748b;font-weight:500;letter-spacing:0.02em}
+
+        .vp-net{background:#15181f;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(0,0,0,.35)}
         .vp-nethead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+        .vp-label{font-size:13px;font-weight:700;color:#f0f3f6}
         .vp-netread{display:flex;gap:12px;font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}
-        .vp-peak{margin-left:auto;font-size:10px;color:#6b7078;font-variant-numeric:tabular-nums}
+        .vp-peak{margin-left:auto;font-size:10.5px;color:#6b7078;font-variant-numeric:tabular-nums}
         .vp-netchart{width:100%;height:auto;display:block}
-        .vp-foot{font-size:10.5px;color:#6b7078;margin-top:11px}
-        @media(max-width:520px){.vp-top{grid-template-columns:1fr}}
+        .vp-foot{font-size:11px;color:#6b7078;margin-top:11px;text-align:center}
         .appwin{max-width:600px;margin:36px auto 0;background:#0d0f13;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
         .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#191b21;border-bottom:1px solid rgba(255,255,255,.06)}
         .appbar .tl{width:11px;height:11px;border-radius:50%;display:inline-block}
@@ -388,69 +407,230 @@
         <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Vitals — Overview</span><span class="livedot"><i></i>Live</span></div>
         <div class="appbody">
           <div class="vp">
-        <div class="vp-top">
-          <div class="vp-cell">
-            <span class="vp-label" style="--c:#818cf8">Processor</span>
-            <div class="vp-ringwrap">
-              <svg class="vp-ring" viewBox="0 0 74 74"><circle class="vp-track" cx="37" cy="37" r="30"/><circle id="cpuArc" class="vp-arc" cx="37" cy="37" r="30" stroke="#6366F1" transform="rotate(-90 37 37)"/></svg>
-              <div class="vp-ringval" id="cpuVal">—</div>
+            <div class="vp-stack">
+              <!-- Processor Card (Concentric Dual Rings) -->
+              <div class="vcard" id="vcCpu">
+                <div class="vc-head">
+                  <div class="vc-title">
+                    <span class="vc-icon ico-cpu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></span>
+                    <strong>Processor</strong>
+                  </div>
+                  <div class="vc-topstat">
+                    <span id="cpuTotalStat">34% total</span>
+                    <span class="vc-info" title="CPU breakdown">ⓘ</span>
+                  </div>
+                </div>
+                <div class="vc-body">
+                  <div class="vc-left">
+                    <div class="vc-dualring">
+                      <svg viewBox="0 0 92 92">
+                        <circle class="vr-trk" cx="46" cy="46" r="37" stroke-width="7"/>
+                        <circle id="cpuOuterArc" class="vr-arc" cx="46" cy="46" r="37" stroke-width="7" stroke="#00a2ff"/>
+                        <circle class="vr-trk" cx="46" cy="46" r="26" stroke-width="7"/>
+                        <circle id="cpuInnerArc" class="vr-arc" cx="46" cy="46" r="26" stroke-width="7" stroke="#7dd3fc"/>
+                      </svg>
+                      <div class="vc-center-val" id="cpuCenterVal">34%</div>
+                    </div>
+                    <div class="vc-legend">
+                      <div class="vcl-row"><span class="vcl-dot" style="background:#00a2ff"></span><b id="cpuUserVal">19%</b> <span class="vcl-lbl">User</span></div>
+                      <div class="vcl-row"><span class="vcl-dot" style="background:#7dd3fc"></span><b id="cpuSysVal">15%</b> <span class="vcl-lbl">System</span></div>
+                    </div>
+                  </div>
+                  <div class="vc-right">
+                    <svg class="vc-sparkline" viewBox="0 0 220 54" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="gcpuWave" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#6366f1" stop-opacity="0.32"/>
+                          <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path id="cpuWaveArea" fill="url(#gcpuWave)"/>
+                      <path id="cpuWaveLine" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle id="cpuWaveDot" r="2.5" fill="#6366f1"/>
+                    </svg>
+                    <div class="vc-sparklabel">total load · recent</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Graphics Card (Concentric Dual Rings) -->
+              <div class="vcard" id="vcGpu">
+                <div class="vc-head">
+                  <div class="vc-title">
+                    <span class="vc-icon ico-gpu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+                    <strong>Graphics</strong>
+                  </div>
+                  <div class="vc-topstat">
+                    <span id="gpuTotalStat">85% load</span>
+                    <span class="vc-info" title="GPU breakdown">ⓘ</span>
+                  </div>
+                </div>
+                <div class="vc-body">
+                  <div class="vc-left">
+                    <div class="vc-dualring">
+                      <svg viewBox="0 0 92 92">
+                        <circle class="vr-trk" cx="46" cy="46" r="37" stroke-width="7"/>
+                        <circle id="gpuOuterArc" class="vr-arc" cx="46" cy="46" r="37" stroke-width="7" stroke="#ec4899"/>
+                        <circle class="vr-trk" cx="46" cy="46" r="26" stroke-width="7"/>
+                        <circle id="gpuInnerArc" class="vr-arc" cx="46" cy="46" r="26" stroke-width="7" stroke="#10b981"/>
+                      </svg>
+                    </div>
+                    <div class="vc-legend">
+                      <div class="vcl-row"><span class="vcl-dot" style="background:#ec4899"></span><b id="gpuLoadVal">85%</b> <span class="vcl-lbl">GPU load</span></div>
+                      <div class="vcl-row"><span class="vcl-dot" style="background:#10b981"></span><b id="gpuVramVal">80%</b> <span class="vcl-lbl">VRAM</span></div>
+                      <div class="vcl-sub" id="gpuMemGb">19.9 / 25.0 GB</div>
+                    </div>
+                  </div>
+                  <div class="vc-right">
+                    <svg class="vc-sparkline" viewBox="0 0 220 54" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="ggpuWave" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#ec4899" stop-opacity="0.32"/>
+                          <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path id="gpuWaveArea" fill="url(#ggpuWave)"/>
+                      <path id="gpuWaveLine" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <circle id="gpuWaveDot" r="2.5" fill="#ec4899"/>
+                    </svg>
+                    <div class="vc-sparklabel">GPU load · recent</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <svg class="vp-spark" viewBox="0 0 200 44">
-              <defs><linearGradient id="gcpu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6366F1" stop-opacity="0.28"/><stop offset="1" stop-color="#6366F1" stop-opacity="0"/></linearGradient></defs>
-              <path id="cpuArea" fill="url(#gcpu)"/><path id="cpuLine" fill="none" stroke="#6366F1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><circle id="cpuDot" r="2" fill="#6366F1"/>
-            </svg>
-          </div>
-          <div class="vp-cell">
-            <span class="vp-label" style="--c:#f472b6">Graphics</span>
-            <div class="vp-ringwrap">
-              <svg class="vp-ring" viewBox="0 0 74 74"><circle class="vp-track" cx="37" cy="37" r="30"/><circle id="gpuArc" class="vp-arc" cx="37" cy="37" r="30" stroke="#EC4899" transform="rotate(-90 37 37)"/></svg>
-              <div class="vp-ringval" id="gpuVal">—</div>
+
+            <!-- Network section -->
+            <div class="vp-net">
+              <div class="vp-nethead">
+                <span class="vp-label">Network</span>
+                <span class="vp-netread"><span id="netDown" style="color:#06B6D4">↓ —</span><span id="netUp" style="color:#22C55E">↑ —</span></span>
+                <span class="vp-peak" id="netPeak">peak —</span>
+              </div>
+              <svg class="vp-netchart" viewBox="0 0 520 130">
+                <defs>
+                  <linearGradient id="gup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22C55E" stop-opacity="0.28"/><stop offset="1" stop-color="#22C55E" stop-opacity="0"/></linearGradient>
+                  <linearGradient id="gdn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06B6D4" stop-opacity="0.28"/><stop offset="1" stop-color="#06B6D4" stop-opacity="0"/></linearGradient>
+                </defs>
+                <g stroke="rgba(255,255,255,0.06)" stroke-width="1"><line x1="0" y1="1" x2="520" y2="1"/><line x1="0" y1="65" x2="520" y2="65"/><line x1="0" y1="129" x2="520" y2="129"/></g>
+                <path id="upArea" fill="url(#gup)"/><path id="upLine" fill="none" stroke="#22C55E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+                <path id="dnArea" fill="url(#gdn)"/><path id="dnLine" fill="none" stroke="#06B6D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+                <circle id="upDot" r="2.4" fill="#22C55E"/><circle id="dnDot" r="2.4" fill="#06B6D4"/>
+              </svg>
             </div>
-            <svg class="vp-spark" viewBox="0 0 200 44">
-              <defs><linearGradient id="ggpu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EC4899" stop-opacity="0.28"/><stop offset="1" stop-color="#EC4899" stop-opacity="0"/></linearGradient></defs>
-              <path id="gpuArea" fill="url(#ggpu)"/><path id="gpuLine" fill="none" stroke="#EC4899" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><circle id="gpuDot" r="2" fill="#EC4899"/>
-            </svg>
+            <p class="vp-foot">The same dual rings and live telemetry Vitals draws — shown here with live sample data.</p>
           </div>
-        </div>
-        <div class="vp-net">
-          <div class="vp-nethead">
-            <span class="vp-label" style="--c:#e8e9ec">Network</span>
-            <span class="vp-netread"><span id="netDown" style="color:#06B6D4">↓ —</span><span id="netUp" style="color:#22C55E">↑ —</span></span>
-            <span class="vp-peak" id="netPeak">peak —</span>
-          </div>
-          <svg class="vp-netchart" viewBox="0 0 520 130">
-            <defs>
-              <linearGradient id="gup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22C55E" stop-opacity="0.28"/><stop offset="1" stop-color="#22C55E" stop-opacity="0"/></linearGradient>
-              <linearGradient id="gdn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06B6D4" stop-opacity="0.28"/><stop offset="1" stop-color="#06B6D4" stop-opacity="0"/></linearGradient>
-            </defs>
-            <g stroke="rgba(255,255,255,0.06)" stroke-width="1"><line x1="0" y1="1" x2="520" y2="1"/><line x1="0" y1="65" x2="520" y2="65"/><line x1="0" y1="129" x2="520" y2="129"/></g>
-            <path id="upArea" fill="url(#gup)"/><path id="upLine" fill="none" stroke="#22C55E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-            <path id="dnArea" fill="url(#gdn)"/><path id="dnLine" fill="none" stroke="#06B6D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-            <circle id="upDot" r="2.4" fill="#22C55E"/><circle id="dnDot" r="2.4" fill="#06B6D4"/>
-          </svg>
-        </div>
-        <p class="vp-foot">The same rings and charts Vitals draws — shown here with sample data.</p>
-      </div>
         </div>
       </div>
       <script>
       (function(){
-        var N=48,$=function(id){return document.getElementById(id)};
-        if(!$('cpuArc'))return;
+        var N=40,$=function(id){return document.getElementById(id)};
+        var cOuter=$('cpuOuterArc'), cInner=$('cpuInnerArc'), gOuter=$('gpuOuterArc'), gInner=$('gpuInnerArc');
+        if(!cOuter) return;
         var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var R=30,CIRC=2*Math.PI*R;['cpuArc','gpuArc'].forEach(function(id){$(id).style.strokeDasharray=CIRC});
+        var CIRC_OUT = 2 * Math.PI * 37; // 232.48
+        var CIRC_IN = 2 * Math.PI * 26;  // 163.36
+        [cOuter, gOuter].forEach(function(el){ if(el){ el.style.strokeDasharray=CIRC_OUT; } });
+        [cInner, gInner].forEach(function(el){ if(el){ el.style.strokeDasharray=CIRC_IN; } });
+
         function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-        function series(v,W,H,peak){var n=v.length,p=[];for(var i=0;i<n;i++){var x=n===1?W:W*i/(n-1);var y=Math.max(1,H*(1-(v[i]/peak)*0.92)-1);p.push([x,y])}var c=p.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1)});return{line:'M'+c.join(' L'),area:'M'+p[0][0].toFixed(1)+','+H+' L'+c.join(' L')+' L'+p[n-1][0].toFixed(1)+','+H+' Z',last:p[n-1]}}
+        function series(v,W,H,peak){
+          var n=v.length,p=[];
+          for(var i=0;i<n;i++){
+            var x=n===1?W:W*i/(n-1);
+            var y=Math.max(2,H*(1-(v[i]/peak)*0.9)-2);
+            p.push([x,y]);
+          }
+          var c=p.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1)});
+          return {
+            line:'M'+c.join(' L'),
+            area:'M'+p[0][0].toFixed(1)+','+H+' L'+c.join(' L')+' L'+p[n-1][0].toFixed(1)+','+H+' Z',
+            last:p[n-1]
+          };
+        }
         function rate(b){return b>=1048576?(b/1048576).toFixed(1)+' MB/s':b>=1024?Math.round(b/1024)+' KB/s':Math.round(b)+' B/s'}
-        var cpu=[],gpu=[],dn=[],up=[],c=0.2,g=0.1,d=40000,u=15000;
-        function t(){c=clamp(c+(Math.random()*2-1)*0.1,0.03,0.99);if(Math.random()<0.1)c=0.55+Math.random()*0.4;g=clamp(g+(Math.random()*2-1)*0.07,0.01,0.97);if(Math.random()<0.08)g=0.4+Math.random()*0.5;d=clamp(d*0.6+Math.random()*40000,0,14*1048576);if(Math.random()<0.14)d=(1.5+Math.random()*10)*1048576;u=clamp(u*0.6+Math.random()*20000,0,3*1048576);if(Math.random()<0.1)u=(0.4+Math.random()*1.8)*1048576}
-        for(var i=0;i<N;i++){t();cpu.push(c);gpu.push(g);dn.push(d);up.push(u)}
-        function spark(p,v){var s=series(v,200,44,1);$(p+'Area').setAttribute('d',s.area);$(p+'Line').setAttribute('d',s.line);$(p+'Dot').setAttribute('cx',s.last[0]);$(p+'Dot').setAttribute('cy',s.last[1])}
-        function ring(p,v){$(p+'Arc').style.strokeDashoffset=CIRC*(1-clamp(v,0,1));$(p+'Val').textContent=Math.round(v*100)+'%'}
-        function net(){var peak=Math.max(Math.max.apply(null,dn),Math.max.apply(null,up),64*1024);var su=series(up,520,130,peak),sd=series(dn,520,130,peak);$('upArea').setAttribute('d',su.area);$('upLine').setAttribute('d',su.line);$('dnArea').setAttribute('d',sd.area);$('dnLine').setAttribute('d',sd.line);$('upDot').setAttribute('cx',su.last[0]);$('upDot').setAttribute('cy',su.last[1]);$('dnDot').setAttribute('cx',sd.last[0]);$('dnDot').setAttribute('cy',sd.last[1]);$('netDown').textContent='↓ '+rate(dn[N-1]);$('netUp').textContent='↑ '+rate(up[N-1]);$('netPeak').textContent='peak '+rate(peak)}
-        function draw(){ring('cpu',cpu[N-1]);ring('gpu',gpu[N-1]);spark('cpu',cpu);spark('gpu',gpu);net()}
-        function step(){t();cpu.push(c);cpu.shift();gpu.push(g);gpu.shift();dn.push(d);dn.shift();up.push(u);up.shift();draw()}
-        draw();if(!reduce){setInterval(function(){if(!document.hidden)step()},780)}
+
+        // Seed data matching screenshot
+        var cpuUser=19, cpuSys=15, gpuLoad=85, vram=80;
+        var cpuWaves=[], gpuWaves=[], dn=[], up=[];
+        var d=40000, u=15000;
+
+        for(var i=0;i<N;i++){
+          cpuWaves.push(Math.max(10, Math.min(90, 34 + (Math.sin(i*0.4)*14 + (Math.random()*8-4)))));
+          gpuWaves.push(Math.max(30, Math.min(96, 85 + (Math.cos(i*0.3)*7 + (Math.random()*6-3)))));
+          dn.push(clamp(Math.random()*4000000, 10000, 12*1048576));
+          up.push(clamp(Math.random()*1200000, 5000, 3*1048576));
+        }
+
+        function stepData(){
+          // CPU user & system move independently
+          cpuUser = Math.round(clamp(cpuUser + (Math.random()*6 - 3), 8, 75));
+          cpuSys = Math.round(clamp(cpuSys + (Math.random()*4 - 2), 4, 30));
+          var totalCpu = Math.min(100, cpuUser + cpuSys);
+          cpuWaves.push(totalCpu); cpuWaves.shift();
+
+          // GPU & VRAM move independently
+          gpuLoad = Math.round(clamp(gpuLoad + (Math.random()*8 - 4), 20, 98));
+          vram = Math.round(clamp(vram + (Math.random()*2 - 1), 74, 88));
+          gpuWaves.push(gpuLoad); gpuWaves.shift();
+
+          // Network
+          d=clamp(d*0.6+Math.random()*40000,0,14*1048576);if(Math.random()<0.14)d=(1.5+Math.random()*10)*1048576;
+          u=clamp(u*0.6+Math.random()*20000,0,3*1048576);if(Math.random()<0.1)u=(0.4+Math.random()*1.8)*1048576;
+          dn.push(d); dn.shift();
+          up.push(u); up.shift();
+        }
+
+        function render(){
+          // 1. Processor dual ring updates
+          var totalCpu = Math.min(100, cpuUser + cpuSys);
+          cOuter.style.strokeDashoffset = CIRC_OUT * (1 - cpuUser / 100);
+          cInner.style.strokeDashoffset = CIRC_IN * (1 - cpuSys / 100);
+          $('cpuUserVal').textContent = cpuUser + '%';
+          $('cpuSysVal').textContent = cpuSys + '%';
+          $('cpuCenterVal').textContent = totalCpu + '%';
+          $('cpuTotalStat').textContent = totalCpu + '% total';
+
+          var sCpu = series(cpuWaves, 220, 54, 100);
+          $('cpuWaveArea').setAttribute('d', sCpu.area);
+          $('cpuWaveLine').setAttribute('d', sCpu.line);
+          $('cpuWaveDot').setAttribute('cx', sCpu.last[0]);
+          $('cpuWaveDot').setAttribute('cy', sCpu.last[1]);
+
+          // 2. Graphics dual ring updates
+          gOuter.style.strokeDashoffset = CIRC_OUT * (1 - gpuLoad / 100);
+          gInner.style.strokeDashoffset = CIRC_IN * (1 - vram / 100);
+          $('gpuLoadVal').textContent = gpuLoad + '%';
+          $('gpuVramVal').textContent = vram + '%';
+          $('gpuMemGb').textContent = (vram / 100 * 25.0).toFixed(1) + ' / 25.0 GB';
+          $('gpuTotalStat').textContent = gpuLoad + '% load';
+
+          var sGpu = series(gpuWaves, 220, 54, 100);
+          $('gpuWaveArea').setAttribute('d', sGpu.area);
+          $('gpuWaveLine').setAttribute('d', sGpu.line);
+          $('gpuWaveDot').setAttribute('cx', sGpu.last[0]);
+          $('gpuWaveDot').setAttribute('cy', sGpu.last[1]);
+
+          // 3. Network update
+          var peak=Math.max(Math.max.apply(null,dn),Math.max.apply(null,up),64*1024);
+          var su=series(up,520,130,peak),sd=series(dn,520,130,peak);
+          $('upArea').setAttribute('d',su.area);$('upLine').setAttribute('d',su.line);
+          $('dnArea').setAttribute('d',sd.area);$('dnLine').setAttribute('d',sd.line);
+          $('upDot').setAttribute('cx',su.last[0]);$('upDot').setAttribute('cy',su.last[1]);
+          $('dnDot').setAttribute('cx',sd.last[0]);$('dnDot').setAttribute('cy',sd.last[1]);
+          $('netDown').textContent='↓ '+rate(dn[N-1]);
+          $('netUp').textContent='↑ '+rate(up[N-1]);
+          $('netPeak').textContent='peak '+rate(peak);
+        }
+
+        render();
+        if(!reduce){
+          setInterval(function(){
+            if(!document.hidden){
+              stepData();
+              render();
+            }
+          }, 900);
+        }
       })();
       </script>
     </div>

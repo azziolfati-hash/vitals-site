@@ -157,17 +157,43 @@
   .play-pane-head p{color:var(--mut);font-size:13.5px;margin-top:4px}
   .btn-sm{padding:8px 16px;font-size:13px}
 
-  /* Pane 1: Vitals Grid */
-  .vitals-live-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media(max-width:700px){.vitals-live-grid{grid-template-columns:1fr}}
-  .vg-cell{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
-  .vg-label{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--c,#818cf8);margin-bottom:12px}
-  .vg-ringwrap{position:relative;width:74px;height:74px;margin:0 auto 12px}
-  .vg-ring{width:74px;height:74px;display:block}
-  .vg-track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:7}
-  .vg-arc{fill:none;stroke-width:7;stroke-linecap:round;transition:stroke-dashoffset .5s cubic-bezier(.2,.8,.2,1)}
-  .vg-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:750;font-variant-numeric:tabular-nums}
-  .vg-sub{font-size:11px;color:var(--dim);margin-top:4px}
+  /* Pane 1: Vitals (Concentric Dual Rings matching App) */
+  .vp-stack{display:flex;flex-direction:column;gap:14px}
+  .vcard{background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 8px 24px rgba(0,0,0,.35)}
+  .vc-head{display:flex;align-items:center;justify-content:space-between}
+  .vc-title{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:#f0f3f6}
+  .vc-icon{width:24px;height:24px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
+  .ico-cpu{background:rgba(99,102,241,.18);color:#818cf8}
+  .ico-gpu{background:rgba(236,72,153,.18);color:#f472b6}
+  .vc-topstat{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:#94a3b8;font-variant-numeric:tabular-nums}
+  .vc-info{font-size:13px;color:#64748b;cursor:help;margin-left:2px}
+  .vc-body{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  @media(max-width:540px){.vc-body{flex-direction:column;align-items:stretch;gap:12px}}
+  .vc-left{display:flex;align-items:center;gap:14px;flex-shrink:0}
+  .vc-dualring{position:relative;width:82px;height:82px;flex-shrink:0}
+  .vc-dualring svg{width:82px;height:82px;display:block}
+  .vr-trk{fill:none;stroke:rgba(255,255,255,0.08)}
+  .vr-arc{fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:46px 46px;transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+  .vc-center-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#38bdf8;font-variant-numeric:tabular-nums}
+  .vc-legend{display:flex;flex-direction:column;gap:5px;font-size:12px}
+  .vcl-row{display:flex;align-items:center;gap:6px}
+  .vcl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+  .vcl-row b{font-weight:750;color:#f0f3f6;font-variant-numeric:tabular-nums;min-width:30px}
+  .vcl-lbl{color:#94a3b8;font-weight:500}
+  .vcl-sub{color:#64748b;font-size:10.5px;margin-left:13px;font-variant-numeric:tabular-nums}
+  .vc-right{flex:1;min-width:140px;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+  .vc-sparkline{width:100%;height:46px;display:block;overflow:visible}
+  .vc-sparklabel{font-size:10px;color:#64748b;font-weight:500;letter-spacing:0.02em}
+
+  /* Dual concentric gauges in Vitals app preview card */
+  .pv-vitals{display:flex;align-items:center;gap:32px;padding:14px 20px}
+  .dgauge{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .dg-wrap{position:relative;width:58px;height:58px}
+  .dg-wrap svg{width:58px;height:58px;display:block}
+  .dg-trk{fill:none;stroke:rgba(255,255,255,.09)}
+  .dg-arc{fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:27px 27px;transition:stroke-dashoffset .5s cubic-bezier(.2,.8,.2,1)}
+  .dg-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--ice);font-variant-numeric:tabular-nums}
+  .dg-lbl{font-size:10.5px;font-weight:650;letter-spacing:.3px;color:var(--mut)}
 
   /* Pane 2: Breeze */
   .breeze-interactive{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
@@ -283,15 +309,6 @@
 
   /* ---------- PER-APP MINI ANIMATIONS ---------- */
   .preview{margin-top:16px;min-height:96px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);overflow:hidden;position:relative;display:flex;align-items:center;gap:16px;padding:14px 18px}
-
-  /* Vitals — three labelled gauges with live % */
-  .pv-vitals{gap:30px}
-  .pv-vitals .gauge{position:relative;width:62px;text-align:center;flex:none}
-  .pv-vitals .gauge svg{width:56px;height:56px;display:block;margin:0 auto;transform:rotate(-90deg)}
-  .pv-vitals .trk{fill:none;stroke:rgba(255,255,255,.10);stroke-width:5}
-  .pv-vitals .arc{fill:none;stroke-width:5;stroke-linecap:round}
-  .pv-vitals .num{position:absolute;top:19px;left:0;right:0;font-size:14px;font-weight:750;font-variant-numeric:tabular-nums}
-  .pv-vitals .lbl{display:block;margin-top:4px;font-size:10px;font-weight:650;letter-spacing:.6px;color:var(--mut)}
 
   /* Breeze — junk cells cleared with a live GB-freed counter */
   .pv-breeze{flex-direction:column;align-items:stretch;gap:10px}
@@ -530,34 +547,99 @@
           <div class="play-pane-head">
             <div>
               <h4>Vitals — Real-time Mac Health Monitor</h4>
-              <p>Live menu-bar telemetry with zero CPU footprint. Toggle shortcut: <kbd>⌥</kbd><kbd>V</kbd></p>
+              <p>Dual-ring telemetry with zero CPU footprint. Toggle shortcut: <kbd>⌥</kbd><kbd>V</kbd></p>
             </div>
             <a class="btn btn-ghost btn-sm" href="vitals/">Open Vitals <span class="arrow">→</span></a>
           </div>
-          <div class="vitals-live-grid">
-            <div class="vg-cell">
-              <div class="vg-label" style="--c:#818cf8">Processor</div>
-              <div class="vg-ringwrap">
-                <svg class="vg-ring" viewBox="0 0 74 74"><circle class="vg-track" cx="37" cy="37" r="30"/><circle id="hCpuArc" class="vg-arc" cx="37" cy="37" r="30" stroke="#6366F1" transform="rotate(-90 37 37)"/></svg>
-                <div class="vg-val" id="hCpuVal">24%</div>
+          <div class="vp-stack">
+            <!-- Processor Card (Concentric Dual Rings) -->
+            <div class="vcard" id="hVcCpu">
+              <div class="vc-head">
+                <div class="vc-title">
+                  <span class="vc-icon ico-cpu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></span>
+                  <strong>Processor</strong>
+                </div>
+                <div class="vc-topstat">
+                  <span id="hCpuTotalStat">34% total</span>
+                  <span class="vc-info" title="CPU breakdown">ⓘ</span>
+                </div>
               </div>
-              <div class="vg-sub">10-Core Apple Silicon · 3.4 GHz</div>
+              <div class="vc-body">
+                <div class="vc-left">
+                  <div class="vc-dualring">
+                    <svg viewBox="0 0 92 92">
+                      <circle class="vr-trk" cx="46" cy="46" r="37" stroke-width="7"/>
+                      <circle id="hCpuOuterArc" class="vr-arc" cx="46" cy="46" r="37" stroke-width="7" stroke="#00a2ff"/>
+                      <circle class="vr-trk" cx="46" cy="46" r="26" stroke-width="7"/>
+                      <circle id="hCpuInnerArc" class="vr-arc" cx="46" cy="46" r="26" stroke-width="7" stroke="#7dd3fc"/>
+                    </svg>
+                    <div class="vc-center-val" id="hCpuCenterVal">34%</div>
+                  </div>
+                  <div class="vc-legend">
+                    <div class="vcl-row"><span class="vcl-dot" style="background:#00a2ff"></span><b id="hCpuUserVal">19%</b> <span class="vcl-lbl">User</span></div>
+                    <div class="vcl-row"><span class="vcl-dot" style="background:#7dd3fc"></span><b id="hCpuSysVal">15%</b> <span class="vcl-lbl">System</span></div>
+                  </div>
+                </div>
+                <div class="vc-right">
+                  <svg class="vc-sparkline" viewBox="0 0 220 54" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="hGcpuWave" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#6366f1" stop-opacity="0.32"/>
+                        <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path id="hCpuWaveArea" fill="url(#hGcpuWave)"/>
+                    <path id="hCpuWaveLine" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle id="hCpuWaveDot" r="2.5" fill="#6366f1"/>
+                  </svg>
+                  <div class="vc-sparklabel">total load · recent</div>
+                </div>
+              </div>
             </div>
-            <div class="vg-cell">
-              <div class="vg-label" style="--c:#f472b6">Graphics &amp; Metal</div>
-              <div class="vg-ringwrap">
-                <svg class="vg-ring" viewBox="0 0 74 74"><circle class="vg-track" cx="37" cy="37" r="30"/><circle id="hGpuArc" class="vg-arc" cx="37" cy="37" r="30" stroke="#EC4899" transform="rotate(-90 37 37)"/></svg>
-                <div class="vg-val" id="hGpuVal">11%</div>
+
+            <!-- Graphics Card (Concentric Dual Rings) -->
+            <div class="vcard" id="hVcGpu">
+              <div class="vc-head">
+                <div class="vc-title">
+                  <span class="vc-icon ico-gpu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+                  <strong>Graphics</strong>
+                </div>
+                <div class="vc-topstat">
+                  <span id="hGpuTotalStat">85% load</span>
+                  <span class="vc-info" title="GPU breakdown">ⓘ</span>
+                </div>
               </div>
-              <div class="vg-sub">16-Core Metal 3 GPU</div>
-            </div>
-            <div class="vg-cell">
-              <div class="vg-label" style="--c:#34d399">Unified Memory</div>
-              <div class="vg-ringwrap">
-                <svg class="vg-ring" viewBox="0 0 74 74"><circle class="vg-track" cx="37" cy="37" r="30"/><circle id="hMemArc" class="vg-arc" cx="37" cy="37" r="30" stroke="#10B981" transform="rotate(-90 37 37)"/></svg>
-                <div class="vg-val" id="hMemVal">48%</div>
+              <div class="vc-body">
+                <div class="vc-left">
+                  <div class="vc-dualring">
+                    <svg viewBox="0 0 92 92">
+                      <circle class="vr-trk" cx="46" cy="46" r="37" stroke-width="7"/>
+                      <circle id="hGpuOuterArc" class="vr-arc" cx="46" cy="46" r="37" stroke-width="7" stroke="#ec4899"/>
+                      <circle class="vr-trk" cx="46" cy="46" r="26" stroke-width="7"/>
+                      <circle id="hGpuInnerArc" class="vr-arc" cx="46" cy="46" r="26" stroke-width="7" stroke="#10b981"/>
+                    </svg>
+                  </div>
+                  <div class="vc-legend">
+                    <div class="vcl-row"><span class="vcl-dot" style="background:#ec4899"></span><b id="hGpuLoadVal">85%</b> <span class="vcl-lbl">GPU load</span></div>
+                    <div class="vcl-row"><span class="vcl-dot" style="background:#10b981"></span><b id="hGpuVramVal">80%</b> <span class="vcl-lbl">VRAM</span></div>
+                    <div class="vcl-sub" id="hGpuMemGb">19.9 / 25.0 GB</div>
+                  </div>
+                </div>
+                <div class="vc-right">
+                  <svg class="vc-sparkline" viewBox="0 0 220 54" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="hGgpuWave" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#ec4899" stop-opacity="0.32"/>
+                        <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path id="hGpuWaveArea" fill="url(#hGgpuWave)"/>
+                    <path id="hGpuWaveLine" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle id="hGpuWaveDot" r="2.5" fill="#ec4899"/>
+                  </svg>
+                  <div class="vc-sparklabel">GPU load · recent</div>
+                </div>
               </div>
-              <div class="vg-sub">11.5 GB used / 24 GB</div>
             </div>
           </div>
         </div>
@@ -713,9 +795,30 @@
             <p>Live CPU, GPU, memory, network, heat, battery and Bluetooth device battery — plus tools no other menu-bar app has: local-LLM detection &amp; speed tests, 30-day history, S.M.A.R.T. disk health, crash &amp; panic watch, and a live desktop widget. Free to monitor forever; $9.99 once to go deep, after a 14-day free trial.</p>
             <span class="go">Explore Vitals <span class="arrow">→</span></span>
             <div class="preview pv-vitals">
-              <div class="gauge" data-k="CPU" data-c="#4dc9ff"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="16"/><circle class="arc" cx="22" cy="22" r="16"/></svg><span class="num">—</span><span class="lbl">CPU</span></div>
-              <div class="gauge" data-k="RAM" data-c="#9a86ff"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="16"/><circle class="arc" cx="22" cy="22" r="16"/></svg><span class="num">—</span><span class="lbl">RAM</span></div>
-              <div class="gauge" data-k="GPU" data-c="#34d399"><svg viewBox="0 0 44 44"><circle class="trk" cx="22" cy="22" r="16"/><circle class="arc" cx="22" cy="22" r="16"/></svg><span class="num">—</span><span class="lbl">GPU</span></div>
+              <div class="dgauge">
+                <div class="dg-wrap">
+                  <svg viewBox="0 0 54 54">
+                    <circle class="dg-trk" cx="27" cy="27" r="21" stroke-width="4.5"/>
+                    <circle id="pvCpuOut" class="dg-arc" cx="27" cy="27" r="21" stroke-width="4.5" stroke="#00a2ff"/>
+                    <circle class="dg-trk" cx="27" cy="27" r="14.5" stroke-width="4.5"/>
+                    <circle id="pvCpuIn" class="dg-arc" cx="27" cy="27" r="14.5" stroke-width="4.5" stroke="#7dd3fc"/>
+                  </svg>
+                  <span class="dg-val" id="pvCpuVal">34%</span>
+                </div>
+                <span class="dg-lbl">CPU (User+Sys)</span>
+              </div>
+              <div class="dgauge">
+                <div class="dg-wrap">
+                  <svg viewBox="0 0 54 54">
+                    <circle class="dg-trk" cx="27" cy="27" r="21" stroke-width="4.5"/>
+                    <circle id="pvGpuOut" class="dg-arc" cx="27" cy="27" r="21" stroke-width="4.5" stroke="#ec4899"/>
+                    <circle class="dg-trk" cx="27" cy="27" r="14.5" stroke-width="4.5"/>
+                    <circle id="pvGpuIn" class="dg-arc" cx="27" cy="27" r="14.5" stroke-width="4.5" stroke="#10b981"/>
+                  </svg>
+                  <span class="dg-val" id="pvGpuVal">85%</span>
+                </div>
+                <span class="dg-lbl">GPU (Load+VRAM)</span>
+              </div>
             </div>
           </div>
         </a>
@@ -910,16 +1013,31 @@
   })();
 
   // ---------- Per-app preview animations ----------
-  // Vitals — live % gauges
-  document.querySelectorAll('.pv-vitals .gauge').forEach(g=>{
-    const arc=g.querySelector('.arc'), num=g.querySelector('.num'), C=2*Math.PI*16;
-    arc.style.stroke=g.dataset.c; arc.style.strokeDasharray=C.toFixed(1); arc.style.transition='stroke-dashoffset .9s ease';
-    num.style.color=g.dataset.c;
-    const rng={CPU:[9,46],RAM:[42,74],GPU:[6,58]}[g.dataset.k]||[10,60];
-    const set=p=>{arc.style.strokeDashoffset=(C*(1-p/100)).toFixed(1); num.textContent=p+'%';};
-    set(Math.round((rng[0]+rng[1])/2));
-    if(!reduce) setInterval(()=>set(Math.round(rng[0]+Math.random()*(rng[1]-rng[0]))), 1600);
-  });
+  // Vitals — concentric dual ring mini preview
+  (function(){
+    const cOut = document.getElementById('pvCpuOut'), cIn = document.getElementById('pvCpuIn'), cVal = document.getElementById('pvCpuVal');
+    const gOut = document.getElementById('pvGpuOut'), gIn = document.getElementById('pvGpuIn'), gVal = document.getElementById('pvGpuVal');
+    if(!cOut) return;
+    const C_OUT = 2 * Math.PI * 21; // 131.95
+    const C_IN = 2 * Math.PI * 14.5; // 91.11
+    [cOut, gOut].forEach(el => { el.style.strokeDasharray = C_OUT; });
+    [cIn, gIn].forEach(el => { el.style.strokeDasharray = C_IN; });
+    let u = 19, s = 15, g = 85, v = 80;
+    function updateMini(){
+      u = Math.round(Math.max(10, Math.min(65, u + (Math.random() * 8 - 4))));
+      s = Math.round(Math.max(6, Math.min(28, s + (Math.random() * 4 - 2))));
+      g = Math.round(Math.max(30, Math.min(96, g + (Math.random() * 10 - 5))));
+      v = Math.round(Math.max(70, Math.min(90, v + (Math.random() * 3 - 1.5))));
+      cOut.style.strokeDashoffset = C_OUT * (1 - u / 100);
+      cIn.style.strokeDashoffset = C_IN * (1 - s / 100);
+      cVal.textContent = Math.min(100, u + s) + '%';
+      gOut.style.strokeDashoffset = C_OUT * (1 - g / 100);
+      gIn.style.strokeDashoffset = C_IN * (1 - v / 100);
+      gVal.textContent = g + '%';
+    }
+    updateMini();
+    if(!reduce) setInterval(updateMini, 1400);
+  })();
 
   // Breeze — clear junk, count GB freed
   document.querySelectorAll('.pv-breeze').forEach(b=>{
@@ -1074,23 +1192,78 @@
       });
     });
 
-    // 2. Vitals Live fluctuating gauges
-    const hCpu = document.getElementById('hCpuArc'), hGpu = document.getElementById('hGpuArc'), hMem = document.getElementById('hMemArc');
-    const vCpu = document.getElementById('hCpuVal'), vGpu = document.getElementById('hGpuVal'), vMem = document.getElementById('hMemVal');
-    if(hCpu) {
-      const CIRC = 2 * Math.PI * 30;
-      [hCpu, hGpu, hMem].forEach(c => { if(c) c.style.strokeDasharray = CIRC; });
-      let cpuVal = 24, gpuVal = 11, memVal = 48;
-      function updateVitals() {
-        cpuVal = Math.round(Math.max(8, Math.min(95, cpuVal + (Math.random() * 14 - 7))));
-        gpuVal = Math.round(Math.max(4, Math.min(90, gpuVal + (Math.random() * 10 - 5))));
-        memVal = Math.round(Math.max(35, Math.min(85, memVal + (Math.random() * 4 - 2))));
-        if(hCpu) { hCpu.style.strokeDashoffset = CIRC * (1 - cpuVal / 100); vCpu.textContent = cpuVal + '%'; }
-        if(hGpu) { hGpu.style.strokeDashoffset = CIRC * (1 - gpuVal / 100); vGpu.textContent = gpuVal + '%'; }
-        if(hMem) { hMem.style.strokeDashoffset = CIRC * (1 - memVal / 100); vMem.textContent = memVal + '%'; }
+    // 2. Vitals Live Concentric Dual Rings & Waves (matching user's app screenshot)
+    const hcOuter = document.getElementById('hCpuOuterArc'), hcInner = document.getElementById('hCpuInnerArc');
+    const hgOuter = document.getElementById('hGpuOuterArc'), hgInner = document.getElementById('hGpuInnerArc');
+    if(hcOuter) {
+      const CIRC_OUT = 2 * Math.PI * 37; // 232.48
+      const CIRC_IN = 2 * Math.PI * 26;  // 163.36
+      [hcOuter, hgOuter].forEach(el => { if(el) el.style.strokeDasharray = CIRC_OUT; });
+      [hcInner, hgInner].forEach(el => { if(el) el.style.strokeDasharray = CIRC_IN; });
+
+      function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+      function series(v,W,H,peak){
+        var n=v.length,p=[];
+        for(var i=0;i<n;i++){
+          var x=n===1?W:W*i/(n-1);
+          var y=Math.max(2,H*(1-(v[i]/peak)*0.9)-2);
+          p.push([x,y]);
+        }
+        var c=p.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1)});
+        return {
+          line:'M'+c.join(' L'),
+          area:'M'+p[0][0].toFixed(1)+','+H+' L'+c.join(' L')+' L'+p[n-1][0].toFixed(1)+','+H+' Z',
+          last:p[n-1]
+        };
       }
-      updateVitals();
-      setInterval(updateVitals, 1400);
+
+      var N = 36;
+      var cpuUser = 19, cpuSys = 15, gpuLoad = 85, vram = 80;
+      var cpuWaves = [], gpuWaves = [];
+      for(var i=0; i<N; i++){
+        cpuWaves.push(clamp(34 + Math.sin(i*0.4)*14 + (Math.random()*8-4), 10, 90));
+        gpuWaves.push(clamp(85 + Math.cos(i*0.3)*7 + (Math.random()*6-3), 30, 96));
+      }
+
+      function updatePlayVitals() {
+        cpuUser = Math.round(clamp(cpuUser + (Math.random()*6 - 3), 8, 75));
+        cpuSys = Math.round(clamp(cpuSys + (Math.random()*4 - 2), 4, 30));
+        var totalCpu = Math.min(100, cpuUser + cpuSys);
+        cpuWaves.push(totalCpu); cpuWaves.shift();
+
+        gpuLoad = Math.round(clamp(gpuLoad + (Math.random()*8 - 4), 20, 98));
+        vram = Math.round(clamp(vram + (Math.random()*2 - 1), 74, 88));
+        gpuWaves.push(gpuLoad); gpuWaves.shift();
+
+        // 1. Processor
+        hcOuter.style.strokeDashoffset = CIRC_OUT * (1 - cpuUser / 100);
+        hcInner.style.strokeDashoffset = CIRC_IN * (1 - cpuSys / 100);
+        const cpuUserEl = document.getElementById('hCpuUserVal'); if(cpuUserEl) cpuUserEl.textContent = cpuUser + '%';
+        const cpuSysEl = document.getElementById('hCpuSysVal'); if(cpuSysEl) cpuSysEl.textContent = cpuSys + '%';
+        const cpuCenterEl = document.getElementById('hCpuCenterVal'); if(cpuCenterEl) cpuCenterEl.textContent = totalCpu + '%';
+        const cpuStatEl = document.getElementById('hCpuTotalStat'); if(cpuStatEl) cpuStatEl.textContent = totalCpu + '% total';
+
+        var sCpu = series(cpuWaves, 220, 54, 100);
+        const ca = document.getElementById('hCpuWaveArea'); if(ca) ca.setAttribute('d', sCpu.area);
+        const cl = document.getElementById('hCpuWaveLine'); if(cl) cl.setAttribute('d', sCpu.line);
+        const cd = document.getElementById('hCpuWaveDot'); if(cd){ cd.setAttribute('cx', sCpu.last[0]); cd.setAttribute('cy', sCpu.last[1]); }
+
+        // 2. Graphics
+        hgOuter.style.strokeDashoffset = CIRC_OUT * (1 - gpuLoad / 100);
+        hgInner.style.strokeDashoffset = CIRC_IN * (1 - vram / 100);
+        const gpuLoadEl = document.getElementById('hGpuLoadVal'); if(gpuLoadEl) gpuLoadEl.textContent = gpuLoad + '%';
+        const gpuVramEl = document.getElementById('hGpuVramVal'); if(gpuVramEl) gpuVramEl.textContent = vram + '%';
+        const gpuMemEl = document.getElementById('hGpuMemGb'); if(gpuMemEl) gpuMemEl.textContent = (vram / 100 * 25.0).toFixed(1) + ' / 25.0 GB';
+        const gpuStatEl = document.getElementById('hGpuTotalStat'); if(gpuStatEl) gpuStatEl.textContent = gpuLoad + '% load';
+
+        var sGpu = series(gpuWaves, 220, 54, 100);
+        const ga = document.getElementById('hGpuWaveArea'); if(ga) ga.setAttribute('d', sGpu.area);
+        const gl = document.getElementById('hGpuWaveLine'); if(gl) gl.setAttribute('d', sGpu.line);
+        const gd = document.getElementById('hGpuWaveDot'); if(gd){ gd.setAttribute('cx', sGpu.last[0]); gd.setAttribute('cy', sGpu.last[1]); }
+      }
+
+      updatePlayVitals();
+      if(!reduce) setInterval(updatePlayVitals, 1000);
     }
 
     // 3. Breeze Cleaner Demo
