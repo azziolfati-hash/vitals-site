@@ -215,15 +215,30 @@
   .vc-sparkline{width:100%;height:46px;display:block;overflow:visible}
   .vc-sparklabel{font-size:10px;color:#64748b;font-weight:500;letter-spacing:0.02em}
 
-  /* Dual concentric gauges in Vitals app preview card */
-  .pv-vitals{display:flex;align-items:center;gap:32px;padding:14px 20px}
+  /* Dual concentric gauges & live sparklines in Vitals app preview card */
+  .pv-vitals{display:flex;align-items:center;gap:24px;padding:14px 18px;min-height:96px}
+  .pv-gauges{display:flex;align-items:center;gap:20px;flex-shrink:0}
   .dgauge{display:flex;flex-direction:column;align-items:center;gap:6px}
   .dg-wrap{position:relative;width:58px;height:58px}
   .dg-wrap svg{width:58px;height:58px;display:block}
   .dg-trk{fill:none;stroke:rgba(255,255,255,.09)}
   .dg-arc{fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:27px 27px;transition:stroke-dashoffset .5s cubic-bezier(.2,.8,.2,1)}
   .dg-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10.2px;font-weight:800;color:var(--ice);font-variant-numeric:tabular-nums}
-  .dg-lbl{font-size:10.5px;font-weight:650;letter-spacing:.3px;color:var(--mut)}
+  .dg-lbl{font-size:10px;font-weight:650;letter-spacing:.3px;color:var(--mut);white-space:nowrap}
+
+  .pv-charts{flex:1;min-width:240px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){
+    .pv-vitals{flex-direction:column;align-items:stretch;gap:16px}
+    .pv-gauges{justify-content:center}
+    .pv-charts{grid-template-columns:1fr}
+  }
+  .pvc-card{background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+  .pvc-meta{display:flex;align-items:center;gap:6px;font-size:11px}
+  .pvc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+  .pvc-title{font-weight:650;color:var(--tx)}
+  .pvc-stat{margin-left:auto;font-weight:700;color:var(--dim);font-variant-numeric:tabular-nums}
+  .pvc-spark{width:100%;height:38px;display:block;overflow:visible}
+  .pvc-sub{font-size:9.5px;color:var(--dim);text-align:right;letter-spacing:.02em}
 
   /* Pane 2: Breeze */
   .breeze-interactive{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
@@ -291,8 +306,8 @@
   /* ---------- WIRE FAN (logo → apps) ---------- */
   .connect{position:relative;max-width:920px;margin:6px auto 0;padding:0 24px}
   .connect-mark{display:block;width:60px;height:auto;margin:0 auto;filter:drop-shadow(0 6px 20px rgba(77,201,255,.6));position:relative;z-index:2}
-  .wires{display:block;width:100%;height:210px;margin-top:-4px}
-  @media(max-width:600px){.wires{height:150px}}
+  .wires{display:block;width:100%;height:215px;margin-top:-4px;margin-bottom:-1px}
+  @media(max-width:600px){.wires{height:155px}}
   .wires path{fill:none;stroke:url(#wireGrad);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
   @media(prefers-reduced-motion:reduce){.wires path{stroke-dashoffset:0!important;transition:none}}
 
@@ -830,18 +845,18 @@
     <!-- Fan wires flow out of the mark into the app boxes as you scroll -->
     <div class="connect">
       <img class="connect-mark" src="assets/hanncrest-mark-light.svg" alt="HANNCREST mountain crest mark">
-      <svg class="wires" viewBox="0 0 1000 230" preserveAspectRatio="none" aria-hidden="true">
+      <svg class="wires" viewBox="0 0 1000 232" preserveAspectRatio="none" aria-hidden="true">
         <defs><linearGradient id="wireGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#e6f7ff"/><stop offset=".5" stop-color="#4dc9ff"/><stop offset="1" stop-color="#2aa7e0"/>
         </linearGradient></defs>
-        <path pathLength="1" d="M500,0 C500,90 90,120 90,230"/>
-        <path pathLength="1" style="opacity:.4"  d="M500,0 C500,95 230,125 230,230"/>
-        <path pathLength="1" d="M500,0 C500,100 360,130 360,230"/>
-        <path pathLength="1" style="opacity:.45" d="M500,0 C500,105 460,135 460,230"/>
-        <path pathLength="1" d="M500,0 C500,105 540,135 540,230"/>
-        <path pathLength="1" style="opacity:.45" d="M500,0 C500,100 640,130 640,230"/>
-        <path pathLength="1" d="M500,0 C500,95 770,125 770,230"/>
-        <path pathLength="1" style="opacity:.4"  d="M500,0 C500,90 910,120 910,230"/>
+        <path pathLength="1" d="M500,0 C500,90 90,120 90,232"/>
+        <path pathLength="1" style="opacity:.4"  d="M500,0 C500,95 230,125 230,232"/>
+        <path pathLength="1" d="M500,0 C500,100 360,130 360,232"/>
+        <path pathLength="1" style="opacity:.45" d="M500,0 C500,105 460,135 460,232"/>
+        <path pathLength="1" d="M500,0 C500,105 540,135 540,232"/>
+        <path pathLength="1" style="opacity:.45" d="M500,0 C500,100 640,130 640,232"/>
+        <path pathLength="1" d="M500,0 C500,95 770,125 770,232"/>
+        <path pathLength="1" style="opacity:.4"  d="M500,0 C500,90 910,120 910,232"/>
       </svg>
     </div>
 
@@ -855,29 +870,75 @@
             <p>Live CPU, GPU, memory, network, heat, battery and Bluetooth device battery — plus tools no other menu-bar app has: local-LLM detection &amp; speed tests, 30-day history, S.M.A.R.T. disk health, crash &amp; panic watch, and a live desktop widget. Free to monitor forever; $9.99 once to go deep, after a 14-day free trial.</p>
             <span class="go">Explore Vitals <span class="arrow">→</span></span>
             <div class="preview pv-vitals">
-              <div class="dgauge">
-                <div class="dg-wrap">
-                  <svg viewBox="0 0 54 54">
-                    <circle class="dg-trk" cx="27" cy="27" r="21" stroke-width="4.5"/>
-                    <circle id="pvCpuOut" class="dg-arc" cx="27" cy="27" r="21" stroke-width="4.5" stroke="#00a2ff"/>
-                    <circle class="dg-trk" cx="27" cy="27" r="14.5" stroke-width="4.5"/>
-                    <circle id="pvCpuIn" class="dg-arc" cx="27" cy="27" r="14.5" stroke-width="4.5" stroke="#7dd3fc"/>
-                  </svg>
-                  <span class="dg-val" id="pvCpuVal">34%</span>
+              <div class="pv-gauges">
+                <div class="dgauge">
+                  <div class="dg-wrap">
+                    <svg viewBox="0 0 54 54">
+                      <circle class="dg-trk" cx="27" cy="27" r="21" stroke-width="4.5"/>
+                      <circle id="pvCpuOut" class="dg-arc" cx="27" cy="27" r="21" stroke-width="4.5" stroke="#00a2ff"/>
+                      <circle class="dg-trk" cx="27" cy="27" r="14.5" stroke-width="4.5"/>
+                      <circle id="pvCpuIn" class="dg-arc" cx="27" cy="27" r="14.5" stroke-width="4.5" stroke="#7dd3fc"/>
+                    </svg>
+                    <span class="dg-val" id="pvCpuVal">34%</span>
+                  </div>
+                  <span class="dg-lbl">CPU (User+Sys)</span>
                 </div>
-                <span class="dg-lbl">CPU (User+Sys)</span>
+                <div class="dgauge">
+                  <div class="dg-wrap">
+                    <svg viewBox="0 0 54 54">
+                      <circle class="dg-trk" cx="27" cy="27" r="21" stroke-width="4.5"/>
+                      <circle id="pvGpuOut" class="dg-arc" cx="27" cy="27" r="21" stroke-width="4.5" stroke="#ec4899"/>
+                      <circle class="dg-trk" cx="27" cy="27" r="14.5" stroke-width="4.5"/>
+                      <circle id="pvGpuIn" class="dg-arc" cx="27" cy="27" r="14.5" stroke-width="4.5" stroke="#10b981"/>
+                    </svg>
+                    <span class="dg-val" id="pvGpuVal">85%</span>
+                  </div>
+                  <span class="dg-lbl">GPU (Load+VRAM)</span>
+                </div>
               </div>
-              <div class="dgauge">
-                <div class="dg-wrap">
-                  <svg viewBox="0 0 54 54">
-                    <circle class="dg-trk" cx="27" cy="27" r="21" stroke-width="4.5"/>
-                    <circle id="pvGpuOut" class="dg-arc" cx="27" cy="27" r="21" stroke-width="4.5" stroke="#ec4899"/>
-                    <circle class="dg-trk" cx="27" cy="27" r="14.5" stroke-width="4.5"/>
-                    <circle id="pvGpuIn" class="dg-arc" cx="27" cy="27" r="14.5" stroke-width="4.5" stroke="#10b981"/>
+
+              <div class="pv-charts">
+                <!-- CPU Live Chart -->
+                <div class="pvc-card">
+                  <div class="pvc-meta">
+                    <span class="pvc-dot" style="background:#6366f1"></span>
+                    <span class="pvc-title">CPU load</span>
+                    <span class="pvc-stat" id="pvCpuStat">34%</span>
+                  </div>
+                  <svg class="pvc-spark" viewBox="0 0 200 44" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="pvGcpu" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#6366f1" stop-opacity="0.32"/>
+                        <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path id="pvCpuArea" fill="url(#pvGcpu)"/>
+                    <path id="pvCpuLine" fill="none" stroke="#6366f1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle id="pvCpuDot" r="2.2" fill="#6366f1"/>
                   </svg>
-                  <span class="dg-val" id="pvGpuVal">85%</span>
+                  <div class="pvc-sub">total load · recent</div>
                 </div>
-                <span class="dg-lbl">GPU (Load+VRAM)</span>
+
+                <!-- GPU Live Chart -->
+                <div class="pvc-card">
+                  <div class="pvc-meta">
+                    <span class="pvc-dot" style="background:#ec4899"></span>
+                    <span class="pvc-title">GPU load</span>
+                    <span class="pvc-stat" id="pvGpuStat">85%</span>
+                  </div>
+                  <svg class="pvc-spark" viewBox="0 0 200 44" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="pvGgpu" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#ec4899" stop-opacity="0.32"/>
+                        <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path id="pvGpuArea" fill="url(#pvGgpu)"/>
+                    <path id="pvGpuLine" fill="none" stroke="#ec4899" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle id="pvGpuDot" r="2.2" fill="#ec4899"/>
+                  </svg>
+                  <div class="pvc-sub">GPU load · recent</div>
+                </div>
               </div>
             </div>
           </div>
@@ -1030,9 +1091,14 @@
     const connect=document.querySelector('.connect');
     const wires=connect?Array.from(connect.querySelectorAll('.wires path')):[];
     if(!connect||!wires.length||reduce) return;
-    const draw=()=>{ const r=connect.getBoundingClientRect(), vh=innerHeight||800;
-      let p=Math.max(0,Math.min(1,(vh-r.top)/(vh*0.72)));
-      wires.forEach((w,i)=>w.style.strokeDashoffset=Math.max(0,Math.min(1,1-(p*1.18-i*0.03))).toFixed(3)); };
+    const draw=()=>{
+      const r=connect.getBoundingClientRect(), vh=innerHeight||800;
+      let p=Math.max(0,Math.min(1,(vh-r.top)/(vh*0.58)));
+      const prog=Math.min(1,p*1.28);
+      wires.forEach(w=>{
+        w.style.strokeDashoffset=Math.max(0,Math.min(1,1-prog)).toFixed(3);
+      });
+    };
     draw(); addEventListener('scroll',()=>requestAnimationFrame(draw),{passive:true}); addEventListener('resize',draw);
   })();
 
@@ -1073,7 +1139,7 @@
   })();
 
   // ---------- Per-app preview animations ----------
-  // Vitals — concentric dual ring mini preview
+  // Vitals — concentric dual ring & live sparklines in app preview
   (function(){
     const cOut = document.getElementById('pvCpuOut'), cIn = document.getElementById('pvCpuIn'), cVal = document.getElementById('pvCpuVal');
     const gOut = document.getElementById('pvGpuOut'), gIn = document.getElementById('pvGpuIn'), gVal = document.getElementById('pvGpuVal');
@@ -1082,21 +1148,70 @@
     const C_IN = 2 * Math.PI * 14.5; // 91.11
     [cOut, gOut].forEach(el => { el.style.strokeDasharray = C_OUT; });
     [cIn, gIn].forEach(el => { el.style.strokeDasharray = C_IN; });
+
+    function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
+    function series(v, W, H, peak){
+      const n = v.length, p = [];
+      for(let i = 0; i < n; i++){
+        const x = n === 1 ? W : W * i / (n - 1);
+        const y = Math.max(2, H * (1 - (v[i] / peak) * 0.88) - 2);
+        p.push([x, y]);
+      }
+      const c = p.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1));
+      return {
+        line: 'M ' + c.join(' L '),
+        area: 'M ' + p[0][0].toFixed(1) + ',' + H + ' L ' + c.join(' L ') + ' L ' + p[n-1][0].toFixed(1) + ',' + H + ' Z',
+        last: p[n-1]
+      };
+    }
+
+    const N = 24;
     let u = 19, s = 15, g = 85, v = 80;
+    const cpuWaves = [], gpuWaves = [];
+    for(let i = 0; i < N; i++){
+      cpuWaves.push(clamp(34 + Math.sin(i * 0.5) * 12 + (Math.random() * 6 - 3), 12, 85));
+      gpuWaves.push(clamp(85 + Math.cos(i * 0.4) * 8 + (Math.random() * 6 - 3), 30, 96));
+    }
+
     function updateMini(){
-      u = Math.round(Math.max(10, Math.min(65, u + (Math.random() * 8 - 4))));
-      s = Math.round(Math.max(6, Math.min(28, s + (Math.random() * 4 - 2))));
-      g = Math.round(Math.max(30, Math.min(96, g + (Math.random() * 10 - 5))));
-      v = Math.round(Math.max(70, Math.min(90, v + (Math.random() * 3 - 1.5))));
+      u = Math.round(clamp(u + (Math.random() * 8 - 4), 10, 65));
+      s = Math.round(clamp(s + (Math.random() * 4 - 2), 6, 28));
+      const totalCpu = Math.min(100, u + s);
+      cpuWaves.push(totalCpu); cpuWaves.shift();
+
+      g = Math.round(clamp(g + (Math.random() * 10 - 5), 30, 96));
+      v = Math.round(clamp(v + (Math.random() * 3 - 1.5), 70, 90));
+      gpuWaves.push(g); gpuWaves.shift();
+
+      // Dual rings
       cOut.style.strokeDashoffset = C_OUT * (1 - u / 100);
       cIn.style.strokeDashoffset = C_IN * (1 - s / 100);
-      cVal.textContent = Math.min(100, u + s) + '%';
+      cVal.textContent = totalCpu + '%';
+
       gOut.style.strokeDashoffset = C_OUT * (1 - g / 100);
       gIn.style.strokeDashoffset = C_IN * (1 - v / 100);
       gVal.textContent = g + '%';
+
+      // Stats
+      const cpuStat = document.getElementById('pvCpuStat');
+      if(cpuStat) cpuStat.textContent = totalCpu + '%';
+      const gpuStat = document.getElementById('pvGpuStat');
+      if(gpuStat) gpuStat.textContent = g + '%';
+
+      // CPU Sparkline Wave
+      const sCpu = series(cpuWaves, 200, 44, 100);
+      const ca = document.getElementById('pvCpuArea'); if(ca) ca.setAttribute('d', sCpu.area);
+      const cl = document.getElementById('pvCpuLine'); if(cl) cl.setAttribute('d', sCpu.line);
+      const cd = document.getElementById('pvCpuDot'); if(cd){ cd.setAttribute('cx', sCpu.last[0]); cd.setAttribute('cy', sCpu.last[1]); }
+
+      // GPU Sparkline Wave
+      const sGpu = series(gpuWaves, 200, 44, 100);
+      const ga = document.getElementById('pvGpuArea'); if(ga) ga.setAttribute('d', sGpu.area);
+      const gl = document.getElementById('pvGpuLine'); if(gl) gl.setAttribute('d', sGpu.line);
+      const gd = document.getElementById('pvGpuDot'); if(gd){ gd.setAttribute('cx', sGpu.last[0]); gd.setAttribute('cy', sGpu.last[1]); }
     }
     updateMini();
-    if(!reduce) setInterval(updateMini, 1400);
+    if(!reduce) setInterval(updateMini, 1200);
   })();
 
   // Breeze — clear junk, count GB freed
