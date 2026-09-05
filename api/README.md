@@ -52,7 +52,8 @@ a plain `URLSession`/`fetch` request, no SDK needed. Client flow:
 3. `PUT` the file bytes to `presignedUrl` with the same `Content-Type`.
 4. Send `{ url, filename }` in the report's `attachments` array to `/api/report-bug`.
 
-Caps: 30MB per file, images (`png`/`jpeg`/`gif`/`webp`/`heic`) or `zip` only.
+Caps: 15MB per file (also the combined cap `report-bug.js` enforces — see below), images
+(`png`/`jpeg`/`gif`/`webp`/`heic`) or `zip` only.
 
 ### Turn on attachment uploads (one-time)
 In the Vercel project → **Storage** → **Create Database** → **Blob**. This auto-sets
@@ -60,5 +61,17 @@ In the Vercel project → **Storage** → **Create Database** → **Blob**. This
 returns an error and the attachment is dropped, but the rest of the report still sends normally
 (attachments are additive, never load-bearing for the report itself).
 
-Blobs are uploaded **private**; `report-bug.js` mints a 7-day signed GET link per attachment when
-it emails the report, so the link in the email works but the blob isn't otherwise public.
+### Blob is a relay, not the delivery mechanism
+Blobs are uploaded **private** and are short-lived. `report-bug.js` doesn't link to them — it
+fetches each one's bytes back out (a signed GET valid for 5 minutes, just long enough for that one
+fetch) and attaches the real file to the outgoing email via nodemailer, then **deletes the blob**
+whether the email succeeds or not. The recipient gets a normal email attachment, never a link, and
+nothing is left sitting in Blob storage afterward.
+
+Why Blob is involved at all: Vercel Functions hard-cap the request body at **4.5MB**, enforced at
+the infrastructure level — not configurable via `vercel.json` or anything else. A 15MB screenshot
+can never ride in the same POST as the report text, so the client PUTs it straight to Blob (which
+has no such limit) and only the pathname travels through `/api/report-bug`. `report-bug.js` caps
+the *combined* attachment size it will actually email at 15MB (`MAX_EMAIL_ATTACHMENT_BYTES`) —
+comfortably under a 30MB inbox limit once base64 MIME encoding inflates it by ~37% — and drops
+(logs, doesn't fail the report) anything that would push it over.

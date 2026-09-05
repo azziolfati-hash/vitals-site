@@ -18,14 +18,20 @@
 // Vercel function logs, so nothing is lost and the app's "Send Report" never errors while you
 // finish setup.
 //
-// Attachments (screenshots / a zip, up to 30MB total) are uploaded straight to Vercel Blob by the
-// client beforehand (see api/upload-token.js) — this endpoint only receives their blob pathnames
-// and mints a short-lived signed link for each, so the emailed report stays a small JSON payload
-// regardless of attachment size. Blobs are private; the signed link is what makes them reachable,
-// and only for a week.
+// Attachments (screenshots / a zip, up to 15MB total) are uploaded straight to Vercel Blob by the
+// client beforehand (see api/upload-token.js) — bypassing Vercel's 4.5MB function request-body
+// limit, which is hard-enforced infrastructure-side and not configurable. This endpoint only
+// receives their blob pathnames, but the *email* gets the real files: it fetches each blob's
+// bytes back out and attaches them directly (nodemailer `attachments`), then deletes the blob.
+// Blob storage here is purely a relay for getting bytes past the 4.5MB wall — never what the
+// recipient sees, and nothing durable is left behind once the email is sent.
 
-const { issueSignedToken, presignUrl } = require('@vercel/blob');
+const { issueSignedToken, presignUrl, del } = require('@vercel/blob');
 const nodemailer = require('nodemailer');
+
+// Keeps the final email comfortably under typical inbox caps (e.g. a 30MB limit) once
+// base64 MIME encoding inflates attachment bytes by ~37%.
+const MAX_EMAIL_ATTACHMENT_BYTES = 15 * 1024 * 1024;
 
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.purelymail.com';
 const SMTP_PORT = Number(process.env.SMTP_PORT) || 465;
@@ -63,35 +69,63 @@ function kindInfo(raw) {
   return { kind: 'bug', emoji: '🐞', noun: 'bug report', verb: 'reported' };
 }
 
-// Mints a one-week signed GET link for each attachment. Best-effort per file: one bad pathname
-// (or a Blob API hiccup) drops just that attachment from the email rather than failing the whole
-// report — the report itself is never worth losing over a broken screenshot link.
-async function signAttachments(attachments) {
+// Filenames only, no fetch — cheap enough to compute unconditionally so the report text/log
+// can mention what was attached even when email isn't configured yet (see below).
+function attachmentNames(attachments) {
   const list = Array.isArray(attachments) ? attachments.slice(0, 10) : [];
-  const signed = [];
+  return list.map((a) => String((a && a.filename) || 'attachment'));
+}
+
+function pathnameOf(attachment) {
+  const rawUrl = attachment && typeof attachment === 'object' ? String(attachment.url || '') : '';
+  if (!rawUrl) return null;
+  try { return new URL(rawUrl).pathname.replace(/^\//, '') || null; } catch { return null; }
+}
+
+// Downloads each attachment's bytes out of Blob (a short-lived signed GET, same mechanism as
+// the upload side) so they can be attached to the email directly. Best-effort per file and
+// against the combined size cap: one bad pathname, a Blob hiccup, or a file that would push the
+// message over the cap drops just that attachment rather than failing the whole report — the
+// report itself is never worth losing over one broken attachment. Every pathname we touch
+// (attached or not) is returned so the caller can still delete it.
+async function fetchAttachmentBuffers(attachments) {
+  const list = Array.isArray(attachments) ? attachments.slice(0, 10) : [];
+  const files = [];
+  const pathnames = [];
+  let total = 0;
   for (const a of list) {
-    const rawUrl = a && typeof a === 'object' ? String(a.url || '') : '';
-    if (!rawUrl) continue;
-    let pathname;
-    try { pathname = new URL(rawUrl).pathname.replace(/^\//, ''); } catch { continue; }
+    const pathname = pathnameOf(a);
     if (!pathname) continue;
+    pathnames.push(pathname);
+    const filename = String((a && a.filename) || pathname.split('/').pop());
     try {
       const token = await issueSignedToken({
         pathname,
         operations: ['get'],
-        validUntil: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days — the maximum allowed
+        validUntil: Date.now() + 5 * 60 * 1000, // only needs to survive one fetch, right now
       });
-      const { presignedUrl } = await presignUrl(token, {
-        operation: 'get',
-        pathname,
-        access: 'private',
-      });
-      signed.push({ name: String(a.filename || pathname.split('/').pop()), url: presignedUrl });
+      const { presignedUrl } = await presignUrl(token, { operation: 'get', pathname, access: 'private' });
+      const dl = await fetch(presignedUrl);
+      if (!dl.ok) throw new Error(`fetch returned ${dl.status}`);
+      const buf = Buffer.from(await dl.arrayBuffer());
+      if (total + buf.length > MAX_EMAIL_ATTACHMENT_BYTES) {
+        console.error(`report-bug: dropping ${filename} — would push attachments over the ${MAX_EMAIL_ATTACHMENT_BYTES}-byte cap`);
+        continue;
+      }
+      total += buf.length;
+      files.push({ filename, content: buf });
     } catch (err) {
-      console.error('report-bug: could not sign attachment —', err && err.message ? err.message : err);
+      console.error('report-bug: could not fetch attachment —', err && err.message ? err.message : err);
     }
   }
-  return signed;
+  return { files, pathnames };
+}
+
+// The blob only ever exists to ferry bytes from the client to this function — once the email
+// has been sent (or we've given up trying), there's nothing left to keep it around for.
+async function cleanupBlobs(pathnames) {
+  await Promise.all(pathnames.map((p) =>
+    del(p).catch((err) => console.error('report-bug: could not delete blob', p, '—', err && err.message ? err.message : err))));
 }
 
 module.exports = async (req, res) => {
@@ -121,7 +155,7 @@ module.exports = async (req, res) => {
   const createdAt = String(body.createdAt || new Date().toISOString());
   const d = body.diagnostics && typeof body.diagnostics === 'object' ? body.diagnostics : null;
   const { emoji, noun } = kindInfo(body.kind);
-  const attachments = await signAttachments(body.attachments);
+  const names = attachmentNames(body.attachments);
 
   // --- Clear, scannable subject ------------------------------------------------------------
   const snippet = shortDesc(description);
@@ -144,9 +178,8 @@ module.exports = async (req, res) => {
     `-------------`,
     description,
   ];
-  if (attachments.length) {
-    lines.push(``, `Attachments (links valid 7 days)`, `---------------------------------`,
-      ...attachments.map((a) => `${a.name}: ${a.url}`));
+  if (names.length) {
+    lines.push(``, `Attachments`, `-----------`, ...names);
   }
   if (d) {
     lines.push(
@@ -171,8 +204,8 @@ module.exports = async (req, res) => {
     </table>
     <h3 style="margin:16px 0 6px">What happened</h3>
     <div style="white-space:pre-wrap;background:#f6f6f9;border-radius:8px;padding:12px">${esc(description)}</div>
-    ${attachments.length ? `<h3 style="margin:16px 0 6px">Attachments <span style="font-weight:400;color:#6b7078">(links valid 7 days)</span></h3>
-    <ul style="margin:0;padding-left:20px">${attachments.map((a) => `<li><a href="${esc(a.url)}">${esc(a.name)}</a></li>`).join('')}</ul>` : ''}
+    ${names.length ? `<h3 style="margin:16px 0 6px">Attachments</h3>
+    <div style="color:#15151b">${names.map(esc).join('<br>')}</div>` : ''}
     ${d ? `<h3 style="margin:16px 0 6px">Diagnostics <span style="font-weight:400;color:#6b7078">(anonymous, opt-in)</span></h3>
     <table style="border-collapse:collapse;font-size:13px">
       <tr><td style="color:#6b7078;padding:2px 12px 2px 0">Mac</td><td>${esc(d.deviceModel)} (${esc(d.architecture)})</td></tr>
@@ -185,8 +218,13 @@ module.exports = async (req, res) => {
 
   if (!SMTP_USER || !SMTP_PASS) {
     console.log('[report-bug] (SMTP_USER/SMTP_PASS not set) subject:', subject, '\n', text);
+    // Nothing will ever fetch these blobs now — clean them up rather than leaving them to
+    // accumulate in storage indefinitely.
+    await cleanupBlobs((Array.isArray(body.attachments) ? body.attachments : []).map(pathnameOf).filter(Boolean));
     return res.status(200).json({ ok: true, delivered: false, note: 'Logged; email not configured yet.' });
   }
+
+  const { files, pathnames } = await fetchAttachmentBuffers(body.attachments);
 
   try {
     const transporter = nodemailer.createTransport({
@@ -202,10 +240,13 @@ module.exports = async (req, res) => {
       text,
       html,
       replyTo: email || undefined,
+      attachments: files,
     });
     return res.status(200).json({ ok: true, delivered: true });
   } catch (e) {
     console.error('[report-bug] SMTP error', e && e.message ? e.message : e);
     return res.status(502).json({ ok: false, error: 'Email delivery failed.' });
+  } finally {
+    await cleanupBlobs(pathnames);
   }
 };

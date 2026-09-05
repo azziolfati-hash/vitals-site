@@ -112,7 +112,9 @@ Non-sandboxed Developer-ID builds need nothing.
 Every app ships the same user-initiated reporter that POSTs JSON to **one shared endpoint**
 (`https://hanncrest.com/api/report-bug`), tagged by the `app` field. It covers both **bug reports**
 and **feature requests** (one form, a segmented picker) and lets the user attach screenshots or a
-zip (up to 30MB total) that upload straight to Vercel Blob before the report is sent. Reference
+zip (up to 15MB total). Attachments upload straight to Vercel Blob first, but only as a relay —
+the backend fetches the bytes back out and attaches the real files to the email, so the recipient
+gets a normal attachment, never a link (see Part 4). Reference
 implementation: `Vitals → Sources/Vitals/BugReport.swift` (this is the most complete version —
 Breeze's `BugReportView.swift` predates attachments/feature-request and should be brought up to
 parity with Vitals' file when next touched, rather than copied as-is).
@@ -139,7 +141,7 @@ enum BugReportConfig {
 - Map the outcome/header colors to the app's `Palette`.
 - Update the header copy ("…the makers of App Name").
 - `ReportKind` (bug/feature label, icon, prompt, placeholder text) and the attachment types/cap
-  (`allowedContentTypes`, `maxAttachmentBytes = 30MB`) are app-agnostic — copy as-is.
+  (`allowedContentTypes`, `maxAttachmentBytes = 15MB`) are app-agnostic — copy as-is.
 
 Everything else is identical: the `BugReporter` (collect → attach → upload → preview → POST), the
 two-tier privacy model, and the `BugReportView` sheet with its kind picker and attachments section.
@@ -160,7 +162,7 @@ two-tier privacy model, and the `BugReportView` sheet with its kind picker and a
   report id is random per report. The user can inspect the exact JSON ("Show exactly what will be
   sent") and, if the endpoint is down, **Copy details** to send by hand.
 - **Attachments are opt-in and explicit** (an "Add screenshots or a zip" control, not automatic) —
-  they're user-picked files, capped at 30MB total, and only leave the Mac when "Send Report" is
+  they're user-picked files, capped at 15MB total, and only leave the Mac when "Send Report" is
   tapped, same as everything else in the basic tier.
 
 ### 4. The backend
@@ -174,7 +176,11 @@ Two Vercel serverless functions in this repo, shared by every app (see `api/READ
   PUT, no client SDK needed). Requires **Vercel Blob storage enabled** on the project (Project →
   Storage → Create Database → Blob — a one-time dashboard click that auto-sets
   `BLOB_READ_WRITE_TOKEN`); without it, attachment uploads fail but the report body still sends.
-  `report-bug.js` signs a 7-day GET link per attachment and includes it in the email.
+  Blob is only a relay: `report-bug.js` fetches each blob's bytes back out and attaches the real
+  file to the email (nodemailer `attachments`, capped at a combined 15MB), then deletes the blob —
+  the recipient never sees a link, and nothing lingers in storage. (Vercel Functions hard-cap
+  request bodies at 4.5MB, not configurable, which is why a large attachment can't just ride in
+  the same POST as the report text — Blob is the only way to move it at all.)
 
 A new app needs **no backend work** — just send the same JSON with its own `app` tag. Both
 endpoints are overridable without a rebuild via `defaults write <bundle-id> APP.bugReportURL "…"`

@@ -2,23 +2,27 @@
 //
 // Mints a short-lived, single-file presigned PUT URL so a bug-report attachment can go
 // straight from the client to Vercel Blob storage without passing through this function's
-// body — Vercel Functions cap request bodies at 4.5MB, well under the 30MB attachment
-// allowance the app offers. The client (see Sources/Vitals/BugReport.swift) POSTs the file's
-// name/type/size here, gets back { presignedUrl }, then does a plain HTTP PUT of the file
-// bytes straight to that URL. No @vercel/blob client needed on the Swift side — presigned
-// URLs are HMAC-signed and fetchable with any HTTP client.
+// body — Vercel Functions cap request bodies at 4.5MB (a hard infrastructure limit, not
+// configurable), so this is the only way to move an attachment of any real size at all.
+// The client (see Sources/Vitals/BugReport.swift) POSTs the file's name/type/size here, gets
+// back { presignedUrl }, then does a plain HTTP PUT of the file bytes straight to that URL.
+// No @vercel/blob client needed on the Swift side — presigned URLs are HMAC-signed and
+// fetchable with any HTTP client.
 //
-// Blobs are stored PRIVATE (not publicly readable by URL). report-bug.js mints its own
-// short-lived signed GET links when it emails the report, so an attachment is only reachable
-// for a limited window by whoever receives that email — not indefinitely by anyone with the
-// link.
+// Blobs are stored PRIVATE and are short-lived: report-bug.js fetches each one's bytes back
+// out and attaches them directly to the outgoing email (a real attachment, not a link), then
+// deletes the blob immediately. Blob storage here is purely a relay to get past the 4.5MB
+// wall above — nothing durable, and never what the email recipient sees.
 //
 // Setup: same Vercel project as report-bug.js. Create a Blob store (Project → Storage →
 // Create Database → Blob) — this sets BLOB_READ_WRITE_TOKEN automatically. No extra env vars.
 
 const { issueSignedToken, presignUrl } = require('@vercel/blob');
 
-const MAX_BYTES = 30 * 1024 * 1024; // 30MB — matches the client-side cap in BugReportView
+// 15MB, not 30MB: this becomes a real email attachment, base64-encoded in transit (~37%
+// larger) on top of whatever else is in the message — has to clear the recipient's inbox cap,
+// not just get past this upload step. Matches the client-side cap in BugReportView.
+const MAX_BYTES = 15 * 1024 * 1024;
 const ALLOWED_TYPES = [
   'image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/heic', 'image/heif',
   'application/zip', 'application/x-zip-compressed',
@@ -49,7 +53,7 @@ module.exports = async (req, res) => {
     return res.status(415).json({ error: 'Unsupported attachment type. Send images or a .zip.' });
   }
   if (size <= 0 || size > MAX_BYTES) {
-    return res.status(413).json({ error: 'Attachment must be under 30MB.' });
+    return res.status(413).json({ error: 'Attachment must be under 15MB.' });
   }
 
   const pathname = `bug-reports/${reportId}/${filename}`;
