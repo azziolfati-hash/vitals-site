@@ -35,3 +35,30 @@ curl -s -X POST https://hanncrest.com/api/report-bug \
   -H 'Content-Type: application/json' \
   -d '{"app":"breeze","description":"Test report","appVersion":"1.0.0","osVersion":"macOS 26.6"}'
 ```
+A working reply looks like `{"ok":true,"delivered":true}`. `{"ok":true,"delivered":false}` means
+the report was logged but `SMTP_USER`/`SMTP_PASS` aren't set yet (see above) — check the Vercel
+function logs for the full report text.
+
+Reports can also carry `"kind":"feature"` (defaults to `"bug"`) and an `"attachments"` array of
+`{url, filename}` — see below.
+
+## `upload-token.js`
+
+Lets an app upload bug-report attachments (screenshots, a zip) directly to Vercel Blob storage,
+bypassing Vercel's ~4.5MB request-body limit — the client PUTs the raw file straight to Blob with
+a plain `URLSession`/`fetch` request, no SDK needed. Client flow:
+1. POST `{ filename, contentType, size }` to `https://hanncrest.com/api/upload-token`.
+2. Get back `{ ok: true, presignedUrl, url }`.
+3. `PUT` the file bytes to `presignedUrl` with the same `Content-Type`.
+4. Send `{ url, filename }` in the report's `attachments` array to `/api/report-bug`.
+
+Caps: 30MB per file, images (`png`/`jpeg`/`gif`/`webp`/`heic`) or `zip` only.
+
+### Turn on attachment uploads (one-time)
+In the Vercel project → **Storage** → **Create Database** → **Blob**. This auto-sets
+`BLOB_READ_WRITE_TOKEN` for the project — no other config needed. Without it, `upload-token.js`
+returns an error and the attachment is dropped, but the rest of the report still sends normally
+(attachments are additive, never load-bearing for the report itself).
+
+Blobs are uploaded **private**; `report-bug.js` mints a 7-day signed GET link per attachment when
+it emails the report, so the link in the email works but the blob isn't otherwise public.

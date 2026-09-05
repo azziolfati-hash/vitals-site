@@ -109,19 +109,28 @@ Non-sandboxed Developer-ID builds need nothing.
 
 ## Part C — the "Report a Bug" reporter
 
-Every app ships the same user-initiated bug reporter that POSTs JSON to **one shared endpoint**
-(`https://hanncrest.com/api/report-bug`), tagged by the `app` field. Reference implementations:
-`Vitals → Sources/Vitals/BugReport.swift` and `Breeze → Sources/CleanUp/Features/BugReport/BugReportView.swift`.
+Every app ships the same user-initiated reporter that POSTs JSON to **one shared endpoint**
+(`https://hanncrest.com/api/report-bug`), tagged by the `app` field. It covers both **bug reports**
+and **feature requests** (one form, a segmented picker) and lets the user attach screenshots or a
+zip (up to 30MB total) that upload straight to Vercel Blob before the report is sent. Reference
+implementation: `Vitals → Sources/Vitals/BugReport.swift` (this is the most complete version —
+Breeze's `BugReportView.swift` predates attachments/feature-request and should be brought up to
+parity with Vitals' file when next touched, rather than copied as-is).
 
 ### 1. Drop in the reporter
-Copy `BugReportView.swift` and change four things:
+Copy `BugReport.swift` and change these:
 ```swift
 enum BugReportConfig {
-    static let defaultEndpoint = "https://hanncrest.com/api/report-bug"   // shared by every app
-    static let appTag = "APP"                                            // this app's tag
+    static let defaultEndpoint = "https://hanncrest.com/api/report-bug"        // shared by every app
+    static let defaultUploadEndpoint = "https://hanncrest.com/api/upload-token" // shared by every app
+    static let appTag = "APP"                                                  // this app's tag
     static var endpoint: URL {
         let s = UserDefaults.standard.string(forKey: "APP.bugReportURL") ?? defaultEndpoint
         return URL(string: s) ?? URL(string: defaultEndpoint)!
+    }
+    static var uploadEndpoint: URL {
+        let s = UserDefaults.standard.string(forKey: "APP.uploadTokenURL") ?? defaultUploadEndpoint
+        return URL(string: s) ?? URL(string: defaultUploadEndpoint)!
     }
 }
 ```
@@ -129,9 +138,11 @@ enum BugReportConfig {
   Vitals) — or drop it if the app has no Pro tier.
 - Map the outcome/header colors to the app's `Palette`.
 - Update the header copy ("…the makers of App Name").
+- `ReportKind` (bug/feature label, icon, prompt, placeholder text) and the attachment types/cap
+  (`allowedContentTypes`, `maxAttachmentBytes = 30MB`) are app-agnostic — copy as-is.
 
-Everything else is identical: the `BugReporter` (collect → preview → POST), the two-tier privacy
-model, and the `BugReportView` sheet.
+Everything else is identical: the `BugReporter` (collect → attach → upload → preview → POST), the
+two-tier privacy model, and the `BugReportView` sheet with its kind picker and attachments section.
 
 ### 2. Wire it in
 - Add an observable flag (`var showBugReport = false`) to the app model.
@@ -142,21 +153,32 @@ model, and the `BugReportView` sheet.
 
 ### 3. The privacy contract (keep it intact — reviewers rely on it)
 - **Nothing is ever sent in the background** — only on an explicit "Send Report" tap.
-- **Basic tier (always):** the user's message, app version/build, macOS version, and an email
-  *only if they typed one*.
+- **Basic tier (always):** the user's message, which kind (bug/feature), app version/build, macOS
+  version, any attachments, and an email *only if they typed one*.
 - **Diagnostics tier (opt-in toggle):** an anonymous hardware/state profile (Mac model, CPU/RAM,
-  locale, uptime, thermal state, Pro status). No name, account, files, location, or persistent id;
-  the report id is random per report. The user can inspect the exact JSON ("Show exactly what will
-  be sent") and, if the endpoint is down, **Copy details** to send by hand.
+  locale, uptime, thermal state, Pro status). No name, account, location, or persistent id; the
+  report id is random per report. The user can inspect the exact JSON ("Show exactly what will be
+  sent") and, if the endpoint is down, **Copy details** to send by hand.
+- **Attachments are opt-in and explicit** (an "Add screenshots or a zip" control, not automatic) —
+  they're user-picked files, capped at 30MB total, and only leave the Mac when "Send Report" is
+  tapped, same as everything else in the basic tier.
 
 ### 4. The backend
-The endpoint is a single Vercel serverless function shared by all apps — **`api/report-bug.js`** in
-this repo (see `api/README.md`). It tags by the `app` field and emails each report via direct SMTP
-through hanncrest.com's own mailbox (Purelymail), with a clear subject (`🐞 [AppName] <snippet> —
-vX.Y.Z`). A new app needs **no backend work** — just send the same JSON with its own `app` tag. To
-enable email delivery, set `SMTP_USER` and `SMTP_PASS` in Vercel; until then it returns 200 and
-logs the report. The per-app URL is overridable without a rebuild via
-`defaults write <bundle-id> APP.bugReportURL "…"`.
+Two Vercel serverless functions in this repo, shared by every app (see `api/README.md`):
+- **`api/report-bug.js`** — tags by the `app` field, emails each report via direct SMTP through
+  hanncrest.com's own mailbox (Purelymail), subject `🐞 [AppName] <snippet> — vX.Y.Z` (💡 for
+  feature requests). To enable delivery, set `SMTP_USER`/`SMTP_PASS` in Vercel — **confirmed
+  working** as of Sept 2026. Until set, it still returns 200 and logs the report, so "Send Report"
+  never fails on the user's end.
+- **`api/upload-token.js`** — mints a presigned Vercel Blob upload URL per attachment (plain HTTP
+  PUT, no client SDK needed). Requires **Vercel Blob storage enabled** on the project (Project →
+  Storage → Create Database → Blob — a one-time dashboard click that auto-sets
+  `BLOB_READ_WRITE_TOKEN`); without it, attachment uploads fail but the report body still sends.
+  `report-bug.js` signs a 7-day GET link per attachment and includes it in the email.
+
+A new app needs **no backend work** — just send the same JSON with its own `app` tag. Both
+endpoints are overridable without a rebuild via `defaults write <bundle-id> APP.bugReportURL "…"`
+/ `APP.uploadTokenURL "…"`.
 
 ---
 
