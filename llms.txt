@@ -13,7 +13,7 @@ For complete, unabridged documentation of all apps, features, technical architec
 ## Applications
 
 ### [Vitals](https://www.hanncrest.com/vitals/)
-- **Summary**: Lightweight menu-bar system monitor with local-LLM tools, 30-day historical metrics, S.M.A.R.T. disk health, Bluetooth battery tracking, battery-vampire detection (catches apps draining charge on battery, with one-tap throttle or force-quit), crash watch, and desktop widgets.
+- **Summary**: Lightweight menu-bar system monitor with local-LLM tools (including one-tap VRAM reclaim), 30-day historical metrics, S.M.A.R.T. disk health, Bluetooth battery tracking, battery-vampire detection (catches apps draining charge on battery or always, with one-tap Tame/Freeze-Resume/Force-Quit), a sleep-drain report (battery lost while asleep and what held a wake lock), crash watch, and desktop widgets.
 - **Platform**: macOS 13.0+ (Ventura, Sonoma, Sequoia), Apple Silicon & Intel.
 - **Pricing**: Free forever for core monitoring; Pro is a one-time US$9.99 purchase following a 14-day free trial.
 - **Support**: https://www.hanncrest.com/vitals/support.html

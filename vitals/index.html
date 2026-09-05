@@ -234,7 +234,9 @@
         "30-day historical performance tracking",
         "S.M.A.R.T. disk health analysis",
         "Bluetooth and peripheral battery monitor",
-        "Battery vampire detector with one-tap Tame or Force Quit",
+        "Battery vampire detector with one-tap Tame, Freeze/Resume, or Force Quit — on battery or always",
+        "Sleep drain report: battery lost while asleep and what was holding a wake lock",
+        "One-tap VRAM reclaim for local-AI runtimes (Ollama, LM Studio, llama.cpp)",
         "Crash and kernel panic watcher with plain-English insights",
         "Customizable desktop widget",
         "100% on-device private processing with zero telemetry"
@@ -675,7 +677,8 @@
         <div class="fcard"><div class="fico">💥</div><h3>Crash &amp; panic watch</h3><p>Surfaces app crashes and kernel panics with a plain-English explanation of what actually happened.</p></div>
         <div class="fcard"><div class="fico">🖥️</div><h3>Live desktop widget</h3><p>A floating, always-on-top panel that updates every second — not on a slow schedule. Drag it anywhere, expand it to the full dashboard, or jump to the overview window in one click.</p></div>
         <div class="fcard"><div class="fico">🔋</div><h3>Bluetooth &amp; peripherals</h3><p>Battery level for your connected keyboard, mouse, trackpad and headphones, right alongside your Mac's own battery.</p></div>
-        <div class="fcard"><div class="fico">🧛</div><h3>Battery vampires</h3><p>On battery, catches a single app quietly pinning the CPU and draining your charge — then Tame (throttle) or Force Quit it in one tap, right from the alert.</p></div>
+        <div class="fcard"><div class="fico">🧛</div><h3>Battery vampires</h3><p>Catches a single app quietly pinning the CPU and draining your charge — on battery, or always, if you turn that on. Tame it, Freeze it (and Resume later, nothing lost), or Force Quit it in one tap.</p></div>
+        <div class="fcard"><div class="fico">💤</div><h3>Sleep drain report</h3><p>Every sleep and wake, tracked — plus the battery it cost you and what was still holding a wake lock right as the lid closed. The answer to the backpack-hot, battery-drained mystery.</p></div>
         <div class="fcard"><div class="fico">🔔</div><h3>Smart alerts</h3><p>Customizable threshold alerts, with an optional push to your iPhone the moment something needs attention.</p></div>
         <div class="fcard"><div class="fico">🎨</div><h3>Deep customization</h3><p>Twelve themes, full menu-bar layout control, and a live desktop widget that matches how you like to work.</p></div>
       </div>
@@ -694,6 +697,7 @@
             <li><span class="ck">✓</span><span>Detects Ollama, LM Studio, llama.cpp, vLLM, Jan, GPT4All, KoboldCpp and more.</span></li>
             <li><span class="ck">✓</span><span>One-tap speed test reports real <strong>tokens/second</strong> — the number people actually compare models by.</span></li>
             <li><span class="ck">✓</span><span>Watches VRAM headroom and loaded-model details while you work.</span></li>
+            <li><span class="ck">✓</span><span>Forgot a model was loaded? <strong>Quit</strong> reclaims the VRAM in one tap — no Activity Monitor needed.</span></li>
             <li><span class="ck">✓</span><span>All local. It talks only to servers already on your machine — nothing is uploaded.</span></li>
           </ul>
         </div>
@@ -713,7 +717,9 @@
         <figure><img src="../assets/shots/05-network.png" alt="Network tools"><figcaption>Network quality, Wi-Fi scan &amp; per-app traffic</figcaption></figure>
         <figure><img src="../assets/shots/06-history.png" alt="30-day history"><figcaption>30 days of every metric, charted</figcaption></figure>
         <figure><img src="../assets/shots/04-energy.png" alt="Energy and battery"><figcaption>Live power draw &amp; energy by app</figcaption></figure>
-        <figure><img src="../assets/shots/10-vampire.png" alt="Battery vampire detector"><figcaption>Catches the app quietly draining your battery</figcaption></figure>
+        <figure><img src="../assets/shots/10-vampire.png" alt="Battery vampire detector with Tame, Freeze and Force Quit"><figcaption>Tame, Freeze &amp; Resume, or Force Quit — your call</figcaption></figure>
+        <figure><img src="../assets/shots/11-sleep-drain.png" alt="Sleep drain report"><figcaption>Who woke your Mac, and what it cost you</figcaption></figure>
+        <figure><img src="../assets/shots/12-vram-reclaim.png" alt="One-tap VRAM reclaim from Model watch"><figcaption>Forgot a model was loaded? Reclaim the VRAM in one tap</figcaption></figure>
         <figure><img src="../assets/shots/08-thermals.png" alt="Thermals and fans"><figcaption>Per-component temperatures &amp; fan control</figcaption></figure>
         <figure><img src="../assets/shots/09-themes.png" alt="Themes"><figcaption>Twelve themes to match your setup</figcaption></figure>
       </div>
