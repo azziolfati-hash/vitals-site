@@ -11,6 +11,14 @@
 //
 // Without RESEND_API_KEY set, the endpoint still returns 200 and logs the full report to the Vercel
 // function logs, so nothing is lost and the app's "Send Report" never errors while you finish setup.
+//
+// Attachments (screenshots / a zip, up to 30MB total) are uploaded straight to Vercel Blob by the
+// client beforehand (see api/upload-token.js) — this endpoint only receives their blob pathnames
+// and mints a short-lived signed link for each, so the emailed report stays a small JSON payload
+// regardless of attachment size. Blobs are private; the signed link is what makes them reachable,
+// and only for a week.
+
+const { issueSignedToken, presignUrl } = require('@vercel/blob');
 
 // Recipients — every report goes to both the domain inbox and the Gmail backup. Override with a
 // comma-separated REPORT_TO_EMAIL if you ever want to change the list.
@@ -32,6 +40,46 @@ function shortDesc(desc) {
   const oneLine = String(desc || '').replace(/\s+/g, ' ').trim();
   if (!oneLine) return '';
   return oneLine.length > 60 ? oneLine.slice(0, 57) + '…' : oneLine;
+}
+
+// "bug" (default) or "feature" — anything else falls back to "bug" rather than erroring, since
+// this field only changes wording, never validation.
+function kindInfo(raw) {
+  if (String(raw || '').toLowerCase() === 'feature') {
+    return { kind: 'feature', emoji: '💡', noun: 'feature request', verb: 'requested' };
+  }
+  return { kind: 'bug', emoji: '🐞', noun: 'bug report', verb: 'reported' };
+}
+
+// Mints a one-week signed GET link for each attachment. Best-effort per file: one bad pathname
+// (or a Blob API hiccup) drops just that attachment from the email rather than failing the whole
+// report — the report itself is never worth losing over a broken screenshot link.
+async function signAttachments(attachments) {
+  const list = Array.isArray(attachments) ? attachments.slice(0, 10) : [];
+  const signed = [];
+  for (const a of list) {
+    const rawUrl = a && typeof a === 'object' ? String(a.url || '') : '';
+    if (!rawUrl) continue;
+    let pathname;
+    try { pathname = new URL(rawUrl).pathname.replace(/^\//, ''); } catch { continue; }
+    if (!pathname) continue;
+    try {
+      const token = await issueSignedToken({
+        pathname,
+        operations: ['get'],
+        validUntil: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days — the maximum allowed
+      });
+      const { presignedUrl } = await presignUrl(token, {
+        operation: 'get',
+        pathname,
+        access: 'private',
+      });
+      signed.push({ name: String(a.filename || pathname.split('/').pop()), url: presignedUrl });
+    } catch (err) {
+      console.error('report-bug: could not sign attachment —', err && err.message ? err.message : err);
+    }
+  }
+  return signed;
 }
 
 module.exports = async (req, res) => {
@@ -60,16 +108,18 @@ module.exports = async (req, res) => {
   const reportId = String(body.reportId || '');
   const createdAt = String(body.createdAt || new Date().toISOString());
   const d = body.diagnostics && typeof body.diagnostics === 'object' ? body.diagnostics : null;
+  const { emoji, noun } = kindInfo(body.kind);
+  const attachments = await signAttachments(body.attachments);
 
   // --- Clear, scannable subject ------------------------------------------------------------
   const snippet = shortDesc(description);
   const subject = snippet
-    ? `🐞 [${app}] ${snippet} — v${version}`
-    : `🐞 [${app}] Bug report — v${version} (${os})`;
+    ? `${emoji} [${app}] ${snippet} — v${version}`
+    : `${emoji} [${app}] ${noun[0].toUpperCase()}${noun.slice(1)} — v${version} (${os})`;
 
   // --- Plain-text body ---------------------------------------------------------------------
   const lines = [
-    `New bug report from ${app}`,
+    `New ${noun} from ${app}`,
     ``,
     `From:      ${email || 'anonymous (no email given)'}`,
     `App:       ${app}  v${version} (build ${build})`,
@@ -82,6 +132,10 @@ module.exports = async (req, res) => {
     `-------------`,
     description,
   ];
+  if (attachments.length) {
+    lines.push(``, `Attachments (links valid 7 days)`, `---------------------------------`,
+      ...attachments.map((a) => `${a.name}: ${a.url}`));
+  }
   if (d) {
     lines.push(
       ``, `Diagnostics (anonymous, opt-in)`, `-------------------------------`,
@@ -96,7 +150,7 @@ module.exports = async (req, res) => {
 
   // --- HTML body ---------------------------------------------------------------------------
   const html = `<div style="font:14px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#15151b">
-    <h2 style="margin:0 0 4px">🐞 ${esc(app)} bug report</h2>
+    <h2 style="margin:0 0 4px">${emoji} ${esc(app)} ${esc(noun)}</h2>
     <div style="color:#6b7078;font-size:13px">v${esc(version)} (build ${esc(build)}) · ${esc(os)} · consent: ${esc(consent)}</div>
     <table style="margin:14px 0;border-collapse:collapse;font-size:13px">
       <tr><td style="color:#6b7078;padding:2px 12px 2px 0">From</td><td>${email ? esc(email) : '<i>anonymous</i>'}</td></tr>
@@ -105,6 +159,8 @@ module.exports = async (req, res) => {
     </table>
     <h3 style="margin:16px 0 6px">What happened</h3>
     <div style="white-space:pre-wrap;background:#f6f6f9;border-radius:8px;padding:12px">${esc(description)}</div>
+    ${attachments.length ? `<h3 style="margin:16px 0 6px">Attachments <span style="font-weight:400;color:#6b7078">(links valid 7 days)</span></h3>
+    <ul style="margin:0;padding-left:20px">${attachments.map((a) => `<li><a href="${esc(a.url)}">${esc(a.name)}</a></li>`).join('')}</ul>` : ''}
     ${d ? `<h3 style="margin:16px 0 6px">Diagnostics <span style="font-weight:400;color:#6b7078">(anonymous, opt-in)</span></h3>
     <table style="border-collapse:collapse;font-size:13px">
       <tr><td style="color:#6b7078;padding:2px 12px 2px 0">Mac</td><td>${esc(d.deviceModel)} (${esc(d.architecture)})</td></tr>
