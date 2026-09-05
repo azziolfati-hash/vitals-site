@@ -151,11 +151,12 @@ model, and the `BugReportView` sheet.
 
 ### 4. The backend
 The endpoint is a single Vercel serverless function shared by all apps — **`api/report-bug.js`** in
-this repo (see `api/README.md`). It tags by the `app` field and emails each report via Resend with a
-clear subject (`🐞 [AppName] <snippet> — vX.Y.Z`). A new app needs **no backend work** — just send
-the same JSON with its own `app` tag. To enable email delivery, set `RESEND_API_KEY` in Vercel and
-verify the sending domain; until then it returns 200 and logs the report. The per-app URL is
-overridable without a rebuild via `defaults write <bundle-id> APP.bugReportURL "…"`.
+this repo (see `api/README.md`). It tags by the `app` field and emails each report via direct SMTP
+through hanncrest.com's own mailbox (Purelymail), with a clear subject (`🐞 [AppName] <snippet> —
+vX.Y.Z`). A new app needs **no backend work** — just send the same JSON with its own `app` tag. To
+enable email delivery, set `SMTP_USER` and `SMTP_PASS` in Vercel; until then it returns 200 and
+logs the report. The per-app URL is overridable without a rebuild via
+`defaults write <bundle-id> APP.bugReportURL "…"`.
 
 ---
 

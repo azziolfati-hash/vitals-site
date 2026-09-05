@@ -12,15 +12,22 @@ The shared bug/feedback endpoint for every app (Breeze, Vitals, …). Apps POST 
 `[AppName]` tag lets you filter by app.
 
 ### Turn on email delivery (one-time)
-1. Create a [Resend](https://resend.com) account and **verify the `hanncrest.com` domain** in it.
-2. In the Vercel project → **Settings → Environment Variables**, add:
-   - `RESEND_API_KEY` — your Resend API key
-   - *(optional)* `REPORT_TO_EMAIL` — comma-separated recipients (default `contact@hanncrest.com, hanncrest@gmail.com`)
-   - *(optional)* `REPORT_FROM_EMAIL` — verified sender (default `HANNCREST Reports <reports@hanncrest.com>`)
-3. Redeploy. Done — reports now arrive as email, with the reporter's address as **Reply-To** when they gave one.
+Sends via SMTP straight through hanncrest.com's own mailbox (Purelymail) — no third-party
+sending service.
+1. In the Vercel project → **Settings → Environment Variables**, add:
+   - `SMTP_USER` — the mailbox to send as, e.g. `contact@hanncrest.com`
+   - `SMTP_PASS` — that mailbox's password (or an app-specific password if 2FA is on)
+   - *(optional)* `SMTP_HOST` — default `smtp.purelymail.com`
+   - *(optional)* `SMTP_PORT` — default `465` (implicit TLS); use `587` for STARTTLS
+   - *(optional)* `REPORT_TO_EMAIL` — comma-separated recipients (default: `SMTP_USER`)
+   - *(optional)* `REPORT_FROM_EMAIL` — override the From header (default: `SMTP_USER` — most SMTP
+     providers, Purelymail included, reject a From that isn't the authenticated mailbox or one of
+     its aliases)
+2. Redeploy. Done — reports now arrive as email, with the reporter's address as **Reply-To** when
+   they gave one.
 
-Until `RESEND_API_KEY` is set, the endpoint still returns `200` and logs the full report to the
-Vercel **function logs**, so nothing is lost and the app's "Send Report" always succeeds.
+Until `SMTP_USER`/`SMTP_PASS` are set, the endpoint still returns `200` and logs the full report
+to the Vercel **function logs**, so nothing is lost and the app's "Send Report" always succeeds.
 
 ### Test it
 ```bash
