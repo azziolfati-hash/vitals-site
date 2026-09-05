@@ -156,7 +156,11 @@ two-tier privacy model, and the `BugReportView` sheet with its kind picker and a
 ### 3. The privacy contract (keep it intact — reviewers rely on it)
 - **Nothing is ever sent in the background** — only on an explicit "Send Report" tap.
 - **Basic tier (always):** the user's message, which kind (bug/feature), app version/build, macOS
-  version, any attachments, and an email *only if they typed one*.
+  version, any attachments, and an email *only if they typed one*. The email field is validated
+  client-side (`BugReporter.isEmailValid` — one `@`, something on both sides, a `.` in the
+  domain) and blocks Send if it's non-empty but doesn't look like an address; it's deliberately
+  loose (not full RFC 5322) since the field is optional and the real test is whether a reply
+  actually reaches it.
 - **Diagnostics tier (opt-in toggle):** an anonymous hardware/state profile (Mac model, CPU/RAM,
   locale, uptime, thermal state, Pro status). No name, account, location, or persistent id; the
   report id is random per report. The user can inspect the exact JSON ("Show exactly what will be
@@ -178,6 +182,12 @@ Editing the description afterward is the one thing that re-enables sending — i
 signal that this is now a different report, not a resend of the same one (`description`'s
 `didSet` clears `outcome` back to `nil` when it was `.sent`). Closing and reopening the sheet
 resets everything anyway, since `BugReportView` holds `reporter` as a fresh `@StateObject`.
+
+`reportId` regenerates at the start of every `send()`, not just once per sheet — it started as a
+`let` set once when `BugReporter` was created, which meant a resend from the same open sheet
+reused the exact same id as the first send. That's wrong on its own (two different emails
+shouldn't claim the same Report ID), and it also re-targets every attachment's Blob upload path
+at whatever the *first* send already used and cleaned up. Keep it a `var` regenerated per send.
 
 ### 5. The backend
 Two Vercel serverless functions in this repo, shared by every app (see `api/README.md`):
