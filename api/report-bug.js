@@ -1,16 +1,22 @@
 // Shared bug/feedback endpoint for the HANNCREST apps (Breeze, Vitals, …).
 //
-// Every app POSTs the same JSON here; the `app` field tags which one. This emails the report to
-// the team via Resend (https://resend.com) — a good fit for a domain already on Vercel.
+// Every app POSTs the same JSON here; the `app` field tags which one. This emails the report
+// straight through hanncrest.com's own mailbox (Purelymail) via SMTP — no third-party sending
+// service in the middle.
 //
 // Setup (one-time, in the Vercel project settings → Environment Variables):
-//   • RESEND_API_KEY   — your Resend API key
-//   • (optional) REPORT_TO_EMAIL   — override the recipient (defaults to contact@hanncrest.com)
-//   • (optional) REPORT_FROM_EMAIL — verified Resend sender (defaults to reports@hanncrest.com)
-// You must also verify the sending domain (hanncrest.com) in Resend so the "from" address is allowed.
+//   • SMTP_USER — the full mailbox address to send as/from, e.g. contact@hanncrest.com
+//   • SMTP_PASS — that mailbox's password, or an app-specific password if 2FA is on
+//   • (optional) SMTP_HOST — defaults to smtp.purelymail.com
+//   • (optional) SMTP_PORT — defaults to 465 (implicit TLS); use 587 for STARTTLS
+//   • (optional) REPORT_TO_EMAIL   — override the recipient(s) (defaults to SMTP_USER)
+//   • (optional) REPORT_FROM_EMAIL — override the From header (defaults to SMTP_USER — most SMTP
+//     providers, Purelymail included, reject a From that isn't the authenticated mailbox or one
+//     of its configured aliases)
 //
-// Without RESEND_API_KEY set, the endpoint still returns 200 and logs the full report to the Vercel
-// function logs, so nothing is lost and the app's "Send Report" never errors while you finish setup.
+// Without SMTP_USER/SMTP_PASS set, the endpoint still returns 200 and logs the full report to the
+// Vercel function logs, so nothing is lost and the app's "Send Report" never errors while you
+// finish setup.
 //
 // Attachments (screenshots / a zip, up to 30MB total) are uploaded straight to Vercel Blob by the
 // client beforehand (see api/upload-token.js) — this endpoint only receives their blob pathnames
@@ -19,12 +25,18 @@
 // and only for a week.
 
 const { issueSignedToken, presignUrl } = require('@vercel/blob');
+const nodemailer = require('nodemailer');
 
-// Recipients — every report goes to both the domain inbox and the Gmail backup. Override with a
-// comma-separated REPORT_TO_EMAIL if you ever want to change the list.
-const TO_ADDRESSES = (process.env.REPORT_TO_EMAIL || 'contact@hanncrest.com, hanncrest@gmail.com')
+const SMTP_HOST = process.env.SMTP_HOST || 'smtp.purelymail.com';
+const SMTP_PORT = Number(process.env.SMTP_PORT) || 465;
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+
+// Recipients default to the mailbox we're sending from — the report just lands in the inbox
+// you're already sending it out of. Override with a comma-separated REPORT_TO_EMAIL.
+const TO_ADDRESSES = (process.env.REPORT_TO_EMAIL || SMTP_USER || '')
   .split(',').map((s) => s.trim()).filter(Boolean);
-const FROM_ADDRESS = process.env.REPORT_FROM_EMAIL || 'HANNCREST Reports <reports@hanncrest.com>';
+const FROM_ADDRESS = process.env.REPORT_FROM_EMAIL || SMTP_USER;
 
 function esc(s) {
   return String(s == null ? '' : s)
@@ -171,33 +183,29 @@ module.exports = async (req, res) => {
     </table>` : ''}
   </div>`;
 
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    console.log('[report-bug] (RESEND_API_KEY not set) subject:', subject, '\n', text);
+  if (!SMTP_USER || !SMTP_PASS) {
+    console.log('[report-bug] (SMTP_USER/SMTP_PASS not set) subject:', subject, '\n', text);
     return res.status(200).json({ ok: true, delivered: false, note: 'Logged; email not configured yet.' });
   }
 
   try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        from: FROM_ADDRESS,
-        to: TO_ADDRESSES,
-        subject,
-        text,
-        html,
-        reply_to: email || undefined,
-      }),
+    const transporter = nodemailer.createTransport({
+      host: SMTP_HOST,
+      port: SMTP_PORT,
+      secure: SMTP_PORT === 465,   // implicit TLS on 465; STARTTLS is negotiated automatically on 587
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
     });
-    if (!r.ok) {
-      const detail = await r.text();
-      console.error('[report-bug] Resend error', r.status, detail);
-      return res.status(502).json({ ok: false, error: 'Email delivery failed.' });
-    }
+    await transporter.sendMail({
+      from: FROM_ADDRESS,
+      to: TO_ADDRESSES,
+      subject,
+      text,
+      html,
+      replyTo: email || undefined,
+    });
     return res.status(200).json({ ok: true, delivered: true });
   } catch (e) {
-    console.error('[report-bug] exception', e);
-    return res.status(500).json({ ok: false, error: 'Server error.' });
+    console.error('[report-bug] SMTP error', e && e.message ? e.message : e);
+    return res.status(502).json({ ok: false, error: 'Email delivery failed.' });
   }
 };
