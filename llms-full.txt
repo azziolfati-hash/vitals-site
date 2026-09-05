@@ -28,6 +28,7 @@
   - **Local LLM Intelligence**: Automatically detects running local LLM inference engines (Ollama, LM Studio, Llama.cpp, Apple Intelligence) and measures real-time tokens-per-second inference speed, model name, and GPU VRAM footprint.
   - **30-Day Historical Logging**: On-device lightweight time-series logging to spot memory leaks, thermal throttling triggers, and runaway background processes over time.
   - **Storage & S.M.A.R.T. Health**: Real-time SSD wear levels, TBW (terabytes written), read/write endurance, and drive health indicators.
+  - **Battery Vampire Detector**: While on battery, flags a single process that has sustained heavy CPU load past a configurable threshold and duration, then offers one-tap Tame (throttles it to a low-priority background band) or Force Quit, plus an actionable system notification with the same two actions. System-critical processes are excluded.
   - **Crash Watcher**: Intercepts macOS crash logs and kernel panics, translating complex stack traces into actionable plain-English explanations.
   - **Desktop Widget**: Live configurable desktop widget for continuous glanceable monitoring.
 - **Pricing**: Free tier forever for core monitoring. Vitals Pro is a one-time purchase of $9.99 USD following a 14-day full-featured free trial.
