@@ -73,16 +73,15 @@ module.exports = async (req, res) => {
       access: 'private',
       allowedContentTypes: [contentType],
       maximumSizeInBytes: MAX_BYTES,
-      addRandomSuffix: true,
+      addRandomSuffix: false,   // keep the pathname we chose — see note below
+      allowOverwrite: true,     // a retry after a failed send reuses the same pathname; allow it
       cacheControlMaxAge: 60 * 60, // reports are read once, shortly after upload
     });
 
-    // The presigned URL is the pathname (with the random suffix already applied) plus
-    // signing query params — stripping the query string gives the durable blob pathname
-    // report-bug.js needs later to mint its own short-lived GET link.
-    const url = presignedUrl.split('?')[0];
-
-    return res.status(200).json({ ok: true, presignedUrl, url });
+    // No addRandomSuffix, so `pathname` (namespaced by the per-report UUID already) IS the
+    // durable identifier report-bug.js will fetch by — nothing to derive from presignedUrl,
+    // which is a control-plane URL (`https://vercel.com/api/blob/?...`), not a per-object one.
+    return res.status(200).json({ ok: true, presignedUrl, pathname });
   } catch (err) {
     console.error('upload-token: failed —', err && err.message ? err.message : err);
     return res.status(500).json({ error: 'Could not prepare the upload.' });

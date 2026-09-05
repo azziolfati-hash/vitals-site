@@ -40,7 +40,7 @@ the report was logged but `SMTP_USER`/`SMTP_PASS` aren't set yet (see above) —
 function logs for the full report text.
 
 Reports can also carry `"kind":"feature"` (defaults to `"bug"`) and an `"attachments"` array of
-`{url, filename}` — see below.
+`{pathname, filename, size}` — see below.
 
 ## `upload-token.js`
 
@@ -48,9 +48,15 @@ Lets an app upload bug-report attachments (screenshots, a zip) directly to Verce
 bypassing Vercel's ~4.5MB request-body limit — the client PUTs the raw file straight to Blob with
 a plain `URLSession`/`fetch` request, no SDK needed. Client flow:
 1. POST `{ filename, contentType, size }` to `https://hanncrest.com/api/upload-token`.
-2. Get back `{ ok: true, presignedUrl, url }`.
+2. Get back `{ ok: true, presignedUrl, pathname }`. `presignedUrl` is a one-time control-plane URL
+   (not a per-object one — Blob's presigned PUT always works this way), so don't try to derive
+   anything from it; `pathname` is the durable identifier to hang onto.
 3. `PUT` the file bytes to `presignedUrl` with the same `Content-Type`.
-4. Send `{ url, filename }` in the report's `attachments` array to `/api/report-bug`.
+4. Send `{ pathname, filename, size }` in the report's `attachments` array to `/api/report-bug`.
+
+The upload is requested with `addRandomSuffix: false`, so `pathname` is exactly what was asked
+for (`bug-reports/<reportId>/<filename>`, already unique per report) — no random suffix to lose
+track of. `allowOverwrite: true` lets a retry of the same report reuse the same pathname safely.
 
 Caps: 15MB per file (also the combined cap `report-bug.js` enforces — see below), images
 (`png`/`jpeg`/`gif`/`webp`/`heic`) or `zip` only.

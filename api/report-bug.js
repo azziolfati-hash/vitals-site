@@ -77,9 +77,8 @@ function attachmentNames(attachments) {
 }
 
 function pathnameOf(attachment) {
-  const rawUrl = attachment && typeof attachment === 'object' ? String(attachment.url || '') : '';
-  if (!rawUrl) return null;
-  try { return new URL(rawUrl).pathname.replace(/^\//, '') || null; } catch { return null; }
+  const p = attachment && typeof attachment === 'object' ? String(attachment.pathname || '') : '';
+  return p || null;
 }
 
 // Downloads each attachment's bytes out of Blob (a short-lived signed GET, same mechanism as
