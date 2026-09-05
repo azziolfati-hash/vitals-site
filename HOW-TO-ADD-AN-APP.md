@@ -114,7 +114,7 @@ Every app ships the same user-initiated reporter that POSTs JSON to **one shared
 and **feature requests** (one form, a segmented picker) and lets the user attach screenshots or a
 zip (up to 15MB total). Attachments upload straight to Vercel Blob first, but only as a relay —
 the backend fetches the bytes back out and attaches the real files to the email, so the recipient
-gets a normal attachment, never a link (see Part 4). Reference
+gets a normal attachment, never a link (see step 5). Reference
 implementation: `Vitals → Sources/Vitals/BugReport.swift` (this is the most complete version —
 Breeze's `BugReportView.swift` predates attachments/feature-request and should be brought up to
 parity with Vitals' file when next touched, rather than copied as-is).
@@ -165,7 +165,21 @@ two-tier privacy model, and the `BugReportView` sheet with its kind picker and a
   they're user-picked files, capped at 15MB total, and only leave the Mac when "Send Report" is
   tapped, same as everything else in the basic tier.
 
-### 4. The backend
+### 4. Send once, and say so clearly
+Once a report goes out, `canSend` turns `false` (`BugReporter.canSend` checks
+`outcome != .sent`) so a second tap, or the Return-key default-action shortcut, can't fire a
+duplicate — this matters because the button keeps keyboard focus and Return is bound to it. The
+button itself reflects the state: a spinner + upload status while sending, then a checkmark +
+"Report Sent" once done (`BugReportView`'s footer button), and the success banner reads "Sent
+successfully — thanks for the report/suggestion. You can close this window." rather than a vaguer
+"was sent." — the user shouldn't have to guess whether it worked.
+
+Editing the description afterward is the one thing that re-enables sending — it's the clearest
+signal that this is now a different report, not a resend of the same one (`description`'s
+`didSet` clears `outcome` back to `nil` when it was `.sent`). Closing and reopening the sheet
+resets everything anyway, since `BugReportView` holds `reporter` as a fresh `@StateObject`.
+
+### 5. The backend
 Two Vercel serverless functions in this repo, shared by every app (see `api/README.md`):
 - **`api/report-bug.js`** — tags by the `app` field, emails each report via direct SMTP through
   hanncrest.com's own mailbox (Purelymail), subject `🐞 [AppName] <snippet> — vX.Y.Z` (💡 for
