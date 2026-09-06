@@ -323,7 +323,7 @@
     transition:border-color .25s,transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
   .app:hover{border-color:rgba(127,227,255,.5);box-shadow:0 24px 60px rgba(0,0,0,.55)}
   .app.lead-app{background:linear-gradient(var(--card),var(--card)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
-  .app > *, .val > *{position:relative;z-index:2}
+  .app > *, .val > *{position:relative;z-index:2;pointer-events:none}
   .app .ico{width:60px;height:60px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .25s ease;transform:translateZ(20px)}
   .app .preview{transition:transform .25s ease;transform:translateZ(12px)}
   .app::before, .val::before{
@@ -1447,6 +1447,16 @@
       card.addEventListener('mouseenter', onEnter);
       card.addEventListener('mousemove', onMove);
       card.addEventListener('mouseleave', onLeave);
+    });
+
+    // Ensure reliable 1-click navigation on app cards even during 3D tilt animation
+    document.querySelectorAll('a.app, a.card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const href = card.getAttribute('href');
+        if(href && href !== '#' && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+          window.location.href = href;
+        }
+      });
     });
   })();
 

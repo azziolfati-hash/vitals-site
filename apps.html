@@ -46,7 +46,7 @@
     box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(0,0,0,.35),0 16px 40px rgba(0,0,0,.45);
     backdrop-filter:blur(8px);position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform,box-shadow;
     transition:border-color .25s,transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .25s;width:100%;max-width:100%;box-sizing:border-box}
-  .card > *{position:relative;z-index:2}
+  .card > *{position:relative;z-index:2;pointer-events:none}
   .card .icon{width:60px;height:60px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .25s ease;transform:translateZ(18px)}
   .card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;
     background:radial-gradient(380px circle at var(--mouse-x,-999px) var(--mouse-y,-999px),rgba(77,201,255,.14),transparent 70%);
@@ -479,6 +479,16 @@
         }
       }
     });
+    // Ensure reliable 1-click navigation on app cards even during 3D tilt animation
+    document.querySelectorAll('a.card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const href = card.getAttribute('href');
+        if(href && href !== '#' && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+          window.location.href = href;
+        }
+      });
+    });
+
     document.querySelectorAll('kbd').forEach(k => {
       k.addEventListener('click', () => {
         k.classList.add('active');
