@@ -425,7 +425,9 @@
   @media(max-width:480px){.values{grid-template-columns:1fr}}
   .val{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:18px;padding:24px;backdrop-filter:blur(8px);transform-style:preserve-3d;will-change:transform,box-shadow;transition:border-color .25s,transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
   .val:hover{border-color:rgba(127,227,255,.4);box-shadow:0 20px 50px rgba(0,0,0,.45)}
-  .val .vico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(77,201,255,.14);border:1px solid rgba(77,201,255,.3);font-size:22px;margin-bottom:14px;transition:transform .25s ease;transform:translateZ(16px)}
+  .val .vico{width:42px;height:42px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 4px 12px rgba(0,0,0,.25);color:#f8fafc;margin-bottom:14px;transition:all .2s ease;transform:translateZ(16px)}
+  .val:hover .vico{background:rgba(127,227,255,.12);border-color:rgba(127,227,255,.4);color:#ffffff;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 16px rgba(77,201,255,.25);transform:translateZ(20px) translateY(-1px)}
+  .val .vico svg{width:20px;height:20px;display:block}
   .val h3{font-size:16.5px;font-weight:700;letter-spacing:-.2px}
   .val p{color:var(--mut);font-size:14px;margin-top:8px}
 
@@ -1770,10 +1772,10 @@
       <p class="eyebrow reveal">What every HANNCREST app shares</p>
       <h2 class="title reveal d1">Built on a few firm rules.</h2>
       <div class="values">
-        <div class="val reveal"><div class="vico">⚡️</div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
-        <div class="val reveal d1"><div class="vico">🔒</div><h3>Private by design</h3><p>No account, no sign-in, no analytics. Your data is never collected, stored off-device, or sold.</p></div>
-        <div class="val reveal d2"><div class="vico">🏔️</div><h3>Local-first</h3><p>Everything runs on your Mac. Apps talk only to what's already on your machine — nothing is uploaded.</p></div>
-        <div class="val reveal d3"><div class="vico">🏷️</div><h3>Honest pricing</h3><p>Generous free tiers and one-time purchases. No subscriptions, ever — buy once, own it.</p></div>
+        <div class="val reveal"><div class="vico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Truly native</h3><p>Written in Swift &amp; SwiftUI for macOS — no Electron, no web wrappers. Light on CPU, memory and battery.</p></div>
+        <div class="val reveal d1"><div class="vico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Private by design</h3><p>No account, no sign-in, no analytics. Your data is never collected, stored off-device, or sold.</p></div>
+        <div class="val reveal d2"><div class="vico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Local-first</h3><p>Everything runs on your Mac. Apps talk only to what's already on your machine — nothing is uploaded.</p></div>
+        <div class="val reveal d3"><div class="vico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div><h3>Honest pricing</h3><p>Generous free tiers and one-time purchases. No subscriptions, ever — buy once, own it.</p></div>
       </div>
     </div>
   </section>
