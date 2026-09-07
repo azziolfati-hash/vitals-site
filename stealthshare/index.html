@@ -500,13 +500,13 @@
                 </div>
               </div>
             </div>
-            <div class="ss-foot">Click Privacy Mode toggle or press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> anywhere to test protection live.</div>
+            <div class="ss-foot">Click Privacy Mode toggle or press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd> anywhere to test protection live.</div>
           </div>
         </div>
 
         <div class="ss-key-hint" id="ssKeyHint" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;color:var(--ice);background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:20px;padding:7px 16px;width:fit-content;margin-left:auto;margin-right:auto;transition:all .25s ease;cursor:pointer;">
           <span id="ssHintDot" style="width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 8px #34d399;transition:all .2s ease;"></span>
-          <span id="ssHintText">Try it: press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> (or <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>) on your keyboard</span>
+          <span id="ssHintText">Try it: press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd> on your keyboard</span>
         </div>
       </div>
       <script>
@@ -540,10 +540,10 @@
         function flashHint(active){
           if(!hintText) return;
           if(active){
-            hintText.innerHTML = '🛡️ Privacy Mask <strong>ARMED</strong> · Press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> to unmask';
+            hintText.innerHTML = '🛡️ Privacy Mask <strong>ARMED</strong> · Press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd> to unmask';
             if(hintDot){ hintDot.style.background = '#34d399'; hintDot.style.boxShadow = '0 0 10px #34d399'; }
           } else {
-            hintText.innerHTML = '👁️ Privacy Mask <strong>OFF</strong> · Press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> to protect';
+            hintText.innerHTML = '👁️ Privacy Mask <strong>OFF</strong> · Press <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd> to protect';
             if(hintDot){ hintDot.style.background = '#fbbf24'; hintDot.style.boxShadow = '0 0 10px #fbbf24'; }
           }
         }
@@ -557,7 +557,7 @@
           if(active){
             status.classList.add('on');
             if(stitle) stitle.textContent = 'Privacy Mode Active';
-            if(ssub) ssub.textContent = 'Screen protected · Press ⌥⌘P to disarm';
+            if(ssub) ssub.textContent = 'Screen protected · Press ⌘⇧P to disarm';
             rows.forEach(function(r){ r.classList.add('on'); });
             if(share) share.classList.add('masked');
             if(desk) desk.classList.add('masked-desk');
@@ -566,7 +566,7 @@
           } else {
             status.classList.remove('on');
             if(stitle) stitle.textContent = 'Privacy Mode Off';
-            if(ssub) ssub.textContent = 'Press ⌥⌘P — or click to arm';
+            if(ssub) ssub.textContent = 'Press ⌘⇧P — or click to arm';
             rows.forEach(function(r){ r.classList.remove('on'); });
             if(share) share.classList.remove('masked');
             if(desk) desk.classList.remove('masked-desk');

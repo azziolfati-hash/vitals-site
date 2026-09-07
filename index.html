@@ -821,7 +821,7 @@
     <div class="trust">Five apps · macOS 13+ · Apple Silicon &amp; Intel · Buy once, no subscriptions · 100% Offline</div>
     <div class="trust-strip">
       <div class="brew-bar">
-        <span>$ brew install --cask vitals</span>
+        <span>$ open https://hanncrest.com/vitals</span>
         <button class="brew-btn" id="copyBrewBtn" title="Copy command">Copy</button>
       </div>
       <span>✦ Free 14-day trial · No email required · Instant .dmg download</span>
@@ -867,7 +867,7 @@
               <img src="assets/apps/vitals-thumb.png" class="pane-head-ico" alt="Vitals icon" width="32" height="32" loading="eager" decoding="async">
               <div>
                 <h4>Vitals — Real-time Mac Health Monitor</h4>
-                <p>Dual-ring telemetry with zero CPU footprint. Toggle shortcut: <kbd>⌥</kbd><kbd>V</kbd></p>
+                <p>Dual-ring telemetry with zero CPU footprint. Lives in your menu bar — click to open.</p>
               </div>
             </div>
             <a class="btn btn-ghost btn-sm" href="vitals/">Open Vitals <span class="arrow">→</span></a>
@@ -994,7 +994,7 @@
               <img src="assets/apps/stealthshare-thumb.png" class="pane-head-ico" alt="StealthShare icon" width="32" height="32" loading="eager" decoding="async">
               <div>
                 <h4>StealthShare — Privacy Screen for Calls</h4>
-                <p>Automatically masks private windows during Zoom, Meet, &amp; Slack. Shortcut: <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd></p>
+                <p>Automatically masks private windows during Zoom, Meet, &amp; Slack. Shortcut: <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd></p>
               </div>
             </div>
             <a class="btn btn-ghost btn-sm" href="stealthshare/">Open StealthShare <span class="arrow">→</span></a>
@@ -1221,7 +1221,7 @@
           <div class="meta">
             <h3>StealthShare <span class="chip">Available now</span></h3>
             <div class="tagline">Screen privacy for screen sharing</div>
-            <p>Blurs confidential app windows instantly (<kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd>), hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts — without ever recording your screen. Free for 14 days, then $14.99 once.</p>
+            <p>Blurs confidential app windows instantly (<kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>), hides your desktop behind a clean mask, sets a neutral wallpaper, holds notifications and can auto-activate the moment a call starts — without ever recording your screen. Free for 14 days, then $14.99 once.</p>
             <span class="go">Explore StealthShare <span class="arrow">→</span></span>
             <div class="preview pv-stealth">
               <div class="mac-notif">
@@ -1259,7 +1259,7 @@
           <div class="meta">
             <h3>Aura <span class="chip">Available now</span></h3>
             <div class="tagline">Offline AI text assistant</div>
-            <p>Select text in any app, press <kbd>⇧</kbd><kbd>⌥</kbd><kbd>R</kbd>, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</p>
+            <p>Select text in any app, press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd>, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</p>
             <span class="go">Explore Aura <span class="arrow">→</span></span>
             <div class="preview pv-aura">
               <span class="atag">✦ REWRITE</span>
@@ -2356,7 +2356,7 @@
     if(copyBtn) {
       copyBtn.addEventListener('click', () => {
         if(navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText('brew install --cask vitals');
+          navigator.clipboard.writeText('open https://hanncrest.com/vitals');
         }
         copyBtn.textContent = '✓ Copied!';
         setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
@@ -2396,25 +2396,16 @@
       var isCmd = e.metaKey || e.ctrlKey;
       var isShift = e.shiftKey;
       var isSpace = (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar' || e.keyCode === 32 || e.key === 'Dead');
-      var isV = (e.key === 'v' || e.key === 'V' || e.code === 'KeyV');
       var isP = (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
 
       if(isAlt && isSpace){
         e.preventDefault();
         e.stopPropagation();
         showHotkeyToast('🎙️', '⌥Space detected · WhisperType', 'On-device voice dictation — click to open', 'whispertype/');
-      } else if(isAlt && isV){
+      } else if(isShift && isCmd && isP && !isAlt){
         e.preventDefault();
         e.stopPropagation();
-        showHotkeyToast('⚡', '⌥V detected · Vitals', 'Menu bar system monitor — click to open', 'vitals/');
-      } else if((isAlt && isCmd && isP) || (isShift && isCmd && isP && !isAlt)){
-        e.preventDefault();
-        e.stopPropagation();
-        if(isShift){
-          showHotkeyToast('✨', '⇧⌘P detected · Aura', 'Offline AI text assistant — click to open', 'aura/');
-        } else {
-          showHotkeyToast('🛡️', '⌥⌘P detected · StealthShare', 'Screen privacy shield — click to open', 'stealthshare/');
-        }
+        showHotkeyToast('✨', '⇧⌘P detected · Aura', 'Offline AI text assistant — click to open', 'aura/');
       }
     }, { capture: true });
   })();

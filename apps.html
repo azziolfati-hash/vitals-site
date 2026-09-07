@@ -529,7 +529,6 @@
       var isCmd = e.metaKey || e.ctrlKey;
       var isShift = e.shiftKey;
       var isSpace = (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar' || e.keyCode === 32 || e.key === 'Dead');
-      var isV = (e.key === 'v' || e.key === 'V' || e.code === 'KeyV');
       var isP = (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
 
       // 1. Option + Space -> WhisperType
@@ -543,30 +542,8 @@
         });
         showHotkeyToast('🎙️', '⌥Space detected · WhisperType', 'On-device voice dictation — tap or click to open', 'whispertype/');
       }
-      // 2. Option + V -> Vitals
-      else if(isAlt && isV){
-        e.preventDefault();
-        e.stopPropagation();
-        document.querySelectorAll('kbd').forEach(function(k){
-          if(k.textContent.trim() === '⌥' || k.textContent.trim() === 'V'){
-            k.classList.add('active'); setTimeout(function(){ k.classList.remove('active'); }, 260);
-          }
-        });
-        showHotkeyToast('⚡', '⌥V detected · Vitals', 'Menu bar system monitor — tap or click to open', 'vitals/');
-      }
-      // 3. Option + Cmd + P -> StealthShare
-      else if((isAlt && isCmd && isP) || (isShift && isCmd && isP && document.querySelector('[data-app="stealthshare"]'))){
-        e.preventDefault();
-        e.stopPropagation();
-        document.querySelectorAll('kbd').forEach(function(k){
-          if(k.textContent.trim() === '⌥' || k.textContent.trim() === '⌘' || k.textContent.trim() === 'P'){
-            k.classList.add('active'); setTimeout(function(){ k.classList.remove('active'); }, 260);
-          }
-        });
-        showHotkeyToast('🛡️', '⌥⌘P detected · StealthShare', 'Screen privacy shield — tap or click to open', 'stealthshare/');
-      }
-      // 4. Shift + Cmd + P -> Aura
-      else if(isShift && isCmd && isP){
+      // 2. Shift + Cmd + P -> Aura
+      else if(isShift && isCmd && isP && !isAlt){
         e.preventDefault();
         e.stopPropagation();
         document.querySelectorAll('kbd').forEach(function(k){
