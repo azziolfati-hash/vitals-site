@@ -369,14 +369,24 @@
               <div class="au-label">Aura rewrites it in place</div>
               <div class="au-card"><span class="au-out" id="auOut"></span><span class="au-caret" id="auCaret"></span></div>
             </div>
-            <div class="au-foot">The same rewrite Aura does — shown here with sample text.</div>
+            <div class="au-foot">The same rewrite Aura does — press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd> anywhere or click the card to test live.</div>
           </div>
+        </div>
+
+        <div class="au-key-hint" id="auKeyHint" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;color:var(--ice);background:rgba(186,134,255,0.08);border:1px solid rgba(186,134,255,0.3);border-radius:20px;padding:7px 16px;width:fit-content;margin-left:auto;margin-right:auto;transition:all .25s ease;cursor:pointer;">
+          <span id="auHintDot" style="width:7px;height:7px;border-radius:50%;background:#c084fc;box-shadow:0 0 8px #c084fc;transition:all .2s ease;"></span>
+          <span id="auHintText">Try it: press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd> on your keyboard (or click here)</span>
         </div>
       </div>
       <script>
       (function(){
         var out=document.getElementById('auOut'),orig=document.getElementById('auOrig'),
-            mode=document.getElementById('auMode'),caret=document.getElementById('auCaret');
+            mode=document.getElementById('auMode'),caret=document.getElementById('auCaret'),
+            appWin=document.querySelector('.shot-hero .appwin'),
+            keyHint=document.getElementById('auKeyHint'),
+            hintText=document.getElementById('auHintText'),
+            hintDot=document.getElementById('auHintDot');
+
         if(!out)return;
         var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         // Sample selection → rewrite pairs, one per mode, cycled like the real HUD.
@@ -386,25 +396,120 @@
           {m:'Make concise', o:"I just wanted to quickly reach out and check whether you might have had a chance to look at the document", r:"Have you had a chance to review the document?"},
           {m:'Formal', o:"hey — can you send over the numbers when you get a sec? thanks!", r:"Could you please send over the figures at your convenience? Thank you."}
         ];
+        var i=0, typeTimer=null, loopTimer=null, isRewriting=false;
+
+        function highlightKbds(){
+          document.querySelectorAll('kbd').forEach(function(k){
+            var txt = (k.textContent || '').trim();
+            if(txt === '⇧' || txt === '⌘' || txt === 'P' || txt === '⌥' || txt === 'R'){
+              k.classList.add('active');
+              setTimeout(function(){ k.classList.remove('active'); }, 260);
+            }
+          });
+        }
+
+        function flashHint(msg){
+          if(!hintText) return;
+          hintText.innerHTML = msg;
+          if(hintDot){
+            hintDot.style.background = '#34d399';
+            hintDot.style.boxShadow = '0 0 10px #34d399';
+            setTimeout(function(){
+              hintDot.style.background = '#c084fc';
+              hintDot.style.boxShadow = '0 0 8px #c084fc';
+            }, 1200);
+          }
+        }
+
+        function typeOut(text, done){
+          out.textContent='';
+          var n=0;
+          caret.style.display='inline-block';
+          (function step(){
+            if(n<=text.length){
+              out.textContent=text.slice(0,n);
+              n++;
+              typeTimer=setTimeout(step, 20);
+            } else {
+              isRewriting=false;
+              loopTimer=setTimeout(done, 2400);
+            }
+          })();
+        }
+
+        function triggerRewrite(advance){
+          clearTimeout(typeTimer);
+          clearTimeout(loopTimer);
+          isRewriting = true;
+          highlightKbds();
+
+          if(advance) i = (i + 1) % samples.length;
+          var s = samples[i];
+          mode.textContent = s.m;
+          orig.textContent = s.o;
+          out.textContent = '';
+          flashHint('⚡ Rewriting with on-device AI (' + s.m + ')…');
+
+          setTimeout(function(){
+            typeOut(s.r, function(){
+              i = (i + 1) % samples.length;
+              triggerRewrite(false);
+            });
+          }, 350);
+        }
+
+        // Keyboard listeners: Shift+Cmd+P, Option+P, Option+R, or simply pressing P or Space
+        window.addEventListener('keydown', function(e){
+          // If user is focused on an input or textarea, don't hijack
+          var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+          if(tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+
+          var isShift = e.shiftKey;
+          var isCmd = e.metaKey || e.ctrlKey;
+          var isOpt = e.altKey;
+          var isP = (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
+          var isR = (e.key === 'r' || e.key === 'R' || e.code === 'KeyR');
+          var isSpace = (e.code === 'Space' || e.key === ' ' || e.keyCode === 32);
+
+          // 1. Exact native hotkey: Shift + Cmd + P  (or Shift + Option + R)
+          var isNativeCombo = (isShift && isCmd && isP) || (isShift && isOpt && isR) || (isShift && isOpt && isP) || (isOpt && isP);
+          // 2. Friendly single-key triggers for browser testing (P or Space)
+          var isSingleKey = (!isCmd && !isOpt && !isShift && (isP || isSpace));
+
+          if(isNativeCombo || isSingleKey){
+            e.preventDefault();
+            e.stopPropagation();
+            triggerRewrite(true);
+          }
+        }, { capture: true });
+
+        if(appWin){
+          appWin.style.cursor = 'pointer';
+          appWin.setAttribute('title', 'Press ⇧⌘P, P, Space, or click to trigger rewrite');
+          appWin.addEventListener('click', function(){ triggerRewrite(true); });
+        }
+        if(keyHint){
+          keyHint.innerHTML = '<span id="auHintDot" style="width:7px;height:7px;border-radius:50%;background:#c084fc;box-shadow:0 0 8px #c084fc;transition:all .2s ease;"></span>' +
+            '<span id="auHintText">Try it: press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd> or tap <kbd>P</kbd> / <kbd>Space</kbd> (or click)</span>';
+          keyHint.addEventListener('click', function(){ triggerRewrite(true); });
+        }
+        if(keyHint){
+          keyHint.addEventListener('click', function(){ triggerRewrite(true); });
+        }
+
+        document.querySelectorAll('kbd').forEach(function(k){
+          k.addEventListener('click', function(){
+            var txt = (k.textContent || '').trim();
+            if(txt === '⇧' || txt === '⌘' || txt === 'P'){
+              triggerRewrite(true);
+            }
+          });
+        });
+
         if(reduce){
           var s=samples[0];orig.textContent=s.o;out.textContent=s.r;mode.textContent=s.m;caret.style.display='none';return;
         }
-        var i=0;
-        function typeOut(text,done){
-          out.textContent='';var n=0;
-          (function step(){
-            if(n<=text.length){out.textContent=text.slice(0,n);n++;setTimeout(step,22);}
-            else{setTimeout(done,1900);}
-          })();
-        }
-        function run(){
-          var s=samples[i];
-          mode.textContent=s.m;orig.textContent=s.o;
-          setTimeout(function(){
-            typeOut(s.r,function(){ i=(i+1)%samples.length; run(); });
-          },650);
-        }
-        setTimeout(run,500);
+        setTimeout(function(){ triggerRewrite(false); }, 600);
       })();
       </script>
     </div>
@@ -453,6 +558,9 @@
         <div class="fcard"><div class="fico">🪟</div><h3>Works everywhere</h3><p>Mail, Notes, Chrome, VS Code, Slack, Pages — anywhere you can select text. Also available from the right-click Services menu.</p></div>
         <div class="fcard"><div class="fico">👁️</div><h3>Review before replacing</h3><p>For anything longer than a sentence or two, Aura shows the result with Insert / Discard instead of replacing it blind. There's an undo shortcut too.</p></div>
         <div class="fcard"><div class="fico">🔒</div><h3>Private by design</h3><p>Every model runs on this Mac. No account, no sign-in, no analytics, and nothing sent to a server — yours or anyone's.</p></div>
+        <div class="fcard"><div class="fico">🧬</div><h3>Voice Mirroring</h3><p>Give Aura 3 samples of your writing and it measures your sentence length, contractions, and punctuation quirks — rewriting drafts so they sound like you, not a robot.</p></div>
+        <div class="fcard"><div class="fico">🔍</div><h3>Word-level diffs</h3><p>Longer rewrites pop up a clear card with deletions in red and insertions in green. Tap Insert to replace, or Discard to keep what you had.</p></div>
+        <div class="fcard"><div class="fico">🛡️</div><h3>Prompt-injection safe</h3><p>Your selected text is strictly treated as copy to edit, never as instructions to the AI. A prompt injection hidden in an email can't hijack Aura.</p></div>
       </div>
     </div>
   </section>

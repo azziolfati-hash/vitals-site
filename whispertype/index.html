@@ -390,8 +390,13 @@
               <div class="wt-fieldlabel"><span class="fdot"></span>Notes — inserted automatically</div>
               <span id="wtText"></span><span class="wt-caret" id="wtCaret"></span>
             </div>
-            <div class="wt-foot">The same flow WhisperType runs — shown here with a sample sentence.</div>
+            <div class="wt-foot">The same flow WhisperType runs — press <kbd>⌥</kbd> <kbd>Space</kbd> anywhere or click the card to test live.</div>
           </div>
+        </div>
+
+        <div class="wt-key-hint" id="wtKeyHint" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;color:var(--ice);background:rgba(77,201,255,0.07);border:1px solid rgba(127,227,255,0.25);border-radius:20px;padding:7px 16px;width:fit-content;margin-left:auto;margin-right:auto;transition:all .25s ease;cursor:pointer;">
+          <span id="hintDot" style="width:7px;height:7px;border-radius:50%;background:#38bdf8;box-shadow:0 0 8px #38bdf8;transition:all .2s ease;"></span>
+          <span id="hintText">Try it: press <kbd>⌥</kbd> <kbd>Space</kbd> on your keyboard (or click here)</span>
         </div>
       </div>
       <script>
@@ -404,43 +409,168 @@
         var hud=document.getElementById('wtHud'),stateEl=document.getElementById('wtState'),
             subEl=document.getElementById('wtSub'),textEl=document.getElementById('wtText'),
             caret=document.getElementById('wtCaret'),live=document.getElementById('wtLive'),
-            liveDot=document.querySelector('.appbar .livedot i');
-        var sentence="Meet me at the studio around four — I'll bring the coffee.";
+            liveDot=document.querySelector('.appbar .livedot i'),
+            keyHint=document.getElementById('wtKeyHint'),
+            hintText=document.getElementById('hintText'),
+            hintDot=document.getElementById('hintDot');
+
+        var sentences=[
+          "Meet me at the studio around four — I'll bring the coffee.",
+          "Hey Sarah, could you push the latest commit to staging before the sync?",
+          "WhisperType runs 100% on the Apple Neural Engine with zero cloud latency.",
+          "Quick reminder: review the pull request and verify disk cleanup routines."
+        ];
+        var sIdx=0;
+        var state='idle'; // 'idle', 'listening', 'transcribing', 'typing'
+        var typingTimer=null, silenceTimer=null, idleTimer=null;
+
         function setLive(c){if(liveDot)liveDot.style.background=c;}
-        function type(done){
-          var i=0;
-          (function step(){
-            if(i<=sentence.length){textEl.textContent=sentence.slice(0,i);i++;setTimeout(step,26);}
-            else{done&&done();}
-          })();
+
+        function flashHint(msg, color){
+          if(!hintText) return;
+          hintText.innerHTML = msg;
+          if(hintDot && color) {
+            hintDot.style.background = color;
+            hintDot.style.boxShadow = '0 0 10px ' + color;
+          }
         }
-        function cycle(){
-          // 1) Listening
+
+        function highlightKbds(){
+          document.querySelectorAll('kbd').forEach(function(k){
+            var txt = (k.textContent || '').trim();
+            if(txt === '⌥' || txt === 'Space' || txt === '⌥ Space'){
+              k.classList.add('active');
+              setTimeout(function(){ k.classList.remove('active'); }, 260);
+            }
+          });
+        }
+
+        function startListening(){
+          clearTimeout(typingTimer);
+          clearTimeout(silenceTimer);
+          clearTimeout(idleTimer);
+          state = 'listening';
+
           hud.classList.add('wt-listening');
-          stateEl.textContent='Listening…';subEl.textContent='Speak naturally — ⌥Space to stop';
-          stateEl.style.color='#fff';live.textContent='Live';setLive('#ff5f57');
-          textEl.textContent='';caret.style.display='inline-block';
-          setTimeout(function(){
-            // 2) Transcribing
-            hud.classList.remove('wt-listening');
-            stateEl.textContent='Transcribing…';subEl.textContent='On-device · Apple Neural Engine';
-            live.textContent='On-device';setLive('#febc2e');
-            setTimeout(function(){
-              // 3) Insert (type it out)
-              stateEl.textContent='Inserted';subEl.textContent='Pasted into the focused field';
-              setLive('#28c840');
-              type(function(){
-                caret.style.display='none';
-                setTimeout(cycle,1900); // hold, then loop
-              });
-            },1100);
-          },2200);
+          stateEl.textContent = 'Listening…';
+          stateEl.style.color = '#fff';
+          subEl.textContent = 'Speak naturally — press ⌥Space to stop';
+          live.textContent = 'Live';
+          setLive('#ff5f57');
+          textEl.textContent = '';
+          caret.style.display = 'inline-block';
+
+          flashHint('🔴 Listening… Press <kbd>⌥</kbd> <kbd>Space</kbd> or wait to insert', '#ff5f57');
+
+          // Real WhisperType auto-stops on silence after 3.2s if hotkey not pressed again
+          silenceTimer = setTimeout(function(){
+            if(state === 'listening'){
+              finishAndTranscribe();
+            }
+          }, 3200);
         }
+
+        function finishAndTranscribe(){
+          clearTimeout(silenceTimer);
+          state = 'transcribing';
+
+          hud.classList.remove('wt-listening');
+          stateEl.textContent = 'Transcribing…';
+          subEl.textContent = 'On-device · Apple Neural Engine';
+          live.textContent = 'On-device';
+          setLive('#febc2e');
+          flashHint('⚡ Transcribing on Apple Neural Engine…', '#febc2e');
+
+          setTimeout(function(){
+            state = 'typing';
+            stateEl.textContent = 'Inserted';
+            subEl.textContent = 'Pasted into the focused field';
+            setLive('#28c840');
+            flashHint('✓ Inserted into field · Press <kbd>⌥</kbd> <kbd>Space</kbd> to dictate again', '#28c840');
+
+            var targetText = sentences[sIdx % sentences.length];
+            sIdx++;
+            var charIdx = 0;
+
+            function stepChar(){
+              if(charIdx <= targetText.length){
+                textEl.textContent = targetText.slice(0, charIdx);
+                charIdx++;
+                typingTimer = setTimeout(stepChar, 24);
+              } else {
+                caret.style.display = 'none';
+                state = 'idle';
+                subEl.textContent = 'Press ⌥Space or click to dictate again';
+                // Automatically loop after 5s of inactivity so the page stays alive
+                idleTimer = setTimeout(function(){
+                  if(state === 'idle' && !document.hidden){
+                    startListening();
+                  }
+                }, 5200);
+              }
+            }
+            stepChar();
+          }, 750);
+        }
+
+        function toggleDictation(fromEvent){
+          highlightKbds();
+          if(state === 'listening'){
+            finishAndTranscribe();
+          } else {
+            startListening();
+          }
+        }
+
+        // 1. Keyboard event listener for Option + Space (⌥Space) or simply Space
+        window.addEventListener('keydown', function(e){
+          var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+          if(tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+
+          var isAlt = e.altKey || (e.getModifierState && e.getModifierState('Alt'));
+          var isSpace = (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar' || e.keyCode === 32 || e.key === 'Dead');
+
+          if(isSpace){
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDictation('keyboard');
+          }
+        }, { capture: true });
+
+        // 2. Click listeners on HUD, Hint Pill, and App Body
+        if(hud){
+          hud.style.cursor = 'pointer';
+          hud.setAttribute('title', 'Press ⌥Space or click to toggle dictation');
+          hud.addEventListener('click', function(e){
+            e.preventDefault();
+            toggleDictation('click');
+          });
+        }
+        if(keyHint){
+          keyHint.addEventListener('click', function(e){
+            e.preventDefault();
+            toggleDictation('click');
+          });
+        }
+
+        // Also allow clicking directly on any kbd element mentioning ⌥ or Space
+        document.querySelectorAll('kbd').forEach(function(k){
+          k.addEventListener('click', function(){
+            var txt = (k.textContent || '').trim();
+            if(txt === '⌥' || txt === 'Space'){
+              toggleDictation('click');
+            }
+          });
+        });
+
+        // Initialize first run
         if(reduce){
           hud.classList.remove('wt-listening');
           stateEl.textContent='Inserted';subEl.textContent='Pasted into the focused field';
-          textEl.textContent=sentence;caret.style.display='none';setLive('#28c840');live.textContent='On-device';
-        }else{ setTimeout(cycle,500); }
+          textEl.textContent=sentences[0];caret.style.display='none';setLive('#28c840');live.textContent='On-device';
+        } else {
+          setTimeout(startListening, 600);
+        }
       })();
       </script>
     </div>
@@ -468,6 +598,9 @@
         <div class="fcard"><div class="fico">🌊</div><h3>Floating HUD</h3><p>A borderless meter breezes in under the menu bar so you can see your voice being picked up, then switches to a spinner while it transcribes.</p></div>
         <div class="fcard"><div class="fico">🤫</div><h3>Auto-stop on silence</h3><p>Stop talking and WhisperType stops on its own after a timeout you set (1–10s). Or press esc anytime to throw the audio away without inserting.</p></div>
         <div class="fcard"><div class="fico">🎚️</div><h3>Pick your model</h3><p>From Tiny for quick notes to Large for long-form accuracy — swap models anytime and manage what's on disk from the Storage panel.</p></div>
+        <div class="fcard"><div class="fico">🎙️</div><h3>Push-to-talk &amp; audio cues</h3><p>Tap to start and stop, or hold to speak like a walkie-talkie. A subtle chime confirms text landed without pulling your eyes off your work.</p></div>
+        <div class="fcard"><div class="fico">⚡</div><h3>Runs on the Neural Engine</h3><p>Accelerated via WhisperKit on the Apple Neural Engine. Your CPU stays idle, your fans stay silent, and battery drain is practically zero.</p></div>
+        <div class="fcard"><div class="fico">🔒</div><h3>Never saved to disk</h3><p>Your speech lives in RAM only while transcribing and disappears the moment it's typed. A discreet menu bar dot shows when the mic is listening.</p></div>
       </div>
     </div>
   </section>

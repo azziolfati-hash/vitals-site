@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Apps by HANNCREST — native, private Mac tools</title>
 <meta name="description" content="A small family of native, private, local-first macOS apps from HANNCREST: Vitals, Breeze, StealthShare, Aura and WhisperType.">
+<script>
+  // Ensure local file:// browsing navigates to index.html instead of macOS Finder folder windows
+  if(window.location.protocol === 'file:') {
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var h = a.getAttribute('href');
+        if(h && !h.startsWith('http') && !h.startsWith('#') && !h.startsWith('mailto:') && !h.includes('.html')) {
+          if(h.endsWith('/')) { a.setAttribute('href', h + 'index.html'); }
+          else { a.setAttribute('href', h + '/index.html'); }
+        }
+      });
+    });
+  }
+</script>
 <style>
   :root{
     --bg:#050b14; --bg2:#081722; --card:#0c1a26; --card2:#0a1520; --line:rgba(255,255,255,.10);
@@ -46,7 +60,7 @@
     box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(0,0,0,.35),0 16px 40px rgba(0,0,0,.45);
     backdrop-filter:blur(8px);position:relative;overflow:hidden;transform-style:preserve-3d;will-change:transform,box-shadow;
     transition:border-color .25s,transform .16s cubic-bezier(.2,.8,.2,1),box-shadow .25s;width:100%;max-width:100%;box-sizing:border-box}
-  .card > *{position:relative;z-index:2;pointer-events:none}
+  .card > *{position:relative;z-index:2}
   .card .icon{width:60px;height:60px;border-radius:15px;flex:none;box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .25s ease;transform:translateZ(18px)}
   .card::before{content:"";position:absolute;inset:-1px;border-radius:inherit;
     background:radial-gradient(380px circle at var(--mouse-x,-999px) var(--mouse-y,-999px),rgba(77,201,255,.14),transparent 70%);
@@ -298,6 +312,7 @@
 </script>
 </head>
 <body>
+<div class="noise-bg" aria-hidden="true"></div>
 <!-- MOUNTAIN SCENE: gradient sky + animated stars (behind) + mountain ranges (front) -->
 <div class="scene">
   <canvas id="sky"></canvas>
@@ -381,7 +396,7 @@
       <div class="body">
         <h2>Aura <span class="chip">One-time $24.99</span></h2>
         <div class="tag">Offline AI text assistant</div>
-        <div class="desc">Select text in any app, press <kbd>⇧</kbd><kbd>⌥</kbd><kbd>R</kbd>, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</div>
+        <div class="desc">Select text in any app, press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd>, and it's rewritten in place — proofread, clarify, shorten or expand. Runs entirely on your Mac.</div>
         <span class="link">Learn more →</span>
       </div>
     </a>
@@ -479,20 +494,100 @@
         }
       }
     });
-    // Ensure reliable 1-click navigation on app cards even during 3D tilt animation
-    document.querySelectorAll('a.card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const href = card.getAttribute('href');
-        if(href && href !== '#' && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-          window.location.href = href;
-        }
+
+
+    // Global Keyboard Hotkey Handler
+    function showHotkeyToast(icon, title, desc, targetUrl){
+      var existing = document.getElementById('hotkeyToast');
+      if(existing) existing.remove();
+
+      var toast = document.createElement('div');
+      toast.id = 'hotkeyToast';
+      toast.style.cssText = 'position:fixed;top:28px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(15,23,42,0.92);backdrop-filter:blur(20px);border:1px solid rgba(127,227,255,0.4);border-radius:14px;padding:12px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,0.6),0 0 30px rgba(77,201,255,0.2);animation:toastIn 0.25s cubic-bezier(0.16,1,0.3,1);color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;';
+      toast.innerHTML = '<span style="font-size:22px;">' + icon + '</span>' +
+        '<div><div style="font-size:13.5px;font-weight:700;letter-spacing:-0.01em;">' + title + '</div>' +
+        '<div style="font-size:12px;color:rgba(255,255,255,0.7);">' + desc + '</div></div>' +
+        '<span style="font-size:12px;font-weight:600;color:#38bdf8;margin-left:8px;">Open →</span>';
+
+      toast.addEventListener('click', function(){
+        if(targetUrl) window.location.href = targetUrl;
       });
-    });
+      document.body.appendChild(toast);
+
+      setTimeout(function(){
+        if(toast.parentNode) {
+          toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(-50%) translateY(-10px)';
+          setTimeout(function(){ if(toast.parentNode) toast.remove(); }, 300);
+        }
+      }, 3200);
+    }
+
+    window.addEventListener('keydown', function(e){
+      var isAlt = e.altKey || (e.getModifierState && e.getModifierState('Alt'));
+      var isCmd = e.metaKey || e.ctrlKey;
+      var isShift = e.shiftKey;
+      var isSpace = (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar' || e.keyCode === 32 || e.key === 'Dead');
+      var isV = (e.key === 'v' || e.key === 'V' || e.code === 'KeyV');
+      var isP = (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
+
+      // 1. Option + Space -> WhisperType
+      if(isAlt && isSpace){
+        e.preventDefault();
+        e.stopPropagation();
+        document.querySelectorAll('kbd').forEach(function(k){
+          if(k.textContent.trim() === '⌥' || k.textContent.trim() === 'Space'){
+            k.classList.add('active'); setTimeout(function(){ k.classList.remove('active'); }, 260);
+          }
+        });
+        showHotkeyToast('🎙️', '⌥Space detected · WhisperType', 'On-device voice dictation — tap or click to open', 'whispertype/');
+      }
+      // 2. Option + V -> Vitals
+      else if(isAlt && isV){
+        e.preventDefault();
+        e.stopPropagation();
+        document.querySelectorAll('kbd').forEach(function(k){
+          if(k.textContent.trim() === '⌥' || k.textContent.trim() === 'V'){
+            k.classList.add('active'); setTimeout(function(){ k.classList.remove('active'); }, 260);
+          }
+        });
+        showHotkeyToast('⚡', '⌥V detected · Vitals', 'Menu bar system monitor — tap or click to open', 'vitals/');
+      }
+      // 3. Option + Cmd + P -> StealthShare
+      else if((isAlt && isCmd && isP) || (isShift && isCmd && isP && document.querySelector('[data-app="stealthshare"]'))){
+        e.preventDefault();
+        e.stopPropagation();
+        document.querySelectorAll('kbd').forEach(function(k){
+          if(k.textContent.trim() === '⌥' || k.textContent.trim() === '⌘' || k.textContent.trim() === 'P'){
+            k.classList.add('active'); setTimeout(function(){ k.classList.remove('active'); }, 260);
+          }
+        });
+        showHotkeyToast('🛡️', '⌥⌘P detected · StealthShare', 'Screen privacy shield — tap or click to open', 'stealthshare/');
+      }
+      // 4. Shift + Cmd + P -> Aura
+      else if(isShift && isCmd && isP){
+        e.preventDefault();
+        e.stopPropagation();
+        document.querySelectorAll('kbd').forEach(function(k){
+          if(k.textContent.trim() === '⇧' || k.textContent.trim() === '⌘' || k.textContent.trim() === 'P'){
+            k.classList.add('active'); setTimeout(function(){ k.classList.remove('active'); }, 260);
+          }
+        });
+        showHotkeyToast('✨', '⇧⌘P detected · Aura', 'Offline AI text assistant — tap or click to open', 'aura/');
+      }
+    }, { capture: true });
 
     document.querySelectorAll('kbd').forEach(k => {
-      k.addEventListener('click', () => {
+      k.addEventListener('click', (e) => {
+        e.stopPropagation();
         k.classList.add('active');
         setTimeout(() => k.classList.remove('active'), 150);
+        var card = k.closest('.card');
+        if(card){
+          var href = card.getAttribute('href');
+          if(href) window.location.href = href;
+        }
       });
     });
   })();

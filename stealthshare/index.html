@@ -498,8 +498,13 @@
                 </div>
               </div>
             </div>
-            <div class="ss-foot">Click Privacy Mode toggle above to preview protection live.</div>
+            <div class="ss-foot">Click Privacy Mode toggle or press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> anywhere to test protection live.</div>
           </div>
+        </div>
+
+        <div class="ss-key-hint" id="ssKeyHint" style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:12.5px;color:var(--ice);background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.3);border-radius:20px;padding:7px 16px;width:fit-content;margin-left:auto;margin-right:auto;transition:all .25s ease;cursor:pointer;">
+          <span id="ssHintDot" style="width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 8px #34d399;transition:all .2s ease;"></span>
+          <span id="ssHintText">Try it: press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> (or <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd>) on your keyboard</span>
         </div>
       </div>
       <script>
@@ -512,33 +517,98 @@
         var desk = document.getElementById('ssDesk');
         var modeTag = document.getElementById('ssModeTag');
         var rows = [].slice.call(document.querySelectorAll('[data-row]'));
+        var keyHint = document.getElementById('ssKeyHint');
+        var hintText = document.getElementById('ssHintText');
+        var hintDot = document.getElementById('ssHintDot');
         if(!status) return;
 
         var isArmed = false;
-        function setPrivacy(active){
+        var loopTimer = null;
+
+        function highlightKbds(){
+          document.querySelectorAll('kbd').forEach(function(k){
+            var txt = (k.textContent || '').trim();
+            if(txt === '⌥' || txt === '⌘' || txt === 'P' || txt === '⇧'){
+              k.classList.add('active');
+              setTimeout(function(){ k.classList.remove('active'); }, 260);
+            }
+          });
+        }
+
+        function flashHint(active){
+          if(!hintText) return;
+          if(active){
+            hintText.innerHTML = '🛡️ Privacy Mask <strong>ARMED</strong> · Press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> to unmask';
+            if(hintDot){ hintDot.style.background = '#34d399'; hintDot.style.boxShadow = '0 0 10px #34d399'; }
+          } else {
+            hintText.innerHTML = '👁️ Privacy Mask <strong>OFF</strong> · Press <kbd>⌥</kbd><kbd>⌘</kbd><kbd>P</kbd> to protect';
+            if(hintDot){ hintDot.style.background = '#fbbf24'; hintDot.style.boxShadow = '0 0 10px #fbbf24'; }
+          }
+        }
+
+        function setPrivacy(active, fromUser){
           isArmed = active;
+          if(fromUser){
+            clearInterval(loopTimer);
+            highlightKbds();
+          }
           if(active){
             status.classList.add('on');
             if(stitle) stitle.textContent = 'Privacy Mode Active';
-            if(ssub) ssub.textContent = 'Screen protected · Click to toggle';
+            if(ssub) ssub.textContent = 'Screen protected · Press ⌥⌘P to disarm';
             rows.forEach(function(r){ r.classList.add('on'); });
             if(share) share.classList.add('masked');
             if(desk) desk.classList.add('masked-desk');
             if(modeTag) modeTag.textContent = '🛡️ Privacy Mask On';
+            flashHint(true);
           } else {
             status.classList.remove('on');
             if(stitle) stitle.textContent = 'Privacy Mode Off';
-            if(ssub) ssub.textContent = 'Press ⌥⌘P — or click to test';
+            if(ssub) ssub.textContent = 'Press ⌥⌘P — or click to arm';
             rows.forEach(function(r){ r.classList.remove('on'); });
             if(share) share.classList.remove('masked');
             if(desk) desk.classList.remove('masked-desk');
             if(modeTag) modeTag.textContent = 'Normal View';
+            flashHint(false);
           }
         }
 
+        // Hotkey listeners: Option+Cmd+P, Cmd+Shift+P, or simply tapping P or Space
+        window.addEventListener('keydown', function(e){
+          var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+          if(tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) return;
+
+          var isP = (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
+          var isSpace = (e.code === 'Space' || e.key === ' ' || e.keyCode === 32);
+          var isOptCmdP = (e.altKey && (e.metaKey || e.ctrlKey) && isP);
+          var isCmdShiftP = (e.shiftKey && (e.metaKey || e.ctrlKey) && isP);
+          var isSingleKey = (!e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey && (isP || isSpace));
+
+          if(isOptCmdP || isCmdShiftP || isSingleKey){
+            e.preventDefault();
+            e.stopPropagation();
+            setPrivacy(!isArmed, true);
+          }
+        }, { capture: true });
+
         status.style.cursor = 'pointer';
         status.addEventListener('click', function(){
-          setPrivacy(!isArmed);
+          setPrivacy(!isArmed, true);
+        });
+
+        if(keyHint){
+          keyHint.addEventListener('click', function(){
+            setPrivacy(!isArmed, true);
+          });
+        }
+
+        document.querySelectorAll('kbd').forEach(function(k){
+          k.addEventListener('click', function(){
+            var txt = (k.textContent || '').trim();
+            if(txt === '⌥' || txt === '⌘' || txt === 'P' || txt === '⇧'){
+              setPrivacy(!isArmed, true);
+            }
+          });
         });
 
         if(reduce){
@@ -546,12 +616,9 @@
           return;
         }
 
-        // Demo sequence: starts unmasked, arms after delay, and loops periodically for showcase
+        // Demo sequence: arms automatically after 1.2s, then stays responsive to user
         setTimeout(function(){
           setPrivacy(true);
-          setInterval(function(){
-            setPrivacy(!isArmed);
-          }, 4500);
         }, 900);
       })();
       </script>
@@ -583,6 +650,9 @@
         <div class="fcard"><div class="fico">⌨️</div><h3>One global hotkey</h3><p>Press ⌘⇧P anywhere to arm or disarm instantly. No hunting for a menu when someone says "can you share your screen?"</p></div>
         <div class="fcard"><div class="fico">↩️</div><h3>Puts everything back</h3><p>Every change is temporary. End the call — or quit the app — and your icons, widgets, wallpaper and Focus return exactly as they were.</p></div>
         <div class="fcard"><div class="fico">🔒</div><h3>Private by design</h3><p>StealthShare never records or captures your screen. It has no account and no analytics, and everything it does happens on your Mac.</p></div>
+        <div class="fcard"><div class="fico">🛡️</div><h3>Accidental-Paste Guard</h3><p>Ever pasted an API key, password, or token into a shared window by mistake? StealthShare catches credentials instantly with a warning flash hidden from the audience. Press ⌘V again within 4s to override.</p></div>
+        <div class="fcard"><div class="fico">🔕</div><h3>Do Not Disturb sync</h3><p>Uses two simple, local Shortcuts to turn Focus on and off with your calls — silencing banners without overriding your personal schedule.</p></div>
+        <div class="fcard"><div class="fico">📋</div><h3>After-call summary</h3><p>Once you stop sharing, StealthShare tells you how long notifications were held and which chat apps were active, so you know exactly what caught up with you.</p></div>
       </div>
     </div>
   </section>

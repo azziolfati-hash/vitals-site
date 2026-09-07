@@ -360,283 +360,598 @@
       </div>
       <p class="note">macOS 13+ · free 14-day trial · one-time $9.99 after · no subscription · nothing leaves your Mac</p>
       <style>
-        .vp{width:100%;max-width:560px;margin:0 auto;text-align:left;background:#14161b;border:1px solid #262a31;border-radius:16px;padding:18px;box-shadow:0 12px 44px rgba(0,0,0,.28);color:#e8e9ec}
-        .vp{width:100%;max-width:580px;margin:0 auto;text-align:left;color:#e8e9ec}
-        .vp-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
-        .vcard{background:#15181f;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(0,0,0,.35)}
-        .vc-head{display:flex;align-items:center;justify-content:space-between}
-        .vc-title{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:#f0f3f6}
-        .vc-icon{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center}
-        .ico-cpu{background:rgba(99,102,241,.18);color:#818cf8}
-        .ico-gpu{background:rgba(236,72,153,.18);color:#f472b6}
-        .vc-topstat{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:650;color:#94a3b8;font-variant-numeric:tabular-nums}
-        .vc-info{font-size:13px;color:#64748b;cursor:help;margin-left:2px}
-        .vc-body{display:flex;align-items:center;justify-content:space-between;gap:16px}
-        @media(max-width:520px){.vc-body{flex-direction:column;align-items:stretch;gap:12px}}
-        .vc-left{display:flex;align-items:center;gap:14px;flex-shrink:0}
-        .vc-dualring{position:relative;width:82px;height:82px;flex-shrink:0}
-        .vc-dualring svg{width:82px;height:82px;display:block}
-        .vr-trk{fill:none;stroke:rgba(255,255,255,0.08)}
-        .vr-arc{fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:46px 46px;transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
-        .vc-center-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12.75px;font-weight:800;color:#38bdf8;font-variant-numeric:tabular-nums}
-        .vc-legend{display:flex;flex-direction:column;gap:5px;font-size:12px}
-        .vcl-row{display:flex;align-items:center;gap:6px}
-        .vcl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-        .vcl-row b{font-weight:750;color:#f0f3f6;font-variant-numeric:tabular-nums;min-width:30px}
-        .vcl-lbl{color:#94a3b8;font-weight:500}
-        .vcl-sub{color:#64748b;font-size:10.5px;margin-left:13px;font-variant-numeric:tabular-nums}
-        .vc-right{flex:1;min-width:140px;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
-        .vc-sparkline{width:100%;height:46px;display:block;overflow:visible}
-        .vc-sparklabel{font-size:10px;color:#64748b;font-weight:500;letter-spacing:0.02em}
-
-        .vp-net{background:#15181f;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 8px 24px rgba(0,0,0,.35)}
-        .vp-nethead{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-        .vp-label{font-size:13px;font-weight:700;color:#f0f3f6}
-        .vp-netread{display:flex;gap:12px;font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}
-        .vp-peak{margin-left:auto;font-size:10.5px;color:#6b7078;font-variant-numeric:tabular-nums}
-        .vp-netchart{width:100%;height:auto;display:block}
-        .vp-foot{font-size:11px;color:#6b7078;margin-top:11px;text-align:center}
-        .appwin{max-width:600px;margin:36px auto 0;background:#0d0f13;border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-        .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#191b21;border-bottom:1px solid rgba(255,255,255,.06)}
-        .appbar .tl{width:11px;height:11px;border-radius:50%;display:inline-block}
-        .appbar .r{background:#ff5f57}.appbar .y{background:#febc2e}.appbar .g{background:#28c840}
-        .appbar .apptitle{margin-left:10px;font-size:12px;color:#9a9ab2;font-weight:600}
-        .appbar .livedot{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;color:#8a8aa0;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
-        .appbar .livedot i{width:7px;height:7px;border-radius:50%;background:#28c840;box-shadow:0 0 0 0 rgba(40,200,64,.6);animation:vpblink 1.6s infinite}
-        @keyframes vpblink{0%{box-shadow:0 0 0 0 rgba(40,200,64,.55)}70%{box-shadow:0 0 0 7px rgba(40,200,64,0)}100%{box-shadow:0 0 0 0 rgba(40,200,64,0)}}
-        .appbody{padding:18px;background:radial-gradient(120% 120% at 50% 0%,#15151f,#0d0f13)}
-        .appwin .vp{background:transparent;border:0;box-shadow:none;padding:2px;max-width:none;margin:0;text-align:left}
-      </style>
-      <div class="appwin">
-        <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Vitals — Overview</span><span class="livedot"><i></i>Live</span></div>
-        <div class="appbody">
-          <div class="vp">
-            <div class="vp-stack">
-              <!-- Processor Card (Concentric Dual Rings) -->
-              <div class="vcard" id="vcCpu">
-                <div class="vc-head">
-                  <div class="vc-title">
-                    <span class="vc-icon ico-cpu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></span>
-                    <strong>Processor</strong>
-                  </div>
-                  <div class="vc-topstat">
-                    <span id="cpuTotalStat">34% total</span>
-                    <span class="vc-info" title="CPU breakdown">ⓘ</span>
-                  </div>
-                </div>
-                <div class="vc-body">
-                  <div class="vc-left">
-                    <div class="vc-dualring">
-                      <svg viewBox="0 0 92 92">
-                        <circle class="vr-trk" cx="46" cy="46" r="37" stroke-width="7"/>
-                        <circle id="cpuOuterArc" class="vr-arc" cx="46" cy="46" r="37" stroke-width="7" stroke="#00a2ff"/>
-                        <circle class="vr-trk" cx="46" cy="46" r="26" stroke-width="7"/>
-                        <circle id="cpuInnerArc" class="vr-arc" cx="46" cy="46" r="26" stroke-width="7" stroke="#7dd3fc"/>
-                      </svg>
-                      <div class="vc-center-val" id="cpuCenterVal">34%</div>
-                    </div>
-                    <div class="vc-legend">
-                      <div class="vcl-row"><span class="vcl-dot" style="background:#00a2ff"></span><b id="cpuUserVal">19%</b> <span class="vcl-lbl">User</span></div>
-                      <div class="vcl-row"><span class="vcl-dot" style="background:#7dd3fc"></span><b id="cpuSysVal">15%</b> <span class="vcl-lbl">System</span></div>
-                    </div>
-                  </div>
-                  <div class="vc-right">
-                    <svg class="vc-sparkline" viewBox="0 0 220 54" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="gcpuWave" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stop-color="#6366f1" stop-opacity="0.32"/>
-                          <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
-                        </linearGradient>
-                      </defs>
-                      <path id="cpuWaveArea" fill="url(#gcpuWave)"/>
-                      <path id="cpuWaveLine" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle id="cpuWaveDot" r="2.5" fill="#6366f1"/>
-                    </svg>
-                    <div class="vc-sparklabel">total load · recent</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Graphics Card (Concentric Dual Rings) -->
-              <div class="vcard" id="vcGpu">
-                <div class="vc-head">
-                  <div class="vc-title">
-                    <span class="vc-icon ico-gpu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
-                    <strong>Graphics</strong>
-                  </div>
-                  <div class="vc-topstat">
-                    <span id="gpuTotalStat">85% load</span>
-                    <span class="vc-info" title="GPU breakdown">ⓘ</span>
-                  </div>
-                </div>
-                <div class="vc-body">
-                  <div class="vc-left">
-                    <div class="vc-dualring">
-                      <svg viewBox="0 0 92 92">
-                        <circle class="vr-trk" cx="46" cy="46" r="37" stroke-width="7"/>
-                        <circle id="gpuOuterArc" class="vr-arc" cx="46" cy="46" r="37" stroke-width="7" stroke="#ec4899"/>
-                        <circle class="vr-trk" cx="46" cy="46" r="26" stroke-width="7"/>
-                        <circle id="gpuInnerArc" class="vr-arc" cx="46" cy="46" r="26" stroke-width="7" stroke="#10b981"/>
-                      </svg>
-                    </div>
-                    <div class="vc-legend">
-                      <div class="vcl-row"><span class="vcl-dot" style="background:#ec4899"></span><b id="gpuLoadVal">85%</b> <span class="vcl-lbl">GPU load</span></div>
-                      <div class="vcl-row"><span class="vcl-dot" style="background:#10b981"></span><b id="gpuVramVal">80%</b> <span class="vcl-lbl">VRAM</span></div>
-                      <div class="vcl-sub" id="gpuMemGb">19.9 / 25.0 GB</div>
-                    </div>
-                  </div>
-                  <div class="vc-right">
-                    <svg class="vc-sparkline" viewBox="0 0 220 54" preserveAspectRatio="none">
-                      <defs>
-                        <linearGradient id="ggpuWave" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stop-color="#ec4899" stop-opacity="0.32"/>
-                          <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
-                        </linearGradient>
-                      </defs>
-                      <path id="gpuWaveArea" fill="url(#ggpuWave)"/>
-                      <path id="gpuWaveLine" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <circle id="gpuWaveDot" r="2.5" fill="#ec4899"/>
-                    </svg>
-                    <div class="vc-sparklabel">GPU load · recent</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Network section -->
-            <div class="vp-net">
-              <div class="vp-nethead">
-                <span class="vp-label">Network</span>
-                <span class="vp-netread"><span id="netDown" style="color:#06B6D4">↓ —</span><span id="netUp" style="color:#22C55E">↑ —</span></span>
-                <span class="vp-peak" id="netPeak">peak —</span>
-              </div>
-              <svg class="vp-netchart" viewBox="0 0 520 130">
-                <defs>
-                  <linearGradient id="gup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22C55E" stop-opacity="0.28"/><stop offset="1" stop-color="#22C55E" stop-opacity="0"/></linearGradient>
-                  <linearGradient id="gdn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#06B6D4" stop-opacity="0.28"/><stop offset="1" stop-color="#06B6D4" stop-opacity="0"/></linearGradient>
-                </defs>
-                <g stroke="rgba(255,255,255,0.06)" stroke-width="1"><line x1="0" y1="1" x2="520" y2="1"/><line x1="0" y1="65" x2="520" y2="65"/><line x1="0" y1="129" x2="520" y2="129"/></g>
-                <path id="upArea" fill="url(#gup)"/><path id="upLine" fill="none" stroke="#22C55E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-                <path id="dnArea" fill="url(#gdn)"/><path id="dnLine" fill="none" stroke="#06B6D4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-                <circle id="upDot" r="2.4" fill="#22C55E"/><circle id="dnDot" r="2.4" fill="#06B6D4"/>
-              </svg>
-            </div>
-            <p class="vp-foot">The same dual rings and live telemetry Vitals draws — shown here with live sample data.</p>
-          </div>
-        </div>
-      </div>
-      <script>
-      (function(){
-        var N=40,$=function(id){return document.getElementById(id)};
-        var cOuter=$('cpuOuterArc'), cInner=$('cpuInnerArc'), gOuter=$('gpuOuterArc'), gInner=$('gpuInnerArc');
-        if(!cOuter) return;
-        var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var CIRC_OUT = 2 * Math.PI * 37; // 232.48
-        var CIRC_IN = 2 * Math.PI * 26;  // 163.36
-        [cOuter, gOuter].forEach(function(el){ if(el){ el.style.strokeDasharray=CIRC_OUT; } });
-        [cInner, gInner].forEach(function(el){ if(el){ el.style.strokeDasharray=CIRC_IN; } });
-
-        function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
-        function series(v,W,H,peak){
-          var n=v.length,p=[];
-          for(var i=0;i<n;i++){
-            var x=n===1?W:W*i/(n-1);
-            var y=Math.max(2,H*(1-(v[i]/peak)*0.9)-2);
-            p.push([x,y]);
+        /* Dynamic macOS Menu Bar Strip */
+        .mbstrip {
+          margin: 36px auto 0;
+          max-width: 900px;
+          text-align: center;
+        }
+        .mb-macbar {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 26px;
+          background: rgba(23, 24, 35, 0.9);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 12px;
+          padding: 10px 24px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+          color: #ffffff;
+          font-variant-numeric: tabular-nums;
+          max-width: 100%;
+          overflow-x: auto;
+        }
+        @media(max-width: 720px) {
+          .mb-macbar {
+            gap: 16px;
+            padding: 8px 14px;
+            overflow-x: auto;
+            justify-content: flex-start;
           }
-          var c=p.map(function(q){return q[0].toFixed(1)+','+q[1].toFixed(1)});
-          return {
-            line:'M'+c.join(' L'),
-            area:'M'+p[0][0].toFixed(1)+','+H+' L'+c.join(' L')+' L'+p[n-1][0].toFixed(1)+','+H+' Z',
-            last:p[n-1]
-          };
         }
-        function rate(b){return b>=1048576?(b/1048576).toFixed(1)+' MB/s':b>=1024?Math.round(b/1024)+' KB/s':Math.round(b)+' B/s'}
-
-        // Seed data matching screenshot
-        var cpuUser=19, cpuSys=15, gpuLoad=85, vram=80;
-        var cpuWaves=[], gpuWaves=[], dn=[], up=[];
-        var d=40000, u=15000;
-
-        for(var i=0;i<N;i++){
-          cpuWaves.push(Math.max(10, Math.min(90, 34 + (Math.sin(i*0.4)*14 + (Math.random()*8-4)))));
-          gpuWaves.push(Math.max(30, Math.min(96, 85 + (Math.cos(i*0.3)*7 + (Math.random()*6-3)))));
-          dn.push(clamp(Math.random()*4000000, 10000, 12*1048576));
-          up.push(clamp(Math.random()*1200000, 5000, 3*1048576));
+        .mb-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-shrink: 0;
         }
-
-        function stepData(){
-          // CPU user & system move independently
-          cpuUser = Math.round(clamp(cpuUser + (Math.random()*6 - 3), 8, 75));
-          cpuSys = Math.round(clamp(cpuSys + (Math.random()*4 - 2), 4, 30));
-          var totalCpu = Math.min(100, cpuUser + cpuSys);
-          cpuWaves.push(totalCpu); cpuWaves.shift();
-
-          // GPU & VRAM move independently
-          gpuLoad = Math.round(clamp(gpuLoad + (Math.random()*8 - 4), 20, 98));
-          vram = Math.round(clamp(vram + (Math.random()*2 - 1), 74, 88));
-          gpuWaves.push(gpuLoad); gpuWaves.shift();
-
-          // Network
-          d=clamp(d*0.6+Math.random()*40000,0,14*1048576);if(Math.random()<0.14)d=(1.5+Math.random()*10)*1048576;
-          u=clamp(u*0.6+Math.random()*20000,0,3*1048576);if(Math.random()<0.1)u=(0.4+Math.random()*1.8)*1048576;
-          dn.push(d); dn.shift();
-          up.push(u); up.shift();
+        .mb-icon {
+          display: inline-flex;
+          align-items: center;
+          color: #ffffff;
+          opacity: 0.95;
         }
-
-        function render(){
-          // 1. Processor dual ring updates
-          var totalCpu = Math.min(100, cpuUser + cpuSys);
-          cOuter.style.strokeDashoffset = CIRC_OUT * (1 - cpuUser / 100);
-          cInner.style.strokeDashoffset = CIRC_IN * (1 - cpuSys / 100);
-          $('cpuUserVal').textContent = cpuUser + '%';
-          $('cpuSysVal').textContent = cpuSys + '%';
-          $('cpuCenterVal').textContent = totalCpu + '%';
-          $('cpuTotalStat').textContent = totalCpu + '% total';
-
-          var sCpu = series(cpuWaves, 220, 54, 100);
-          $('cpuWaveArea').setAttribute('d', sCpu.area);
-          $('cpuWaveLine').setAttribute('d', sCpu.line);
-          $('cpuWaveDot').setAttribute('cx', sCpu.last[0]);
-          $('cpuWaveDot').setAttribute('cy', sCpu.last[1]);
-
-          // 2. Graphics dual ring updates
-          gOuter.style.strokeDashoffset = CIRC_OUT * (1 - gpuLoad / 100);
-          gInner.style.strokeDashoffset = CIRC_IN * (1 - vram / 100);
-          $('gpuLoadVal').textContent = gpuLoad + '%';
-          $('gpuVramVal').textContent = vram + '%';
-          $('gpuMemGb').textContent = (vram / 100 * 25.0).toFixed(1) + ' / 25.0 GB';
-          $('gpuTotalStat').textContent = gpuLoad + '% load';
-
-          var sGpu = series(gpuWaves, 220, 54, 100);
-          $('gpuWaveArea').setAttribute('d', sGpu.area);
-          $('gpuWaveLine').setAttribute('d', sGpu.line);
-          $('gpuWaveDot').setAttribute('cx', sGpu.last[0]);
-          $('gpuWaveDot').setAttribute('cy', sGpu.last[1]);
-
-          // 3. Network update
-          var peak=Math.max(Math.max.apply(null,dn),Math.max.apply(null,up),64*1024);
-          var su=series(up,520,130,peak),sd=series(dn,520,130,peak);
-          $('upArea').setAttribute('d',su.area);$('upLine').setAttribute('d',su.line);
-          $('dnArea').setAttribute('d',sd.area);$('dnLine').setAttribute('d',sd.line);
-          $('upDot').setAttribute('cx',su.last[0]);$('upDot').setAttribute('cy',su.last[1]);
-          $('dnDot').setAttribute('cx',sd.last[0]);$('dnDot').setAttribute('cy',sd.last[1]);
-          $('netDown').textContent='↓ '+rate(dn[N-1]);
-          $('netUp').textContent='↑ '+rate(up[N-1]);
-          $('netPeak').textContent='peak '+rate(peak);
+        .mb-val {
+          font-size: 13.5px;
+          font-weight: 600;
+          color: #ffffff;
+          letter-spacing: -0.2px;
+        }
+        .mb-spark {
+          width: 38px;
+          height: 14px;
+          display: block;
+          overflow: visible;
+        }
+        .mb-net-col {
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          font-size: 10.5px;
+          font-weight: 600;
+          line-height: 1.15;
+          color: #ffffff;
+          text-align: left;
+        }
+        .mb-net-graph {
+          width: 44px;
+          height: 16px;
+          display: block;
+          overflow: visible;
         }
 
-        render();
-        if(!reduce){
-          setInterval(function(){
-            if(!document.hidden){
-              stepData();
-              render();
-            }
-          }, 900);
+        /* ---------- RECREATED DASHBOARD SHOWCASE & LIGHT-MODE APP WINDOW ---------- */
+        .dash-showcase {
+          display: grid;
+          grid-template-columns: 320px 1fr;
+          gap: 40px;
+          align-items: center;
+          margin-top: 36px;
+          text-align: left;
         }
-      })();
-      </script>
+        @media(max-width: 980px) {
+          .dash-showcase {
+            grid-template-columns: 1fr;
+            gap: 32px;
+          }
+        }
+        .dash-notes {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .dash-tag {
+          color: #c084fc;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+        .dash-notes-title {
+          font-size: clamp(28px, 3.2vw, 40px);
+          font-weight: 800;
+          line-height: 1.15;
+          letter-spacing: -0.8px;
+          color: #ffffff;
+          margin: 0;
+        }
+        .dash-bullets {
+          list-style: none;
+          padding: 0;
+          margin: 8px 0 0;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .dash-bullets li {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+          font-size: 15.5px;
+          line-height: 1.5;
+          color: #cbd5e1;
+        }
+        .dash-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #e879f9;
+          box-shadow: 0 0 10px rgba(232, 121, 249, 0.7);
+          flex-shrink: 0;
+          margin-top: 7px;
+        }
+
+        /* macOS Dark-Mode App Window */
+        .vitals-dash-win {
+          background: #0e1117;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 35px 90px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.06);
+          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+          text-align: left;
+          color: #e2e8f0;
+        }
+        .vdw-bar {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 14px;
+          background: #151821;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .vdw-tl { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+        .vdw-tl.r { background: #ff5f57; border: 1px solid #e0443e; }
+        .vdw-tl.y { background: #febc2e; border: 1px solid #dea123; }
+        .vdw-tl.g { background: #28c840; border: 1px solid #1aab29; }
+        .vdw-title {
+          margin-left: 10px; font-size: 12px; font-weight: 600; color: #94a3b8;
+        }
+        .vdw-live {
+          margin-left: auto; display: flex; align-items: center; gap: 5px;
+          font-size: 10.5px; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .vdw-live i {
+          width: 6px; height: 6px; border-radius: 50%; background: #10b981;
+          box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+          animation: vpblink 1.6s infinite;
+        }
+        .vdw-layout {
+          display: grid;
+          grid-template-columns: 185px 1fr;
+          min-height: 520px;
+        }
+        @media(max-width: 680px) {
+          .vdw-layout { grid-template-columns: 1fr; }
+          .vdw-side { display: none; }
+        }
+        .vdw-side {
+          background: #11141c;
+          border-right: 1px solid rgba(255, 255, 255, 0.06);
+          padding: 14px 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          font-size: 12px;
+          color: #94a3b8;
+        }
+        .vdw-brand {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 16px;
+        }
+        .vdw-brand img { width: 22px; height: 22px; border-radius: 6px; }
+        .vdw-brand strong { font-size: 13px; font-weight: 700; color: #f8fafc; }
+        .vdw-brand .trial {
+          font-size: 9.5px; font-weight: 700; color: #c084fc;
+          background: rgba(168, 85, 247, 0.16); border: 1px solid rgba(168, 85, 247, 0.25);
+          padding: 1px 5px; border-radius: 4px; margin-left: auto;
+        }
+        .vdw-collapse-btn {
+          color: #64748b;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+        .vdw-sec-label {
+          font-size: 9.5px; font-weight: 700; color: #64748b; letter-spacing: 0.6px;
+          text-transform: uppercase; margin: 10px 0 4px 6px;
+        }
+        .vdw-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .vdw-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 5px 8px;
+          border-radius: 6px;
+          font-size: 11.5px;
+          font-weight: 500;
+          color: #94a3b8;
+          transition: all 0.15s ease;
+        }
+        .vdw-item:hover {
+          background: rgba(255, 255, 255, 0.04);
+          color: #e2e8f0;
+        }
+        .vdw-item.active {
+          background: rgba(45, 212, 191, 0.14);
+          color: #2dd4bf;
+          font-weight: 650;
+        }
+        .vdw-item.vdw-bug {
+          color: #94a3b8;
+        }
+        .vdw-item.vdw-bug svg {
+          color: #f472b6;
+        }
+        .vdw-bot {
+          padding-top: 10px;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .vdw-ctrls {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .vdw-btn-pill {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #94a3b8;
+          font-size: 10px;
+          font-weight: 600;
+          border-radius: 5px;
+          padding: 2px 6px;
+          display: flex;
+          align-items: center;
+          gap: 3px;
+        }
+        .vdw-btn-ico {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #94a3b8;
+          width: 20px;
+          height: 20px;
+          border-radius: 5px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .vdw-disk-row {
+          font-size: 10px;
+          color: #94a3b8;
+          display: flex;
+          justify-content: space-between;
+        }
+        .vdw-disk-bar {
+          width: 100%;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.08);
+          border-radius: 2px;
+          overflow: hidden;
+          margin-top: 2px;
+        }
+        .vdw-disk-fill {
+          width: 72%;
+          height: 100%;
+          background: #2dd4bf;
+          box-shadow: 0 0 6px rgba(45, 212, 191, 0.5);
+        }
+
+        /* Main Dashboard Content Area */
+        .vdw-body {
+          padding: 16px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          background: #0d0f15;
+        }
+        .vdw-head {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .vdw-head h3 {
+          margin: 0; font-size: 16px; font-weight: 750; color: #f8fafc;
+          display: flex; align-items: center; gap: 8px;
+        }
+        .vdw-head span {
+          font-size: 11.5px; color: #64748b;
+        }
+
+        /* Colored Icon Badges matching screenshot */
+        .vdw-ico {
+          width: 22px;
+          height: 22px;
+          border-radius: 6px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        .vdw-ico-overview { background: rgba(45, 212, 191, 0.16); color: #2dd4bf; }
+        .vdw-ico-storage  { background: rgba(45, 212, 191, 0.16); color: #2dd4bf; }
+        .vdw-ico-mem      { background: rgba(163, 230, 53, 0.16); color: #a3e635; }
+        .vdw-ico-cpu      { background: rgba(56, 189, 248, 0.16); color: #38bdf8; }
+        .vdw-ico-gpu      { background: rgba(236, 72, 153, 0.16); color: #f472b6; }
+        .vdw-ico-net      { background: rgba(34, 197, 94, 0.16); color: #4ade80; }
+
+        /* Health Score Card */
+        .vdw-health-card {
+          background: linear-gradient(135deg, rgba(13, 148, 136, 0.18) 0%, rgba(20, 24, 33, 0.95) 100%);
+          border: 1px solid rgba(45, 212, 191, 0.22);
+          border-radius: 12px;
+          padding: 12px 16px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        @media(max-width: 540px) {
+          .vdw-health-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+        }
+        .vdw-score-ring {
+          position: relative;
+          width: 68px;
+          height: 68px;
+          flex-shrink: 0;
+        }
+        .vdw-score-ring svg { width: 68px; height: 68px; display: block; }
+        .vdw-score-val {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          font-size: 17px;
+          font-weight: 800;
+          color: #2dd4bf;
+          line-height: 1;
+        }
+        .vdw-score-val small {
+          font-size: 8.5px;
+          font-weight: 600;
+          color: #64748b;
+          margin-top: 2px;
+        }
+        .vdw-health-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        .vdw-hm-title {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 14.5px;
+          font-weight: 750;
+          color: #f8fafc;
+        }
+        .vdw-hm-title .badge {
+          font-size: 10px;
+          font-weight: 700;
+          color: #2dd4bf;
+          background: rgba(45, 212, 191, 0.16);
+          border: 1px solid rgba(45, 212, 191, 0.25);
+          padding: 1px 6px;
+          border-radius: 4px;
+        }
+        .vdw-hm-sub {
+          font-size: 11.5px;
+          color: #94a3b8;
+        }
+        .vdw-pills {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          margin-top: 3px;
+        }
+        .vdw-pill {
+          font-size: 10.5px;
+          font-weight: 600;
+          color: #cbd5e1;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 2px 7px;
+          border-radius: 99px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .vdw-pill i {
+          width: 5px; height: 5px; border-radius: 50%;
+          background: #2dd4bf;
+          box-shadow: 0 0 5px rgba(45, 212, 191, 0.6);
+        }
+
+        /* 2-Column Mini Cards (Storage & Memory) */
+        .vdw-mini-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        @media(max-width: 500px) {
+          .vdw-mini-row { grid-template-columns: 1fr; }
+        }
+        .vdw-mini-card {
+          background: #141720;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 11px;
+          padding: 10px 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+        .vdw-mc-head {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 11.5px;
+          font-weight: 600;
+          color: #94a3b8;
+        }
+        .vdw-mc-title {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-weight: 700;
+          color: #f1f5f9;
+        }
+        .vdw-mc-num {
+          font-size: 14.5px;
+          font-weight: 750;
+          color: #f8fafc;
+        }
+        .vdw-mc-bar {
+          width: 100%;
+          height: 5px;
+          background: rgba(255, 255, 255, 0.08);
+          border-radius: 3px;
+          overflow: hidden;
+        }
+        .vdw-mc-fill {
+          height: 100%;
+          border-radius: 3px;
+        }
+
+        /* Telemetry Cards (Processor & Graphics) */
+        .vdw-card {
+          background: #141720;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 12px;
+          padding: 12px 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 18px rgba(0, 0, 0, 0.25);
+        }
+        .vdw-card-head {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 12.5px;
+          font-weight: 700;
+          color: #f1f5f9;
+        }
+        .vdw-ch-title {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          font-weight: 700;
+          color: #f1f5f9;
+        }
+        .vdw-ch-right {
+          font-size: 11.5px;
+          font-weight: 600;
+          color: #94a3b8;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .vdw-card-body {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px;
+        }
+        .vdw-cb-left {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-shrink: 0;
+        }
+        .vdw-dualring {
+          position: relative;
+          width: 66px;
+          height: 66px;
+          flex-shrink: 0;
+        }
+        .vdw-dualring svg { width: 66px; height: 66px; display: block; }
+        .vdw-trk {
+          fill: none;
+          stroke: rgba(255, 255, 255, 0.08);
+        }
+        .vdw-center-val {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 800;
+          color: #38bdf8;
+        }
+        .vdw-legend {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          font-size: 11.5px;
+        }
+        .vdw-leg-row {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+        .vdw-leg-row b {
+          font-weight: 750;
+          color: #f8fafc;
+          min-width: 26px;
+        }
+        .vdw-leg-row span {
+          color: #94a3b8;
+          font-size: 11px;
+        }
+        .vdw-leg-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          flex-shrink: 0;
+        }
+        .vdw-sparkline {
+          flex: 1;
+          min-width: 110px;
+          height: 42px;
+          overflow: visible;
+        }
+
+        /* Network Card */
+        .vdw-net-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 11.5px;
+          font-weight: 700;
+          margin-top: 2px;
+        }
+        .vdw-net-chart {
+          width: 100%;
+          height: 38px;
+          display: block;
+          overflow: visible;
+        }
+      </style>
     </div>
   </section>
 
@@ -650,19 +965,609 @@
 
     <!-- MENU-BAR READOUT + LIVE GRAPHS -->
     <figure class="mbstrip">
-      <img src="../assets/shots/01b-menubar-graphs.png" alt="Vitals menu-bar readout with a live mini-graph beside CPU, GPU, memory, VRAM and network">
+      <div class="mb-macbar" id="liveMenuBar">
+        <!-- CPU -->
+        <div class="mb-item">
+          <span class="mb-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+          </span>
+          <span class="mb-val" id="mbCpuVal">34%</span>
+          <svg class="mb-spark" viewBox="0 0 38 14" preserveAspectRatio="none">
+            <path id="mbCpuArea" fill="rgba(255,255,255,0.2)"/>
+            <path id="mbCpuLine" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- GPU -->
+        <div class="mb-item">
+          <span class="mb-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="13" rx="2" fill="rgba(255,255,255,0.2)"/>
+              <path d="M12 16v4M8 20h8"/>
+            </svg>
+          </span>
+          <span class="mb-val" id="mbGpuVal">41%</span>
+          <svg class="mb-spark" viewBox="0 0 38 14" preserveAspectRatio="none">
+            <path id="mbGpuArea" fill="rgba(255,255,255,0.2)"/>
+            <path id="mbGpuLine" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- RAM -->
+        <div class="mb-item">
+          <span class="mb-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="16" y1="9" x2="16" y2="13"/><line x1="6" y1="17" x2="6" y2="20"/><line x1="9" y1="17" x2="9" y2="20"/><line x1="12" y1="17" x2="12" y2="20"/><line x1="15" y1="17" x2="15" y2="20"/><line x1="18" y1="17" x2="18" y2="20"/></svg>
+          </span>
+          <span class="mb-val" id="mbMemVal">61%</span>
+          <svg class="mb-spark" viewBox="0 0 38 14" preserveAspectRatio="none">
+            <path id="mbMemArea" fill="rgba(255,255,255,0.2)"/>
+            <path id="mbMemLine" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Stack / VRAM -->
+        <div class="mb-item">
+          <span class="mb-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>
+          </span>
+          <span class="mb-val" id="mbVramVal">6GB</span>
+          <svg class="mb-spark" viewBox="0 0 38 14" preserveAspectRatio="none">
+            <path id="mbVramArea" fill="rgba(255,255,255,0.2)"/>
+            <path id="mbVramLine" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Network -->
+        <div class="mb-item">
+          <div class="mb-net-col">
+            <span id="mbNetDn">↓ 1.3 MB/s</span>
+            <span id="mbNetUp">↑ 200 KB/s</span>
+          </div>
+          <svg class="mb-net-graph" viewBox="0 0 44 16">
+            <path id="mbNetArea" fill="rgba(255,255,255,0.18)"/>
+            <path id="mbNetLine" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
       <figcaption>Add a live sparkline beside every number — CPU, GPU, memory, VRAM and network — right in your menu bar. Or keep it to just the Vitals mark; it's your call.</figcaption>
     </figure>
   </div>
 
-  <!-- Full dashboard screenshot (relocated from the hero, which now shows the live charts) -->
-  <section id="dashboard" style="padding-top:8px">
-    <div class="wrap" style="text-align:center">
-      <p class="eyebrow">The whole machine, one window</p>
-      <h2 class="title">A dashboard for every part of your Mac.</h2>
-      <div class="shot-hero" style="margin-top:22px"><img src="../assets/shots/02-dashboard.png" alt="Vitals dashboard showing the health score, memory and processor cards"></div>
+  <!-- Full dashboard showcase with left-side notes & recreated vector macOS window -->
+  <section id="dashboard" style="padding-top:20px;padding-bottom:20px">
+    <div class="wrap">
+      <div class="dash-showcase">
+        <!-- Left Side Notes (recreated from previous dashboard showcase) -->
+        <div class="dash-notes">
+          <div class="dash-tag">Vitals</div>
+          <h2 class="dash-notes-title">One dashboard for every part of your Mac</h2>
+          <ul class="dash-bullets">
+            <li>
+              <span class="dash-dot"></span>
+              <span>Performance, Local LLM, Network, Storage, Energy and System, all one click away</span>
+            </li>
+            <li>
+              <span class="dash-dot"></span>
+              <span>A 0–100 health score that names exactly what's dragging it down</span>
+            </li>
+            <li>
+              <span class="dash-dot"></span>
+              <span>Free where you live day to day; Pro unlocks the deep dashboard</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right Side: Recreated Crisp Native macOS Dark Theme Window -->
+        <div class="vitals-dash-win">
+          <div class="vdw-bar">
+            <span class="vdw-tl r"></span>
+            <span class="vdw-tl y"></span>
+            <span class="vdw-tl g"></span>
+            <span class="vdw-title">Vitals — Overview</span>
+            <span class="vdw-live"><i></i>Live</span>
+          </div>
+          
+          <div class="vdw-layout">
+            <!-- Left Sidebar -->
+            <div class="vdw-side">
+              <div>
+                <div class="vdw-brand">
+                  <img src="../assets/apps/vitals-thumb.png" alt="Vitals icon" width="22" height="22">
+                  <strong>Vitals</strong>
+                  <span class="trial">Trial · 9d</span>
+                  <span class="vdw-collapse-btn" title="Collapse sidebar">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                  </span>
+                </div>
+                
+                <div class="vdw-sec-label">Monitor</div>
+                <div class="vdw-nav">
+                  <div class="vdw-item active">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg>
+                    Overview
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                    Performance
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v1a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5z"/><path d="M19 11v2a7 7 0 0 1-14 0v-2"/></svg>
+                    Local LLM
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+                    Network
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 11.5c-.4 0-.7-.4-.5-.8l1.9-4.8C6.4 4.7 7.5 4 8.8 4h6.4c1.3 0 2.4.7 2.9 1.9l1.9 4.8c.2.4-.1.8-.5.8H4.5zM6.4 13h11.2c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4H6.4C4.5 19.8 3 18.3 3 16.4S4.5 13 6.4 13zm2.75 1.8a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45z"/></svg>
+                    Storage
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    Energy &amp; Power
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    System
+                  </div>
+                </div>
+
+                <div class="vdw-sec-label">Insights</div>
+                <div class="vdw-nav">
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    History
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Reports
+                  </div>
+                  <div class="vdw-item">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    More Apps
+                  </div>
+                </div>
+
+                <div class="vdw-sec-label">Help</div>
+                <div class="vdw-nav">
+                  <div class="vdw-item vdw-bug">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg>
+                    Report a bug
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sidebar bottom -->
+              <div class="vdw-bot">
+                <div class="vdw-ctrls">
+                  <span class="vdw-btn-pill">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    Light
+                  </span>
+                  <span class="vdw-btn-ico">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                  </span>
+                  <span class="vdw-btn-ico">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  </span>
+                  <span class="vdw-btn-ico">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                  </span>
+                </div>
+                <div class="vdw-disk-row">
+                  <span>Macintosh HD</span>
+                  <strong style="color:#2dd4bf">63 GB free</strong>
+                </div>
+                <div class="vdw-disk-bar">
+                  <div class="vdw-disk-fill"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Content Area -->
+            <div class="vdw-body">
+              <div class="vdw-head">
+                <span class="vdw-ico vdw-ico-overview">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>
+                </span>
+                <div>
+                  <h3>Overview</h3>
+                  <span>A live snapshot of your Mac's health</span>
+                </div>
+              </div>
+
+              <!-- Health Score Card -->
+              <div class="vdw-health-card">
+                <div class="vdw-score-ring">
+                  <svg viewBox="0 0 68 68">
+                    <circle cx="34" cy="34" r="28" stroke="rgba(255,255,255,0.08)" stroke-width="6.5" fill="none"/>
+                    <circle cx="34" cy="34" r="28" stroke="#2dd4bf" stroke-width="6.5" stroke-linecap="round" fill="none" stroke-dasharray="175.93" stroke-dashoffset="0" transform="rotate(-90 34 34)"/>
+                  </svg>
+                  <div class="vdw-score-val">
+                    100
+                    <small>of 100</small>
+                  </div>
+                </div>
+                <div class="vdw-health-meta">
+                  <div class="vdw-hm-title">
+                    Health Score
+                    <span class="badge">Excellent</span>
+                  </div>
+                  <div class="vdw-hm-sub">Your Mac is in great shape, nothing needs your attention.</div>
+                  <div class="vdw-pills">
+                    <span class="vdw-pill"><i></i>Thermals 100</span>
+                    <span class="vdw-pill"><i></i>Memory 100</span>
+                    <span class="vdw-pill"><i></i>Disk 100</span>
+                    <span class="vdw-pill"><i></i>Battery 100</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mini Storage & Memory Row -->
+              <div class="vdw-mini-row">
+                <div class="vdw-mini-card">
+                  <div class="vdw-mc-head">
+                    <div class="vdw-mc-title">
+                      <span class="vdw-ico vdw-ico-storage">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 11.5c-.4 0-.7-.4-.5-.8l1.9-4.8C6.4 4.7 7.5 4 8.8 4h6.4c1.3 0 2.4.7 2.9 1.9l1.9 4.8c.2.4-.1.8-.5.8H4.5zM6.4 13h11.2c1.9 0 3.4 1.5 3.4 3.4s-1.5 3.4-3.4 3.4H6.4C4.5 19.8 3 18.3 3 16.4S4.5 13 6.4 13zm2.75 1.8a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45zm1.65 0a.45.45 0 0 1 .45.45v2.3a.45.45 0 0 1-.9 0v-2.3a.45.45 0 0 1 .45-.45z"/></svg>
+                      </span>
+                      <span>Storage</span>
+                    </div>
+                    <span>63 GB free</span>
+                  </div>
+                  <div class="vdw-mc-num">165/228 GB</div>
+                  <div class="vdw-mc-bar">
+                    <div class="vdw-mc-fill" style="width:72%;background:#2dd4bf;box-shadow:0 0 6px rgba(45,212,191,0.5)"></div>
+                  </div>
+                </div>
+                <div class="vdw-mini-card">
+                  <div class="vdw-mc-head">
+                    <div class="vdw-mc-title">
+                      <span class="vdw-ico vdw-ico-mem">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="12" rx="2"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="18" x2="8" y2="22"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="16" y1="18" x2="16" y2="22"/><rect x="8" y="9" width="8" height="6" rx="1"/></svg>
+                      </span>
+                      <span>Memory</span>
+                    </div>
+                    <span style="color:#a3e635;background:rgba(163,230,53,0.15);border:1px solid rgba(163,230,53,0.25);padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700">Normal</span>
+                  </div>
+                  <div class="vdw-mc-num">10.9 <small style="font-size:11px;color:#94a3b8;font-weight:500">/ 16.0 GB</small></div>
+                  <div class="vdw-mc-bar">
+                    <div class="vdw-mc-fill" style="width:68%;background:#a3e635;box-shadow:0 0 6px rgba(163,230,53,0.5)"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Processor Card (Concentric Dual Rings + Live Sparkline) -->
+              <div class="vdw-card">
+                <div class="vdw-card-head">
+                  <div class="vdw-ch-title">
+                    <span class="vdw-ico vdw-ico-cpu">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+                    </span>
+                    <span>Processor</span>
+                  </div>
+                  <span class="vdw-ch-right"><strong id="vdwCpuTotal" style="color:#f8fafc">34% total</strong> <span style="font-size:11px;color:#64748b">ⓘ</span></span>
+                </div>
+                <div class="vdw-card-body">
+                  <div class="vdw-cb-left">
+                    <div class="vdw-dualring">
+                      <svg viewBox="0 0 74 74">
+                        <circle class="vdw-trk" cx="37" cy="37" r="30" stroke-width="6"/>
+                        <circle id="vdwCpuOut" cx="37" cy="37" r="30" stroke="#6366f1" stroke-width="6" stroke-linecap="round" fill="none" transform="rotate(-90 37 37)" style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)"/>
+                        <circle class="vdw-trk" cx="37" cy="37" r="21" stroke-width="5.5"/>
+                        <circle id="vdwCpuIn" cx="37" cy="37" r="21" stroke="#38bdf8" stroke-width="5.5" stroke-linecap="round" fill="none" transform="rotate(-90 37 37)" style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)"/>
+                      </svg>
+                      <div class="vdw-center-val" id="vdwCpuCenter">34%</div>
+                    </div>
+                    <div class="vdw-legend">
+                      <div class="vdw-leg-row"><span class="vdw-leg-dot" style="background:#6366f1"></span><b id="vdwCpuUser">19%</b> <span>User</span></div>
+                      <div class="vdw-leg-row"><span class="vdw-leg-dot" style="background:#38bdf8"></span><b id="vdwCpuSys">15%</b> <span>System</span></div>
+                    </div>
+                  </div>
+                  <div style="flex:1;min-width:110px;display:flex;flex-direction:column;align-items:flex-end">
+                    <svg class="vdw-sparkline" viewBox="0 0 240 50" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="vdwGcpu" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.3"/>
+                          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path id="vdwCpuWaveArea" fill="url(#vdwGcpu)"/>
+                      <path id="vdwCpuWaveLine" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span style="font-size:9.5px;color:#64748b;margin-top:2px">total load · recent</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Graphics Card (Concentric Dual Rings + Live Sparkline) -->
+              <div class="vdw-card">
+                <div class="vdw-card-head">
+                  <div class="vdw-ch-title">
+                    <span class="vdw-ico vdw-ico-gpu">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </span>
+                    <span>Graphics</span>
+                  </div>
+                  <span class="vdw-ch-right"><strong id="vdwGpuTotal" style="color:#f8fafc">41% load</strong> <span style="font-size:11px;color:#64748b">ⓘ</span></span>
+                </div>
+                <div class="vdw-card-body">
+                  <div class="vdw-cb-left">
+                    <div class="vdw-dualring">
+                      <svg viewBox="0 0 74 74">
+                        <circle class="vdw-trk" cx="37" cy="37" r="30" stroke-width="6"/>
+                        <circle id="vdwGpuOut" cx="37" cy="37" r="30" stroke="#f472b6" stroke-width="6" stroke-linecap="round" fill="none" transform="rotate(-90 37 37)" style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)"/>
+                        <circle class="vdw-trk" cx="37" cy="37" r="21" stroke-width="5.5"/>
+                        <circle id="vdwGpuIn" cx="37" cy="37" r="21" stroke="#fbbf24" stroke-width="5.5" stroke-linecap="round" fill="none" transform="rotate(-90 37 37)" style="transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)"/>
+                      </svg>
+                    </div>
+                    <div class="vdw-legend">
+                      <div class="vdw-leg-row"><span class="vdw-leg-dot" style="background:#f472b6"></span><b id="vdwGpuLoad">41%</b> <span>GPU load</span></div>
+                      <div class="vdw-leg-row"><span class="vdw-leg-dot" style="background:#fbbf24"></span><b id="vdwGpuVram">80%</b> <span>VRAM</span></div>
+                      <div style="font-size:9.5px;color:#64748b;margin-left:11px">10.0 / 11.8 GB</div>
+                    </div>
+                  </div>
+                  <div style="flex:1;min-width:110px;display:flex;flex-direction:column;align-items:flex-end">
+                    <svg class="vdw-sparkline" viewBox="0 0 240 50" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="vdwGgpu" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#f472b6" stop-opacity="0.3"/>
+                          <stop offset="100%" stop-color="#f472b6" stop-opacity="0"/>
+                        </linearGradient>
+                      </defs>
+                      <path id="vdwGpuWaveArea" fill="url(#vdwGgpu)"/>
+                      <path id="vdwGpuWaveLine" fill="none" stroke="#f472b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span style="font-size:9.5px;color:#64748b;margin-top:2px">GPU load · recent</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Network Card -->
+              <div class="vdw-card" style="padding-bottom:10px">
+                <div class="vdw-card-head">
+                  <div class="vdw-ch-title">
+                    <span class="vdw-ico vdw-ico-net">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </span>
+                    <span>Network</span>
+                  </div>
+                  <span style="font-size:11px;font-weight:600;color:#94a3b8">192.168.1.14</span>
+                </div>
+                <div class="vdw-net-row">
+                  <span id="vdwNetDown" style="color:#4ade80">↓ 4.7 KB/s</span>
+                  <span id="vdwNetUp" style="color:#f472b6">↑ 2.0 KB/s</span>
+                  <div style="margin-left:auto;display:flex;align-items:center;gap:8px;font-size:10px;color:#64748b">
+                    <span>↓ 3.9 GB</span>
+                    <span>↑ 1.3 GB</span>
+                    <span id="vdwNetPeak" style="color:#94a3b8">peak 64 KB/s</span>
+                  </div>
+                </div>
+                <svg class="vdw-net-chart" viewBox="0 0 360 40">
+                  <path id="vdwUpLine" fill="none" stroke="#f472b6" stroke-width="1.8" stroke-linecap="round"/>
+                  <path id="vdwDnLine" fill="none" stroke="#4ade80" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <script>
+  (function(){
+    var N = 40, $ = function(id){ return document.getElementById(id); };
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+    function series(v, W, H, peak){
+      var n = v.length, p = [];
+      for(var i = 0; i < n; i++){
+        var x = n === 1 ? W : W * i / (n - 1);
+        var y = Math.max(2, H * (1 - (v[i] / peak) * 0.9) - 2);
+        p.push([x, y]);
+      }
+      var c = p.map(function(q){ return q[0].toFixed(1) + ',' + q[1].toFixed(1); });
+      return {
+        line: 'M' + c.join(' L'),
+        area: 'M' + p[0][0].toFixed(1) + ',' + H + ' L' + c.join(' L') + ' L' + p[n - 1][0].toFixed(1) + ',' + H + ' Z'
+      };
+    }
+
+    function miniSeries(v, W, H, peak){
+      var n = v.length, p = [];
+      for(var i = 0; i < n; i++){
+        var x = n === 1 ? W : W * i / (n - 1);
+        var y = Math.max(1, H * (1 - (v[i] / peak) * 0.85) - 1.5);
+        p.push([x, y]);
+      }
+      var c = p.map(function(q){ return q[0].toFixed(1) + ',' + q[1].toFixed(1); });
+      return {
+        line: 'M' + c.join(' L'),
+        area: 'M' + p[0][0].toFixed(1) + ',' + H + ' L' + c.join(' L') + ' L' + p[n - 1][0].toFixed(1) + ',' + H + ' Z'
+      };
+    }
+
+    function netLineSeries(v, W, H, peak){
+      var n = v.length, p = [];
+      for(var i = 0; i < n; i++){
+        var x = n === 1 ? W : W * i / (n - 1);
+        var y = Math.max(1, H * (1 - (v[i] / peak) * 0.88) - 1);
+        p.push([x, y]);
+      }
+      var c = p.map(function(q){ return q[0].toFixed(1) + ',' + q[1].toFixed(1); });
+      return 'M' + c.join(' L');
+    }
+
+    function rate(b){
+      return b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB/s' : b >= 1024 ? Math.round(b / 1024) + ' KB/s' : Math.round(b) + ' B/s';
+    }
+
+    // Initial seed data
+    var cpuUser = 19, cpuSys = 15, gpuLoad = 41, mem = 61, vram = 80;
+    var cpuWaves = [], gpuWaves = [], memWaves = [], vramWaves = [], dn = [], up = [];
+    var d = 1360000, u = 204800;
+    var cpuStep = 0.5, gpuStep = 2.4;
+
+    for(var i = 0; i < N; i++){
+      cpuWaves.push(Math.round(clamp(26 + Math.sin(i * 0.35) * 14 + (Math.random() * 4 - 2), 10, 44)));
+      gpuWaves.push(Math.round(clamp(27 + Math.cos(i * 0.32) * 14 + (Math.random() * 4 - 2), 11, 45)));
+      memWaves.push(Math.round(Math.max(50, Math.min(80, 61 + (Math.sin(i * 0.2) * 4 + (Math.random() * 2 - 1))))));
+      vramWaves.push(Math.round(Math.max(20, Math.min(45, 25 + (Math.sin(i * 0.1) * 3 + (Math.random() * 2 - 1))))));
+      dn.push(Math.round(clamp(Math.random() * 2500000, 20000, 8 * 1048576)));
+      up.push(Math.round(clamp(Math.random() * 600000, 10000, 2 * 1048576)));
+    }
+    cpuWaves[N - 1] = 34;
+    gpuWaves[N - 1] = 41;
+    memWaves[N - 1] = 61;
+
+    var dInit = false;
+    var CIRC_VDW_OUT = 2 * Math.PI * 30; // 188.495
+    var CIRC_VDW_IN = 2 * Math.PI * 21;  // 131.947
+
+    function initDashboardRings(){
+      var co = $('vdwCpuOut'), go = $('vdwGpuOut');
+      var ci = $('vdwCpuIn'), gi = $('vdwGpuIn');
+      if(co && go){
+        co.style.strokeDasharray = CIRC_VDW_OUT;
+        go.style.strokeDasharray = CIRC_VDW_OUT;
+        if(ci) ci.style.strokeDasharray = CIRC_VDW_IN;
+        if(gi) gi.style.strokeDasharray = CIRC_VDW_IN;
+        dInit = true;
+      }
+    }
+
+    function stepData(){
+      cpuStep += 0.32 + Math.random() * 0.16;
+      gpuStep += 0.28 + Math.random() * 0.16;
+
+      // Fluctuate CPU between ~10-15% and ~40-44%, with dips and jumps
+      var baseCpu = 26 + Math.sin(cpuStep) * 15;
+      if(Math.random() < 0.22){
+        baseCpu += (Math.random() < 0.5 ? 9 : -9);
+      }
+      var totalCpu = Math.round(clamp(baseCpu + (Math.random() * 4 - 2), 10, 44));
+      cpuUser = Math.round(totalCpu * 0.68);
+      cpuSys = Math.max(3, totalCpu - cpuUser);
+      totalCpu = cpuUser + cpuSys;
+      cpuWaves.push(totalCpu); cpuWaves.shift();
+
+      // Fluctuate GPU between ~11-15% and ~42-45%, with dips and jumps
+      var baseGpu = 27 + Math.cos(gpuStep) * 15;
+      if(Math.random() < 0.22){
+        baseGpu += (Math.random() < 0.5 ? 10 : -9);
+      }
+      gpuLoad = Math.round(clamp(baseGpu + (Math.random() * 4 - 2), 11, 45));
+      gpuWaves.push(gpuLoad); gpuWaves.shift();
+
+      mem = Math.round(clamp(mem + (Math.random() * 2 - 1), 52, 78));
+      memWaves.push(mem); memWaves.shift();
+
+      vram = Math.round(clamp(vram + (Math.random() * 2 - 1), 74, 88));
+      vramWaves.push(vram); vramWaves.shift();
+
+      d = clamp(d * 0.65 + Math.random() * 600000, 50000, 12 * 1048576);
+      if(Math.random() < 0.12) d = (1.2 + Math.random() * 8) * 1048576;
+      u = clamp(u * 0.7 + Math.random() * 180000, 15000, 3 * 1048576);
+      dn.push(d); dn.shift();
+      up.push(u); up.shift();
+    }
+
+    function render(){
+      var totalCpu = Math.round(cpuWaves[N - 1]);
+      var currentGpu = Math.round(gpuWaves[N - 1]);
+      var currentMem = Math.round(memWaves[N - 1]);
+      var peak = Math.max.apply(null, dn.concat(up));
+
+      // 1. Update Menu Bar Strip
+      if($('mbCpuVal')) $('mbCpuVal').textContent = totalCpu + '%';
+      if($('mbGpuVal')) $('mbGpuVal').textContent = currentGpu + '%';
+      if($('mbMemVal')) $('mbMemVal').textContent = currentMem + '%';
+      if($('mbVramVal')) $('mbVramVal').textContent = '6GB';
+      if($('mbNetDn')) $('mbNetDn').textContent = '↓ ' + rate(dn[N - 1]);
+      if($('mbNetUp')) $('mbNetUp').textContent = '↑ ' + rate(up[N - 1]);
+
+      if($('mbCpuLine') && $('mbCpuArea')){
+        var sC = miniSeries(cpuWaves.slice(-14), 38, 14, 100);
+        $('mbCpuLine').setAttribute('d', sC.line);
+        $('mbCpuArea').setAttribute('d', sC.area);
+      }
+      if($('mbGpuLine') && $('mbGpuArea')){
+        var sG = miniSeries(gpuWaves.slice(-14), 38, 14, 100);
+        $('mbGpuLine').setAttribute('d', sG.line);
+        $('mbGpuArea').setAttribute('d', sG.area);
+      }
+      if($('mbMemLine') && $('mbMemArea')){
+        var sM = miniSeries(memWaves.slice(-14), 38, 14, 100);
+        $('mbMemLine').setAttribute('d', sM.line);
+        $('mbMemArea').setAttribute('d', sM.area);
+      }
+      if($('mbVramLine') && $('mbVramArea')){
+        var sV = miniSeries(vramWaves.slice(-14), 38, 14, 100);
+        $('mbVramLine').setAttribute('d', sV.line);
+        $('mbVramArea').setAttribute('d', sV.area);
+      }
+      if($('mbNetLine')){
+        var sN = miniSeries(dn.slice(-12), 44, 16, peak);
+        $('mbNetLine').setAttribute('d', sN.line);
+        if($('mbNetArea')) $('mbNetArea').setAttribute('d', sN.area);
+      }
+
+      // 2. Update Full Dashboard Window
+      if(!dInit) initDashboardRings();
+      if(dInit){
+        var co = $('vdwCpuOut'), ci = $('vdwCpuIn');
+        var go = $('vdwGpuOut'), gi = $('vdwGpuIn');
+        if(co) co.style.strokeDashoffset = CIRC_VDW_OUT * (1 - cpuUser / 100);
+        if(ci) ci.style.strokeDashoffset = CIRC_VDW_IN * (1 - cpuSys / 100);
+        if($('vdwCpuCenter')) $('vdwCpuCenter').textContent = totalCpu + '%';
+        if($('vdwCpuTotal')) $('vdwCpuTotal').textContent = totalCpu + '% total';
+        if($('vdwCpuUser')) $('vdwCpuUser').textContent = Math.round(cpuUser) + '%';
+        if($('vdwCpuSys')) $('vdwCpuSys').textContent = Math.round(cpuSys) + '%';
+
+        if($('vdwCpuWaveLine')){
+          var sCpu2 = series(cpuWaves, 240, 50, 100);
+          $('vdwCpuWaveLine').setAttribute('d', sCpu2.line);
+          if($('vdwCpuWaveArea')) $('vdwCpuWaveArea').setAttribute('d', sCpu2.area);
+        }
+
+        if(go) go.style.strokeDashoffset = CIRC_VDW_OUT * (1 - currentGpu / 100);
+        if(gi) gi.style.strokeDashoffset = CIRC_VDW_IN * (1 - vram / 100);
+        if($('vdwGpuTotal')) $('vdwGpuTotal').textContent = currentGpu + '% load';
+        if($('vdwGpuLoad')) $('vdwGpuLoad').textContent = currentGpu + '%';
+        if($('vdwGpuVram')) $('vdwGpuVram').textContent = Math.round(vram) + '%';
+
+        if($('vdwGpuWaveLine')){
+          var sGpu2 = series(gpuWaves, 240, 50, 100);
+          $('vdwGpuWaveLine').setAttribute('d', sGpu2.line);
+          if($('vdwGpuWaveArea')) $('vdwGpuWaveArea').setAttribute('d', sGpu2.area);
+        }
+
+        if($('vdwNetDown')) $('vdwNetDown').textContent = '↓ ' + rate(dn[N - 1]);
+        if($('vdwNetUp')) $('vdwNetUp').textContent = '↑ ' + rate(up[N - 1]);
+        if($('vdwNetPeak')) $('vdwNetPeak').textContent = 'peak ' + rate(peak);
+        if($('vdwDnLine') && $('vdwUpLine')){
+          var sNetD = series(dn, 360, 40, peak);
+          var sNetU = series(up, 360, 40, peak);
+          $('vdwDnLine').setAttribute('d', sNetD.line);
+          $('vdwUpLine').setAttribute('d', sNetU.line);
+        }
+      }
+    }
+
+    render();
+    if(!reduce){
+      setInterval(function(){
+        if(!document.hidden){
+          stepData();
+          render();
+        }
+      }, 900);
+    }
+  })();
+  </script>
 
     <!-- FEATURES -->
   <section id="features">
@@ -682,6 +1587,9 @@
         <div class="fcard"><div class="fico">💤</div><h3>Sleep drain report</h3><p>Every sleep and wake, tracked — plus the battery it cost you and what was still holding a wake lock right as the lid closed. The answer to the backpack-hot, battery-drained mystery.</p></div>
         <div class="fcard"><div class="fico">🔔</div><h3>Smart alerts</h3><p>Customizable threshold alerts, with an optional push to your iPhone the moment something needs attention.</p></div>
         <div class="fcard"><div class="fico">🎨</div><h3>Deep customization</h3><p>Twelve themes, full menu-bar layout control, and a live desktop widget that matches how you like to work.</p></div>
+        <div class="fcard"><div class="fico">⚡</div><h3>Every core named right</h3><p>Reads Apple Silicon's true performance tiers (hw.perflevelN) — correctly labeling Super, Performance and Efficiency cores instead of guessing. Includes a throttling timeline that points to the exact app causing it.</p></div>
+        <div class="fcard"><div class="fico">📡</div><h3>Network lab &amp; Wi-Fi</h3><p>Real-time latency, jitter, packet loss, DNS benchmarks, rolling Wi-Fi signal/noise history, and monthly data-cap tracking so nothing sneaks past you.</p></div>
+        <div class="fcard"><div class="fico">💾</div><h3>Storage &amp; SSD wear</h3><p>Keeps a running tally of bytes written, S.M.A.R.T. health ratings, read/write speeds, and which apps are writing heavily to your drive.</p></div>
       </div>
     </div>
   </section>

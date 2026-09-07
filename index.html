@@ -11,6 +11,20 @@
 <link rel="preload" as="image" href="assets/apps/stealthshare-thumb.png">
 <link rel="preload" as="image" href="assets/apps/aura-thumb.png">
 <link rel="preload" as="image" href="assets/apps/whispertype-thumb.png">
+<script>
+  // Ensure local file:// browsing navigates to index.html instead of opening macOS Finder folder windows
+  if(window.location.protocol === 'file:') {
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var h = a.getAttribute('href');
+        if(h && !h.startsWith('http') && !h.startsWith('#') && !h.startsWith('mailto:') && !h.includes('.html')) {
+          if(h.endsWith('/')) { a.setAttribute('href', h + 'index.html'); }
+          else { a.setAttribute('href', h + '/index.html'); }
+        }
+      });
+    });
+  }
+</script>
 <style>
   :root{
     --sky-top:#050b14; --tx:#eaf2f7; --mut:#9fb6c6; --dim:#6d8598;
@@ -426,7 +440,133 @@
   .foot a{color:var(--mut)}.foot a:hover{color:var(--tx)}
   .foot .links{display:flex;gap:22px;flex-wrap:wrap}
 
-  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  /* ---------- COMPARISON TABLES & ANTI-SUBSCRIPTION SECTION ---------- */
+  #compare{padding:92px 0 60px}
+  .compare-tabs-wrap{margin:32px 0 24px}
+  .compare-tabs{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;
+  }
+  .cmp-tab{
+    display:flex;align-items:center;gap:11px;padding:12px 14px;border-radius:14px;
+    background:rgba(5,11,20,0.65);border:1px solid var(--line);cursor:pointer;
+    transition:border-color .2s ease,background .2s ease,transform .18s ease,box-shadow .2s ease;
+    text-align:left;position:relative;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    width:100%;box-sizing:border-box;outline:none;
+  }
+  .cmp-tab:hover{
+    background:rgba(255,255,255,0.05);border-color:rgba(127,227,255,0.3);
+    transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,0.3);
+  }
+  .cmp-tab.active{
+    background:linear-gradient(180deg,rgba(77,201,255,0.13) 0%,rgba(13,27,46,0.85) 100%);
+    border-color:rgba(127,227,255,0.45);
+    box-shadow:0 6px 20px rgba(0,0,0,0.35),inset 0 1px 0 rgba(127,227,255,0.35);
+  }
+  .cmp-tab-img{
+    width:26px;height:26px;border-radius:6px;flex-shrink:0;
+    object-fit:contain;transition:transform .2s ease;
+    filter:drop-shadow(0 2px 5px rgba(0,0,0,0.4));
+  }
+  .cmp-tab:hover .cmp-tab-img{transform:scale(1.08)}
+  .cmp-tab-ico{
+    font-size:22px;line-height:1;flex-shrink:0;transition:transform .2s ease;
+  }
+  .cmp-tab:hover .cmp-tab-ico{transform:scale(1.08)}
+  .cmp-tab-text{
+    display:flex;flex-direction:column;gap:2px;min-width:0;
+  }
+  .cmp-tab-title{
+    font-size:13.5px;font-weight:700;color:var(--tx);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-0.2px;
+  }
+  .cmp-tab.active .cmp-tab-title{color:var(--ice)}
+  .cmp-tab-sub{
+    font-size:11px;font-weight:500;color:var(--dim);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .cmp-tab.active .cmp-tab-sub{color:var(--teal2)}
+  .cmp-pane{display:none;animation:cmpFade .25s ease forwards}
+  .cmp-pane.active{display:block}
+  @keyframes cmpFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+  .cmp-table-container{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,0.12),0 30px 80px rgba(0,0,0,0.55);
+  }
+  .cmp-table{width:100%;border-collapse:collapse;text-align:left;font-size:14px}
+  .cmp-table th, .cmp-table td{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:middle}
+  .cmp-table th{
+    background:rgba(255,255,255,0.025);font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:1px;color:var(--dim);
+  }
+  .cmp-table th.col-hann{
+    color:var(--teal2);background:rgba(77,201,255,0.07);border-bottom-color:rgba(77,201,255,0.25);
+  }
+  .cmp-table td.col-hann{background:rgba(77,201,255,0.035);font-weight:600;color:#fff}
+  .cmp-table tr:last-child td{border-bottom:0}
+  .cmp-table .row-title{font-weight:650;color:var(--tx)}
+  .cmp-table .row-sub{font-size:11.5px;color:var(--dim);margin-top:2px}
+  .cmp-good{color:#5ee7b0;display:inline-flex;align-items:center;gap:6px;font-weight:650}
+  .cmp-warn{color:#fbbf24;display:inline-flex;align-items:center;gap:6px}
+  .cmp-bad{color:#f87171;display:inline-flex;align-items:center;gap:6px}
+  .cmp-badge{
+    display:inline-block;padding:2px 7px;border-radius:6px;font-size:10.5px;font-weight:700;
+    background:rgba(77,201,255,0.16);color:var(--ice);border:1px solid rgba(127,227,255,0.3);
+    margin-left:6px;vertical-align:middle;
+  }
+  
+  /* Cost Calculator Box */
+  .cost-box{
+    margin-top:36px;padding:28px 32px;background:linear-gradient(135deg,rgba(12,26,38,0.9),rgba(10,21,32,0.95));
+    border:1px solid rgba(77,201,255,0.25);border-radius:20px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.15),0 20px 60px rgba(0,0,0,0.5);
+    display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  }
+  .cost-left h3{font-size:20px;font-weight:800;letter-spacing:-0.3px;color:#fff}
+  .cost-left p{color:var(--mut);font-size:14px;margin-top:4px;max-width:52ch}
+  .cost-stats{display:flex;gap:20px;align-items:center}
+  .c-stat-card{
+    padding:14px 20px;border-radius:14px;background:rgba(5,11,20,0.6);
+    border:1px solid var(--line);text-align:center;min-width:140px;
+  }
+  .c-stat-card.good{border-color:rgba(94,231,176,0.35);background:rgba(16,185,129,0.08)}
+  .c-stat-card .c-num{font-size:24px;font-weight:800;display:block;font-variant-numeric:tabular-nums}
+  .c-stat-card .c-lbl{font-size:11px;font-weight:650;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
+  .c-stat-card.good .c-num{color:#5ee7b0}
+  .c-stat-card.bad .c-num{color:#f87171}
+
+  /* Homebrew Box & Trust Subtext */
+  .trust-strip{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap;font-size:13px;color:var(--dim)}
+  .brew-bar{
+    display:inline-flex;align-items:center;gap:10px;padding:6px 14px;
+    background:rgba(5,11,20,0.7);border:1px solid var(--line);border-radius:10px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12.5px;color:var(--teal2);
+  }
+  .brew-btn{
+    background:rgba(255,255,255,0.06);border:1px solid var(--line);color:var(--tx);cursor:pointer;padding:3px 8px;
+    border-radius:6px;transition:all .15s ease;font-family:inherit;font-size:11px;font-weight:600;
+  }
+  .brew-btn:hover{background:rgba(255,255,255,0.15);color:#fff}
+
+  @media(max-width:980px){
+    .compare-tabs{grid-template-columns:repeat(3,1fr)}
+  }
+  @media(max-width:640px){
+    .compare-tabs{grid-template-columns:repeat(2,1fr);gap:8px}
+    .cmp-tab{padding:10px 12px;gap:8px}
+    .cmp-tab:last-child:nth-child(odd){grid-column:span 2}
+  }
+
+  @media(max-width:768px){
+    .cmp-table th, .cmp-table td{padding:12px 14px;font-size:12.5px}
+    .cmp-table-container{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .cost-box{padding:20px;flex-direction:column;align-items:stretch;gap:18px}
+    .cost-stats{justify-content:space-between}
+    .c-stat-card{flex:1;padding:12px 14px;min-width:0}
+    .c-stat-card .c-num{font-size:20px}
+  }
+
+  .reveal{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
   .reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
@@ -657,6 +797,7 @@
     <a class="brand" href="#top"><img src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">HANNCREST</a>
     <div class="navlinks">
       <a href="#apps" class="nav-desk">Apps</a>
+      <a href="#compare" class="nav-desk">Compare</a>
       <a href="apps.html" class="nav-pill">All Apps</a>
       <a href="#values" class="nav-desk">Why us</a>
       <a class="btn btn-primary" href="vitals/">Get Vitals</a>
@@ -672,9 +813,17 @@
     <p class="sub">A small studio crafting fast, featherweight macOS tools — no accounts, no telemetry, no subscriptions. Everything runs and stays on your Mac.</p>
     <div class="cta">
       <a class="btn btn-primary" href="vitals/">Explore Vitals <span class="arrow">→</span></a>
+      <a class="btn btn-ghost" href="#compare">Compare to Alternatives</a>
       <a class="btn btn-ghost" href="#apps">See all apps</a>
     </div>
-    <div class="trust">Five apps · macOS 13+ · Apple Silicon &amp; Intel · Buy once, no subscriptions</div>
+    <div class="trust">Five apps · macOS 13+ · Apple Silicon &amp; Intel · Buy once, no subscriptions · 100% Offline</div>
+    <div class="trust-strip">
+      <div class="brew-bar">
+        <span>$ brew install --cask vitals</span>
+        <button class="brew-btn" id="copyBrewBtn" title="Copy command">Copy</button>
+      </div>
+      <span>✦ Free 14-day trial · No email required · Instant .dmg download</span>
+    </div>
   </div>
 
   <!-- D: INTERACTIVE HERO APP PLAYGROUND -->
@@ -1133,6 +1282,488 @@
     </div>
   </section>
 
+  <!-- COMPARE -->
+  <section id="compare">
+    <div class="wrap">
+      <p class="eyebrow reveal">Alternative to Subscriptions &amp; Heavy Tools</p>
+      <h2 class="title reveal d1">How HANNCREST compares to the alternatives.</h2>
+      <p style="text-align:center;color:var(--mut);margin:12px auto 0;max-width:58ch;font-size:15px;" class="reveal d2">
+        Built with native Swift &amp; Metal for macOS. Featherweight CPU impact, buy-once pricing, and zero data leaving your machine.
+      </p>
+
+      <!-- Category Filter Tabs -->
+      <div class="compare-tabs-wrap reveal d2">
+        <div class="compare-tabs" role="tablist" aria-label="App Comparisons">
+          <button class="cmp-tab active" data-cmp="vitals" role="tab" aria-selected="true">
+            <img class="cmp-tab-img" src="assets/apps/vitals-thumb.png" alt="Vitals icon" width="26" height="26" loading="eager" decoding="async">
+            <span class="cmp-tab-text">
+              <span class="cmp-tab-title">Vitals</span>
+              <span class="cmp-tab-sub">vs iStat Menus</span>
+            </span>
+          </button>
+          <button class="cmp-tab" data-cmp="breeze" role="tab" aria-selected="false">
+            <img class="cmp-tab-img" src="assets/apps/breeze-thumb.png" alt="Breeze icon" width="26" height="26" loading="eager" decoding="async">
+            <span class="cmp-tab-text">
+              <span class="cmp-tab-title">Breeze</span>
+              <span class="cmp-tab-sub">vs CleanMyMac</span>
+            </span>
+          </button>
+          <button class="cmp-tab" data-cmp="stealth" role="tab" aria-selected="false">
+            <img class="cmp-tab-img" src="assets/apps/stealthshare-thumb.png" alt="StealthShare icon" width="26" height="26" loading="eager" decoding="async">
+            <span class="cmp-tab-text">
+              <span class="cmp-tab-title">StealthShare</span>
+              <span class="cmp-tab-sub">vs Zoom Sharing</span>
+            </span>
+          </button>
+          <button class="cmp-tab" data-cmp="aura" role="tab" aria-selected="false">
+            <img class="cmp-tab-img" src="assets/apps/aura-thumb.png" alt="Aura icon" width="26" height="26" loading="eager" decoding="async">
+            <span class="cmp-tab-text">
+              <span class="cmp-tab-title">Aura</span>
+              <span class="cmp-tab-sub">vs Grammarly</span>
+            </span>
+          </button>
+          <button class="cmp-tab" data-cmp="whisper" role="tab" aria-selected="false">
+            <img class="cmp-tab-img" src="assets/apps/whispertype-thumb.png" alt="WhisperType icon" width="26" height="26" loading="eager" decoding="async">
+            <span class="cmp-tab-text">
+              <span class="cmp-tab-title">WhisperType</span>
+              <span class="cmp-tab-sub">vs Otter.ai</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1. Vitals vs iStat Menus & Activity Monitor -->
+      <div class="cmp-pane active" id="cmp-vitals">
+        <div class="cmp-table-container">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th style="width:34%">Capability / Architecture</th>
+                <th class="col-hann" style="width:30%">Vitals (HANNCREST) <span class="cmp-badge">Recommended</span></th>
+                <th style="width:20%">iStat Menus</th>
+                <th style="width:16%">Activity Monitor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="row-title">Local AI &amp; LLM Model Watch</div>
+                  <div class="row-sub">Finds Ollama, LM Studio, or llama.cpp on any port and shows real tokens/sec</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Auto-detects models on any port</span></td>
+                <td><span class="cmp-bad">✕ Not supported</span></td>
+                <td><span class="cmp-bad">✕ Shows generic process memory only</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Apple Silicon &amp; Unified Memory</div>
+                  <div class="row-sub">Hardware-level memory bandwidth and actual M-series GPU core loads</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Real unified memory bandwidth</span></td>
+                <td><span class="cmp-warn">⚠️ Emulated / Intel-era metrics</span></td>
+                <td><span class="cmp-warn">⚠️ Basic pressure graph only</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Menu Bar Energy Impact</div>
+                  <div class="row-sub">Resource cost while idling in your menu bar all day</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ &lt;0.2% CPU · 18 MB RAM</span></td>
+                <td><span class="cmp-warn">⚠️ 2.0% – 4.5% CPU · 90+ MB</span></td>
+                <td><span class="cmp-warn">⚠️ 1.5% CPU · 45 MB</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Live Desktop Widget</div>
+                  <div class="row-sub">Floating panel updating every second — not on a sluggish OS widget timer</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ 1-second live desktop HUD</span></td>
+                <td><span class="cmp-bad">✕ Dropdown menu only</span></td>
+                <td><span class="cmp-warn">⚠️ Dock icon only</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Crash Post-Mortems &amp; SSD Wear</div>
+                  <div class="row-sub">Explains kernel panics in plain English and tracks SSD write endurance</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Plain-English crash reports + SSD wear</span></td>
+                <td><span class="cmp-warn">⚠️ Basic drive temp only</span></td>
+                <td><span class="cmp-bad">✕ Dumps unformatted log files</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">M-Series Core Topology</div>
+                  <div class="row-sub">Reads OS performance tiers directly — labels Super, Performance &amp; Efficiency cores</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ True multi-tier chip topology</span></td>
+                <td><span class="cmp-warn">⚠️ Assumes standard 2-tier layout</span></td>
+                <td><span class="cmp-warn">⚠️ Unlabeled activity bars</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Battery Vampire &amp; Sleep Drain</div>
+                  <div class="row-sub">Finds runaway apps eating battery, and tells you what kept your Mac awake overnight</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Live wattage + wake-lock sleep report</span></td>
+                <td><span class="cmp-bad">✕ Basic battery % only</span></td>
+                <td><span class="cmp-warn">⚠️ 12-hour energy number only</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Pricing &amp; License Model</div>
+                  <div class="row-sub">Long-term cost of ownership</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Free forever · $9.99 Pro once</span></td>
+                <td><span class="cmp-warn">⚠️ $14.99 /y + paid upgrades</span></td>
+                <td><span class="cmp-good">✓ Free with macOS</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. Breeze vs CleanMyMac X -->
+      <div class="cmp-pane" id="cmp-breeze">
+        <div class="cmp-table-container">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th style="width:34%">Cleaning &amp; Safety Factor</th>
+                <th class="col-hann" style="width:36%">Breeze (HANNCREST) <span class="cmp-badge">Recommended</span></th>
+                <th style="width:30%">CleanMyMac X</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="row-title">Pricing Model</div>
+                  <div class="row-sub">Subscription vs Buy-once ownership</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ $14.99 One-Time (Own forever)</span></td>
+                <td><span class="cmp-bad">✕ $39.95 / year subscription</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Privacy &amp; Data Collection</div>
+                  <div class="row-sub">Zero analytics, accounts, or telemetry</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ 0 KB sent · 100% On-device</span></td>
+                <td><span class="cmp-bad">✕ Telemetry &amp; mandatory account sync</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Deletion Safety Philosophy</div>
+                  <div class="row-sub">Protecting vital development and user files</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Review-first · Moves to Trash, never shreds</span></td>
+                <td><span class="cmp-warn">⚠️ Automated sweeps can delete needed caches</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Developer Clutter Management</div>
+                  <div class="row-sub">Xcode DerivedData, CocoaPods, Docker, Homebrew logs</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Cleans build caches, leaves source trees alone</span></td>
+                <td><span class="cmp-warn">⚠️ Generic cache cleaner only</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Background Daemon Processes</div>
+                  <div class="row-sub">System resource usage when not active</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Zero Daemons · Runs only when opened</span></td>
+                <td><span class="cmp-bad">✕ Multiple persistent background daemons</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Deep App Uninstaller &amp; Leftovers</div>
+                  <div class="row-sub">Purges hidden ~/.name folders, launch agents, containers, &amp; receipts</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Sweeps all orphaned files &amp; hidden folders</span></td>
+                <td><span class="cmp-warn">⚠️ Misses hidden home directory folders</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Duplicate &amp; Similar Photo Finder</div>
+                  <div class="row-sub">Finds similar shots, burst sequences &amp; duplicate file hashes safely</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Built-in duplicate &amp; burst photo cleaner</span></td>
+                <td><span class="cmp-warn">⚠️ Requires separate utility bundle</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. StealthShare vs Zoom / Native Sharing -->
+      <div class="cmp-pane" id="cmp-stealth">
+        <div class="cmp-table-container">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th style="width:34%">Screen Privacy Feature</th>
+                <th class="col-hann" style="width:36%">StealthShare <span class="cmp-badge">Recommended</span></th>
+                <th style="width:30%">Zoom / Native Window Share</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="row-title">Confidential Window Blur</div>
+                  <div class="row-sub">Masks Slack, Messages, Mail on screen share feed</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Audience sees blur, you see text crisp</span></td>
+                <td><span class="cmp-bad">✕ Shares entire screen or 1 rigid window</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Presenter Visibility</div>
+                  <div class="row-sub">Can you still see your private notes during calls?</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Full access to your notes while presenting</span></td>
+                <td><span class="cmp-bad">✕ Must hide or close private windows</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Automatic Meeting Arming</div>
+                  <div class="row-sub">Activates privacy shield the moment call connects</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Auto-arms for Zoom, Meet, Teams &amp; Slack</span></td>
+                <td><span class="cmp-bad">✕ Must manually adjust every meeting</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Notification &amp; Wallpaper Shield</div>
+                  <div class="row-sub">Prevents embarrassing notification popups &amp; desktop clutter</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Holds banners &amp; swaps in clean backdrop</span></td>
+                <td><span class="cmp-warn">⚠️ Notifications can leak across shared screen</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Zero Video Capture</div>
+                  <div class="row-sub">Never records or captures frame buffers</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Pure On-Screen Overlay (0 KB recorded)</span></td>
+                <td><span class="cmp-warn">⚠️ Records entire display output buffer</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Accidental-Paste Guard</div>
+                  <div class="row-sub">Blocks accidental ⌘V of API keys, JWTs, credit cards &amp; credentials</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Warns you locally; audience sees nothing</span></td>
+                <td><span class="cmp-bad">✕ Pastes credentials live to audience</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Calendar Auto-Arm</div>
+                  <div class="row-sub">Pre-arms privacy shield ~60s before scheduled Zoom, Teams, or Meet events</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Pre-arms from your calendar automatically</span></td>
+                <td><span class="cmp-bad">✕ You have to remember every call</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4. Aura vs Grammarly & ChatGPT -->
+      <div class="cmp-pane" id="cmp-aura">
+        <div class="cmp-table-container">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th style="width:34%">Writing Assistant Capability</th>
+                <th class="col-hann" style="width:30%">Aura (HANNCREST) <span class="cmp-badge">Local-First</span></th>
+                <th style="width:20%">Grammarly</th>
+                <th style="width:16%">ChatGPT Plus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="row-title">Privacy &amp; Keystroke Security</div>
+                  <div class="row-sub">Where your confidential drafts and typing travel</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ 100% On-Device · 0 KB sent to cloud</span></td>
+                <td><span class="cmp-bad">✕ Full document sent to remote servers</span></td>
+                <td><span class="cmp-bad">✕ Prompts sent and retained on cloud servers</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Offline &amp; In-Flight Availability</div>
+                  <div class="row-sub">Reword, clarify &amp; polish without internet connection</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Works 100% offline anywhere</span></td>
+                <td><span class="cmp-bad">✕ Disabled without active internet</span></td>
+                <td><span class="cmp-bad">✕ Fails completely without Wi-Fi</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Inline Workflow &amp; Shortcut Speed</div>
+                  <div class="row-sub">Polishing text directly in active apps (Slack, Notes, Mail)</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Native floating HUD (<kbd>⌥</kbd><kbd>Space</kbd>)</span></td>
+                <td><span class="cmp-warn">⚠️ Injected browser/system overlays</span></td>
+                <td><span class="cmp-bad">✕ Tedious copy-paste window hopping</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Subscription vs Lifetime Cost (3 Years)</div>
+                  <div class="row-sub">Total price of ownership over 3 years</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ $14.99 One-Time (Own forever)</span></td>
+                <td><span class="cmp-bad">✕ $144 / year ($432 over 3 yrs)</span></td>
+                <td><span class="cmp-bad">✕ $240 / year ($720 over 3 yrs)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">System Memory &amp; Resource Footprint</div>
+                  <div class="row-sub">Impact on Mac battery and RAM while running</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Native Swift · Frees memory when idle</span></td>
+                <td><span class="cmp-warn">⚠️ Heavy Electron/Chromium daemon</span></td>
+                <td><span class="cmp-warn">⚠️ Heavy browser tab (300+ MB RAM)</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">One-Click Tone Presets</div>
+                  <div class="row-sub">Crisp, Warm/Friendly, Concise, Executive rephrasing</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Instant local tone switcher</span></td>
+                <td><span class="cmp-warn">⚠️ Locked behind high-tier plans</span></td>
+                <td><span class="cmp-warn">⚠️ Requires typing manual prompts</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">On-Device Voice Mirroring</div>
+                  <div class="row-sub">Measures personal cadence, register, &amp; punctuation to match your authentic voice</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Matches your writing style 100% locally</span></td>
+                <td><span class="cmp-bad">✕ Generic corporate suggestions</span></td>
+                <td><span class="cmp-warn">⚠️ Needs lengthy custom instructions</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Word-Level Diff Review</div>
+                  <div class="row-sub">Color-coded red/green diff review HUD before inserting text into documents</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Color-coded diff card with one-tap accept</span></td>
+                <td><span class="cmp-warn">⚠️ Injected popovers only</span></td>
+                <td><span class="cmp-bad">✕ Replaces whole blocks blind</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5. WhisperType vs Otter & Superwhisper -->
+      <div class="cmp-pane" id="cmp-whisper">
+        <div class="cmp-table-container">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th style="width:34%">Voice Dictation Capability</th>
+                <th class="col-hann" style="width:30%">WhisperType <span class="cmp-badge">Local Whisper</span></th>
+                <th style="width:20%">Otter.ai / Cloud Dictation</th>
+                <th style="width:16%">Superwhisper / Mac Dictation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="row-title">Voice Audio Privacy</div>
+                  <div class="row-sub">Microphone audio destination and processing</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ 100% On-Device Apple Neural Engine</span></td>
+                <td><span class="cmp-bad">✕ Voice audio uploaded to third-party cloud</span></td>
+                <td><span class="cmp-warn">⚠️ Legacy dictation sends audio to Apple</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Monthly Minute &amp; Token Limits</div>
+                  <div class="row-sub">Are you metered or limited on how much you talk?</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Unlimited Forever (No minute caps)</span></td>
+                <td><span class="cmp-bad">✕ 300 min/mo limit, then steep paywall</span></td>
+                <td><span class="cmp-warn">⚠️ Tiered limits or subscription tiers</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Direct Cursor Text Injection</div>
+                  <div class="row-sub">Transcribes speech directly into whatever field has focus</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Instant streaming into active cursor</span></td>
+                <td><span class="cmp-bad">✕ Must copy/paste out of Otter web app</span></td>
+                <td><span class="cmp-good">✓ Direct cursor insertion</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Offline &amp; In-Flight Dictation</div>
+                  <div class="row-sub">Dictate memos and replies without Wi-Fi or cellular</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Full speech recognition without internet</span></td>
+                <td><span class="cmp-bad">✕ Completely non-functional offline</span></td>
+                <td><span class="cmp-warn">⚠️ Depends on local model download</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Neural Engine Hardware Acceleration</div>
+                  <div class="row-sub">Runs Whisper on the Apple Neural Engine so your Mac stays cool and battery lasts</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Whisper on Neural Engine (0% CPU load)</span></td>
+                <td><span class="cmp-bad">✕ Streams audio to cloud servers</span></td>
+                <td><span class="cmp-warn">⚠️ Spins up CPU and drains battery</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Preserves Your Clipboard</div>
+                  <div class="row-sub">Pastes the transcription into your cursor, then quietly restores what you had copied</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ Restores previous clipboard automatically</span></td>
+                <td><span class="cmp-bad">✕ Manual copy-paste required</span></td>
+                <td><span class="cmp-warn">⚠️ Overwrites existing clipboard</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="row-title">Pricing &amp; Subscription Cost</div>
+                  <div class="row-sub">Lifetime vs recurring monthly fee</div>
+                </td>
+                <td class="col-hann"><span class="cmp-good">✓ $19.99 One-Time (Own forever)</span></td>
+                <td><span class="cmp-bad">✕ $10 – $20 / month ($120 – $240/yr)</span></td>
+                <td><span class="cmp-warn">⚠️ $8/month or $196 lifetime</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3-Year Subscription Cost Calculator Box -->
+      <div class="cost-box reveal d3" id="costBox">
+        <div class="cost-left">
+          <span style="font-size:11px;font-weight:700;color:var(--teal2);letter-spacing:1.5px;text-transform:uppercase;">The Anti-Subscription Math</span>
+          <h3 id="costTitle" style="margin-top:6px;">3 Years of Competitor Subscriptions vs Vitals</h3>
+          <p id="costDesc">Competitor monitors charge $14.99/y or paid major version upgrades. Vitals is free to monitor forever, or $9.99 once for lifetime Pro with local-LLM detection and widget HUD.</p>
+        </div>
+        <div class="cost-stats">
+          <div class="c-stat-card bad">
+            <span class="c-num" id="costCompNum">$45+</span>
+            <span class="c-lbl" id="costCompLbl">iStat Menus ($14.99/y)</span>
+          </div>
+          <div class="c-stat-card good">
+            <span class="c-num" id="costHannNum">$9.99</span>
+            <span class="c-lbl" id="costHannLbl">Vitals Pro (Once)</span>
+          </div>
+          <div class="c-stat-card" style="border-color:rgba(127,227,255,0.3);background:rgba(77,201,255,0.06);">
+            <span class="c-num" id="costSaveNum" style="color:var(--ice);">+$35</span>
+            <span class="c-lbl">You Keep In Pocket</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- VALUES -->
   <section id="values" style="padding-top:10px">
     <div class="wrap">
@@ -1147,17 +1778,6 @@
     </div>
   </section>
 
-  <!-- FINAL -->
-  <section class="final">
-    <div class="wrap">
-      <h2 class="reveal">Start with <span class="grad-text">Vitals</span>.</h2>
-      <p class="reveal d1">Know your Mac inside out — native, lightweight, and free to try. No card, no account, no subscription.</p>
-      <div class="cta reveal d2">
-        <a class="btn btn-primary" href="vitals/">Explore Vitals <span class="arrow">→</span></a>
-        <a class="btn btn-ghost" href="mailto:contact@hanncrest.com">Get in touch</a>
-      </div>
-    </div>
-  </section>
   </main>
 
   <footer><div class="wrap"><div class="foot">
@@ -1449,15 +2069,7 @@
       card.addEventListener('mouseleave', onLeave);
     });
 
-    // Ensure reliable 1-click navigation on app cards even during 3D tilt animation
-    document.querySelectorAll('a.app, a.card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const href = card.getAttribute('href');
-        if(href && href !== '#' && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) {
-          window.location.href = href;
-        }
-      });
-    });
+
   })();
 
   // ---------- D: Hero Interactive Playground Logic ----------
@@ -1652,6 +2264,157 @@
         setTimeout(() => k.classList.remove('active'), 150);
       });
     });
+  })();
+
+  // ---------- F: Comparison Tabs & Brew Command Script ----------
+  (function(){
+    const cmpTabs = document.querySelectorAll('.cmp-tab');
+    const cmpPanes = document.querySelectorAll('.cmp-pane');
+    const costTitle = document.getElementById('costTitle');
+    const costDesc = document.getElementById('costDesc');
+    const costCompNum = document.getElementById('costCompNum');
+    const costCompLbl = document.getElementById('costCompLbl');
+    const costHannNum = document.getElementById('costHannNum');
+    const costHannLbl = document.getElementById('costHannLbl');
+    const costSaveNum = document.getElementById('costSaveNum');
+
+    const costData = {
+      vitals: {
+        title: "3 Years of Competitor Subscriptions vs Vitals",
+        desc: "Competitor monitors charge $14.99/y or paid major version upgrades. Vitals is free to monitor forever, or $9.99 once for lifetime Pro with local-LLM detection and widget HUD.",
+        compNum: "$45+",
+        compLbl: "iStat Menus ($14.99/y)",
+        hannNum: "$9.99",
+        hannLbl: "Vitals Pro (Once)",
+        saveNum: "+$35"
+      },
+      breeze: {
+        title: "3 Years of CleanMyMac Subscriptions vs Breeze",
+        desc: "CleanMyMac rents disk cleaning for $39.95 every single year ($119.85 over 3 years). Breeze cleans your Mac, Xcode DerivedData, and system caches forever for one simple payment.",
+        compNum: "$119.85",
+        compLbl: "CleanMyMac ($39.95/yr)",
+        hannNum: "$14.99",
+        hannLbl: "Breeze Pro (Once)",
+        saveNum: "+$104"
+      },
+      stealth: {
+        title: "3 Years of Screen Privacy Rentals vs StealthShare",
+        desc: "Corporate presentation and window-masking tools charge recurring monthly fees. StealthShare protects confidential Slack and email windows automatically for a single purchase.",
+        compNum: "$108+",
+        compLbl: "Privacy SaaS ($3/mo)",
+        hannNum: "$14.99",
+        hannLbl: "StealthShare (Once)",
+        saveNum: "+$93"
+      },
+      aura: {
+        title: "3 Years of Grammarly / ChatGPT Subscriptions vs Aura",
+        desc: "Cloud AI tools charge $12 to $20 every single month ($144 to $240/yr). Aura runs 100% locally on your Mac's Apple Neural Engine with zero cloud subscription fees.",
+        compNum: "$432–$720",
+        compLbl: "Grammarly ($12–$20/mo)",
+        hannNum: "$14.99",
+        hannLbl: "Aura (Once)",
+        saveNum: "+$417+"
+      },
+      whisper: {
+        title: "3 Years of Cloud Dictation Subscriptions vs WhisperType",
+        desc: "Otter.ai and cloud dictation services charge monthly minute fees and upload your voice. WhisperType transcribes unlimited voice audio on-device forever.",
+        compNum: "$360–$720",
+        compLbl: "Otter.ai ($10–$20/mo)",
+        hannNum: "$19.99",
+        hannLbl: "WhisperType (Once)",
+        saveNum: "+$340+"
+      }
+    };
+
+    cmpTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        cmpTabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        cmpPanes.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        const key = tab.dataset.cmp;
+        const pane = document.getElementById('cmp-' + key);
+        if(pane) pane.classList.add('active');
+
+        // Dynamically update 3-Year Anti-Subscription Math card
+        const data = costData[key];
+        if(data && costTitle) {
+          costTitle.textContent = data.title;
+          costDesc.textContent = data.desc;
+          costCompNum.textContent = data.compNum;
+          costCompLbl.textContent = data.compLbl;
+          costHannNum.textContent = data.hannNum;
+          costHannLbl.textContent = data.hannLbl;
+          costSaveNum.textContent = data.saveNum;
+        }
+      });
+    });
+
+    const copyBtn = document.getElementById('copyBrewBtn');
+    if(copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        if(navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText('brew install --cask vitals');
+        }
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+      });
+    }
+
+    // Global Keyboard Hotkey Handler
+    function showHotkeyToast(icon, title, desc, targetUrl){
+      var existing = document.getElementById('hotkeyToast');
+      if(existing) existing.remove();
+
+      var toast = document.createElement('div');
+      toast.id = 'hotkeyToast';
+      toast.style.cssText = 'position:fixed;top:28px;left:50%;transform:translateX(-50%);z-index:9999;background:rgba(15,23,42,0.92);backdrop-filter:blur(20px);border:1px solid rgba(127,227,255,0.4);border-radius:14px;padding:12px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,0.6),0 0 30px rgba(77,201,255,0.2);animation:toastIn 0.25s cubic-bezier(0.16,1,0.3,1);color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;';
+      toast.innerHTML = '<span style="font-size:22px;">' + icon + '</span>' +
+        '<div><div style="font-size:13.5px;font-weight:700;letter-spacing:-0.01em;">' + title + '</div>' +
+        '<div style="font-size:12px;color:rgba(255,255,255,0.7);">' + desc + '</div></div>' +
+        '<span style="font-size:12px;font-weight:600;color:#38bdf8;margin-left:8px;">Open →</span>';
+
+      toast.addEventListener('click', function(){
+        if(targetUrl) window.location.href = targetUrl;
+      });
+      document.body.appendChild(toast);
+
+      setTimeout(function(){
+        if(toast.parentNode) {
+          toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(-50%) translateY(-10px)';
+          setTimeout(function(){ if(toast.parentNode) toast.remove(); }, 300);
+        }
+      }, 3200);
+    }
+
+    window.addEventListener('keydown', function(e){
+      var isAlt = e.altKey || (e.getModifierState && e.getModifierState('Alt'));
+      var isCmd = e.metaKey || e.ctrlKey;
+      var isShift = e.shiftKey;
+      var isSpace = (e.code === 'Space' || e.key === ' ' || e.key === 'Spacebar' || e.keyCode === 32 || e.key === 'Dead');
+      var isV = (e.key === 'v' || e.key === 'V' || e.code === 'KeyV');
+      var isP = (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
+
+      if(isAlt && isSpace){
+        e.preventDefault();
+        e.stopPropagation();
+        showHotkeyToast('🎙️', '⌥Space detected · WhisperType', 'On-device voice dictation — click to open', 'whispertype/');
+      } else if(isAlt && isV){
+        e.preventDefault();
+        e.stopPropagation();
+        showHotkeyToast('⚡', '⌥V detected · Vitals', 'Menu bar system monitor — click to open', 'vitals/');
+      } else if((isAlt && isCmd && isP) || (isShift && isCmd && isP && !isAlt)){
+        e.preventDefault();
+        e.stopPropagation();
+        if(isShift){
+          showHotkeyToast('✨', '⇧⌘P detected · Aura', 'Offline AI text assistant — click to open', 'aura/');
+        } else {
+          showHotkeyToast('🛡️', '⌥⌘P detected · StealthShare', 'Screen privacy shield — click to open', 'stealthshare/');
+        }
+      }
+    }, { capture: true });
   })();
 </script>
 </body>
