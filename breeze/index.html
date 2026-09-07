@@ -96,6 +96,21 @@
   .price.pro{padding-top:52px}
   .price .tag{position:absolute;top:16px;left:32px}
 
+  /* SAFETY & REVIEW WORKFLOW */
+  .review-box{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px;margin-top:36px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 24px 60px rgba(0,0,0,.45)}
+  @media(max-width:860px){.review-box{grid-template-columns:1fr;padding:24px}}
+  .review-stat-card{background:rgba(10,20,30,.7);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px}
+  .review-metric-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .review-metric-row:last-child{border-bottom:none}
+
+  /* COMPARISON TABLE */
+  .bz-comp-wrap{margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 80px rgba(0,0,0,.55)}
+  .bz-comp-table{width:100%;border-collapse:collapse;text-align:left;font-size:13.5px;min-width:620px}
+  .bz-comp-table th{background:rgba(5,11,20,.85);color:#f8fafc;font-weight:700;padding:14px 20px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+  .bz-comp-table td{padding:13px 20px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--tx);vertical-align:middle}
+  .bz-comp-table tr:last-child td{border-bottom:none}
+  .bz-comp-table tr:hover td{background:rgba(255,255,255,.02)}
+
   /* PRIVACY / SAFETY */
   .privacy{background:linear-gradient(135deg,rgba(77,201,255,.10),rgba(127,227,255,.06));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
   .privacy h2{font-size:clamp(24px,3.2vw,34px);font-weight:800;letter-spacing:-.6px}
@@ -276,7 +291,7 @@
         {
           "@type": "Offer",
           "name": "Breeze Pro (one-time)",
-          "price": "19.99",
+          "price": "24.99",
           "priceCurrency": "USD"
         }
       ]
@@ -324,7 +339,7 @@
           "name": "Does Breeze require a subscription?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Breeze Pro is available as a single one-time purchase of $19.99 with no recurring subscription fees."
+            "text": "No. Breeze Pro is available as a single one-time purchase of $24.99 with no recurring subscription fees."
           }
         }
       ]
@@ -376,13 +391,14 @@
   <section class="hero">
     <div class="wrap">
       <span class="pill">✦ Native · Apple Silicon · Local-first</span>
+      <p style="font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1);margin-top:16px;margin-bottom:6px">Clean your Mac without blindly deleting things.</p>
       <h1>Clean up &amp; <span class="grad-text">speed up</span> your Mac.</h1>
       <p class="sub">A native macOS cleaner that shows you exactly where your space went and gets it back — a real app uninstaller with every leftover, an interactive storage map, duplicate finder, and a live health score. <strong>One click, review-first, nothing deleted without you.</strong></p>
       <div class="cta">
         <a class="btn btn-primary" href="#pricing">Get Breeze</a>
         <a class="btn btn-ghost" href="#features">See what it does</a>
       </div>
-      <p class="note">macOS 14+ · free core, Breeze Pro $19.99 one-time · nothing leaves your Mac</p>
+      <p class="note">macOS 14+ · free core, Breeze Pro $24.99 one-time · nothing leaves your Mac</p>
 
       <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
         <div class="appwin">
@@ -480,7 +496,7 @@
   <div class="wrap">
     <div class="trust">
       <span><i class="dot"></i>100% native SwiftUI</span>
-      <span><i class="dot"></i>Moves to Trash, never shreds</span>
+      <span><i class="dot"></i>Review-first, moves to Trash</span>
       <span><i class="dot"></i>No account, no telemetry</span>
       <span><i class="dot"></i>Made for Apple Silicon</span>
     </div>
@@ -493,6 +509,56 @@
       <h2 class="title">A health score, and one click to act on it.</h2>
       <p class="lead">Open Breeze and see your Mac's health, every volume's free space, live memory and disk S.M.A.R.T. — with a single Clean that sweeps caches, logs and leftovers to the Trash.</p>
       <div class="shot-hero" style="margin-top:34px"><img src="../assets/shots/breeze/01-smart-scan.png" alt="Breeze Smart Scan — health score, storage volumes, memory and disk health"></div>
+    </div>
+  </section>
+
+  <!-- SAFETY & REVIEW WORKFLOW -->
+  <section id="safety" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow" style="color:#34d399">Safety &amp; Control</p>
+      <h2 class="title">Clean your Mac without blindly deleting things.</h2>
+      <p class="lead">Most cleaning utilities ask you to press one big scary button and trust their black box with your filesystem. Breeze was designed for Mac users who want complete visibility before a single byte moves.</p>
+
+      <div class="review-box">
+        <div>
+          <span class="pill" style="margin-bottom:14px;display:inline-block">The Review-First Guarantee</span>
+          <h3 style="font-size:22px;font-weight:800;letter-spacing:-0.4px">Files go to the Trash first. Nothing is silently vaporized.</h3>
+          <p style="color:var(--mut);font-size:14.5px;margin-top:10px;line-height:1.55">Breeze does not delete files behind your back. Items are moved to your standard macOS Trash so you can easily review, inspect, or put back any file. Only The Shredder permanently overwrites data, and it requires explicit confirmation every time.</p>
+          <ul class="checks" style="margin-top:16px">
+            <li><span class="ck" style="color:var(--good)">✓</span><span><strong>Every item is inspected:</strong> See full file paths, sizes, and which app created them.</span></li>
+            <li><span class="ck" style="color:var(--good)">✓</span><span><strong>Ambiguous files start unticked:</strong> We never guess on edge cases. You retain total control.</span></li>
+            <li><span class="ck" style="color:var(--good)">✓</span><span><strong>No SIP violations:</strong> Strictly respects macOS System Integrity Protection boundaries.</span></li>
+          </ul>
+        </div>
+        <div class="review-stat-card">
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--ice)">Sample Scan Snapshot</div>
+          <div class="review-metric-row">
+            <span style="color:var(--mut)">Starting available space</span>
+            <span style="font-weight:700;color:#fff">87.0 GB free</span>
+          </div>
+          <div class="review-metric-row">
+            <span style="color:var(--mut)">Xcode DerivedData &amp; simulators</span>
+            <span style="font-weight:700;color:#7fdcf3">+18.4 GB</span>
+          </div>
+          <div class="review-metric-row">
+            <span style="color:var(--mut)">Docker build cache &amp; orphan layers</span>
+            <span style="font-weight:700;color:#7fdcf3">+9.2 GB</span>
+          </div>
+          <div class="review-metric-row">
+            <span style="color:var(--mut)">Orphaned uninstalled app leftovers</span>
+            <span style="font-weight:700;color:#7fdcf3">+4.1 GB</span>
+          </div>
+          <div class="review-metric-row">
+            <span style="color:var(--mut)">Expired system &amp; browser caches</span>
+            <span style="font-weight:700;color:#7fdcf3">+2.5 GB</span>
+          </div>
+          <div class="review-metric-row" style="background:rgba(52,211,153,0.1);padding:10px 12px;border-radius:8px;border:1px solid rgba(52,211,153,0.3)">
+            <span style="font-weight:700;color:#34d399">Total Safe Recoverable Space</span>
+            <span style="font-weight:800;color:#34d399;font-size:16px">+34.2 GB</span>
+          </div>
+          <div style="color:#6b7078;font-size:11px;margin-top:2px">Sample data — actual space found varies by Mac.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -514,7 +580,7 @@
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><h3>Privacy &amp; protection</h3><p>Clear browsing and app traces, and let Breeze Guard watch for known adware and suspicious startup items in the background.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>The Shredder</h3><p>Need something truly gone? Overwrites sensitive files before deleting them, so even recovery tools can't bring them back. Requires explicit confirmation every time.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3>Purgeable space</h3><p>Cleans out old local Time Machine snapshots and bloated system caches that macOS refuses to release, giving you back gigabytes of hostage space.</p></div>
-        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Permission auditor</h3><p>See exactly which apps have access to your camera, mic, disk, and screen — with one-click buttons jumping straight to the right System Settings pane.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Permission auditor</h3><p>See exactly which apps have access to your camera and microphone — with one-click buttons jumping straight to the right System Settings pane.</p></div>
       </div>
     </div>
   </section>
@@ -628,7 +694,7 @@
     <div class="wrap">
       <p class="eyebrow">Simple, honest pricing</p>
       <h2 class="title">Free to clean. <span class="grad-text">Pro</span> to go deep.</h2>
-      <p class="lead">The essentials — Smart Scan, the Storage map, Applications and Trash bins — are free. Breeze Pro is a $19.99 one-time purchase that unlocks the deeper modules, including Memory, Battery and Disk health. No subscription.</p>
+      <p class="lead">The essentials — Smart Scan, the Storage map, Applications, Memory and Trash bins — are free. Breeze Pro is a $24.99 one-time purchase that unlocks the deeper modules, including System junk, Duplicates, Battery and Disk health. No subscription.</p>
       <div class="prices">
         <div class="price">
           <h3>Free</h3>
@@ -638,25 +704,71 @@
             <li><span class="ck">✓</span>Interactive Storage map</li>
             <li><span class="ck">✓</span>Applications &amp; real uninstaller</li>
             <li><span class="ck">✓</span>Trash bins on every volume</li>
-            <li><span class="ck">✓</span>System junk &amp; Reclaim space</li>
+            <li><span class="ck">✓</span>Memory pressure &amp; one-click quit</li>
           </ul>
           <a class="btn btn-ghost" href="#download">Download free</a>
         </div>
         <div class="price pro">
           <span class="pill tag">One-time unlock</span>
           <h3 class="grad-text">Breeze Pro</h3>
-          <div class="amt">$19.99<small> once</small></div>
+          <div class="amt">$24.99<small> once</small></div>
           <ul>
             <li><span class="ck">✓</span>Everything in Free, plus…</li>
+            <li><span class="ck">✓</span>System junk, Downloads sweep &amp; Reclaim space</li>
             <li><span class="ck">✓</span>Leftovers &amp; hidden-data cleanup</li>
-            <li><span class="ck">✓</span>Duplicates, Similar photos &amp; Large/old files</li>
+            <li><span class="ck">✓</span>Duplicates &amp; Similar photos</li>
             <li><span class="ck">✓</span>Developer junk, Purgeable space &amp; System data</li>
             <li><span class="ck">✓</span>Privacy traces, Protection &amp; Auto-clean</li>
-            <li><span class="ck">✓</span>Startup, Maintenance, Memory, Battery, Disk health &amp; History</li>
+            <li><span class="ck">✓</span>Startup, Battery, Disk health &amp; History</li>
             <li><span class="ck">✓</span>All future Pro features included</li>
           </ul>
           <a class="btn btn-primary" href="#download">Get Breeze Pro</a>
         </div>
+      </div>
+
+      <!-- BREEZE VS LEGACY CLEANERS -->
+      <div class="bz-comp-wrap">
+        <table class="bz-comp-table">
+          <thead>
+            <tr>
+              <th>Feature / Principle</th>
+              <th style="width:36%">Breeze ($24.99 One-Time)</th>
+              <th style="width:36%">Legacy Cleaners (e.g. CleanMyMac)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pre-Deletion Control</strong></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Every file listed with path &amp; size before removal</span></td>
+              <td>Automated "Smart Scan" black-box one-click wipe</td>
+            </tr>
+            <tr>
+              <td><strong>Safety Net Destination</strong></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Moves to macOS Trash (easy to restore anytime)</span></td>
+              <td>Permanent immediate deletion</td>
+            </tr>
+            <tr>
+              <td><strong>Developer Tool Cleaning</strong></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Built-in Xcode, Docker &amp; simulator tools</span></td>
+              <td>Limited or generic cache sweeps only</td>
+            </tr>
+            <tr>
+              <td><strong>Background Footprint</strong></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Lightweight native Swift, no persistent daemon by default</span></td>
+              <td>Runs a persistent background helper</td>
+            </tr>
+            <tr>
+              <td><strong>Background Upsell Popups</strong></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Zero background ads or renewal reminders</span></td>
+              <td>Frequent marketing notifications &amp; upgrade prompts</td>
+            </tr>
+            <tr>
+              <td><strong>Pricing Model</strong></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ One-time purchase, lifetime license</span></td>
+              <td>Recurring yearly subscription ($39.95/yr)</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>

@@ -14,7 +14,7 @@ metadata plus the most recent feature commits.
 ## Vitals — menu-bar system monitor
 
 `com.vitals.app` (direct) / `com.vitals.monitor` (App Store) · macOS 13+ ·
-Free + one-time Pro IAP ($9.99, 14-day trial) · full docs:
+Free + one-time Pro IAP ($14.99, 14-day trial) · full docs:
 [`Vitals/README.md`](../Vitals/README.md), [`Vitals/CONTEXT.md`](../Vitals/CONTEXT.md)
 
 **Free**
@@ -72,7 +72,7 @@ Free + one-time Pro IAP ($9.99, 14-day trial) · full docs:
 
 ## Breeze — Mac clean-up & tune-up
 
-`com.breeze.app` · macOS 14+ · Free core + one-time Pro IAP ($19.99) · shares
+`com.breeze.app` · macOS 14+ · Free core + one-time Pro IAP ($24.99) · shares
 its system-metrics engine with Vitals and cross-promotes it in-app · full docs:
 [`Breeze/README.md`](../Breeze/README.md)
 
@@ -144,7 +144,7 @@ macOS 13+ · 14-day free trial, one-time $14.99 · full docs:
 
 ## Aura — offline local AI text assistant
 
-macOS 14+ · one-time $24.99 · full docs: [`Aura/README.md`](../Aura/README.md)
+macOS 14+ · one-time $19.99 · full docs: [`Aura/README.md`](../Aura/README.md)
 
 - Select text anywhere, press ⇧⌘P — rewritten text streams back in place via a
   floating HUD; longer selections get a word-level diff review card

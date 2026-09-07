@@ -113,6 +113,34 @@
   .foot .links{display:flex;gap:22px}
   .ph{color:#c98a2a;font-size:12px;border:1px dashed rgba(201,138,42,.5);padding:1px 7px;border-radius:6px;background:rgba(201,138,42,.08)}
 
+  /* SPEECH-TO-TEXT EXAMPLES & BENCHMARKS & VALUE TABLE */
+  .speech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+  @media(max-width:900px){.speech-grid{grid-template-columns:1fr}}
+  .speech-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px}
+  .speech-tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:rgba(77,201,255,.12);color:var(--teal2);border:1px solid rgba(77,201,255,.25);width:fit-content}
+  .speech-box{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.5}
+  .speech-box.spoken{border-left:3px solid #f0a23b;color:var(--mut)}
+  .speech-box.typed{border-left:3px solid var(--good);color:#f1f5f9;background:linear-gradient(180deg,rgba(52,211,153,.06),rgba(0,0,0,.3))}
+  .speech-lbl{font-size:10px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;display:block}
+  .speech-box.spoken .speech-lbl{color:#f0a23b}
+  .speech-box.typed .speech-lbl{color:var(--good)}
+
+  .bench-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+  @media(max-width:850px){.bench-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.bench-grid{grid-template-columns:1fr}}
+  .bench-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:22px 18px;text-align:center}
+  .bench-num{font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--teal2);line-height:1.1}
+  .bench-title{font-size:14px;font-weight:700;color:#fff;margin-top:8px}
+  .bench-desc{font-size:12.5px;color:var(--mut);margin-top:4px;line-height:1.4}
+
+  .sub-comp-wrap{max-width:860px;margin:40px auto 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .sub-comp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+  .sub-comp-table th,.sub-comp-table td{padding:14px 18px;text-align:left;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+  .sub-comp-table th{background:#081522;font-size:12.5px;font-weight:700;color:var(--ice);letter-spacing:.04em;text-transform:uppercase}
+  .sub-comp-table tr:last-child td{border-bottom:none}
+  .sub-comp-table .col-wt{background:rgba(77,201,255,.06);border-left:1px solid rgba(77,201,255,.2);border-right:1px solid rgba(77,201,255,.2)}
+  .sub-comp-table th.col-wt{background:rgba(77,201,255,.12);color:var(--teal2)}
+
   /* ---- animated dictation preview ---- */
   .appwin{max-width:600px;margin:0 auto;background:#07121c;border:1px solid rgba(255,255,255,.10);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#0b1b28;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -244,7 +272,7 @@
       "name": "WhisperType",
       "url": "https://www.hanncrest.com/whispertype/",
       "applicationCategory": "ProductivityApplication",
-      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
+      "operatingSystem": "macOS 14.0 or later (Apple Silicon)",
       "description": "WhisperType is a native macOS dictation app. Press ⌥Space and just talk — on-device Whisper transcribes your speech on the Apple Neural Engine and types it into any text field. No cloud, no account, your voice never leaves your Mac.",
       "image": "https://www.hanncrest.com/assets/og/og-whispertype.png",
       "inLanguage": "en",
@@ -260,8 +288,7 @@
         "Global keyboard shortcut (Option-Space) to dictate anywhere on macOS",
         "On-device OpenAI Whisper speech-to-text running on Apple Neural Engine",
         "Fully offline transcription with no audio ever recorded or uploaded",
-        "Multiple models available: Tiny, Base, Small, Medium, Large Turbo, and Large",
-        "Multi-language dictation support",
+        "Multiple models available: Tiny, Base, Small, and Medium",
         "Push-to-talk or toggle dictation modes"
       ],
       "offers": [
@@ -369,12 +396,13 @@
     <div class="wrap">
       <span class="pill">✦ Native · Apple Silicon · On-device</span>
       <h1>Press <span class="grad-text">⌥Space</span> and just&nbsp;talk.</h1>
-      <p class="sub">WhisperType is a native macOS dictation app that turns your voice into text anywhere. On-device Whisper runs on the Apple Neural Engine and types straight into whatever field you're in. <strong>No cloud, no account — your voice never leaves your Mac.</strong></p>
+      <p style="font-size:clamp(18px,2.4vw,23px);font-weight:700;color:var(--ice);max-width:46ch;margin:14px auto 0;letter-spacing:-.4px">Talk. Let go. Your words appear wherever you type.</p>
+      <p class="sub" style="margin-top:14px">WhisperType is a native macOS dictation app powered by OpenAI Whisper on the Apple Neural Engine. It transcribes natural speech, parses filler words and punctuation, and types directly into any text field with zero cloud latency. <strong>No subscriptions, no accounts, and your voice never leaves your Mac.</strong></p>
       <div class="cta">
         <a class="btn btn-primary" href="#pricing">Get WhisperType</a>
         <a class="btn btn-ghost" href="#features">See what it does</a>
       </div>
-      <p class="note">macOS 14+ · one-time $19.99 · Apple Silicon · nothing leaves your Mac</p>
+      <p class="note">macOS 14+ · one-time $19.99 · Apple Silicon · 100% offline Neural Engine</p>
 
       <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
         <div class="appwin">
@@ -587,6 +615,53 @@
     </div>
   </div>
 
+  <!-- SPEECH-TO-TEXT EXAMPLES -->
+  <section id="speech-to-text" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">From speech to clean writing</p>
+      <h2 class="title">Speak the way you think. WhisperType cleans it up.</h2>
+      <p class="lead">Human speech is messy — filled with "um"s, false starts, and mid-sentence corrections. Whisper parses natural cadence, strips verbal clutter, and inserts proper punctuation.</p>
+
+      <div class="speech-grid">
+        <div class="speech-card">
+          <span class="speech-tag">Team Slack / Chat</span>
+          <div class="speech-box spoken">
+            <span class="speech-lbl">What you said (raw speech)</span>
+            "hey um so like I was thinking we should push the release to like friday afternoon coz the build is failing... actually wait make it monday morning"
+          </div>
+          <div class="speech-box typed">
+            <span class="speech-lbl">What WhisperType typed</span>
+            "I was thinking we should push the release to Monday morning because the build is failing."
+          </div>
+        </div>
+
+        <div class="speech-card">
+          <span class="speech-tag">Technical / Professional Notes</span>
+          <div class="speech-box spoken">
+            <span class="speech-lbl">What you said (raw speech)</span>
+            "patient presenting with acute rhinitis prescribing amoxicillin five hundred milligrams b i d for ten days follow up if fever persists"
+          </div>
+          <div class="speech-box typed">
+            <span class="speech-lbl">What WhisperType typed</span>
+            "Patient presenting with acute rhinitis. Prescribing amoxicillin 500 mg BID for 10 days. Follow up if fever persists."
+          </div>
+        </div>
+
+        <div class="speech-card">
+          <span class="speech-tag">Quick Email Reply</span>
+          <div class="speech-box spoken">
+            <span class="speech-lbl">What you said (raw speech)</span>
+            "yeah sounds great let's sync up at four p m tomorrow send me the zoom link and I'll review the slides beforehand"
+          </div>
+          <div class="speech-box typed">
+            <span class="speech-lbl">What WhisperType typed</span>
+            "Sounds great, let's sync up at 4:00 PM tomorrow. Send me the Zoom link and I'll review the slides beforehand."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FEATURES -->
   <section id="features">
     <div class="wrap">
@@ -599,7 +674,7 @@
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg></div><h3>Types into any field</h3><p>The transcription is pasted into the focused app, then your previous clipboard is restored — dictation never quietly overwrites what you copied.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h3l3-7 4 14 3-7h3M20 12h2"/></svg></div><h3>Floating HUD</h3><p>A borderless meter breezes in under the menu bar so you can see your voice being picked up, then switches to a spinner while it transcribes.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3>Auto-stop on silence</h3><p>Stop talking and WhisperType stops on its own after a timeout you set (1–10s). Or press esc anytime to throw the audio away without inserting.</p></div>
-        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><h3>Pick your model</h3><p>From Tiny for quick notes to Large for long-form accuracy — swap models anytime and manage what's on disk from the Storage panel.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div><h3>Pick your model</h3><p>From Tiny for quick notes to Medium for long-form accuracy — swap models anytime and manage what's on disk from the Storage panel.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div><h3>Push-to-talk &amp; audio cues</h3><p>Tap to start and stop, or hold to speak like a walkie-talkie. A subtle chime confirms text landed without pulling your eyes off your work.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><h3>Runs on the Neural Engine</h3><p>Accelerated via WhisperKit on the Apple Neural Engine. Your CPU stays idle, your fans stay silent, and battery drain is practically zero.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Never saved to disk</h3><p>Your speech lives in RAM only while transcribing and disappears the moment it's typed. A discreet menu bar dot shows when the mic is listening.</p></div>
@@ -660,7 +735,7 @@
           <h2 style="margin-top:16px">The AI model lives <span class="grad-text">on your Mac.</span></h2>
           <p>WhisperType downloads a Whisper model once, then runs it entirely offline on the GPU and Neural Engine — so transcription is fast, private, and works on a plane. Pick the size that fits your Mac and your work.</p>
           <ul class="checks">
-            <li><span class="ck">✓</span><span>Choose from <strong>Tiny → Large</strong> — trade speed for accuracy, and switch anytime.</span></li>
+            <li><span class="ck">✓</span><span>Choose from <strong>Tiny → Medium</strong> — trade speed for accuracy, and switch anytime.</span></li>
             <li><span class="ck">✓</span><span>Runs on the <strong>Apple Neural Engine</strong>, keeping the CPU cool and the battery happy.</span></li>
             <li><span class="ck">✓</span><span>One-time download; after that everything works <strong>fully offline</strong>.</span></li>
             <li><span class="ck">✓</span><span>See what's on disk and reclaim space from the <strong>Storage</strong> panel.</span></li>
@@ -685,16 +760,40 @@
               <div style="flex:1"><div style="font-weight:600">Medium</div><div style="color:#6b7078;font-size:11px">Very accurate · uses more memory and time</div></div>
               <span style="color:#8a8aa0;font-weight:600">~1.5 GB</span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
-              <div style="flex:1"><div style="font-weight:600">Large Turbo</div><div style="color:#6b7078;font-size:11px">Nearly Large accuracy, much faster · multilingual</div></div>
-              <span style="color:#8a8aa0;font-weight:600">~1.6 GB</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
-              <div style="flex:1"><div style="font-weight:600">Large</div><div style="color:#6b7078;font-size:11px">OpenAI's flagship · most accurate, slowest · multilingual</div></div>
-              <span style="color:#8a8aa0;font-weight:600">~3 GB</span>
-            </div>
             <div style="color:#6b7078;font-size:11px;margin-top:2px">Larger models are more accurate but use more memory. Every one runs on-device.</div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEURAL ENGINE BENCHMARKS -->
+  <section id="benchmarks" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Silicon-accelerated performance</p>
+      <h2 class="title">How fast is local Whisper on Apple Silicon?</h2>
+      <p class="lead">By compiling OpenAI's Whisper weights directly for the Apple Neural Engine via WhisperKit, WhisperType delivers real-time voice transcription without touching the cloud.</p>
+      
+      <div class="bench-grid">
+        <div class="bench-card">
+          <div class="bench-num">4</div>
+          <div class="bench-title">Model Sizes</div>
+          <div class="bench-desc">From ~75 MB (Tiny) to ~1.5 GB (Medium) — pick the speed/accuracy trade-off that fits your Mac.</div>
+        </div>
+        <div class="bench-card">
+          <div class="bench-num">0 KB</div>
+          <div class="bench-title">Network Egress</div>
+          <div class="bench-desc">Zero bytes of audio data are ever uploaded. Audio is never written to disk, either.</div>
+        </div>
+        <div class="bench-card">
+          <div class="bench-num">ANE</div>
+          <div class="bench-title">Neural Engine Accelerated</div>
+          <div class="bench-desc">Transcription runs on the Apple Neural Engine instead of spinning up your CPU or fans.</div>
+        </div>
+        <div class="bench-card">
+          <div class="bench-num">1–10s</div>
+          <div class="bench-title">Adjustable Auto-Stop</div>
+          <div class="bench-desc">Set the silence auto-stop anywhere from 1 to 10 seconds, or turn it off and stop manually.</div>
         </div>
       </div>
     </div>
@@ -714,6 +813,54 @@
     </div>
   </section>
 
+  <!-- VALUE COMPARISON: ONE-TIME VS CLOUD SUBSCRIPTION -->
+  <section id="value" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Honest value</p>
+      <h2 class="title">WhisperType vs. Cloud Dictation Subscriptions.</h2>
+      <p class="lead">Most modern dictation tools trap your voice behind a $10–$20/month recurring subscription and stream your private thoughts to remote cloud servers. Here is the math:</p>
+      
+      <div class="sub-comp-wrap">
+        <table class="sub-comp-table">
+          <thead>
+            <tr>
+              <th style="width:28%">Feature / Cost</th>
+              <th class="col-wt" style="width:36%">WhisperType</th>
+              <th style="width:36%">Cloud Dictation Tools (Superwhisper / Otter / Dragon)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Cost: Year 1</strong></td>
+              <td class="col-wt"><strong style="color:var(--good)">$19.99 one-time</strong></td>
+              <td>$120.00 – $240.00 / year</td>
+            </tr>
+            <tr>
+              <td><strong>Cost: 3 Years</strong></td>
+              <td class="col-wt"><strong style="color:var(--good)">$19.99 total</strong></td>
+              <td style="color:var(--warn)"><strong>$360.00 – $720.00 total</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Where your audio goes</strong></td>
+              <td class="col-wt"><span style="color:var(--good);font-weight:700">✓ In-RAM on your Mac only</span><br><small style="color:var(--mut)">Never saved to disk, 0 KB egress</small></td>
+              <td><span style="color:var(--danger);font-weight:700">Uploaded to cloud servers</span><br><small style="color:var(--dim)">Stored &amp; processed remotely</small></td>
+            </tr>
+            <tr>
+              <td><strong>Offline capability</strong></td>
+              <td class="col-wt"><span style="color:var(--good);font-weight:700">✓ 100% Offline</span><br><small style="color:var(--mut)">Airplanes, trains, Wi-Fi outages</small></td>
+              <td><span style="color:var(--warn)">Requires constant internet</span><br><small style="color:var(--dim)">Breaks when connection drops</small></td>
+            </tr>
+            <tr>
+              <td><strong>Account requirement</strong></td>
+              <td class="col-wt"><span style="color:var(--good);font-weight:700">✓ Zero account, zero sign-in</span></td>
+              <td>Mandatory account, email, and billing profile</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section id="pricing">
     <div class="wrap">
@@ -729,7 +876,7 @@
             <li><span class="ck">✓</span>Unlimited on-device dictation, everywhere on your Mac</li>
             <li><span class="ck">✓</span>Global hotkey, toggle &amp; push-to-talk modes</li>
             <li><span class="ck">✓</span>Auto-paste into any field, with clipboard restore</li>
-            <li><span class="ck">✓</span>Every Whisper model, Tiny → Large</li>
+            <li><span class="ck">✓</span>Every Whisper model, Tiny → Medium</li>
             <li><span class="ck">✓</span>Floating HUD, auto-stop on silence &amp; esc-to-cancel</li>
             <li><span class="ck">✓</span>All future updates included — no subscription</li>
           </ul>
@@ -743,7 +890,15 @@
   <section style="padding-top:10px"><div class="wrap">
     <div class="privacy">
       <h2>Your voice never leaves your Mac.</h2>
-      <p>WhisperType has no account, no sign-in and no analytics. Audio is captured in memory, transcribed on the Apple Neural Engine, and never written to disk or sent anywhere. The only time it touches the network is the one-time model download.</p>
+      <p>WhisperType has no account, no sign-in, and zero analytics telemetry. Audio captured from your microphone is buffered temporarily in RAM, processed directly on the Apple Neural Engine, and immediately released. No audio recordings are ever written to disk or transmitted to any server.</p>
+
+      <div style="background:rgba(77,201,255,.05);border:1px solid rgba(77,201,255,.2);border-radius:16px;padding:24px;text-align:left;max-width:760px;margin:24px auto 0">
+        <h4 style="font-size:15.5px;font-weight:750;color:var(--ice);display:flex;align-items:center;gap:8px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--good)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Verify It Yourself: 0 KB Network Egress
+        </h4>
+        <p style="font-size:13.5px;color:var(--mut);margin-top:8px;line-height:1.6">You don't have to take our word for it. After the initial one-time model download, you can turn off Wi-Fi or inspect WhisperType with Little Snitch, LuLu, or Wireshark. <strong>During active voice dictation, no audio data leaves your machine.</strong> Dictate confidential notes, legal briefs, or proprietary code with complete peace of mind.</p>
+      </div>
     </div>
   </div></section>
 

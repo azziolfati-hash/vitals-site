@@ -111,6 +111,30 @@
   .foot .links{display:flex;gap:22px}
   .ph{color:#c98a2a;font-size:12px;border:1px dashed rgba(201,138,42,.5);padding:1px 7px;border-radius:6px;background:rgba(201,138,42,.08)}
 
+  /* TRANSFORMATION USE CASES & COMPARISON TABLE */
+  .trans-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px}
+  @media(max-width:768px){.trans-grid{grid-template-columns:1fr}}
+  .trans-card{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:14px}
+  .trans-hdr{display:flex;align-items:center;justify-content:space-between}
+  .trans-tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:rgba(77,201,255,.12);color:var(--teal2);border:1px solid rgba(77,201,255,.25)}
+  .trans-mode{font-size:12px;color:var(--dim);font-weight:600}
+  .trans-box{background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.5}
+  .trans-box.before{border-left:3px solid #ef5a5a;color:var(--mut)}
+  .trans-box.after{border-left:3px solid var(--good);color:#f1f5f9;background:linear-gradient(180deg,rgba(52,211,153,.06),rgba(0,0,0,.3))}
+  .trans-box-lbl{font-size:10px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;display:block}
+  .trans-box.before .trans-box-lbl{color:#ef7a7a}
+  .trans-box.after .trans-box-lbl{color:var(--good)}
+
+  .comp-wrap{max-width:900px;margin:44px auto 0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .comp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);overflow:hidden}
+  .comp-table th,.comp-table td{padding:14px 18px;text-align:left;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+  .comp-table th{background:#081522;font-size:12.5px;font-weight:700;color:var(--ice);letter-spacing:.04em;text-transform:uppercase}
+  .comp-table tr:last-child td{border-bottom:none}
+  .comp-table .col-aura{background:rgba(77,201,255,.06);border-left:1px solid rgba(77,201,255,.2);border-right:1px solid rgba(77,201,255,.2)}
+  .comp-table th.col-aura{background:rgba(77,201,255,.12);color:var(--teal2)}
+  .tag-win{display:inline-flex;align-items:center;gap:4px;color:var(--good);font-weight:700;font-size:12.5px}
+  .tag-loss{display:inline-flex;align-items:center;gap:4px;color:var(--warn);font-size:12.5px}
+
   /* ---- animated rewrite preview ---- */
   .appwin{max-width:620px;margin:0 auto;background:#07121c;border:1px solid rgba(255,255,255,.10);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
   .appbar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#0b1b28;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -229,7 +253,7 @@
       "name": "Aura",
       "url": "https://www.hanncrest.com/aura/",
       "applicationCategory": "ProductivityApplication",
-      "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
+      "operatingSystem": "macOS 14.0 or later (Apple Silicon recommended; Intel supported via fallback engines)",
       "description": "Aura rewrites your writing right where you type. Select text in any macOS app, press ⇧⌘P, and it's proofread, clarified, shortened or reworded in place — running entirely on your Mac. No account, no cloud, nothing sent anywhere.",
       "image": "https://www.hanncrest.com/assets/og/og-aura.png",
       "inLanguage": "en",
@@ -243,7 +267,7 @@
       "downloadUrl": "https://www.hanncrest.com/aura/",
       "featureList": [
         "In-place text rewriting in any macOS app with Shift-Cmd-P",
-        "Multiple rewrite modes: Proofread, Clarify, Shorten, Expand, Professional, Casual",
+        "Multiple rewrite modes: Proofread, Improve Clarity, Formal/Academic, Friendly, Make Concise, Expand, Bullet Points, Custom Instruction",
         "100% on-device AI inference using Apple Intelligence, local LLM, or embedded engine",
         "Custom presets with designated hotkeys",
         "Zero data transmission or server logging",
@@ -253,7 +277,7 @@
         {
           "@type": "Offer",
           "name": "Aura (one-time purchase)",
-          "price": "24.99",
+          "price": "19.99",
           "priceCurrency": "USD"
         }
       ]
@@ -293,7 +317,7 @@
           "name": "Is Aura a subscription or a one-time purchase?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Aura is a one-time purchase of $24.99 with no recurring fees, no accounts, and lifetime access to future updates."
+            "text": "Aura is a one-time purchase of $19.99 with no recurring fees, no accounts, and lifetime access to future updates."
           }
         },
         {
@@ -354,12 +378,13 @@
     <div class="wrap">
       <span class="pill">✦ Native · Apple Silicon · 100% offline</span>
       <h1>Rewrite anything, <span class="grad-text">right where you type</span>.</h1>
-      <p class="sub">Select text in any Mac app, press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd>, and Aura rewrites it in place — proofread, clarified, shortened, reworded to your instruction. The whole thing runs on this Mac. <strong>Nothing is ever sent anywhere.</strong></p>
+      <p style="font-size:clamp(18px,2.4vw,23px);font-weight:700;color:var(--ice);max-width:46ch;margin:14px auto 0;letter-spacing:-.4px">Your private, on-device AI writing assistant.</p>
+      <p class="sub" style="margin-top:14px">Select text in any Mac app, press <kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd>, and watch it stream in-place — proofread, clarified, shortened, or adapted to your tone. Powered by local MLX inference directly on your Apple Silicon chip. <strong>Zero cloud calls, no accounts, 0 KB sent.</strong></p>
       <div class="cta">
         <a class="btn btn-primary" href="#pricing">Get Aura</a>
         <a class="btn btn-ghost" href="#features">See what it does</a>
       </div>
-      <p class="note">macOS 14+ · one-time $24.99, no subscription · nothing leaves your Mac</p>
+      <p class="note">macOS 14+ · one-time $19.99, no subscription · runs 100% locally on your Mac</p>
 
       <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
         <div class="appwin">
@@ -544,6 +569,77 @@
     </div>
   </section>
 
+  <!-- USE CASES / REAL TRANSFORMATIONS -->
+  <section id="usecases" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Real-world transformations</p>
+      <h2 class="title">From rough thoughts to clear prose in one tap.</h2>
+      <p class="lead">Stop copy-pasting into ChatGPT or letting browser extensions monitor your keystrokes. Here is what Aura produces on your Mac in real time:</p>
+      
+      <div class="trans-grid">
+        <div class="trans-card">
+          <div class="trans-hdr">
+            <span class="trans-tag">Client Email</span>
+            <span class="trans-mode">Mode: Professional &amp; Clear</span>
+          </div>
+          <div class="trans-box before">
+            <span class="trans-box-lbl">Your rough draft</span>
+            hey sorry for delay was busy with stuff but yeah we can ship wednesday
+          </div>
+          <div class="trans-box after">
+            <span class="trans-box-lbl">Aura in-place rewrite (~0.8s)</span>
+            Thank you for your patience. We have finalized the deliverables and are on schedule to ship this Wednesday.
+          </div>
+        </div>
+
+        <div class="trans-card">
+          <div class="trans-hdr">
+            <span class="trans-tag">Slack / Team Update</span>
+            <span class="trans-mode">Mode: Make Concise</span>
+          </div>
+          <div class="trans-box before">
+            <span class="trans-box-lbl">Your rough draft</span>
+            so basically the api is broken coz the auth token is null when users logout and it crashes the app
+          </div>
+          <div class="trans-box after">
+            <span class="trans-box-lbl">Aura in-place rewrite (~0.9s)</span>
+            Identified an issue where API calls fail on logout due to null auth tokens. Fix is underway.
+          </div>
+        </div>
+
+        <div class="trans-card">
+          <div class="trans-hdr">
+            <span class="trans-tag">Technical Docs</span>
+            <span class="trans-mode">Mode: Improve Clarity</span>
+          </div>
+          <div class="trans-box before">
+            <span class="trans-box-lbl">Your rough draft</span>
+            this func takes a dict and iterates over keys to check if they exist in cache so it doesnt fetch again
+          </div>
+          <div class="trans-box after">
+            <span class="trans-box-lbl">Aura in-place rewrite (~1.1s)</span>
+            Evaluates incoming dictionary keys against local cache entries to prevent redundant network lookups.
+          </div>
+        </div>
+
+        <div class="trans-card">
+          <div class="trans-hdr">
+            <span class="trans-tag">Git Commit / Release Note</span>
+            <span class="trans-mode">Mode: Custom Instruction</span>
+          </div>
+          <div class="trans-box before">
+            <span class="trans-box-lbl">Your rough draft</span>
+            fix stuff in auth and clean up token caching
+          </div>
+          <div class="trans-box after">
+            <span class="trans-box-lbl">Aura in-place rewrite (~0.7s)</span>
+            fix(auth): invalidate cached session tokens upon logout
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FEATURES -->
   <section id="features">
     <div class="wrap">
@@ -558,7 +654,7 @@
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><h3>Expand &amp; bullet points</h3><p>Add supporting detail and reasoning, or restructure a block of text into a clean bullet list.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div><h3>Custom instruction &amp; presets</h3><p>Type any instruction — "reply politely declining", "translate to German" — and save your favourites as presets, each with its own shortcut.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Works everywhere</h3><p>Mail, Notes, Chrome, VS Code, Slack, Pages — anywhere you can select text. Also available from the right-click Services menu.</p></div>
-        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Review before replacing</h3><p>For anything longer than a sentence or two, Aura shows the result with Insert / Discard instead of replacing it blind. There's an undo shortcut too.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Review before replacing</h3><p>For anything longer than a sentence or two, Aura shows the result with Insert / Discard instead of replacing it blind — nothing is written until you accept it.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3>Private by design</h3><p>Every model runs on this Mac. No account, no sign-in, no analytics, and nothing sent to a server — yours or anyone's.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5v14M7 5v14M2 9v6M22 9v6"/></svg></div><h3>Voice Mirroring</h3><p>Give Aura 3 samples of your writing and it measures your sentence length, contractions, and punctuation quirks — rewriting drafts so they sound like you, not a robot.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></div><h3>Word-level diffs</h3><p>Longer rewrites pop up a clear card with deletions in red and insertions in green. Tap Insert to replace, or Discard to keep what you had.</p></div>
@@ -682,6 +778,60 @@
     </div>
   </section>
 
+  <!-- HONEST COMPARISON -->
+  <section id="compare" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Honest evaluation</p>
+      <h2 class="title">Aura vs. Cloud AI &amp; Browser Extensions.</h2>
+      <p class="lead">Different tools solve different problems. Here is how Aura compares to browser extensions and cloud chatbots so you can choose what fits your workflow.</p>
+      
+      <div class="comp-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th style="width:28%">Capability / Tradeoff</th>
+              <th class="col-aura" style="width:28%">Aura (Local)</th>
+              <th style="width:22%">ChatGPT / Claude</th>
+              <th style="width:22%">Grammarly</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Where text is processed</strong></td>
+              <td class="col-aura"><span class="tag-win">✓ 100% on your Mac</span><br><small style="color:var(--mut)">In-RAM MLX inference</small></td>
+              <td><span class="tag-loss">Cloud servers</span><br><small style="color:var(--dim)">Sent over HTTPS, logged</small></td>
+              <td><span class="tag-loss">Cloud servers</span><br><small style="color:var(--dim)">Monitors keystrokes</small></td>
+            </tr>
+            <tr>
+              <td><strong>Workflow speed</strong></td>
+              <td class="col-aura"><span class="tag-win">✓ Instant in-place</span><br><small style="color:var(--mut)">Select &amp; tap ⇧⌘P</small></td>
+              <td><span class="tag-loss">Manual copy-paste</span><br><small style="color:var(--dim)">Switching windows/tabs</small></td>
+              <td><span class="tag-win">Inline suggestions</span><br><small style="color:var(--dim)">Limited to browser/app overlay</small></td>
+            </tr>
+            <tr>
+              <td><strong>Offline availability</strong></td>
+              <td class="col-aura"><span class="tag-win">✓ Works everywhere</span><br><small style="color:var(--mut)">Airplanes, trains, no Wi-Fi</small></td>
+              <td><span class="tag-loss">Requires Internet</span><br><small style="color:var(--dim)">Fails without connection</small></td>
+              <td><span class="tag-loss">Requires Internet</span><br><small style="color:var(--dim)">Fails without connection</small></td>
+            </tr>
+            <tr>
+              <td><strong>Price &amp; License</strong></td>
+              <td class="col-aura"><span class="tag-win">✓ $19.99 once</span><br><small style="color:var(--mut)">Lifetime license &amp; updates</small></td>
+              <td><span class="tag-loss">$20/month</span><br><small style="color:var(--dim)">$240/yr recurring</small></td>
+              <td><span class="tag-loss">$12–$30/month</span><br><small style="color:var(--dim)">$144–$360/yr recurring</small></td>
+            </tr>
+            <tr>
+              <td><strong>Best suited for</strong></td>
+              <td class="col-aura"><strong>Instant daily writing, private emails, confidential code</strong></td>
+              <td>Complex reasoning, coding projects, multi-turn brainstorming</td>
+              <td>Passive spelling/grammar checks in consumer web browsers</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- PRICING -->
   <section id="pricing">
     <div class="wrap">
@@ -692,7 +842,7 @@
         <div class="price pro">
           <span class="pill tag">One-time purchase</span>
           <h3 class="grad-text">Aura</h3>
-          <div class="amt">$24.99<small> once</small></div>
+          <div class="amt">$19.99<small> once</small></div>
           <ul>
             <li><span class="ck">✓</span>All eight rewrite modes + custom instructions</li>
             <li><span class="ck">✓</span>Unlimited presets, each with its own shortcut</li>
@@ -711,7 +861,15 @@
   <section id="privacy" style="padding-top:10px"><div class="wrap">
     <div class="privacy">
       <h2>What you write on your Mac, stays on your Mac.</h2>
-      <p>Aura has no account, no sign-in and no analytics. Your text is rewritten by a model running on this Mac and is never uploaded, synced, or sent to any server — ours or anyone else's. The only thing it ever downloads is the optional local model, once.</p>
+      <p>Aura has no account, no sign-in, and zero analytics tracking. Your text is rewritten exclusively by a model executing in your Mac's unified memory via Apple MLX and the Neural Engine. Zero tokens or drafts are ever uploaded, cached to third-party disks, or sent to any server — ours or anyone else's.</p>
+
+      <div style="background:rgba(77,201,255,.05);border:1px solid rgba(77,201,255,.2);border-radius:16px;padding:24px;text-align:left;max-width:760px;margin:24px auto 0">
+        <h4 style="font-size:15.5px;font-weight:750;color:var(--ice);display:flex;align-items:center;gap:8px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--good)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          How 0 KB Network Egress is Guaranteed
+        </h4>
+        <p style="font-size:13.5px;color:var(--mut);margin-top:8px;line-height:1.6">When you press ⇧⌘P, Aura uses standard macOS Accessibility APIs to read the selected string directly into app memory. By default, the text is passed into Aura's own local MLX inference engine running on your GPU, generated tokens stream back to the UI, and the final output is written back — no network sockets are opened during inference. <strong>You can inspect Aura with Little Snitch, LuLu, or Wireshark to verify it.</strong> (If you choose the optional Local Server engine to talk to LM Studio or Ollama, that connects only to loopback addresses on your own Mac — never the internet.)</p>
+      </div>
     </div>
   </div></section>
 

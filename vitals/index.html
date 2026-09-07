@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vitals — Your Mac's vital signs, in the menu bar</title>
-<meta name="description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.">
+<meta name="description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $14.99 once. No subscription. Everything stays on your Mac.">
 <link rel="icon" type="image/png" href="../assets/icon.png">
 <style>
   :root{
@@ -100,6 +100,31 @@
   .price .btn{width:100%;justify-content:center;margin-top:26px}
   .price.pro{padding-top:52px}
   .price .tag{position:absolute;top:16px;left:32px}
+
+  /* COMPARISON TABLE */
+  .v-comp-wrap{margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 80px rgba(0,0,0,.55)}
+  .v-comp-table{width:100%;border-collapse:collapse;text-align:left;font-size:13.5px;min-width:620px}
+  .v-comp-table th{background:rgba(5,11,20,.85);color:#f8fafc;font-weight:700;padding:14px 20px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.5px;text-transform:uppercase}
+  .v-comp-table td{padding:13px 20px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--tx);vertical-align:middle}
+  .v-comp-table tr:last-child td{border-bottom:none}
+  .v-comp-table tr:hover td{background:rgba(255,255,255,.02)}
+  .badge-free{background:rgba(255,255,255,.08);color:#f8fafc;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+  .badge-trial{background:rgba(77,201,255,.15);color:var(--ice);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;border:1px solid rgba(77,201,255,.3)}
+
+  /* WHAT VITALS DOES NOT DO */
+  .not-do-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  @media(max-width:860px){.not-do-grid{grid-template-columns:1fr}}
+  .not-card{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+  .not-card h3{font-size:16px;font-weight:750;color:#f8fafc;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .not-card p{font-size:13.5px;color:var(--mut);line-height:1.55;margin:0}
+
+  /* COMPATIBILITY SECTION */
+  .compat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:32px}
+  @media(max-width:760px){.compat-grid{grid-template-columns:1fr}}
+  .compat-card{background:rgba(10,20,30,.65);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:24px}
+  .compat-card h3{font-size:17px;font-weight:750;color:#fff;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .compat-card ul{display:flex;flex-direction:column;gap:9px;list-style:none;margin-top:12px}
+  .compat-card li{font-size:13.5px;color:var(--tx);display:flex;gap:9px;line-height:1.45}
 
   /* PRIVACY BANNER */
   .privacy{background:linear-gradient(135deg,rgba(77,201,255,.10),rgba(127,227,255,.06));border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:20px}
@@ -198,7 +223,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://www.hanncrest.com/vitals/">
 <meta property="og:title" content="Vitals — Your Mac&#x27;s vital signs, in the menu bar">
-<meta property="og:description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.">
+<meta property="og:description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $14.99 once. No subscription. Everything stays on your Mac.">
 <meta property="og:image" content="https://www.hanncrest.com/assets/og/og-vitals.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -206,7 +231,7 @@
 <meta property="og:image:alt" content="Vitals — Your Mac&#x27;s vital signs, in the menu bar">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Vitals — Your Mac&#x27;s vital signs, in the menu bar">
-<meta name="twitter:description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.">
+<meta name="twitter:description" content="Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $14.99 once. No subscription. Everything stays on your Mac.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-vitals.png">
 <meta name="author" content="HANNCREST">
 <script type="application/ld+json">
@@ -220,7 +245,7 @@
       "url": "https://www.hanncrest.com/vitals/",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "macOS 13.0 or later (Apple Silicon & Intel)",
-      "description": "Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $9.99 once. No subscription. Everything stays on your Mac.",
+      "description": "Vitals is a native, lightweight macOS menu-bar monitor with local-LLM tools, 30-day history, thermals, Bluetooth device battery, crash watch and a live desktop widget. Free to monitor forever — try every Pro feature free for 14 days, then $14.99 once. No subscription. Everything stays on your Mac.",
       "image": "https://www.hanncrest.com/assets/og/og-vitals.png",
       "inLanguage": "en",
       "publisher": {
@@ -254,7 +279,7 @@
         {
           "@type": "Offer",
           "name": "Vitals Pro (one-time)",
-          "price": "9.99",
+          "price": "14.99",
           "priceCurrency": "USD"
         }
       ]
@@ -286,7 +311,7 @@
           "name": "Is Vitals free to use?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Vitals is free to monitor your Mac's core metrics forever. Pro features come with an automatic 14-day free trial, followed by an optional one-time purchase of $9.99 with no subscriptions."
+            "text": "Yes. Vitals is free to monitor your Mac's core metrics forever. Pro features come with an automatic 14-day free trial, followed by an optional one-time purchase of $14.99 with no subscriptions."
           }
         },
         {
@@ -354,13 +379,14 @@
   <section class="hero">
     <div class="wrap">
       <span class="pill">✦ Native · Apple Silicon · Local-first</span>
+      <p style="font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1);margin-top:16px;margin-bottom:6px">Know exactly what your Mac is doing.</p>
       <h1>Your Mac's <span class="grad-text">vital signs</span>, in the menu bar.</h1>
-      <p class="sub">A lightweight, native macOS monitor that watches CPU, GPU, memory, network, heat, battery and Bluetooth devices — plus tools no other menu-bar app has: live <strong>local-LLM detection &amp; speed tests</strong>, 30-day history, and plain-English crash &amp; panic alerts.</p>
+      <p class="sub">A lightweight, native macOS monitor that watches CPU, GPU, memory, network, heat, battery and Bluetooth devices — plus live <strong>local-LLM detection &amp; speed tests</strong>, 30-day history, and plain-English crash &amp; panic alerts.</p>
       <div class="cta">
         <a class="btn btn-primary" href="#pricing">Try Pro free for 14 days</a>
         <a class="btn btn-ghost" href="#features">See what it does</a>
       </div>
-      <p class="note">macOS 13+ · free 14-day trial · one-time $9.99 after · no subscription · nothing leaves your Mac</p>
+      <p class="note">macOS 13+ · free 14-day trial · one-time $14.99 after · no subscription · nothing leaves your Mac</p>
       <style>
         /* Dynamic macOS Menu Bar Strip */
         .mbstrip {
@@ -1103,7 +1129,7 @@
 
   <div class="wrap">
     <div class="trust">
-      <span><i class="dot"></i>100% native SwiftUI</span>
+      <span><i class="dot"></i>Native Swift &amp; SwiftUI</span>
       <span><i class="dot"></i>Featherweight on resources</span>
       <span><i class="dot"></i>No account, no telemetry</span>
       <span><i class="dot"></i>Made for Apple Silicon</span>
@@ -1745,7 +1771,7 @@
     <div class="wrap">
       <div class="split">
         <div>
-          <span class="pill">The part no other monitor has</span>
+          <span class="pill">Local-LLM tools</span>
           <h2 style="margin-top:16px">Built for the <span class="grad-text">local-AI</span> era.</h2>
           <p>Running models on your own Mac? Vitals finds every local inference server automatically — named or not, on any port — and tells you what's actually running and how fast.</p>
           <ul class="checks">
@@ -1781,21 +1807,21 @@
     </div>
   </section>
 
-  <!-- PRICING -->
+  <!-- PRICING & COMPARISON -->
   <section id="pricing">
     <div class="wrap">
       <p class="eyebrow">Simple, honest pricing</p>
       <h2 class="title">Free to monitor. <span class="grad-text">14 days</span> free to go deep.</h2>
-      <p class="lead">Use the menu-bar readout, popover and live desktop widget free, forever. Try every single Pro feature free for 14 days — no card required. Keep it with one $9.99 purchase, once, ever.</p>
+      <p class="lead">Use the menu-bar readout, popover snapshot, and live desktop widget free forever. Try every deep diagnostic tool free for 14 days — no card required. Keep Pro with a single $14.99 purchase. No subscription, ever.</p>
       <div class="prices">
         <div class="price">
-          <h3>Free</h3>
+          <h3>Free Forever</h3>
           <div class="amt">$0<small> / forever</small></div>
           <ul>
             <li><span class="ck">✓</span>Live menu-bar readout (CPU, RAM, network)</li>
-            <li><span class="ck">✓</span>Rich popover snapshot &amp; Overview</li>
+            <li><span class="ck">✓</span>Rich popover snapshot &amp; overview window</li>
             <li><span class="ck">✓</span>Live, always-on-top desktop widget</li>
-            <li><span class="ck">✓</span>Twelve themes</li>
+            <li><span class="ck">✓</span>Twelve glass themes</li>
             <li><span class="ck">✓</span>Full Pro access for your first 14 days</li>
           </ul>
           <a class="btn btn-ghost" href="#download">Download free</a>
@@ -1803,30 +1829,158 @@
         <div class="price pro">
           <span class="pill tag">14-day free trial</span>
           <h3 class="grad-text">Vitals Pro</h3>
-          <div class="amt">$9.99<small> once, after your trial</small></div>
+          <div class="amt">$14.99<small> once · yours forever</small></div>
           <ul>
             <li><span class="ck">✓</span>Everything in Free, plus…</li>
-            <li><span class="ck">✓</span>Full performance dashboard (per-core, memory pressure)</li>
-            <li><span class="ck">✓</span>Local-LLM tools, speed tests &amp; VRAM</li>
+            <li><span class="ck">✓</span>Full performance dashboard &amp; per-core breakdown</li>
+            <li><span class="ck">✓</span>Local-LLM tools, speed tests &amp; VRAM reclaim</li>
             <li><span class="ck">✓</span>Network tools, thermals, fans &amp; S.M.A.R.T.</li>
-            <li><span class="ck">✓</span>Bluetooth device battery &amp; deep menu-bar customization</li>
-            <li><span class="ck">✓</span>30-day history, reports &amp; CSV export</li>
-            <li><span class="ck">✓</span>Crash/panic watch, alerts, anomaly detection &amp; iPhone push</li>
-            <li><span class="ck">✓</span>All future Pro features included</li>
+            <li><span class="ck">✓</span>Bluetooth peripheral battery &amp; menu-bar layout editor</li>
+            <li><span class="ck">✓</span>30-day historical charts &amp; CSV export</li>
+            <li><span class="ck">✓</span>Crash &amp; kernel panic explanations with iPhone push</li>
+            <li><span class="ck">✓</span>All future updates included</li>
           </ul>
           <a class="btn btn-primary" href="#download">Start your free trial</a>
+        </div>
+      </div>
+
+      <!-- TRANSPARENT FREE VS PRO TABLE -->
+      <div class="v-comp-wrap">
+        <table class="v-comp-table">
+          <thead>
+            <tr>
+              <th>Feature / Metric</th>
+              <th style="width:28%">Free Version</th>
+              <th style="width:34%">Vitals Pro ($14.99 Once)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Menu-Bar Readout &amp; Live Stats</strong></td>
+              <td><span class="badge-free">Included Forever</span></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Fully customizable icons, mini-graphs &amp; order</span></td>
+            </tr>
+            <tr>
+              <td><strong>Floating Desktop Widget</strong></td>
+              <td><span class="badge-free">Included Forever</span></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Included — compact or full layout, no upgrade needed</span></td>
+            </tr>
+            <tr>
+              <td><strong>Glass Themes</strong></td>
+              <td><span class="badge-free">12 Themes Included</span></td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ 12 Themes Included</span></td>
+            </tr>
+            <tr>
+              <td><strong>Per-Core Performance Clusters (P, E &amp; S Cores)</strong></td>
+              <td>Basic overall CPU %</td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ True Apple Silicon core-level hardware tiers</span></td>
+            </tr>
+            <tr>
+              <td><strong>Local-LLM Tools (Ollama, LM Studio, llama.cpp)</strong></td>
+              <td>Basic process list</td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Auto-detection, tokens/sec speed tests &amp; VRAM reclaim</span></td>
+            </tr>
+            <tr>
+              <td><strong>30-Day Historical Logging &amp; CSV Export</strong></td>
+              <td>Live snapshot only</td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ 30 days of metrics charted with weekly CSV reports</span></td>
+            </tr>
+            <tr>
+              <td><strong>Battery Vampires &amp; Sleep Drain Report</strong></td>
+              <td>Current battery % only</td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Tame, Freeze/Resume vampire apps &amp; sleep wake-lock log</span></td>
+            </tr>
+            <tr>
+              <td><strong>Thermals, Fan Speed &amp; S.M.A.R.T. Disk Wear</strong></td>
+              <td>Standard Apple sensors</td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Per-sensor breakdown, fan RPM monitoring &amp; SSD write wear</span></td>
+            </tr>
+            <tr>
+              <td><strong>Crash &amp; Kernel Panic Watch</strong></td>
+              <td>None</td>
+              <td><span class="ck" style="color:var(--good);font-weight:700">✓ Plain-English crash explanations &amp; iPhone push alerts</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT VITALS DOES NOT DO -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div style="text-align:center;max-width:700px;margin:0 auto">
+        <p class="eyebrow" style="color:#34d399">The Architecture of Privacy</p>
+        <h2 class="title">What Vitals does <span class="grad-text">NOT</span> do.</h2>
+        <p class="lead">Most monitoring apps ask for your email, phone home on startup, or upload telemetry. Vitals operates under a strict zero-knowledge design.</p>
+      </div>
+
+      <div class="not-do-grid">
+        <div class="not-card">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            No Telemetry or Tracking
+          </h3>
+          <p>Zero analytics SDKs. No Google Analytics, no Mixpanel, no Firebase, and no Sentry telemetry. We do not know who you are, what Mac you own, or what apps you run.</p>
+        </div>
+
+        <div class="not-card">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/></svg>
+            No Account or Registration
+          </h3>
+          <p>No sign-in, no passwords, and no email newsletter signups required. Download, double-click, and start monitoring immediately. Pro unlocks with a standard App Store purchase or license, verified on your Mac.</p>
+        </div>
+
+        <div class="not-card">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            No Background Network Traffic
+          </h3>
+          <p>Vitals reads your Mac locally via IOKit, sysctl, and SMC, and makes no network calls in the background. A few opt-in Pro tools — the speed test, DNS benchmark, public-IP check, and phone-push alerts — do connect out, but only when you run them. You can independently verify this using Little Snitch, LuLu, or Wireshark.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRIVACY -->
-  <section style="padding-top:10px"><div class="wrap">
-    <div class="privacy">
-      <h2>What happens on your Mac, stays on your Mac.</h2>
-      <p>Vitals has no account, no sign-in and no analytics. It reads your system locally and talks to nothing but the servers already running on your machine. Your data is never collected, stored off-device, or sold.</p>
+  <!-- PLATFORM COMPATIBILITY: APPLE SILICON VS INTEL -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div style="text-align:center;max-width:700px;margin:0 auto">
+        <p class="eyebrow">Compatibility &amp; System Requirements</p>
+        <h2 class="title">Built for modern macOS.</h2>
+        <p class="lead">Universal 2 binary running natively on macOS 13 Ventura, Sonoma, Sequoia, and macOS 26 Tahoe. Here is how features adapt to your hardware:</p>
+      </div>
+
+      <div class="compat-grid">
+        <div class="compat-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ice)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+            Apple Silicon (M1, M2, M3, M4)
+          </h3>
+          <p style="color:var(--mut);font-size:13.5px">Full hardware-level feature set unlocked via native Apple Silicon APIs:</p>
+          <ul>
+            <li><span class="ck" style="color:var(--good)">✓</span><strong>True core cluster labeling:</strong> Uses <code>hw.perflevelN</code> to accurately label Super, Performance, and Efficiency cores.</li>
+            <li><span class="ck" style="color:var(--good)">✓</span><strong>Thermal throttling timeline:</strong> Direct hardware event attribution pointing to the exact app causing thermal throttling.</li>
+            <li><span class="ck" style="color:var(--good)">✓</span><strong>Local LLM &amp; Unified Memory:</strong> Live VRAM headroom and tokens/second benchmarks for Ollama / LM Studio.</li>
+          </ul>
+        </div>
+
+        <div class="compat-card">
+          <h3>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ice)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Intel Macs
+          </h3>
+          <p style="color:var(--mut);font-size:13.5px">Comprehensive monitoring using standard macOS kernel metrics:</p>
+          <ul>
+            <li><span class="ck" style="color:var(--good)">✓</span><strong>Full CPU &amp; RAM monitoring:</strong> Real-time overall and per-core CPU utilization, memory pressure, and swap usage.</li>
+            <li><span class="ck" style="color:var(--good)">✓</span><strong>Thermals &amp; Fan monitoring:</strong> Sensor temperatures and fan RPM readouts.</li>
+            <li><span class="ck" style="color:var(--good)">✓</span><strong>Battery, Network &amp; S.M.A.R.T.:</strong> Battery cycle counts, live bandwidth throughput, Wi-Fi latency, and SSD wear.</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div></section>
+  </section>
 
   <!-- FINAL CTA -->
   <section class="final" id="download"><div class="wrap">
