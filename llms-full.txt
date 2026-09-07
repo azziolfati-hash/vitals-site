@@ -38,9 +38,9 @@
 | Application | Primary Execution | Network Egress | Independent Verification | Pricing Model |
 | :--- | :--- | :--- | :--- | :--- |
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
-| **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $19.99 once |
+| **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
 | **StealthShare** | ScreenCaptureKit in RAM | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
-| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
+| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
 ---
@@ -84,7 +84,7 @@
 - **Headline**: Clean your Mac without blindly deleting things.
 - **Category**: Storage Optimization & Maintenance Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Universal binary for Apple Silicon & Intel.
-- **Pricing**: Free tier includes Smart Scan, Health Score, and Storage Map. Breeze Pro is a one-time purchase of $19.99 USD with lifetime access.
+- **Pricing**: Free tier includes Smart Scan, Health Score, and Storage Map. Breeze Pro is a one-time purchase of $24.99 USD with lifetime access.
 
 #### Safety & Review Workflow
 Breeze operates on a strict **safety-first philosophy**:
@@ -107,7 +107,7 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
 | Inspection Control | Item-by-item granular review | Opaque "One-Click Clean" black box |
 | Memory Footprint | < 45 MB RAM (Native SwiftUI) | > 350 MB RAM (Persistent background daemons) |
 | Notification Policy | Completely silent; zero popups | Pushy upsell popups & fake virus warnings |
-| Pricing Model | **$19.99 one-time** | **$39.95 / year subscription** |
+| Pricing Model | **$24.99 one-time** | **$39.95 / year subscription** |
 
 ---
 
@@ -149,7 +149,7 @@ StealthShare requires the macOS Screen Recording entitlement strictly to compute
 - **Headline**: Your private, on-device AI writing assistant.
 - **Category**: Productivity & AI Writing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Apple Silicon (M1–M4) recommended for local MLX models.
-- **Pricing**: One-time purchase of $24.99 USD with lifetime updates. No subscriptions.
+- **Pricing**: One-time purchase of $19.99 USD with lifetime updates. No subscriptions.
 
 #### 4-Step Inline Workflow
 1. **Select**: Highlight any text in any macOS app (Mail, Notes, Slack, Chrome, VS Code).
@@ -184,7 +184,7 @@ StealthShare requires the macOS Screen Recording entitlement strictly to compute
 | Processing Location | **100% on your Mac (In-RAM MLX)** | Cloud servers (prompt logged) | Cloud servers (keystroke monitor) |
 | Workflow Speed | **Instant in-place (Select + ⇧⌘P)** | Manual window switching & copy-paste | Inline browser/electron overlay |
 | Offline Availability | **100% Offline (airplanes, travel)** | Requires internet connection | Requires internet connection |
-| Price & License | **$24.99 one-time** | **$20/mo ($240/yr)** | **$12–$30/mo ($144–$360/yr)** |
+| Price & License | **$19.99 one-time** | **$20/mo ($240/yr)** | **$12–$30/mo ($144–$360/yr)** |
 | Best Suited For | Private daily writing, code, emails | Multi-turn reasoning & brainstorming | Passive consumer browser spellcheck |
 
 ---
