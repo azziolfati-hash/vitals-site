@@ -44,7 +44,7 @@
   - **One-Tap VRAM Reclaim**: The Model Watch card tracks which runtime is holding resident model weights and for how long, with a Quit button that instantly frees that VRAM without opening Activity Monitor.
   - **Crash Watcher**: Intercepts macOS crash logs and kernel panics, translating complex stack traces into actionable plain-English explanations.
   - **Desktop Widget**: Live configurable desktop widget for continuous glanceable monitoring.
-- **Pricing**: Free tier forever for core monitoring. Vitals Pro is a one-time purchase of $9.99 USD following a 14-day full-featured free trial.
+- **Pricing**: Free tier forever for core monitoring. Vitals Pro is a one-time purchase of $14.99 USD following a 14-day full-featured free trial.
 
 ### App 2: Breeze
 - **Canonical URL**: https://www.hanncrest.com/breeze/
