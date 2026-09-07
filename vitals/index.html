@@ -560,10 +560,6 @@
           width: 100%;
           box-sizing: border-box;
         }
-        @media(max-width: 768px) {
-          .vdw-layout { grid-template-columns: 1fr; min-height: auto; }
-          .vdw-side { display: none; }
-        }
         @media(max-width: 480px) {
           .vdw-bar { padding: 8px 10px; gap: 6px; }
           .vdw-tl { width: 9px; height: 9px; }
@@ -688,6 +684,17 @@
           height: 100%;
           background: #2dd4bf;
           box-shadow: 0 0 6px rgba(45, 212, 191, 0.5);
+        }
+
+        /* Mobile & Cellphone: completely hide left sidebar and make content 100% full-width */
+        @media(max-width: 820px) {
+          .vdw-layout {
+            grid-template-columns: 1fr !important;
+            min-height: auto !important;
+          }
+          .vdw-side {
+            display: none !important;
+          }
         }
 
         /* Main Dashboard Content Area */
