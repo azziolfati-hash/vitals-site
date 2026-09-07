@@ -786,6 +786,30 @@
             "@type": "Answer",
             "text": "Vitals supports macOS 13 (Ventura) or later. Breeze, StealthShare, Aura, and WhisperType require macOS 14 (Sonoma) or later. All are universal binaries for Apple Silicon (M1, M2, M3, M4) and Intel Macs, except WhisperType, which needs Apple Silicon for its Neural Engine dictation."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I know HANNCREST apps send 0 KB of network data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Network activity can be independently audited and verified using packet inspection tools like Little Snitch, LuLu, or Wireshark. All HANNCREST apps operate 100% in-RAM with zero telemetry, zero analytics SDKs, and zero cloud processing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are HANNCREST apps subscription-based or one-time purchases?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All HANNCREST apps are sold as one-time purchases with perpetual lifetime licenses. There are no recurring monthly or annual fees, no surprise renewals, and no accounts to manage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can StealthShare hide during a call and what are its technical boundaries?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "StealthShare blurs confidential windows (Slack, Mail, Messages, Notes), hides desktop icons and widgets, silences notification banners, and blocks accidental credential pastes. It operates via ScreenCaptureKit in RAM with zero video recording. It cannot hide sensitive tabs inside an unmasked shared browser window or system menu bar items."
+          }
         }
       ]
     }

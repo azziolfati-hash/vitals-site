@@ -132,3 +132,21 @@ When adding a new app (e.g. following `HOW-TO-ADD-AN-APP.md`):
    - Add entry into `apps.html` (`ItemList` schema + visual card).
    - Add entry to `sitemap.xml` (landing, support, privacy URLs).
    - Add summary to `llms.txt` and full section to `llms-full.txt`.
+
+---
+
+## 6. September 7, 2026 Update: Site-Wide Trust, Privacy Proofs & LLM Knowledge Sync
+
+Following extensive refinements across the studio, all public and machine-ingestible files have been synchronized:
+
+1. **Data & Privacy Matrix**:
+   - Embedded across `index.html`, `llms.txt`, and `llms-full.txt`.
+   - Explicitly cites independent verification of **0 KB network egress** via Little Snitch, LuLu, and Wireshark.
+2. **Problem-Solution & AEO Query Alignment**:
+   - Added direct answers for high-intent search queries: Vitals Free vs Pro, Breeze Trash safety & developer caches, StealthShare ScreenCaptureKit blur & boundaries, Aura local MLX rewriting vs cloud AI, and WhisperType Neural Engine dictation vs recurring cloud subscriptions.
+   - Expanded `index.html` JSON-LD schema with questions covering network egress proof, one-time pricing, and screen sharing technical boundaries.
+3. **Machine-Readable Indexes Updated**:
+   - `llms.txt`: Regenerated with concise problem-solution index, 5-app privacy matrix, platform compatibility, and one-time pricing.
+   - `llms-full.txt`: Comprehensive deep-dive document covering architectural specifications, benchmark data (<1.8s for 30s speech in WhisperType), real-world writing transformation use cases in Aura, and complete FAQ index.
+   - `sitemap.xml`: Refreshed with current publication timestamps.
+
