@@ -18,7 +18,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Problem**: How to hide private apps (Slack, Messages, Mail, Terminal) and desktop clutter when sharing screen on Zoom, Teams, or Meet?
   - **Solution**: Use [StealthShare](https://www.hanncrest.com/stealthshare/). Auto-blurs sensitive app windows in the shared feed while keeping them readable to the presenter. Hides desktop files, suppresses banners, and intercepts accidental paste of API tokens. Operates via ScreenCaptureKit in RAM with zero recording. 14-day free trial; one-time $14.99 purchase.
 - **Problem**: How to rewrite, proofread, or summarize text in place across any Mac app without sending text to the cloud?
-  - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $19.99 purchase.
+  - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $24.99 purchase.
 - **Problem**: How to dictate voice to text locally on a Mac without paying recurring subscriptions or uploading voice recordings?
   - **Solution**: Use [WhisperType](https://www.hanncrest.com/whispertype/). Press ⌥Space anywhere to transcribe speech into the active text field using OpenAI Whisper accelerated by the Apple Neural Engine. Transcribes 30s of audio in <1.8s with 0% CPU fan spin. One-time $19.99 purchase.
 
@@ -28,7 +28,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
 | **StealthShare** | ScreenCaptureKit in RAM | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
-| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
+| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
 ## Product Catalog
@@ -73,8 +73,8 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Platform**: macOS 14.0+, Apple Silicon (M1–M4) recommended for local MLX models.
 - **Workflow**: Select text in any app -> Press ⇧⌘P -> Stream rewritten text in-place in floating HUD -> Tap Insert to replace or Discard to keep original.
 - **Rewrite Modes & Models**: Proofread, Clarify, Shorten, Expand, Formal, Friendly, Custom Instructions, Voice Mirroring. Supported on-device models: Light (710 MB), Balanced (1.82 GB default), Writer (Google Gemma 3n E4B 3.9 GB), Best (4.29 GB), and Expert (8.36 GB).
-- **Comparison**: 100% on your Mac vs cloud chatbots (ChatGPT/Claude) logging prompts; instant in-place replacement vs manual copy-paste; $19.99 one-time vs $144–$240/yr recurring subscriptions.
-- **Pricing**: One-time $19.99 purchase.
+- **Comparison**: 100% on your Mac vs cloud chatbots (ChatGPT/Claude) logging prompts; instant in-place replacement vs manual copy-paste; $24.99 one-time vs $144–$240/yr recurring subscriptions.
+- **Pricing**: One-time $24.99 purchase.
 - **Support**: https://www.hanncrest.com/aura/support.html
 - **Privacy Policy**: https://www.hanncrest.com/aura/privacy.html
 

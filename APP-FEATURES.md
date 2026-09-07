@@ -144,7 +144,7 @@ macOS 13+ · 14-day free trial, one-time $14.99 · full docs:
 
 ## Aura — offline local AI text assistant
 
-macOS 14+ · one-time $19.99 · full docs: [`Aura/README.md`](../Aura/README.md)
+macOS 14+ · one-time $24.99 · full docs: [`Aura/README.md`](../Aura/README.md)
 
 - Select text anywhere, press ⇧⌘P — rewritten text streams back in place via a
   floating HUD; longer selections get a word-level diff review card
