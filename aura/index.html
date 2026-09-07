@@ -342,7 +342,7 @@
       <a class="brand" href="#top"><img src="../assets/apps/aura.png" alt="Aura icon"><span>Aura</span></a>
     </div>
     <div class="navlinks">
-      <a href="#features" class="nav-desk">Features</a><a href="#engines" class="nav-desk">Engines</a><a href="#privacy" class="nav-desk">Privacy</a><a href="#pricing" class="nav-desk">Pricing</a>
+      <a href="#features" class="nav-desk">Features</a><a href="#engines" class="nav-desk">Models</a><a href="#privacy" class="nav-desk">Privacy</a><a href="#pricing" class="nav-desk">Pricing</a>
       <a class="btn btn-primary" href="#pricing">Get Aura</a>
     </div>
   </nav></div>
@@ -567,45 +567,101 @@
     </div>
   </section>
 
-  <!-- ENGINES SPLIT -->
+  <!-- MODEL SPLIT -->
   <section id="engines" style="padding-top:20px">
     <div class="wrap">
       <div class="split">
         <div>
-          <span class="pill">Four engines, picked automatically</span>
+          <span class="pill">Five on-device models</span>
           <h2 style="margin-top:16px">Runs on <span class="grad-text">your Mac</span>, not someone's server.</h2>
-          <p>Aura chooses the best engine that's actually available — best result for the least cost to you — and you can pin a specific one in Settings. Whichever it uses, the text never leaves your Mac.</p>
+          <p>Aura runs locally via MLX on Apple Silicon. Choose from five models tailored to your Mac's memory and performance — from lightweight grammar checks to Google's Gemma 3n and full-size expert rewriting.</p>
           <ul class="checks">
-            <li><span class="ck">✓</span><span><strong>Apple Intelligence</strong> — the on-device model built into macOS 26+. No download, nothing to set up.</span></li>
-            <li><span class="ck">✓</span><span><strong>Aura's own model</strong> — one click downloads a quantized Llama that runs in-process on the GPU via MLX. Offline forever after.</span></li>
-            <li><span class="ck">✓</span><span><strong>Local server</strong> — point Aura at LM Studio or Ollama on localhost. Loopback only, so it stays offline.</span></li>
-            <li><span class="ck">✓</span><span><strong>Built-in cleanup</strong> — a no-AI grammar/mechanics pass that always works, even before you download a thing.</span></li>
+            <li><span class="ck">✓</span><span><strong>Balanced (1.82 GB)</strong> — the default workhorse. Instant ~1s proofreading that reliably catches errors.</span></li>
+            <li><span class="ck">✓</span><span><strong>Writer (3.9 GB)</strong> — powered by Google Gemma 3n E4B for natural prose, clarity, and tone shifts.</span></li>
+            <li><span class="ck">✓</span><span><strong>Best &amp; Expert</strong> — deep contextual rewriting and summarisation for 16 GB and 24 GB+ Macs.</span></li>
+            <li><span class="ck">✓</span><span><strong>Light (710 MB)</strong> — ultra-compact footprint for Macs when disk space is tight.</span></li>
+            <li><span class="ck">✓</span><span><strong>100% Offline</strong> — download once, then runs in-process with zero network calls.</span></li>
           </ul>
         </div>
         <div class="appwin">
-          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Aura — Engine</span></div>
-          <div class="appbody" style="font-size:13px;display:flex;flex-direction:column;gap:8px">
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
-              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#6fa8ff,#a06bf0);flex:none;display:grid;place-items:center"></span>
-              <div><div style="font-weight:600">Apple Intelligence</div><div style="color:#6b7078;font-size:11px">On-device · macOS 26+</div></div>
-              <span style="margin-left:auto;color:#34d399;font-weight:700">✓ Ready</span>
+          <div class="appbar"><span class="tl r"></span><span class="tl y"></span><span class="tl g"></span><span class="apptitle">Aura — Model Settings</span></div>
+          <div class="appbody" style="font-size:13px;padding:16px 18px 18px">
+            <div style="font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+              <span>Model</span>
+              <span style="font-size:11px;font-weight:500;color:#94a3b8">MLX · On-device</span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid rgba(160,107,240,.35);border-radius:10px">
-              <span style="width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#6fa8ff,#a06bf0);flex:none;display:grid;place-items:center">📦</span>
-              <div><div style="font-weight:600">Aura's own model · Llama 3.2 3B</div><div style="color:#6b7078;font-size:11px">1.82 GB · runs on the GPU via MLX</div></div>
-              <span style="margin-left:auto;color:#c9b6ff;font-weight:700">In use</span>
+            <div style="background:rgba(18,22,30,.85);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden">
+              <!-- Light -->
+              <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);transition:background .15s ease;cursor:pointer" class="model-row">
+                <span class="radio-ring" style="width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);margin-top:2px;flex-shrink:0"></span>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-weight:700;color:#f8fafc">Light</span>
+                    <span style="color:#94a3b8;font-size:12px">710 MB</span>
+                  </div>
+                  <div style="color:#a1a1aa;font-size:12px;line-height:1.42;margin-top:3px">Smallest download and the quickest. Catches most spelling mistakes but misses some grammar. Choose it if disk space is tight.</div>
+                  <div style="color:#64748b;font-size:11px;margin-top:4px">Fastest · Fair quality</div>
+                </div>
+              </div>
+
+              <!-- Balanced (Default / Selected) -->
+              <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);transition:background .15s ease;cursor:pointer" class="model-row">
+                <span class="radio-dot" style="width:15px;height:15px;border-radius:50%;background:#007aff;border:1.5px solid #007aff;margin-top:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center"><span style="width:5px;height:5px;border-radius:50%;background:#fff"></span></span>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-weight:700;color:#f8fafc">Balanced</span>
+                    <span style="color:#94a3b8;font-size:12px">1.82 GB</span>
+                    <span style="background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.35);color:#34d399;font-size:10px;font-weight:700;padding:1px 7px;border-radius:999px">Downloaded</span>
+                    <span style="margin-left:auto;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#94a3b8;display:inline-flex;align-items:center;justify-content:center" title="Delete model"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></span>
+                  </div>
+                  <div style="color:#a1a1aa;font-size:12px;line-height:1.42;margin-top:3px">The default, and the smallest model that reliably proofreads. About a second per rewrite. Needs ~4 GB of free memory.</div>
+                  <div style="color:#64748b;font-size:11px;margin-top:4px">Fast · High quality</div>
+                </div>
+              </div>
+
+              <!-- Writer -->
+              <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);transition:background .15s ease;cursor:pointer" class="model-row">
+                <span class="radio-ring" style="width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);margin-top:2px;flex-shrink:0"></span>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-weight:700;color:#f8fafc">Writer</span>
+                    <span style="color:#94a3b8;font-size:12px">3.9 GB</span>
+                  </div>
+                  <div style="color:#a1a1aa;font-size:12px;line-height:1.42;margin-top:3px">Google's Gemma 3n E4B — an on-device model tuned for the nicest prose. Best for the Friendly, Formal and Clarity rewrites. Runs well on 16 GB Macs.</div>
+                  <div style="color:#64748b;font-size:11px;margin-top:4px">Fast · Very high quality</div>
+                </div>
+              </div>
+
+              <!-- Best -->
+              <div style="display:flex;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.06);transition:background .15s ease;cursor:pointer" class="model-row">
+                <span class="radio-ring" style="width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);margin-top:2px;flex-shrink:0"></span>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-weight:700;color:#f8fafc">Best</span>
+                    <span style="color:#94a3b8;font-size:12px">4.29 GB</span>
+                  </div>
+                  <div style="color:#a1a1aa;font-size:12px;line-height:1.42;margin-top:3px">Strongest all-round for rewriting and summarising. Only worth it on a Mac with 16 GB or more.</div>
+                  <div style="color:#64748b;font-size:11px;margin-top:4px">Moderate · Highest quality</div>
+                </div>
+              </div>
+
+              <!-- Expert -->
+              <div style="display:flex;gap:12px;padding:12px 14px;transition:background .15s ease;cursor:pointer" class="model-row">
+                <span class="radio-ring" style="width:15px;height:15px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);margin-top:2px;flex-shrink:0"></span>
+                <div style="flex:1">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-weight:700;color:#f8fafc">Expert</span>
+                    <span style="color:#94a3b8;font-size:12px">8.36 GB</span>
+                  </div>
+                  <div style="color:#a1a1aa;font-size:12px;line-height:1.42;margin-top:3px">The most capable model Aura offers. Noticeably slower and needs a Mac with 24 GB of memory or more — for when quality is all that matters.</div>
+                  <div style="color:#64748b;font-size:11px;margin-top:4px">Slower · Highest quality</div>
+                </div>
+              </div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
-              <span style="width:26px;height:26px;border-radius:7px;background:#2a2f38;flex:none;display:grid;place-items:center">🖥️</span>
-              <div><div style="font-weight:600">Local server</div><div style="color:#6b7078;font-size:11px">LM Studio / Ollama · 127.0.0.1</div></div>
-              <span style="margin-left:auto;color:#8a8aa0;font-weight:700">Optional</span>
+            <div style="color:#6b7078;font-size:11px;margin-top:10px;display:flex;justify-content:space-between;align-items:center">
+              <span>All models run in-process on the GPU via MLX.</span>
+              <span style="color:#34d399;font-weight:600">✓ 100% offline</span>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#1a1d23;border:1px solid #23272f;border-radius:10px">
-              <span style="width:26px;height:26px;border-radius:7px;background:#2a2f38;flex:none;display:grid;place-items:center">🔤</span>
-              <div><div style="font-weight:600">Built-in cleanup</div><div style="color:#6b7078;font-size:11px">No AI · always available</div></div>
-              <span style="margin-left:auto;color:#34d399;font-weight:700">✓ Ready</span>
-            </div>
-            <div style="color:#6b7078;font-size:11px;margin-top:2px">Sample state — Aura picks the best available engine automatically.</div>
           </div>
         </div>
       </div>
@@ -640,7 +696,7 @@
           <ul>
             <li><span class="ck">✓</span>All eight rewrite modes + custom instructions</li>
             <li><span class="ck">✓</span>Unlimited presets, each with its own shortcut</li>
-            <li><span class="ck">✓</span>All four engines, including Aura's own model</li>
+            <li><span class="ck">✓</span>All five on-device models, including Gemma 3n &amp; Expert</li>
             <li><span class="ck">✓</span>Right-click Services &amp; the floating HUD</li>
             <li><span class="ck">✓</span>Runs fully offline — nothing ever leaves your Mac</li>
             <li><span class="ck">✓</span>Free updates, no subscription</li>
@@ -720,10 +776,35 @@
       new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
     }
   })();
-document.querySelectorAll('kbd').forEach(k => {
+  document.querySelectorAll('kbd').forEach(k => {
     k.addEventListener('click', () => {
       k.classList.add('active');
       setTimeout(() => k.classList.remove('active'), 150);
+    });
+  });
+
+  // Interactive model selector in Aura Settings mockup
+  document.querySelectorAll('.model-row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      if (e.target.closest('button, [title="Delete model"]')) return;
+      document.querySelectorAll('.model-row').forEach(r => {
+        r.style.background = 'transparent';
+        const activeRadio = r.querySelector('.radio-dot');
+        if (activeRadio) {
+          activeRadio.className = 'radio-ring';
+          activeRadio.style.background = 'transparent';
+          activeRadio.style.borderColor = 'rgba(255,255,255,.3)';
+          activeRadio.innerHTML = '';
+        }
+      });
+      row.style.background = 'rgba(255,255,255,.03)';
+      const ring = row.querySelector('.radio-ring');
+      if (ring) {
+        ring.className = 'radio-dot';
+        ring.style.background = '#007aff';
+        ring.style.borderColor = '#007aff';
+        ring.innerHTML = '<span style="width:5px;height:5px;border-radius:50%;background:#fff"></span>';
+      }
     });
   });
 </script>
