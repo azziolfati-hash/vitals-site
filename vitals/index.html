@@ -445,7 +445,25 @@
         @media(max-width: 980px) {
           .dash-showcase {
             grid-template-columns: 1fr;
-            gap: 32px;
+            gap: 28px;
+            margin-top: 24px;
+          }
+        }
+        @media(max-width: 480px) {
+          .dash-showcase {
+            gap: 20px;
+            margin-top: 18px;
+          }
+          .dash-notes-title {
+            font-size: 25px;
+          }
+          .dash-bullets {
+            gap: 12px;
+            margin-top: 2px;
+          }
+          .dash-bullets li {
+            font-size: 14px;
+            gap: 10px;
           }
         }
         .dash-notes {
@@ -504,6 +522,9 @@
           font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
           text-align: left;
           color: #e2e8f0;
+          width: 100%;
+          max-width: 100%;
+          box-sizing: border-box;
         }
         .vdw-bar {
           display: flex;
@@ -512,17 +533,20 @@
           padding: 10px 14px;
           background: #151821;
           border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          box-sizing: border-box;
         }
-        .vdw-tl { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+        .vdw-tl { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
         .vdw-tl.r { background: #ff5f57; border: 1px solid #e0443e; }
         .vdw-tl.y { background: #febc2e; border: 1px solid #dea123; }
         .vdw-tl.g { background: #28c840; border: 1px solid #1aab29; }
         .vdw-title {
-          margin-left: 10px; font-size: 12px; font-weight: 600; color: #94a3b8;
+          margin-left: 8px; font-size: 12px; font-weight: 600; color: #94a3b8;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .vdw-live {
           margin-left: auto; display: flex; align-items: center; gap: 5px;
           font-size: 10.5px; font-weight: 700; color: #10b981; text-transform: uppercase; letter-spacing: 0.5px;
+          flex-shrink: 0;
         }
         .vdw-live i {
           width: 6px; height: 6px; border-radius: 50%; background: #10b981;
@@ -533,10 +557,18 @@
           display: grid;
           grid-template-columns: 185px 1fr;
           min-height: 520px;
+          width: 100%;
+          box-sizing: border-box;
         }
-        @media(max-width: 680px) {
-          .vdw-layout { grid-template-columns: 1fr; }
+        @media(max-width: 768px) {
+          .vdw-layout { grid-template-columns: 1fr; min-height: auto; }
           .vdw-side { display: none; }
+        }
+        @media(max-width: 480px) {
+          .vdw-bar { padding: 8px 10px; gap: 6px; }
+          .vdw-tl { width: 9px; height: 9px; }
+          .vdw-title { font-size: 11px; margin-left: 4px; }
+          .vdw-live { font-size: 9.5px; }
         }
         .vdw-side {
           background: #11141c;
@@ -665,6 +697,15 @@
           flex-direction: column;
           gap: 12px;
           background: #0d0f15;
+          width: 100%;
+          box-sizing: border-box;
+          overflow: hidden;
+        }
+        @media(max-width: 600px) {
+          .vdw-body {
+            padding: 12px 10px;
+            gap: 10px;
+          }
         }
         .vdw-head {
           display: flex;
@@ -677,6 +718,11 @@
         }
         .vdw-head span {
           font-size: 11.5px; color: #64748b;
+        }
+        @media(max-width: 480px) {
+          .vdw-head { gap: 8px; }
+          .vdw-head h3 { font-size: 14px; }
+          .vdw-head span { font-size: 10.5px; }
         }
 
         /* Colored Icon Badges matching screenshot */
@@ -706,9 +752,27 @@
           align-items: center;
           gap: 18px;
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0, 0, 0, 0.3);
+          box-sizing: border-box;
+          width: 100%;
         }
         @media(max-width: 540px) {
-          .vdw-health-card { flex-direction: column; align-items: flex-start; gap: 10px; }
+          .vdw-health-card {
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+          }
+          .vdw-score-ring { width: 54px; height: 54px; }
+          .vdw-score-ring svg { width: 54px; height: 54px; }
+          .vdw-score-val { font-size: 14.5px; }
+          .vdw-score-val small { font-size: 7.5px; }
+          .vdw-hm-title { font-size: 13.5px; }
+          .vdw-hm-sub { font-size: 10.5px; line-height: 1.35; }
+          .vdw-pills { gap: 4px 6px; margin-top: 4px; }
+          .vdw-pill { font-size: 9px; padding: 2px 5px; }
+        }
+        @media(max-width: 380px) {
+          .vdw-health-card { flex-direction: column; align-items: flex-start; gap: 8px; }
         }
         .vdw-score-ring {
           position: relative;
@@ -739,6 +803,8 @@
           display: flex;
           flex-direction: column;
           gap: 4px;
+          flex: 1;
+          min-width: 0;
         }
         .vdw-hm-title {
           display: flex;
@@ -778,6 +844,7 @@
           display: flex;
           align-items: center;
           gap: 4px;
+          white-space: nowrap;
         }
         .vdw-pill i {
           width: 5px; height: 5px; border-radius: 50%;
@@ -790,8 +857,17 @@
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 10px;
+          width: 100%;
+          box-sizing: border-box;
         }
-        @media(max-width: 500px) {
+        @media(max-width: 480px) {
+          .vdw-mini-row { gap: 8px; }
+          .vdw-mini-card { padding: 8px 10px; gap: 4px; }
+          .vdw-mc-title span:last-child { font-size: 11.5px; }
+          .vdw-mc-head > span:last-child { font-size: 10px; }
+          .vdw-mc-num { font-size: 13px; }
+        }
+        @media(max-width: 340px) {
           .vdw-mini-row { grid-template-columns: 1fr; }
         }
         .vdw-mini-card {
@@ -803,6 +879,7 @@
           flex-direction: column;
           gap: 6px;
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 18px rgba(0, 0, 0, 0.25);
+          box-sizing: border-box;
         }
         .vdw-mc-head {
           display: flex;
@@ -846,6 +923,9 @@
           flex-direction: column;
           gap: 8px;
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 6px 18px rgba(0, 0, 0, 0.25);
+          width: 100%;
+          box-sizing: border-box;
+          overflow: hidden;
         }
         .vdw-card-head {
           display: flex;
@@ -875,6 +955,8 @@
           align-items: center;
           justify-content: space-between;
           gap: 14px;
+          width: 100%;
+          box-sizing: border-box;
         }
         .vdw-cb-left {
           display: flex;
@@ -936,6 +1018,45 @@
           overflow: visible;
         }
 
+        /* Mobile Layout for Processor & Graphics Telemetry Cards */
+        @media(max-width: 580px) {
+          .vdw-card {
+            padding: 10px 12px;
+            gap: 10px;
+          }
+          .vdw-card-body {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
+          }
+          .vdw-cb-left {
+            width: 100%;
+            justify-content: flex-start;
+            gap: 16px;
+          }
+          .vdw-dualring {
+            width: 58px;
+            height: 58px;
+          }
+          .vdw-dualring svg {
+            width: 58px;
+            height: 58px;
+          }
+          .vdw-center-val {
+            font-size: 11.5px;
+          }
+          .vdw-card-body > div:last-child {
+            width: 100% !important;
+            min-width: 0 !important;
+            align-items: stretch !important;
+          }
+          .vdw-sparkline {
+            width: 100% !important;
+            height: 42px !important;
+            min-width: 0 !important;
+          }
+        }
+
         /* Network Card */
         .vdw-net-row {
           display: flex;
@@ -944,12 +1065,28 @@
           font-size: 11.5px;
           font-weight: 700;
           margin-top: 2px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        @media(max-width: 480px) {
+          .vdw-net-row {
+            flex-wrap: wrap;
+            gap: 4px 10px;
+          }
+          .vdw-net-row span {
+            font-size: 11px;
+          }
         }
         .vdw-net-chart {
           width: 100%;
           height: 38px;
           display: block;
           overflow: visible;
+        }
+        @media(max-width: 480px) {
+          .vdw-net-chart {
+            height: 32px;
+          }
         }
       </style>
     </div>
