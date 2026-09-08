@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — Breeze</title>
-<meta name="description" content="Breeze collects nothing. No account, no analytics, no ads, no servers of ours — every scan stays on your Mac, and everything it removes goes to the Trash. Here's exactly what that means.">
+<meta name="description" content="Breeze scans and cleans entirely on your Mac. No account, no analytics, no ads — the only data that ever leaves is what you choose to send us in a bug report. Here's exactly what that means.">
 <link rel="icon" type="image/png" href="../assets/apps/breeze.png">
 <style>
   :root{
@@ -122,7 +122,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://www.hanncrest.com/breeze/privacy.html">
 <meta property="og:title" content="Privacy Policy — Breeze">
-<meta property="og:description" content="Breeze collects nothing. No account, no analytics, no ads, no servers of ours — every scan stays on your Mac, and everything it removes goes to the Trash. Here&#x27;s exactly what that means.">
+<meta property="og:description" content="Breeze scans and cleans entirely on your Mac. No account, no analytics, no ads — the only data that ever leaves is what you choose to send us in a bug report. Here&#x27;s exactly what that means.">
 <meta property="og:image" content="https://www.hanncrest.com/assets/og/og-breeze.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -130,7 +130,7 @@
 <meta property="og:image:alt" content="Privacy Policy — Breeze">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Privacy Policy — Breeze">
-<meta name="twitter:description" content="Breeze collects nothing. No account, no analytics, no ads, no servers of ours — every scan stays on your Mac, and everything it removes goes to the Trash. Here&#x27;s exactly what that means.">
+<meta name="twitter:description" content="Breeze scans and cleans entirely on your Mac. No account, no analytics, no ads — the only data that ever leaves is what you choose to send us in a bug report. Here&#x27;s exactly what that means.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-breeze.png">
 <script type="application/ld+json">
 {
@@ -199,8 +199,8 @@
 <main><div class="wrap">
   <span class="kicker">Legal</span>
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: August 2026</p>
-  <p class="intro">The short version: Breeze collects <strong>nothing</strong>. There's no account, no analytics, no advertising, and no servers of ours in the loop. Every scan it runs happens on your Mac and stays there, and everything it removes goes to your Trash — nothing is permanently deleted until you empty it yourself. This page explains exactly what that means.</p>
+  <p class="updated">Last updated: September 2026</p>
+  <p class="intro">The short version: Breeze scans and cleans entirely <strong>on your Mac</strong>. There's no account, no analytics, no advertising. Every scan it runs happens locally and stays there, and everything it removes goes to your Trash — nothing is permanently deleted until you empty it yourself. The one exception is the optional Bug Report form: if you choose to send one, whatever you typed (plus an opt-in diagnostics profile) goes to our server — never automatically, only when you tap Send. This page explains exactly what that means.</p>
 
   <div class="legal">
     <h2>What Breeze reads</h2>
@@ -231,7 +231,17 @@
     <p>Only when you press "Run speed test" in the Network module, Breeze measures your connection against a public test endpoint. This never happens automatically.</p>
 
     <h2>The permissions Breeze asks for</h2>
-    <p>Breeze asks for <strong>Full Disk Access</strong> so it can scan and clean protected locations across your Mac — this is a macOS platform permission you grant in System Settings, and it lets Breeze see the files it needs to; it doesn't send anything anywhere. Depending on what you scan, macOS may also prompt for access to specific folders (like Downloads, Pictures or your media library); those, too, are local access grants and nothing is transmitted.</p>
+    <p>What Breeze asks for depends on which build you're running. The direct download from this site asks for <strong>Full Disk Access</strong>, a macOS platform permission granted in System Settings, so it can scan and clean protected locations across your whole Mac. The Mac App Store version runs inside Apple's App Sandbox instead — sandboxed apps can't use Full Disk Access at all — so it asks you, once, to pick your Home folder in a standard Open panel and remembers that choice for next time. Either way it's a local access grant: it lets Breeze see the files it needs to, and nothing is sent anywhere. Depending on what you scan, macOS may also prompt separately for Downloads, Pictures, or your media library; same thing, local only.</p>
+
+    <h2>The Bug Report / Feature Request form — the one place data leaves your Mac, and only if you ask</h2>
+    <div class="card">
+      <ul>
+        <li><span class="ck">✓</span><span>Nothing is sent unless you open the form and tap <strong>Send Report</strong> yourself. There is no background or automatic submission.</span></li>
+        <li><span class="ck">✓</span><span>What's always included: the description you typed, Breeze's version/build, and your macOS version. An <strong>email address is included only if you type one in</strong> — it's entirely optional.</span></li>
+        <li><span class="ck">✓</span><span>An opt-in <strong>Diagnostics</strong> toggle, off by default, can additionally include an anonymous device profile: Mac model, CPU/RAM, locale, uptime, thermal state, and whether Breeze Pro is active. It never includes your name, files, account, or location, and carries no persistent identifier — each report gets a random id.</span></li>
+        <li><span class="ck">✓</span><span>Reports go to HANNCREST's own server over HTTPS, used only to read and respond to what you sent — never sold, shared, or used for advertising.</span></li>
+      </ul>
+    </div>
 
     <h2>Children's privacy</h2>
     <p>Breeze is not directed at children and does not knowingly collect information from anyone, of any age — there's simply nothing collected, full stop.</p>
