@@ -133,7 +133,12 @@ macOS 13+ · 14-day free trial, one-time $14.99 · full docs:
 - Notification Blocker + after-call summary of how long banners were held and
   which comms apps were running.
 - Auto-detect meetings by app list (Zoom, Teams, Meet, Slack Huddles,
-  FaceTime, custom) or by live camera/mic use (direct-download build only).
+  FaceTime, custom) or by live camera/mic use — camera + mic in the
+  direct-download build, mic only in the Mac App Store build (sandbox blocks
+  camera-in-use reads even with the entitlement; verified on-device). Named
+  apps are unaffected by the camera gap since they also match on window
+  visibility; only a browser-based/unlisted meeting joined muted with camera
+  only misses auto-arm on the App Store build.
 - Calendar Auto-Arm — arms ~60s before scheduled Zoom/Teams/Meet events;
   works with Google and Exchange calendars.
 - Global hotkey, launch at login, mode-toggle sound.
