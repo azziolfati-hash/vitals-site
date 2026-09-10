@@ -123,7 +123,9 @@ macOS 13+ · 14-day free trial, one-time $19.99 · full docs:
 - Hide desktop icons and hide desktop widgets (full-screen frosted mask).
 - Studio-backdrop wallpaper swap while sharing, restored after.
 - Confidential app-window blurring, customizable list (Slack, WhatsApp, Mail,
-  Messages, Safari Private on by default; Notes/Spotify off).
+  Messages on by default; Safari, Notes and Spotify off. Blurring matches the
+  owning app, so enabling Safari frosts every Safari window, not just private
+  ones — macOS gives no way to tell them apart.
 - Accidental-Paste Guard — blocks ⌘V of anything that looks like an API
   key/JWT/credit-card number (Luhn-checked)/private key/password while
   sharing; red warning flash is excluded from the shared feed; press ⌘V again
