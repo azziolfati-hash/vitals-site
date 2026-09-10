@@ -39,7 +39,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
-| **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
+| **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $19.99 once |
 | **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
@@ -116,7 +116,7 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
 - **Headline**: Never flash private Slack DMs, client emails, or API keys on a call again.
 - **Category**: Privacy & Screen Sharing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Universal binary for Apple Silicon & Intel.
-- **Pricing**: 14-day free trial with all features enabled. One-time purchase of $14.99 USD with lifetime updates. No subscriptions.
+- **Pricing**: 14-day free trial with all features enabled. One-time purchase of $19.99 USD with lifetime updates. No subscriptions.
 
 #### 5-Step Call Safeguard Workflow
 1. **Step 01 · Detection**: StealthShare automatically detects Zoom, Microsoft Teams, Google Meet, Slack Huddles, or FaceTime connecting — or catches active camera/mic usage locally. Camera and microphone detection both work in the direct-download and Mac App Store builds (see boundaries below for how the sandboxed build reads the camera).

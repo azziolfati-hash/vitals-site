@@ -114,7 +114,7 @@ its system-metrics engine with Vitals and cross-promotes it in-app · full docs:
 
 ## StealthShare — screen-share privacy
 
-macOS 13+ · 14-day free trial, one-time $14.99 · full docs:
+macOS 13+ · 14-day free trial, one-time $19.99 · full docs:
 [`stealthshare/FEATURES.md`](../stealthshare/FEATURES.md)
 
 - Privacy Mode master switch — popover toggle, global hotkey (⌘⇧P default),

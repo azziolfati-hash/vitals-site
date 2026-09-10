@@ -27,7 +27,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 | :--- | :--- | :--- | :--- | :--- |
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
-| **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
+| **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $19.99 once |
 | **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
@@ -64,7 +64,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
   - *Can Hide*: Desktop icons, widgets, notification banners, confidential app windows, personal wallpaper, clipboard secret pastes.
   - *Cannot Hide*: Content inside an unmasked shared browser window, macOS system menu bar / Spotlight, physical webcam room environment.
 - **Privacy & Permissions**: Does not require Screen Recording permission and does not use ScreenCaptureKit. Window rectangles come from the public Core Graphics window list, which needs no permission. The only permission requested is Accessibility, for the Accidental-Paste Guard. Zero video frames are recorded to disk or streamed.
-- **Pricing**: 14-day free trial; one-time $14.99 purchase.
+- **Pricing**: 14-day free trial; one-time $19.99 purchase.
 - **Support**: https://www.hanncrest.com/stealthshare/support.html
 - **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html
 
