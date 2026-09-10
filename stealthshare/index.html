@@ -928,9 +928,9 @@
       <div class="perm-callout" style="text-align:left;max-width:760px;margin:28px auto 0">
         <h4>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--teal)"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          Why macOS asks for "Screen Recording" permission
+          Why StealthShare does <em>not</em> ask for "Screen Recording"
         </h4>
-        <p>To detect window positions and draw real-time blur overlays directly over confidential apps (using Apple's native <code>ScreenCaptureKit</code>), macOS requires the Screen Recording entitlement. <strong>StealthShare processes window geometries entirely in RAM. Not a single video frame is ever saved to disk or sent anywhere.</strong> (The optional in-app bug reporter and More Apps hub do reach the network, but only when you use them.) You can independently verify the screen-capture behavior with Little Snitch or Wireshark.</p>
+        <p>Most tools in this category ask for Screen Recording. StealthShare does not, and does not need to. To place a mask over a window it only needs that window's owner, process and on-screen rectangle, and macOS hands those to any app through the public Core Graphics window list with <strong>no permission at all</strong> — only window <em>titles</em> and actual pixel capture sit behind Screen Recording. <strong>StealthShare never captures, screenshots or records your screen; it draws its own panels on top of it.</strong> The only permission it ever requests is Accessibility, and only for the Accidental-Paste Guard, which cannot intercept ⌘V without it. (The optional in-app bug reporter and More Apps hub reach the network, but only when you use them.) You can verify the network behaviour with Little Snitch or Wireshark.</p>
         
         <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
           <span class="disclaimer-badge">Security Disclaimer</span>

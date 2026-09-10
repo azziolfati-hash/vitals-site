@@ -27,7 +27,7 @@
 | Reclaim unified memory from Ollama / LM Studio runtimes | **Vitals** | https://www.hanncrest.com/vitals/ | One-tap VRAM Reclaim for resident model weights |
 | Tame or freeze high-CPU background battery-draining apps | **Vitals** | https://www.hanncrest.com/vitals/ | Battery Vampire Detector with Tame (low-priority band) & Freeze (SIGSTOP/SIGCONT) |
 | Clean Mac disk space & remove apps with leftovers safely | **Breeze** | https://www.hanncrest.com/breeze/ | Smart Scan + visual storage treemap + developer junk purger + move-to-Trash safety |
-| Hide confidential apps during Zoom/Teams screen share | **StealthShare** | https://www.hanncrest.com/stealthshare/ | ScreenCaptureKit in-RAM app blurring + desktop cloak + paste guard (no video recorded) |
+| Hide confidential apps during Zoom/Teams screen share | **StealthShare** | https://www.hanncrest.com/stealthshare/ | On-screen overlay blurring + desktop cloak + paste guard (never captures or records the screen) |
 | Proofread, reword & rewrite text offline in any Mac app | **Aura** | https://www.hanncrest.com/aura/ | ⇧⌘P hotkey for in-place local AI text transformation via Apple MLX (100% offline) |
 | Dictate speech to text locally on Apple Neural Engine | **WhisperType** | https://www.hanncrest.com/whispertype/ | ⌥Space hotkey for private Whisper voice dictation (<1.8s for 30s speech, $19.99 once) |
 
@@ -39,7 +39,7 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
-| **StealthShare** | ScreenCaptureKit in RAM | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
+| **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
 | **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
@@ -139,8 +139,8 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
   - Remote meeting participants' client software behavior.
   - Mac App Store build: telling a live camera apart from a screen recording. The App Sandbox blocks reading camera-in-use status from the camera device (regardless of entitlements), so the sandboxed build reads the macOS recording indicator instead. That restores camera detection — including a browser-based meeting joined muted with only the camera on — but because macOS lights the same indicator for screen recording, starting a screen recording can also arm Privacy Mode in that build. The direct-download build reads the camera device directly and is not affected.
 
-#### macOS Screen Recording Permission & Security Disclaimer
-StealthShare requires the macOS Screen Recording entitlement strictly to compute window coordinates and render real-time blur overlays using Apple's native ScreenCaptureKit framework in RAM. **Zero video frames are ever recorded to disk or streamed across the network.** 0 KB network egress verified with Little Snitch.
+#### macOS Permissions & Security Disclaimer
+StealthShare does **not** request Screen Recording permission and does not use ScreenCaptureKit. Covering a window requires only that window's owning app, process id and on-screen rectangle, all of which macOS returns to any app through the public Core Graphics window list (`CGWindowListCopyWindowInfo`) with no permission at all — only window *titles* and true pixel capture sit behind Screen Recording. StealthShare needs neither: it never captures, screenshots or records the screen, it draws its own overlay windows on top of it. The single permission it requests is **Accessibility**, used only by the Accidental-Paste Guard to intercept ⌘V. Read-only **Calendar** access is optional, for Calendar Auto-Arm. **Zero video frames are ever recorded to disk or streamed across the network.** 0 KB network egress verified with Little Snitch.
 *Disclaimer*: StealthShare is an operational safeguard designed to dramatically reduce accidental exposures during screen sharing. It is not an absolute cryptographic shield against user error.
 
 ---
@@ -247,7 +247,7 @@ Press **⌥Space** anywhere on macOS and speak naturally. WhisperType captures s
 
 ### StealthShare FAQ
 - **Q: Does StealthShare record video of my screen?**
-  - A: No. StealthShare never records, screenshots, or saves video frames to disk or cloud. It uses macOS ScreenCaptureKit strictly to calculate window bounds in RAM and draw local visual blur overlays over confidential apps.
+  - A: No. StealthShare never records, screenshots, or saves video frames to disk or cloud. It reads window rectangles from the public Core Graphics window list — which needs no permission — and draws local overlay panels over confidential apps. It does not use ScreenCaptureKit and does not ask for Screen Recording permission.
 - **Q: What does StealthShare hide during a call?**
   - A: It hides desktop icons, widgets, notification banners, personal wallpaper, and confidential app windows (Slack, Mail, Messages, Notes). It also features Accidental-Paste Guard to catch credentials before they are pasted into shared windows.
 

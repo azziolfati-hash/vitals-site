@@ -6,6 +6,35 @@
 <title>How StealthShare works — prediction, detection, protection</title>
 <meta name="description" content="A plain-English walkthrough of how StealthShare decides when to protect your screen: calendar prediction, live mic/camera/screen-share detection, and the protection layer that works regardless of either.">
 <link rel="icon" type="image/png" href="../assets/apps/stealthshare.png">
+<link rel="canonical" href="https://www.hanncrest.com/stealthshare/how-it-works.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="HANNCREST">
+<meta property="og:title" content="How StealthShare works — prediction, detection, protection">
+<meta property="og:description" content="How StealthShare decides when to protect your Mac's screen: calendar prediction, live mic/camera/screen-share detection, and protection that never depends on either.">
+<meta property="og:url" content="https://www.hanncrest.com/stealthshare/how-it-works.html">
+<meta property="og:image" content="https://www.hanncrest.com/assets/og/og-stealthshare.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How StealthShare works — prediction, detection, protection">
+<meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-stealthshare.png">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"How StealthShare works — prediction, detection, protection",
+  "url":"https://www.hanncrest.com/stealthshare/how-it-works.html",
+  "image":"https://www.hanncrest.com/assets/apps/stealthshare.png",
+  "about":{
+    "@type":"SoftwareApplication",
+    "name":"StealthShare",
+    "applicationCategory":"SecurityApplication",
+    "operatingSystem":"macOS 14.0 or later",
+    "image":"https://www.hanncrest.com/assets/apps/stealthshare.png",
+    "url":"https://www.hanncrest.com/stealthshare/",
+    "offers":{"@type":"Offer","price":"14.99","priceCurrency":"USD"}
+  },
+  "publisher":{"@type":"Organization","name":"HANNCREST","url":"https://www.hanncrest.com/"}
+}
+</script>
 <style>
   :root{
     --bg:#050b14; --bg2:#081722; --card:#0c1a26; --card2:#0a1520;
@@ -140,6 +169,12 @@
   .kbd{display:inline-block;padding:1px 7px;border-radius:5px;background:rgba(255,255,255,.1);border:1px solid var(--line);font-size:13px;font-weight:600}
   footer{padding:44px 0 70px;color:var(--dim);font-size:13.5px;border-top:1px solid var(--line)}
 
+  .brandbar{position:sticky;top:0;z-index:40;background:rgba(5,11,20,.8);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid var(--line)}
+  .brandrow{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:inline-flex;align-items:center;gap:10px;font-weight:750;font-size:17px;letter-spacing:-.2px;text-decoration:none}
+  .brand img{border-radius:8px;display:block}
+  .brandcta{font-size:13.5px;font-weight:700;color:#06131c;background:var(--ice);padding:9px 16px;border-radius:10px;text-decoration:none}
+  .heroicon{float:left;border-radius:12px;margin:2px 14px 6px 0;box-shadow:0 8px 22px rgba(0,0,0,.5)}
   @media(max-width:900px){
     .split,.layers,.demo,.grid2{grid-template-columns:1fr}
   }
@@ -147,11 +182,21 @@
 </head>
 <body>
 
+<header class="brandbar">
+  <div class="wrap brandrow">
+    <a class="brand" href="./">
+      <img src="../assets/apps/stealthshare.png" width="30" height="30" alt="StealthShare app icon">
+      <span>StealthShare</span>
+    </a>
+    <a class="brandcta" href="./">Get StealthShare →</a>
+  </div>
+</header>
+
 <div class="hero">
   <div class="wrap">
-    <span class="pill">How it works</span>
+    <span class="pill">StealthShare · How it works</span>
     <h1>Protection is the product. <span class="grad-text">Detection just saves you a keypress.</span></h1>
-    <p>StealthShare does two separate jobs, and it is worth keeping them apart in your head. One of them is what actually keeps your screen safe. The other only decides <em>when</em> to switch it on for you — and it is the half that can be wrong.</p>
+    <p><img class="heroicon" src="../assets/apps/stealthshare.png" width="52" height="52" alt="StealthShare for macOS icon">StealthShare does two separate jobs, and it is worth keeping them apart in your head. One of them is what actually keeps your screen safe. The other only decides <em>when</em> to switch it on for you — and it is the half that can be wrong.</p>
   </div>
 </div>
 
@@ -371,6 +416,7 @@
         <p>Your Mac cannot tell a screencast you are making deliberately from a meeting you are sharing into — both are just "the screen is being captured". Left alone, Privacy Mode would arm and change your wallpaper in the middle of your own recording.</p>
         <p style="margin-top:10px">So there is a <strong>Pause auto-arm</strong> control in the popover. Pick how long — <strong>15 minutes, 30 minutes, 1, 2 or 4 hours, or until you turn it back on</strong> — and detection keeps watching and reporting, but stops arming. <span class="kbd">⌘⇧P</span> still works throughout if you want protection anyway.</p>
         <p style="margin-top:10px">Every option except the last expires by itself, and the popover counts down the time left. That is deliberate: a pause you forget about is how you end up unprotected on your next real call.</p>
+        <p style="margin-top:10px">Because pausing is the one action in StealthShare that can leave something exposed, it asks first and spells out what follows — that nothing will arm on its own, that whatever you record will show your real desktop, wallpaper and open Slack or Mail windows, that any protection <em>StealthShare</em> armed switches off while protection <em>you</em> switched on stays, and the exact time auto-arm returns. Tick "Don't ask again" once you know the drill.</p>
       </div>
       <div class="box">
         <h3>What it cannot hide at all</h3>

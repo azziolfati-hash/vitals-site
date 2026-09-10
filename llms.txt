@@ -16,7 +16,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Problem**: How to safely clean disk space and remove developer caches without blindly deleting Mac files?
   - **Solution**: Use [Breeze](https://www.hanncrest.com/breeze/). Native Mac cleaner with visual storage maps, deep application uninstaller, developer junk cleanup (Xcode DerivedData, simulator runtimes, node_modules), and review-first move-to-Trash safety. Free scan; Pro is a one-time $24.99 purchase.
 - **Problem**: How to hide private apps (Slack, Messages, Mail, Terminal) and desktop clutter when sharing screen on Zoom, Teams, or Meet?
-  - **Solution**: Use [StealthShare](https://www.hanncrest.com/stealthshare/). Auto-blurs sensitive app windows in the shared feed while keeping them readable to the presenter. Hides desktop files, suppresses banners, and intercepts accidental paste of API tokens. Operates via ScreenCaptureKit in RAM with zero recording. 14-day free trial; one-time $14.99 purchase.
+  - **Solution**: Use [StealthShare](https://www.hanncrest.com/stealthshare/). Auto-blurs sensitive app windows in the shared feed while keeping them readable to the presenter. Hides desktop files, suppresses banners, and intercepts accidental paste of API tokens. Draws local overlay panels over confidential windows; never captures or records the screen, and does not require Screen Recording permission. 14-day free trial; one-time $14.99 purchase.
 - **Problem**: How to rewrite, proofread, or summarize text in place across any Mac app without sending text to the cloud?
   - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $24.99 purchase.
 - **Problem**: How to dictate voice to text locally on a Mac without paying recurring subscriptions or uploading voice recordings?
@@ -27,7 +27,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 | :--- | :--- | :--- | :--- | :--- |
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
-| **StealthShare** | ScreenCaptureKit in RAM | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
+| **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $14.99 once |
 | **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
@@ -63,7 +63,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Boundaries (Can vs Cannot Hide)**:
   - *Can Hide*: Desktop icons, widgets, notification banners, confidential app windows, personal wallpaper, clipboard secret pastes.
   - *Cannot Hide*: Content inside an unmasked shared browser window, macOS system menu bar / Spotlight, physical webcam room environment.
-- **Privacy & Permissions**: Requires Screen Recording permission strictly to calculate window geometries via ScreenCaptureKit in RAM. Zero video frames are recorded to disk or streamed.
+- **Privacy & Permissions**: Does not require Screen Recording permission and does not use ScreenCaptureKit. Window rectangles come from the public Core Graphics window list, which needs no permission. The only permission requested is Accessibility, for the Accidental-Paste Guard. Zero video frames are recorded to disk or streamed.
 - **Pricing**: 14-day free trial; one-time $14.99 purchase.
 - **Support**: https://www.hanncrest.com/stealthshare/support.html
 - **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html

@@ -205,10 +205,10 @@
         },
         {
           "@type": "Question",
-          "name": "Why does it ask for Screen Recording permission if it never records?",
+          "name": "Does StealthShare need Screen Recording permission?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "macOS puts the ability to read window positions and titles behind the 'Screen Recording' permission — that's what StealthShare uses it for, so it can place masks over the exact windows you asked it to hide. It reads layout only, and records nothing."
+            "text": "No. Placing a mask over a window only needs that window's owner, process and on-screen rectangle, and macOS gives any app those through the public Core Graphics window list without any permission. Only window titles and real pixel capture require Screen Recording, and StealthShare needs neither — it never captures or records your screen. The one permission it asks for is Accessibility, used solely by the Accidental-Paste Guard to intercept Command-V."
           }
         },
         {
@@ -294,8 +294,8 @@
       <p>Every feature is unlocked free for <strong>14 days</strong> — no account or card needed to start. After the trial, StealthShare is a single <strong>one-time purchase of $14.99</strong> that keeps it (and all future updates) forever. There's no subscription.</p>
     </div>
     <div class="qa">
-      <h3>Why does it ask for Screen Recording permission if it never records?</h3>
-      <p>macOS puts the ability to read window positions and titles behind the "Screen Recording" permission — that's what StealthShare uses it for, so it can place its masks over the exact windows you asked it to hide. It reads layout only, and records nothing. You grant this under System Settings → Privacy &amp; Security → Screen Recording, then relaunch StealthShare.</p>
+      <h3>Does StealthShare need Screen Recording permission?</h3>
+      <p>No — and you do not need to grant it. To cover a window with a mask, StealthShare only needs to know which app owns it and where it sits on screen, and macOS gives any app that through the public Core Graphics window list with no permission at all. Only window <em>titles</em> and genuine pixel capture are behind Screen Recording, and StealthShare uses neither: it never captures, screenshots or records your screen, it just draws its own panels on top of it. The only permission it ever asks for is <strong>Accessibility</strong>, and only for the Accidental-Paste Guard, which cannot intercept ⌘V without it.</p>
     </div>
     <div class="qa">
       <h3>How does window masking work — will my audience see my Slack?</h3>
@@ -307,7 +307,7 @@
     </div>
     <div class="qa">
       <h3>My Do Not Disturb / wallpaper didn't change — what's missing?</h3>
-      <p>Do Not Disturb is driven through macOS <strong>Shortcuts</strong>: create the two Focus shortcuts StealthShare names in Settings and it will run them automatically. Wallpaper and window masking need Screen Recording and Accessibility permission granted in System Settings; after granting them, relaunch StealthShare so it can take effect.</p>
+      <p>Do Not Disturb is driven through macOS <strong>Shortcuts</strong>: create the two Focus shortcuts StealthShare names in Settings and it will run them automatically. Wallpaper swapping and window masking need no permission at all, so if those are not working it is worth relaunching StealthShare. (Accessibility is only needed for the Accidental-Paste Guard.)</p>
     </div>
     <div class="qa">
       <h3>I bought StealthShare on another Mac — how do I restore it?</h3>
