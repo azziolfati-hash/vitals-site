@@ -117,6 +117,10 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
 - **Category**: Privacy & Screen Sharing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Universal binary for Apple Silicon & Intel.
 - **Pricing**: 14-day free trial with all features enabled. One-time purchase of $19.99 USD with lifetime updates. No subscriptions.
+- **Present Mode** (on by default): blurs every background window and leaves only the window being worked in readable, so apps never added to the blur list — password managers, terminals, note apps — are covered. Clicking a window makes it the visible one; Cmd-Shift-E reveals one window for 8 seconds. Listed apps stay blurred even when frontmost. It is user-controlled rather than automatic because screen sharing cannot be distinguished from an ordinary call while the microphone is live.
+- **Pause auto-arm**: 15 min / 30 min / 1 / 2 / 4 hours or until resumed, for deliberate screen recordings. All but the last expire automatically.
+- **Default blur list**: Slack, WhatsApp, Mail, Messages, 1Password, Bitwarden, KeePassXC, Apple Passwords, Signal, Telegram. Safari, Notes and Spotify ship off. Every entry can be disabled or deleted, and custom apps added.
+- **Interface**: menu-bar item plus a Dock icon and Cmd-Tab entry; the Dock icon opens the Control Panel, which has its own Privacy Mode switch, so a menu bar that macOS has hidden never leaves the app unreachable. Both global shortcuts are user-configurable.
 
 #### 5-Step Call Safeguard Workflow
 1. **Step 01 · Detection**: StealthShare automatically detects Zoom, Microsoft Teams, Google Meet, Slack Huddles, or FaceTime connecting — or catches active camera/mic usage locally. Camera and microphone detection both work in the direct-download and Mac App Store builds (see boundaries below for how the sandboxed build reads the camera).

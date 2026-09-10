@@ -118,6 +118,8 @@
   .win .body b{display:block;color:#fff;font-size:10.5px;margin-bottom:3px}
   .w1{left:16px;top:34px;width:216px}
   .w2{left:74px;top:150px;width:206px}
+  .w3{left:120px;top:236px;width:214px}
+  .desk.present .win.unlisted{filter:blur(9px) saturate(.5)}
   .banner{position:absolute;right:14px;top:14px;width:236px;background:rgba(28,38,48,.97);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:9px 11px;font-size:10.5px;color:#e9f2f8;box-shadow:0 12px 32px rgba(0,0,0,.6);transition:opacity .35s ease,transform .35s ease}
   .desk.armed .banner{opacity:0;transform:translateY(-8px)}
   .banner b{display:block;font-size:11px}
@@ -298,6 +300,10 @@
             <div class="bar"><i></i><i></i><i></i><span>Mail — Inbox</span></div>
             <div class="body"><b>Acquisition — final terms</b>Attached is the signed LOI at $4.2M, do not forward</div>
           </div>
+          <div class="win unlisted w3">
+            <div class="bar"><i></i><i></i><i></i><span>Notion — Board deck</span></div>
+            <div class="body"><b>Q3 board pack</b>runway 7 months, layoffs modelled at 12%</div>
+          </div>
           <div class="banner" id="banner"><b>Messages · Alex</b>are you still going to therapy on Thursdays?</div>
           <div class="shield"><div class="s">🛡</div><div class="t">Privacy Mode — screen protected</div></div>
         </div>
@@ -326,6 +332,10 @@
           <button class="sw" role="switch" aria-checked="false" aria-label="Manual hotkey pressed" data-k="man"></button>
         </div>
         <div class="trig">
+          <div class="lbl">Present Mode<small>Blur every window except the one you're using</small></div>
+          <button class="sw on" role="switch" aria-checked="true" aria-label="Present Mode" data-k="present"></button>
+        </div>
+        <div class="trig">
           <div class="lbl">Auto-arm paused<small>You're recording a screencast on purpose</small></div>
           <button class="sw" role="switch" aria-checked="false" aria-label="Auto-arm paused" data-k="pause"></button>
         </div>
@@ -336,6 +346,47 @@
           <div class="timer" id="vtimer"></div>
         </div>
         <button class="resetbtn" id="reset">Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The controls</div>
+    <h2>Five things worth knowing exist</h2>
+    <p class="lede">Everything here is reachable from the menu-bar popover or the Control Panel — and the Control Panel has its own Privacy Mode switch, so a hidden menu-bar icon never leaves you stuck.</p>
+
+    <div class="layers" style="grid-template-columns:repeat(2,1fr)">
+      <div class="layer l2">
+        <div class="num">Present Mode · on by default</div>
+        <h3>Blur everything but this window</h3>
+        <p>Every background window is covered; only the one you're working in stays readable. Click a different window and the clear one follows you. It's remembered between launches, so turning it off sticks.</p>
+      </div>
+      <div class="layer l3">
+        <div class="num">Peek · ⌘⇧E</div>
+        <h3>Reveal one window for 8 seconds</h3>
+        <p>For "let me just show you this". Works even on an app from your blur list, then re-covers itself automatically so you can't forget.</p>
+      </div>
+      <div class="layer l1">
+        <div class="num">Pause auto-arm</div>
+        <h3>For deliberate recordings</h3>
+        <p>15 minutes to 4 hours, or until you turn it back on. Everything but the last expires by itself, and it asks first — spelling out that your real desktop will be recorded.</p>
+      </div>
+      <div class="layer l2">
+        <div class="num">Blur list</div>
+        <h3>Yours to edit, all of it</h3>
+        <p>Ships covering Slack, Mail, Messages, WhatsApp, <strong>1Password, Bitwarden, KeePassXC, Apple Passwords, Signal and Telegram</strong>. Every entry can be switched off or deleted, including the built-in ones, and you can add any app.</p>
+      </div>
+      <div class="layer l3">
+        <div class="num">Shortcuts</div>
+        <h3>Both are yours to change</h3>
+        <p>The Privacy Mode toggle and the peek key are click-to-record in Settings. A shortcut with no ⌘/⌥/⌃ is rejected — it would fire while you type.</p>
+      </div>
+      <div class="layer l1">
+        <div class="num">Always reachable</div>
+        <h3>Dock icon, not just the menu bar</h3>
+        <p>A crowded menu bar on a notched Mac makes macOS silently drop the icon. StealthShare sits in the Dock and ⌘-Tab too, and the Dock icon opens the Control Panel — the one route that can't be hidden.</p>
       </div>
     </div>
   </div>
@@ -358,6 +409,7 @@
         <tr><td>Recording a screencast on purpose</td><td class="part">Yes — maybe unwanted</td><td>Sharing is sharing as far as the Mac is concerned, so it arms and your wallpaper changes mid-recording. See the limits below.</td></tr>
         <tr><td>Listening to music</td><td class="no">No</td><td>Playback is not capture. Deliberately ignored.</td></tr>
         <tr><td>Slack open all day, no call</td><td class="no">No</td><td>An open window is not a meeting.</td></tr>
+        <tr><td>An app you never added — a vault, a terminal, notes</td><td class="yes">Covered</td><td>Not by the blur list, which only knows what you listed — by Present Mode, which blurs every background window. This is the gap a list can never close.</td></tr>
       </tbody>
     </table>
   </div>
@@ -451,7 +503,7 @@
 
 <script>
 (function(){
-  var state = {mic:false, cam:false, cap:false, cal:false, man:false, pause:false};
+  var state = {mic:false, cam:false, cap:false, cal:false, man:false, pause:false, present:true};
   var armed = false, pending = null, countdown = null;
   var desk = document.getElementById('desk');
   var verdict = document.getElementById('verdict');
@@ -474,6 +526,7 @@
   function apply(on, label, why){
     armed = on;
     desk.classList.toggle('armed', on);
+    desk.classList.toggle('present', on && state.present);
     verdict.classList.toggle('on', on);
     verdict.classList.toggle('off', !on);
     vstate.textContent = (on ? '🛡 ' : '○ ') + label;
