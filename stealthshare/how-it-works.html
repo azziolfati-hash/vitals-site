@@ -6,7 +6,6 @@
 <title>How StealthShare works — prediction, detection, protection</title>
 <meta name="description" content="A plain-English walkthrough of how StealthShare decides when to protect your screen: calendar prediction, live mic/camera/screen-share detection, and the protection layer that works regardless of either.">
 <link rel="icon" type="image/png" href="../assets/apps/stealthshare.png">
-<meta name="robots" content="noindex">
 <style>
   :root{
     --bg:#050b14; --bg2:#081722; --card:#0c1a26; --card2:#0a1520;
@@ -281,6 +280,10 @@
           <div class="lbl">You pressed ⌘⇧P<small>Manual — overrides everything</small></div>
           <button class="sw" role="switch" aria-checked="false" aria-label="Manual hotkey pressed" data-k="man"></button>
         </div>
+        <div class="trig">
+          <div class="lbl">Auto-arm paused<small>You're recording a screencast on purpose</small></div>
+          <button class="sw" role="switch" aria-checked="false" aria-label="Auto-arm paused" data-k="pause"></button>
+        </div>
 
         <div class="verdict off" id="verdict" role="status" aria-live="polite">
           <div class="state" id="vstate">○ Not protected</div>
@@ -363,10 +366,11 @@
         <p>The Mac App Store sandbox blocks reading the camera directly, so that build watches the recording indicator macOS shows instead. It works — but macOS lights the same indicator for screen recording, and the two are genuinely indistinguishable without a permission StealthShare does not ask for.</p>
         <p style="margin-top:10px">Practical effect: the App Store build may say "camera or screen capture" rather than naming which. The direct-download build reads the camera directly and can tell them apart.</p>
       </div>
-      <div class="box warnbox">
-        <h3>Deliberate recordings get protected too</h3>
-        <p>If you record a screencast on purpose, the Mac cannot tell that apart from sharing to a meeting, so Privacy Mode arms and your wallpaper and icons change mid-recording.</p>
-        <p style="margin-top:10px">For now the escape hatch is switching off <em>Detect any app using camera or mic</em> in Settings before you record.</p>
+      <div class="box">
+        <h3>Recording on purpose? Pause it</h3>
+        <p>Your Mac cannot tell a screencast you are making deliberately from a meeting you are sharing into — both are just "the screen is being captured". Left alone, Privacy Mode would arm and change your wallpaper in the middle of your own recording.</p>
+        <p style="margin-top:10px">So there is a <strong>Pause auto-arm</strong> control in the popover. Pick how long — <strong>15 minutes, 30 minutes, 1, 2 or 4 hours, or until you turn it back on</strong> — and detection keeps watching and reporting, but stops arming. <span class="kbd">⌘⇧P</span> still works throughout if you want protection anyway.</p>
+        <p style="margin-top:10px">Every option except the last expires by itself, and the popover counts down the time left. That is deliberate: a pause you forget about is how you end up unprotected on your next real call.</p>
       </div>
       <div class="box">
         <h3>What it cannot hide at all</h3>
@@ -389,7 +393,7 @@
 
 <script>
 (function(){
-  var state = {mic:false, cam:false, cap:false, cal:false, man:false};
+  var state = {mic:false, cam:false, cap:false, cal:false, man:false, pause:false};
   var armed = false, pending = null, countdown = null;
   var desk = document.getElementById('desk');
   var verdict = document.getElementById('verdict');
@@ -400,7 +404,8 @@
   var dotCap = document.getElementById('dotCap');
 
   function reasonNow(){
-    if (state.man) return {on:true, instant:true, why:'You turned it on by hand. Nothing will switch it off behind your back.', label:'Protected — manual'};
+    if (state.man) return {on:true, instant:true, why:'You turned it on by hand. Pausing does not block this — manual control always wins.', label:'Protected — manual'};
+    if (state.pause) return {on:false, instant:true, why:'Auto-arm is paused, so nothing here will arm by itself. Your screen records exactly as it looks. ⌘⇧P still works if you want it.', label:'Not protected — auto-arm paused'};
     if (state.cal) return {on:true, instant:true, why:'Calendar spotted a meeting link starting within 60 seconds and armed ahead of time — no waiting, no gap.', label:'Protected — armed early by calendar'};
     if (state.cap) return {on:true, instant:false, why:'Your screen is being captured. This is the trigger that matters most: it fires whether or not you are muted.', label:'Protected — screen is being shared'};
     if (state.mic) return {on:true, instant:false, why:'Microphone is live, so you are treated as being in a call.', label:'Protected — microphone in use'};

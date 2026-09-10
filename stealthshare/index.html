@@ -305,6 +305,17 @@
   .veil{position:absolute;top:0;left:0;right:0;height:1180px;z-index:1;pointer-events:none;
     background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
   .content{position:relative;z-index:2}
+  /* HOW-IT-WORKS CALLOUT */
+  .hiw{display:flex;align-items:center;gap:18px;margin-top:22px;padding:20px 24px;border-radius:16px;
+       border:1px solid rgba(127,227,255,.42);background:linear-gradient(135deg,rgba(77,201,255,.15),rgba(77,201,255,.05));
+       box-shadow:0 14px 40px rgba(77,201,255,.14);transition:transform .18s ease,box-shadow .18s ease}
+  .hiw:hover{transform:translateY(-2px);box-shadow:0 20px 54px rgba(77,201,255,.28)}
+  .hiw .hiw-ico{font-size:30px;line-height:1;flex:none}
+  .hiw .hiw-t{font-size:18px;font-weight:800;letter-spacing:-.3px}
+  .hiw .hiw-s{color:var(--mut);font-size:14.5px;margin-top:3px}
+  .hiw .hiw-go{margin-left:auto;flex:none;font-weight:750;color:#06131c;background:var(--ice);
+               padding:11px 18px;border-radius:11px;font-size:14px;white-space:nowrap}
+  @media(max-width:700px){.hiw{flex-wrap:wrap}.hiw .hiw-go{margin-left:0;width:100%;text-align:center}}
 </style>
 <link rel="canonical" href="https://www.hanncrest.com/stealthshare/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -455,7 +466,7 @@
       <a class="brand" href="#top"><img src="../assets/apps/stealthshare.png" alt="StealthShare icon"><span>StealthShare</span></a>
     </div>
     <div class="navlinks">
-      <a href="#features" class="nav-desk">Features</a><a href="#masking" class="nav-desk">Window masking</a><a href="#auto" class="nav-desk">Auto-arm</a><a href="#pricing" class="nav-desk">Pricing</a>
+      <a href="#features" class="nav-desk">Features</a><a href="#masking" class="nav-desk">Window masking</a><a href="#auto" class="nav-desk">Auto-arm</a><a href="how-it-works.html" class="nav-desk"><strong>How it works</strong></a><a href="#pricing" class="nav-desk">Pricing</a>
       <a class="btn btn-primary" href="#pricing">Get StealthShare</a>
     </div>
   </nav></div>
@@ -691,7 +702,7 @@
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Desktop &amp; widget hiding</h3><p>Tucks away every desktop icon and Mac widget behind a clean surface, so a messy desktop or a revealing filename never shows up mid-call.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><h3>Studio backdrop</h3><p>Swaps in a neutral, professional wallpaper the moment you go live — and puts your own back the instant you're done.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg></div><h3>Notification blocker</h3><p>Holds banners while you share so no message preview pops up on screen. After the call it tells you how long they were held and which comms apps to check.</p></div>
-        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><h3>Meeting auto-detect</h3><p>Arms itself the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime goes live. It can also catch any unlisted app using your camera or mic — in both the direct-download and the App Store build.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div><h3>Meeting auto-detect</h3><p>Arms itself the moment your mic, camera or screen share actually goes live — in Zoom, Teams, Meet, a Slack huddle, FaceTime, or any app that isn't on the list at all. Recording a screencast on purpose? Pause auto-arm for as long as you choose.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div><h3>Calendar auto-arm</h3><p>Reads your calendar (locally, read-only) and turns Privacy Mode on about 60 seconds before a scheduled Zoom / Teams / Meet call — you're protected before you even join.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="8" y1="16" x2="16" y2="16"/></svg></div><h3>One global hotkey</h3><p>Press ⌘⇧P anywhere to arm or disarm instantly. No hunting for a menu when someone says "can you share your screen?"</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></div><h3>Puts everything back</h3><p>Every change is temporary. End the call — or quit the app — and your icons, widgets, wallpaper and Focus return exactly as they were.</p></div>
@@ -756,11 +767,20 @@
           <h2 style="margin-top:16px">Arms itself <span class="grad-text">before</span> you hit share.</h2>
           <p>The riskiest moment is the one you didn't plan for. StealthShare watches for calls two ways, so protection is already on before your screen is ever visible.</p>
           <ul class="checks">
-            <li><span class="ck">✓</span><span><strong>Meeting detection:</strong> engages the instant Zoom, Microsoft Teams, Google Meet, a Slack huddle or FaceTime becomes active.</span></li>
+            <li><span class="ck">✓</span><span><strong>Live detection:</strong> engages the instant your microphone, camera, or screen actually goes live — in Zoom, Teams, Meet, a Slack huddle, FaceTime, or any other app. An app merely being open never counts.</span></li>
+            <li><span class="ck">✓</span><span><strong>Screen-share trigger:</strong> starting a screen share arms it even if you joined muted with your camera off — the case that matters most.</span></li>
             <li><span class="ck">✓</span><span><strong>Catch-all camera/mic watch</strong> covers meeting apps that aren't on the list — camera and microphone in both builds.</span></li>
             <li><span class="ck">✓</span><span><strong>Calendar auto-arm</strong> reads your schedule locally and arms ~60 seconds before an invited Zoom / Teams / Meet event.</span></li>
             <li><span class="ck">✓</span><span>Works with Google &amp; Exchange calendars added to macOS — no separate sign-in.</span></li>
           </ul>
+          <a class="hiw" href="how-it-works.html">
+            <span class="hiw-ico">🛡</span>
+            <span>
+              <span class="hiw-t">Read this before you rely on it</span>
+              <span class="hiw-s">Exactly what auto-arms, what does not, and the limits we do not hide — with a live demo you can click through.</span>
+            </span>
+            <span class="hiw-go">How it works →</span>
+          </a>
           <p class="note" style="margin-top:10px">App Store build: the sandbox blocks reading the camera device directly, so camera use is read from the macOS recording indicator instead. Meetings are detected the same either way — including a browser call joined muted. The trade-off is that macOS lights that indicator for screen recording too, so starting a screen recording can also arm Privacy Mode.</p>
         </div>
         <div class="appwin">
@@ -798,7 +818,7 @@
         <div class="wf-card">
           <div class="wf-num">Step 01 · Detection</div>
           <h3>Meeting Starts</h3>
-          <p>StealthShare detects Zoom, Teams, Google Meet, a Slack Huddle, or FaceTime connecting — or catches active camera/mic usage locally.</p>
+          <p>StealthShare notices your microphone, camera, or screen share going live — in Zoom, Teams, Google Meet, a Slack Huddle, FaceTime, or an app it has never heard of.</p>
         </div>
         <div class="wf-card">
           <div class="wf-num">Step 02 · Sanitization</div>
