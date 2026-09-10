@@ -419,6 +419,18 @@
         <p style="margin-top:10px">Because pausing is the one action in StealthShare that can leave something exposed, it asks first and spells out what follows — that nothing will arm on its own, that whatever you record will show your real desktop, wallpaper and open Slack or Mail windows, that any protection <em>StealthShare</em> armed switches off while protection <em>you</em> switched on stays, and the exact time auto-arm returns. Tick "Don't ask again" once you know the drill.</p>
       </div>
       <div class="box">
+        <h3>The blur list only covers apps you listed</h3>
+        <p>Window blurring is opt-in per app, so it fails <em>open</em>: an app nobody added — a password manager, a terminal, a notes app — is shown in full while StealthShare still reports that it is protecting you. The defaults now include password managers, Signal and Telegram for exactly this reason.</p>
+        <p style="margin-top:10px"><strong>Present Mode</strong> inverts it. Turn it on and every background window is blurred, leaving only the window you are working in readable — so it fails <em>closed</em> and covers apps that were never on any list. Click a different window and the clear one follows you. Listed apps stay blurred even in front, so switching to your vault mid-call does not reveal it, and <span class="kbd">⌘⇧E</span> reveals the front window for 8 seconds when you genuinely want to show it.</p>
+        <p style="margin-top:10px">It is deliberately manual. Engaging it by itself would mean knowing your screen is really being shared, and that cannot be separated from an ordinary call while your microphone is live — macOS lights one shared indicator for mic, camera and screen capture. Since you are almost always unmuted while sharing, an automatic version would fail exactly when it mattered.</p>
+      </div>
+
+      <div class="box warnbox">
+        <h3>Blurred windows are hidden from you too</h3>
+        <p>A blurred window is covered on your own display, not just in the shared feed. macOS gives no way to draw one image to the screen and a different one to a capture, so anything hidden from your audience is hidden from you as well. <span class="kbd">⌘⇧E</span> is the escape hatch.</p>
+      </div>
+
+      <div class="box">
         <h3>What it cannot hide at all</h3>
         <ul>
           <li>The macOS menu bar and Spotlight — drawn by the system, above everything</li>

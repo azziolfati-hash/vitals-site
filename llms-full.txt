@@ -121,7 +121,7 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
 #### 5-Step Call Safeguard Workflow
 1. **Step 01 · Detection**: StealthShare automatically detects Zoom, Microsoft Teams, Google Meet, Slack Huddles, or FaceTime connecting — or catches active camera/mic usage locally. Camera and microphone detection both work in the direct-download and Mac App Store builds (see boundaries below for how the sandboxed build reads the camera).
 2. **Step 02 · Desktop Sanitization**: Messy desktop icons, sensitive file downloads, and personal widgets disappear instantly. A neutral, polished studio backdrop swaps in.
-3. **Step 03 · Compositor Masking**: Designated apps (Slack, Messages, Mail, Terminal, Notes) are blurred in the screen-sharing stream, yet remain completely crisp and readable to the presenter.
+3. **Step 03 · Compositor Masking**: Designated apps (Slack, Messages, Mail, password managers, Signal, Telegram) are blurred. The blur is drawn on screen, so it hides the window from the presenter too — macOS provides no way to render one image to the display and another to a capture; a peek shortcut (Cmd-Shift-E) reveals a window for 8 seconds. Present Mode inverts the model: every background window is blurred and only the window being worked in stays clear, covering apps that were never added to the list.
 4. **Step 04 · Live Guard**: Banners are silenced through macOS Focus. Accidental-Paste Guard intercepts high-entropy API tokens, passwords, and secrets before they land in a shared chat window (with a 4s override).
 5. **Step 05 · Instant Restoration**: Hang up the call or tap ⌘⇧P. Custom wallpaper, widgets, and desktop icons return instantly, accompanied by a quiet log of held notifications.
 
