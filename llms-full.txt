@@ -119,7 +119,7 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
 - **Pricing**: 14-day free trial with all features enabled. One-time purchase of $14.99 USD with lifetime updates. No subscriptions.
 
 #### 5-Step Call Safeguard Workflow
-1. **Step 01 · Detection**: StealthShare automatically detects Zoom, Microsoft Teams, Google Meet, Slack Huddles, or FaceTime connecting — or catches active camera/mic usage locally (Mac App Store build: microphone only, see boundaries below).
+1. **Step 01 · Detection**: StealthShare automatically detects Zoom, Microsoft Teams, Google Meet, Slack Huddles, or FaceTime connecting — or catches active camera/mic usage locally. Camera and microphone detection both work in the direct-download and Mac App Store builds (see boundaries below for how the sandboxed build reads the camera).
 2. **Step 02 · Desktop Sanitization**: Messy desktop icons, sensitive file downloads, and personal widgets disappear instantly. A neutral, polished studio backdrop swaps in.
 3. **Step 03 · Compositor Masking**: Designated apps (Slack, Messages, Mail, Terminal, Notes) are blurred in the screen-sharing stream, yet remain completely crisp and readable to the presenter.
 4. **Step 04 · Live Guard**: Banners are silenced through macOS Focus. Accidental-Paste Guard intercepts high-entropy API tokens, passwords, and secrets before they land in a shared chat window (with a 4s override).
@@ -137,7 +137,7 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
   - macOS system menu bar & active Spotlight search bar (rendered globally by OS).
   - Physical room background or webcam video.
   - Remote meeting participants' client software behavior.
-  - Mac App Store build: camera-in-use detection (blocked by the App Sandbox regardless of entitlements). Named apps — Zoom, Teams, Google Meet, Slack Huddles, FaceTime — are still detected reliably via their app window either way; the one gap is an unlisted or browser-based meeting joined muted with only the camera on, which needs the direct-download build (or a manual ⌘⇧P) to auto-arm.
+  - Mac App Store build: telling a live camera apart from a screen recording. The App Sandbox blocks reading camera-in-use status from the camera device (regardless of entitlements), so the sandboxed build reads the macOS recording indicator instead. That restores camera detection — including a browser-based meeting joined muted with only the camera on — but because macOS lights the same indicator for screen recording, starting a screen recording can also arm Privacy Mode in that build. The direct-download build reads the camera device directly and is not affected.
 
 #### macOS Screen Recording Permission & Security Disclaimer
 StealthShare requires the macOS Screen Recording entitlement strictly to compute window coordinates and render real-time blur overlays using Apple's native ScreenCaptureKit framework in RAM. **Zero video frames are ever recorded to disk or streamed across the network.** 0 KB network egress verified with Little Snitch.

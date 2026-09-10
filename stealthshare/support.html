@@ -224,7 +224,7 @@
           "name": "Can it turn on automatically when a call starts?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. StealthShare can auto-arm the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime becomes active, and can also watch for any app using your camera or mic (microphone only in the Mac App Store build), or arm 60 seconds before calendar meetings."
+            "text": "Yes. StealthShare can auto-arm the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime becomes active, and can also watch for any app using your camera or mic — in both the direct-download and the Mac App Store build — or arm 60 seconds before calendar meetings."
           }
         },
         {
@@ -303,7 +303,7 @@
     </div>
     <div class="qa">
       <h3>Can it turn on automatically when a call starts?</h3>
-      <p>Yes. StealthShare can auto-arm the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime becomes active, and can also watch for any app using your camera or mic that isn't on that list — camera + mic in the direct-download build, mic only in the Mac App Store build. Turn on Calendar Auto-Arm and it will even arm about 60 seconds before a scheduled meeting on your calendar.</p>
+      <p>Yes. StealthShare can auto-arm the moment Zoom, Teams, Google Meet, a Slack huddle or FaceTime becomes active, and can also watch for any app using your camera or mic that isn't on that list — camera and microphone in both the direct-download and the Mac App Store build. Turn on Calendar Auto-Arm and it will even arm about 60 seconds before a scheduled meeting on your calendar.</p>
     </div>
     <div class="qa">
       <h3>My Do Not Disturb / wallpaper didn't change — what's missing?</h3>
@@ -314,8 +314,9 @@
       <p>If you bought through the Mac App Store, open StealthShare and choose Restore Purchases — it restores from the same Apple ID at no extra charge.</p>
     </div>
     <div class="qa">
-      <h3>Why doesn't camera-based detection work on the Mac App Store build?</h3>
-      <p>The App Store's sandbox blocks reading camera-in-use status, so that half of the catch-all watch is direct-download only — microphone-based detection works the same in both builds. In practice this rarely matters: Zoom, Teams, Meet, Slack huddles, FaceTime and any apps you add by name are still detected reliably in the App Store build, since they also trigger off the app window being open, not the camera. The one real gap is a browser-based meeting (e.g. Google Meet) joined muted with only the camera on — that specific case needs the direct-download build to auto-arm, or you can just start Privacy Mode yourself with ⌘⇧P before joining.</p>
+      <h3>How does camera detection work on the Mac App Store build?</h3>
+      <p>Slightly differently from the direct-download build, but it does work. The App Store sandbox blocks reading camera-in-use status from the camera device itself, so instead StealthShare watches the recording indicator macOS shows whenever something is capturing. That needs no permission and no camera entitlement, and it means a browser-based meeting joined muted with only the camera on <em>does</em> auto-arm — the case that used to be a gap.</p>
+      <p>One trade-off worth knowing: macOS lights that same indicator for screen recording. So on the App Store build, starting a screen recording can arm Privacy Mode too, even without a call. If that gets in your way, turn off “Detect any app using camera or mic” in Settings — the meeting-app list and Calendar Auto-Arm keep working on their own.</p>
     </div>
   </div>
 
