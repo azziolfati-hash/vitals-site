@@ -108,7 +108,6 @@
   .ficon .sq.f2{background:linear-gradient(160deg,#ffd98a,#e8a93d)}
   .ficon .sq.f3{background:linear-gradient(160deg,#9fe8c4,#4bbd8a)}
   .win{position:absolute;border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,.16);box-shadow:0 14px 40px rgba(0,0,0,.55);transition:filter .45s ease}
-  .desk.armed .win.conf{filter:blur(9px) saturate(.5)}
   .win .bar{height:20px;background:rgba(255,255,255,.14);display:flex;align-items:center;gap:4px;padding:0 7px}
   .win .bar i{width:7px;height:7px;border-radius:50%;background:#ff6058;display:block}
   .win .bar i:nth-child(2){background:#ffbd2e}
@@ -119,14 +118,27 @@
   .w1{left:16px;top:34px;width:216px}
   .w2{left:74px;top:150px;width:206px}
   .w3{left:120px;top:236px;width:214px}
-  .desk.present .win.unlisted{filter:blur(9px) saturate(.5)}
+  .win{cursor:pointer}
+  .win.active{border-color:rgba(127,227,255,.55);box-shadow:0 14px 40px rgba(0,0,0,.55),0 0 0 1px rgba(127,227,255,.35)}
+  .win .mask{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:6px;background:rgba(9,17,25,.74);opacity:0;transition:opacity .3s ease;pointer-events:none}
+  .win.masked .mask{opacity:1}
+  .win.masked .bar,.win.masked .body{filter:blur(6px) saturate(.55)}
+  .win .mask .eye{font-size:15px;opacity:.9}
+  .win .mask b{font-size:10.5px;color:#eaf4fb;display:block}
+  .win .mask small{font-size:8.5px;color:#9fb6c6;line-height:1.35;display:block}
+  .statuschip{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:7px;padding:6px 10px;border-radius:9px;background:rgba(10,20,28,.92);border:1px solid rgba(255,255,255,.14);font-size:10px;color:#cfe6f3;opacity:0;transition:opacity .35s ease}
+  .desk.armed .statuschip{opacity:1}
+  .meetcard{margin-top:14px;border:1px solid var(--line);border-radius:11px;padding:12px;background:var(--card2)}
+  .meetcard .mrow{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px}
+  .meetcard .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ice)}
+  .meetcard small{display:block;color:var(--dim);font-size:11.5px;margin-top:2px}
+  .minibtn{padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--tx);font-size:12px;font-weight:600;cursor:pointer;flex:none}
+  .minibtn:hover{background:rgba(255,255,255,.12)}
+  .snoozebtn{margin-top:10px;width:100%;padding:8px;border-radius:9px;border:1px solid rgba(240,162,59,.45);background:rgba(240,162,59,.12);color:#f7d3a0;font-size:12.5px;font-weight:650;cursor:pointer;display:none}
+  .snoozebtn.show{display:block}
   .banner{position:absolute;right:14px;top:14px;width:236px;background:rgba(28,38,48,.97);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:9px 11px;font-size:10.5px;color:#e9f2f8;box-shadow:0 12px 32px rgba(0,0,0,.6);transition:opacity .35s ease,transform .35s ease}
   .desk.armed .banner{opacity:0;transform:translateY(-8px)}
   .banner b{display:block;font-size:11px}
-  .shield{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.85);opacity:0;transition:opacity .4s ease,transform .4s ease;text-align:center;pointer-events:none}
-  .desk.armed .shield{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  .shield .s{font-size:34px}
-  .shield .t{font-size:12px;color:#bcd6e6;letter-spacing:.4px;margin-top:2px}
 
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
   .panel h4{font-size:13px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:12px}
@@ -233,11 +245,13 @@
     <div class="layers">
       <div class="layer l1">
         <div class="num">Layer 1 · before</div>
-        <h3>Prediction — your calendar</h3>
-        <p>Reads your calendars locally and arms Privacy Mode <strong>40–60 seconds before</strong> a scheduled video call starts. The only layer that protects you <em>before</em> anything happens.</p>
+        <h3>The meeting watcher — your calendar</h3>
+        <p>Reads your calendars locally and arms Privacy Mode <strong>1 to 30 minutes before</strong> a scheduled video call — <strong>15 minutes by default</strong>, and you pick the number. The only layer that protects you <em>before</em> anything happens.</p>
         <ul>
-          <li>Works with iCloud, Google and Exchange calendars added to macOS</li>
+          <li>Counts down in the menu bar and in the popover, so you see it coming</li>
+          <li>Armed too early? <em>Not now</em> gives your screen back until the call starts</li>
           <li>Holds protection through the scheduled end time</li>
+          <li>Works with iCloud, Google and Exchange calendars added to macOS</li>
           <li>Off by default — you turn it on</li>
         </ul>
       </div>
@@ -246,10 +260,11 @@
         <h3>Live detection — what the Mac is doing</h3>
         <p>Checks <strong>every second</strong> whether hardware is actually live. Not whether an app is open — whether something is genuinely capturing.</p>
         <ul>
-          <li><strong>Microphone</strong> live</li>
-          <li><strong>Camera</strong> live</li>
-          <li><strong>Screen being shared</strong> or recorded</li>
+          <li><strong>Microphone</strong> live — about a second</li>
+          <li><strong>Camera</strong> live — about a second</li>
+          <li><strong>Screen being shared</strong> or recorded — about ten seconds, on purpose</li>
         </ul>
+        <p style="margin-top:12px">The ten seconds are there so that pressing <span class="kbd">⌘⇧4</span> never flips your desktop: macOS keeps its recording light on for ~3.8 seconds after any screenshot, and duration is the only thing that separates one from a real share. It only applies when you are muted with the camera off — the moment either goes live, you are protected in about a second.</p>
       </div>
       <div class="layer l3">
         <div class="num">Layer 3 · always</div>
@@ -275,7 +290,7 @@
   <div class="wrap">
     <div class="eyebrow">Live demo</div>
     <h2>Try the logic yourself</h2>
-    <p class="lede">Flip the switches on the right the way a real call would, and watch what the desktop on the left does. This runs the same decision rules the app uses — including the delay before it arms.</p>
+    <p class="lede">Flip the switches on the right the way a real call would, and watch the desktop on the left. <strong>Click any window</strong> to work in it — that is how Present Mode decides which one stays readable. This runs the same rules the app does, including the delay before it arms.</p>
 
     <div class="demo">
       <div class="screen">
@@ -292,20 +307,23 @@
             <div class="ficon"><div class="sq f2"></div>passport.pdf</div>
             <div class="ficon"><div class="sq f3"></div>offer_letter.pdf</div>
           </div>
-          <div class="win conf w1">
+          <div class="win w1" id="win0" data-app="Slack" data-listed="1">
             <div class="bar"><i></i><i></i><i></i><span>Slack — #exec-private</span></div>
             <div class="body"><b>Dana · 14:19</b>we're letting the Berlin team go on Friday, keep it quiet until</div>
+            <div class="mask"><span class="eye">🚫</span><b>Slack Hidden for Privacy</b><small>Content auto-blurred by StealthShare during screen share.</small></div>
           </div>
-          <div class="win conf w2">
+          <div class="win w2" id="win1" data-app="Mail" data-listed="1">
             <div class="bar"><i></i><i></i><i></i><span>Mail — Inbox</span></div>
             <div class="body"><b>Acquisition — final terms</b>Attached is the signed LOI at $4.2M, do not forward</div>
+            <div class="mask"><span class="eye">🚫</span><b>Mail Hidden for Privacy</b><small>Content auto-blurred by StealthShare during screen share.</small></div>
           </div>
-          <div class="win unlisted w3">
+          <div class="win w3 active" id="win2" data-app="Notion" data-listed="0">
             <div class="bar"><i></i><i></i><i></i><span>Notion — Board deck</span></div>
             <div class="body"><b>Q3 board pack</b>runway 7 months, layoffs modelled at 12%</div>
+            <div class="mask"><span class="eye">🚫</span><b>Notion Hidden for Privacy</b><small>Content auto-blurred by StealthShare during screen share.</small></div>
           </div>
           <div class="banner" id="banner"><b>Messages · Alex</b>are you still going to therapy on Thursdays?</div>
-          <div class="shield"><div class="s">🛡</div><div class="t">Privacy Mode — screen protected</div></div>
+          <div class="statuschip" id="chip">🛡 Privacy Mode on · desktop hidden, wallpaper swapped</div>
         </div>
       </div>
 
@@ -324,8 +342,8 @@
           <button class="sw" role="switch" aria-checked="false" aria-label="Screen being shared" data-k="cap"></button>
         </div>
         <div class="trig">
-          <div class="lbl">Calendar meeting in 60s<small>Invite has a Zoom/Teams/Meet link</small></div>
-          <button class="sw" role="switch" aria-checked="false" aria-label="Calendar meeting in 60 seconds" data-k="cal"></button>
+          <div class="lbl">Meeting watcher<small>Calendar, lead time 15 min</small></div>
+          <button class="sw on" role="switch" aria-checked="true" aria-label="Meeting watcher" data-k="cal"></button>
         </div>
         <div class="trig">
           <div class="lbl">You pressed ⌘⇧P<small>Manual — overrides everything</small></div>
@@ -340,11 +358,21 @@
           <button class="sw" role="switch" aria-checked="false" aria-label="Auto-arm paused" data-k="pause"></button>
         </div>
 
+        <div class="meetcard">
+          <div class="mrow">
+            <div>Weekly sync · Zoom · 14:30<small id="meetSub">Watch it arm 15 minutes early</small></div>
+            <span class="clock" id="clock">14:12</span>
+          </div>
+          <button class="minibtn" id="runSim" style="width:100%;margin-top:10px">▶ Run the clock to the meeting</button>
+          <button class="snoozebtn" id="snooze">💤 Not now — protection returns at 14:30</button>
+        </div>
+
         <div class="verdict off" id="verdict" role="status" aria-live="polite">
           <div class="state" id="vstate">○ Not protected</div>
           <div class="why" id="vwhy">Nothing is capturing. Your desktop is exposed if you share now.</div>
           <div class="timer" id="vtimer"></div>
         </div>
+        <button class="minibtn" id="peek" style="width:100%;margin-top:10px">⌘⇧E — reveal the window I'm in for 8 seconds</button>
         <button class="resetbtn" id="reset">Reset</button>
       </div>
     </div>
@@ -384,6 +412,16 @@
         <p>The Privacy Mode toggle and the peek key are click-to-record in Settings. A shortcut with no ⌘/⌥/⌃ is rejected — it would fire while you type.</p>
       </div>
       <div class="layer l1">
+        <div class="num">Meeting watcher</div>
+        <h3>Armed before the call, on your terms</h3>
+        <p>Pick how early: <strong>1, 5, 10, 15 or 30 minutes</strong>. The popover and the menu bar count down to it. If it arms sooner than you wanted, <em>Not now</em> hands the screen back — and it arms again when the meeting actually starts, because that is the moment that matters.</p>
+      </div>
+      <div class="layer l3">
+        <div class="num">History</div>
+        <h3>What armed it, and for how long</h3>
+        <p>The last 100 sessions, with the trigger spelled out — "Zoom · 12 minutes", "Calendar · 34 minutes", "Turned on manually". It records what switched protection on, never what was on your screen, and it never leaves your Mac.</p>
+      </div>
+      <div class="layer l1">
         <div class="num">Always reachable</div>
         <h3>Dock icon, not just the menu bar</h3>
         <p>A crowded menu bar on a notched Mac makes macOS silently drop the icon. StealthShare sits in the Dock and ⌘-Tab too, and the Dock icon opens the Control Panel — the one route that can't be hidden.</p>
@@ -400,16 +438,23 @@
       <thead><tr><th>Situation</th><th>Auto-arms?</th><th>What happens</th></tr></thead>
       <tbody>
         <tr><td>Zoom/Teams call, you unmute</td><td class="yes">Yes</td><td>Mic goes live → protected within about a second.</td></tr>
-        <tr><td>You click "Share screen"</td><td class="yes">Yes</td><td>The strongest trigger, and the one that matters most. Fires for both whole-screen and single-window shares, muted or not.</td></tr>
+        <tr><td>You click "Share screen"</td><td class="yes">Yes</td><td>The strongest trigger, and the one that matters most. Fires for whole-screen and single-window shares. With your mic or camera live: about a second. Muted with the camera off: about ten seconds, so a screenshot can't be mistaken for a share.</td></tr>
+        <tr><td>You press ⌘⇧4 to take a screenshot</td><td class="no">No</td><td>macOS lights the same recording light for ~3.8 seconds afterwards. StealthShare waits it out instead of flipping your desktop for four seconds every time.</td></tr>
         <tr><td>Browser meeting (Google Meet, web Teams)</td><td class="yes">Yes</td><td>Same rule — mic, camera or sharing. The browser being open is irrelevant.</td></tr>
         <tr><td>An app nobody has heard of</td><td class="yes">Yes</td><td>Detection never looks at <em>which</em> app. If it uses mic, camera or screen, it is caught. Shown as "Microphone in use" rather than a name.</td></tr>
         <tr><td>Muted, camera off, not sharing — just listening</td><td class="no">No</td><td>Nothing is capturing, so nothing fires. Use the calendar layer, or <span class="kbd">⌘⇧P</span>. <strong>This is the real gap.</strong></td></tr>
         <tr><td>Dial-in by phone, screen not shared</td><td class="no">No</td><td>Your Mac is doing nothing. Nothing to detect.</td></tr>
-        <tr><td>Scheduled call with a Zoom/Teams/Meet link</td><td class="yes">Yes</td><td>Armed 40–60s early, before you even join — covers the muted case above.</td></tr>
+        <tr><td>Scheduled call with a Zoom/Teams/Meet link</td><td class="yes">Yes</td><td>Armed as early as you chose — 15 minutes by default — before you even join. This is what covers the muted case above.</td></tr>
+        <tr><td>It armed early and you're not ready</td><td class="part">Snoozed</td><td>Press <em>Not now</em>. Your screen comes back until the meeting's real start time, and then it arms again. There is deliberately no way to skip the meeting itself.</td></tr>
+        <tr><td>You turn protection off <em>during</em> the meeting</td><td class="no">Stays off</td><td>That's an unambiguous no and it's respected — it won't arm itself again for that meeting.</td></tr>
+        <tr><td>A meeting added five minutes before it starts</td><td class="yes">Yes</td><td>The watcher re-checks every 20 seconds and also the instant macOS reports a calendar change, so a late invite is normally picked up within seconds.</td></tr>
         <tr><td>Recording a screencast on purpose</td><td class="part">Yes — maybe unwanted</td><td>Sharing is sharing as far as the Mac is concerned, so it arms and your wallpaper changes mid-recording. See the limits below.</td></tr>
         <tr><td>Listening to music</td><td class="no">No</td><td>Playback is not capture. Deliberately ignored.</td></tr>
         <tr><td>Slack open all day, no call</td><td class="no">No</td><td>An open window is not a meeting.</td></tr>
         <tr><td>An app you never added — a vault, a terminal, notes</td><td class="yes">Covered</td><td>Not by the blur list, which only knows what you listed — by Present Mode, which blurs every background window. This is the gap a list can never close.</td></tr>
+        <tr><td>You click a window on your blur list</td><td class="yes">Stays covered</td><td>On purpose. It comes to the front but keeps its mask, so reaching for your password manager mid-call cannot reveal it. <span class="kbd">⌘⇧E</span> shows it for eight seconds if you mean to.</td></tr>
+        <tr><td>You edit the blur list mid-call</td><td class="yes">Applies at once</td><td>Switch an app on or off and the masks change immediately. No need to turn Privacy Mode off and on again.</td></tr>
+        <tr><td>Afterwards: "what turned it on at 14:15?"</td><td class="yes">Logged</td><td>History shows every session with its trigger and duration — calendar, detection, or your own hand.</td></tr>
       </tbody>
     </table>
   </div>
@@ -430,7 +475,7 @@
           <li>The event is on a calendar macOS knows about, and is not an all-day event</li>
           <li>You granted calendar access and switched the feature on</li>
         </ul>
-        <p style="margin-top:12px">Meet all four and it arms every time, 40–60 seconds early. It checks every 20 seconds inside a 60-second lead window.</p>
+        <p style="margin-top:12px">Meet all four and it arms every time, as far ahead as you set — <strong>1, 5, 10, 15 or 30 minutes, 15 by default</strong>. It re-checks every 20 seconds, and immediately whenever macOS says a calendar changed, so a meeting added at the last minute is still caught.</p>
       </div>
       <div class="box warnbox">
         <h3>It never arms when…</h3>
@@ -454,9 +499,10 @@
 
     <div class="grid2">
       <div class="box warnbox">
-        <h3>There is a gap of up to about one second</h3>
-        <p>StealthShare checks the hardware once per second. So between the instant you click "Share screen" and the instant protection lands, your real desktop can be on the call for <strong>up to a second — usually less</strong>.</p>
-        <p style="margin-top:10px">One second is the floor here, not a number that can be tuned to zero: macOS gives no notification when capture begins, so the only option is to keep asking. If that second matters to you, arm it yourself before you join and the gap disappears entirely.</p>
+        <h3>There is a gap — about a second, or about ten</h3>
+        <p>StealthShare checks the hardware once per second. Between the instant your microphone or camera goes live and the instant protection lands, your real desktop can be on the call for <strong>up to a second — usually less</strong>.</p>
+        <p style="margin-top:10px">One case is slower on purpose. If you are <strong>muted with the camera off</strong> and the only signal is the screen being captured, StealthShare waits <strong>ten seconds</strong> before believing it. macOS keeps its recording light on for about 3.8 seconds after <em>any</em> capture — including one ⌘⇧4 screenshot — and duration is the only thing that tells the two apart. Without the wait, every screenshot anyone took hid the desktop and swapped the wallpaper for four seconds.</p>
+        <p style="margin-top:10px">Neither number can be tuned to zero: macOS gives no notification when capture begins, so the only option is to keep asking. If the gap matters to you, use the meeting watcher, or arm it yourself before you join — then there is no gap at all.</p>
       </div>
       <div class="box warnbox">
         <h3>The App Store build cannot tell a camera from a screen recording</h3>
@@ -503,8 +549,7 @@
 
 <script>
 (function(){
-  var state = {mic:false, cam:false, cap:false, cal:false, man:false, pause:false, present:true};
-  var armed = false, pending = null, countdown = null;
+  var state = {mic:false, cam:false, cap:false, man:false, pause:false, present:true, cal:true};
   var desk = document.getElementById('desk');
   var verdict = document.getElementById('verdict');
   var vstate = document.getElementById('vstate');
@@ -512,58 +557,154 @@
   var vtimer = document.getElementById('vtimer');
   var dotMic = document.getElementById('dotMic');
   var dotCap = document.getElementById('dotCap');
+  var clockEl = document.getElementById('clock');
+  var meetSub = document.getElementById('meetSub');
+  var snoozeBtn = document.getElementById('snooze');
+  var runBtn = document.getElementById('runSim');
+
+  var wins = [0,1,2].map(function(i){
+    var el = document.getElementById('win' + i);
+    return {el:el, app:el.dataset.app, listed:el.dataset.listed === '1'};
+  });
+  var active = 2;                 // the window you are working in
+  var armed = false, pending = null, countdown = null, peekTimer = null;
+  var peeking = false;
+
+  // Simulated clock. 14:12 start, meeting at 14:30, lead time 15 minutes,
+  // so the watcher arms at 14:15 and the meeting itself arms again at 14:30.
+  var sim = {min:0, timer:null, snoozed:false};
+  var LEAD_AT = 3, MEET_AT = 18, END = 33;   // minutes after 14:12 → 14:15 / 14:30 / 14:45
+
+  function hhmm(m){
+    var t = 14*60 + 12 + m;
+    return String(Math.floor(t/60)).padStart(2,'0') + ':' + String(t%60).padStart(2,'0');
+  }
+
+  // What the calendar layer is doing right now, if anything.
+  function calendarState(){
+    if (!state.cal) return null;
+    if (sim.min >= MEET_AT) {
+      return {on:true, label:'Protected — the meeting has started',
+              why:'The meeting itself is under way, so protection is on and held until it ends at ' + hhmm(END) + '. Dismissing the early arm never skips this one.'};
+    }
+    if (sim.min >= LEAD_AT) {
+      if (sim.snoozed) {
+        return {on:false, label:'Not now — protection returns at ' + hhmm(MEET_AT),
+                why:'You sent the early arm away, so your screen is yours again. It is not cancelled: the watcher arms once more when the meeting actually starts.'};
+      }
+      return {on:true, label:'Protected — armed early for Zoom',
+              why:'Weekly sync starts at ' + hhmm(MEET_AT) + ' and your lead time is 15 minutes, so protection is already on. Not ready? Send it away with Not now.'};
+    }
+    return {on:false, waiting:true,
+            label:'Not protected — watching your calendar',
+            why:'Weekly sync at ' + hhmm(MEET_AT) + ' has a Zoom link, so protection will switch itself on at ' + hhmm(LEAD_AT) + '.'};
+  }
 
   function reasonNow(){
-    if (state.man) return {on:true, instant:true, why:'You turned it on by hand. Pausing does not block this — manual control always wins.', label:'Protected — manual'};
-    if (state.pause) return {on:false, instant:true, why:'Auto-arm is paused, so nothing here will arm by itself. Your screen records exactly as it looks. ⌘⇧P still works if you want it.', label:'Not protected — auto-arm paused'};
-    if (state.cal) return {on:true, instant:true, why:'Calendar spotted a meeting link starting within 60 seconds and armed ahead of time — no waiting, no gap.', label:'Protected — armed early by calendar'};
-    if (state.cap) return {on:true, instant:false, why:'Your screen is being captured. This is the trigger that matters most: it fires whether or not you are muted.', label:'Protected — screen is being shared'};
-    if (state.mic) return {on:true, instant:false, why:'Microphone is live, so you are treated as being in a call.', label:'Protected — microphone in use'};
-    if (state.cam) return {on:true, instant:false, why:'Camera is live, so you are treated as being in a call.', label:'Protected — camera in use'};
-    return {on:false, instant:true, why:'Nothing is capturing. Your desktop is exposed if you share now.', label:'Not protected'};
+    var cal = calendarState();
+    if (state.man) return {on:true, delay:0, why:'You turned it on by hand. Pausing does not block this — manual control always wins.', label:'Protected — manual'};
+    if (state.pause) return {on:false, delay:0, why:'Auto-arm is paused, so nothing here will arm by itself — the meeting watcher included. Your screen records exactly as it looks. ⌘⇧P still works if you want it.', label:'Not protected — auto-arm paused'};
+    if (cal && cal.on) return {on:true, delay:0, why:cal.why, label:cal.label};
+    if (state.cap && !state.mic && !state.cam)
+      return {on:true, delay:10, why:'Your screen is being captured while you are muted with the camera off. That is the one case StealthShare waits ten seconds on, so that a ⌘⇧4 screenshot never flips your desktop.', label:'Protected — screen is being shared'};
+    if (state.cap) return {on:true, delay:1, why:'Your screen is being captured. This is the trigger that matters most: it fires whether or not you are muted.', label:'Protected — screen is being shared'};
+    if (state.mic) return {on:true, delay:1, why:'Microphone is live, so you are treated as being in a call.', label:'Protected — microphone in use'};
+    if (state.cam) return {on:true, delay:1, why:'Camera is live, so you are treated as being in a call.', label:'Protected — camera in use'};
+    if (cal) return {on:false, delay:0, why:cal.why, label:cal.label};
+    return {on:false, delay:0, why:'Nothing is capturing. Your desktop is exposed if you share now.', label:'Not protected'};
+  }
+
+  // Which windows are covered right now — the actual rule the app uses.
+  function paintWindows(){
+    wins.forEach(function(w, i){
+      var masked = armed && !(peeking && i === active) &&
+                   (w.listed || (state.present && i !== active));
+      w.el.classList.toggle('masked', masked);
+      w.el.classList.toggle('active', i === active);
+    });
   }
 
   function apply(on, label, why){
     armed = on;
     desk.classList.toggle('armed', on);
-    desk.classList.toggle('present', on && state.present);
     verdict.classList.toggle('on', on);
     verdict.classList.toggle('off', !on);
     vstate.textContent = (on ? '🛡 ' : '○ ') + label;
     vwhy.textContent = why;
+    paintWindows();
   }
 
   function render(){
     dotMic.classList.toggle('on', state.mic);
-    dotMic.classList.toggle('mic', true);
+    dotMic.classList.add('mic');
     dotCap.classList.toggle('on', state.cam || state.cap);
+
+    clockEl.textContent = hhmm(sim.min);
+    var cal = calendarState();
+    var preMeetingArm = !!(cal && cal.on && sim.min < MEET_AT && !state.man && !state.pause);
+    snoozeBtn.classList.toggle('show', preMeetingArm);
+    snoozeBtn.textContent = '💤 Not now — protection returns at ' + hhmm(MEET_AT);
+    meetSub.textContent = !state.cal ? 'Meeting watcher is off'
+      : sim.min >= MEET_AT ? 'In progress · held until ' + hhmm(END)
+      : sim.min >= LEAD_AT ? (sim.snoozed ? 'Snoozed · arms again at ' + hhmm(MEET_AT) : 'Armed early · starts at ' + hhmm(MEET_AT))
+      : 'Arms at ' + hhmm(LEAD_AT) + ' · 15 minutes before';
 
     var r = reasonNow();
     clearTimeout(pending); clearInterval(countdown);
 
-    if (r.on && !armed && !r.instant){
-      // the real ~1s poll gap, played out honestly
-      var t = 0;
-      vtimer.textContent = 'detecting… 0.0s of up to 1.0s';
+    if (r.on && !armed && r.delay > 0){
+      var t = 0, max = r.delay;
+      vtimer.textContent = 'detecting… 0.0s of up to ' + max.toFixed(1) + 's';
       countdown = setInterval(function(){
-        t += 0.1;
-        if (t > 1) t = 1;
-        vtimer.textContent = 'detecting… ' + t.toFixed(1) + 's of up to 1.0s';
+        t = Math.min(t + 0.1, max);
+        vtimer.textContent = 'detecting… ' + t.toFixed(1) + 's of up to ' + max.toFixed(1) + 's';
       }, 100);
       pending = setTimeout(function(){
         clearInterval(countdown);
-        vtimer.textContent = 'armed after 1.0s — desktop was visible until then';
+        vtimer.textContent = 'armed after ' + max.toFixed(1) + 's — desktop was visible until then';
         apply(true, r.label, r.why);
-      }, 1000);
+      }, max * 1000);
       vstate.textContent = '◌ Exposed — arming…';
-      vwhy.textContent = 'Capture has started but StealthShare has not noticed yet. This is the gap.';
+      vwhy.textContent = 'Capture has started but StealthShare has not confirmed it yet. This is the gap.';
       verdict.classList.remove('on'); verdict.classList.add('off');
+      paintWindows();
       return;
     }
 
-    vtimer.textContent = r.on && r.instant ? 'armed instantly — no gap' : '';
+    vtimer.textContent = r.on && r.delay === 0 ? 'armed instantly — no gap' : '';
     apply(r.on, r.label, r.why);
   }
+
+  // Click a window to work in it — this is what Present Mode follows.
+  wins.forEach(function(w, i){
+    w.el.addEventListener('click', function(){
+      active = i;
+      peeking = false; clearTimeout(peekTimer);
+      render();
+    });
+  });
+
+  document.getElementById('peek').addEventListener('click', function(){
+    peeking = true; paintWindows();
+    clearTimeout(peekTimer);
+    peekTimer = setTimeout(function(){ peeking = false; paintWindows(); }, 8000);
+  });
+
+  snoozeBtn.addEventListener('click', function(){
+    sim.snoozed = true;
+    render();
+  });
+
+  runBtn.addEventListener('click', function(){
+    clearInterval(sim.timer);
+    sim.min = 0; sim.snoozed = false;
+    render();
+    sim.timer = setInterval(function(){
+      sim.min += 1;
+      if (sim.min >= MEET_AT + 2) clearInterval(sim.timer);
+      render();
+    }, 400);
+  });
 
   document.querySelectorAll('.sw').forEach(function(sw){
     sw.addEventListener('click', function(){
@@ -576,9 +717,14 @@
   });
 
   document.getElementById('reset').addEventListener('click', function(){
-    Object.keys(state).forEach(function(k){ state[k] = false; });
-    document.querySelectorAll('.sw').forEach(function(s){ s.classList.remove('on'); s.setAttribute('aria-checked','false'); });
-    armed = false;
+    clearInterval(sim.timer); clearTimeout(peekTimer);
+    state = {mic:false, cam:false, cap:false, man:false, pause:false, present:true, cal:true};
+    document.querySelectorAll('.sw').forEach(function(sw){
+      var on = state[sw.dataset.k];
+      sw.classList.toggle('on', on);
+      sw.setAttribute('aria-checked', String(on));
+    });
+    sim.min = 0; sim.snoozed = false; armed = false; peeking = false; active = 2;
     render();
   });
 

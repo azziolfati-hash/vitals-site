@@ -143,7 +143,7 @@ macOS 13+ · 14-day free trial, one-time $19.99 · full docs:
   auto-arm in the App Store build. Detection is mic/camera only — a meeting
   app merely being open or frontmost no longer counts, which used to arm
   Privacy Mode permanently for anyone who leaves Slack or Teams running.
-- Calendar Auto-Arm — arms ~60s before scheduled Zoom/Teams/Meet events;
+- Calendar Auto-Arm (meeting watcher) — arms 1/5/10/15/30 minutes before scheduled Zoom/Teams/Meet events, 15 by default, with a countdown in the menu bar and a pre-meeting snooze that re-arms at the start time;
   works with Google and Exchange calendars.
 - Global hotkey, launch at login, mode-toggle sound.
 - More Apps hub + in-app bug reporter (sends only on tap, nothing in the
