@@ -130,7 +130,10 @@
   .desk.armed .statuschip{opacity:1}
   .meetcard{margin-top:14px;border:1px solid var(--line);border-radius:11px;padding:12px;background:var(--card2)}
   .meetcard .mrow{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14px}
-  .meetcard .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ice)}
+  .meetcard .clock{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ice);font-size:18px;display:block;line-height:1.1}
+  .meetcard .now{text-align:right;flex:none}
+  .meetcard .nowlbl{display:block;font-size:9.5px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:1px}
+  .meetcard .simnote{margin-top:8px;font-size:11px;color:var(--dim)}
   .meetcard small{display:block;color:var(--dim);font-size:11.5px;margin-top:2px}
   .minibtn{padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--tx);font-size:12px;font-weight:600;cursor:pointer;flex:none}
   .minibtn:hover{background:rgba(255,255,255,.12)}
@@ -299,7 +302,7 @@
           <span class="spacer"></span>
           <span class="recdot" id="dotMic"></span>
           <span class="recdot" id="dotCap"></span>
-          <span>100%</span><span>Wed 14:22</span>
+          <span>100%</span><span id="mbclock">Wed 14:12</span>
         </div>
         <div class="desk" id="desk">
           <div class="icons">
@@ -360,11 +363,12 @@
 
         <div class="meetcard">
           <div class="mrow">
-            <div>Weekly sync · Zoom · 14:30<small id="meetSub">Watch it arm 15 minutes early</small></div>
-            <span class="clock" id="clock">14:12</span>
+            <div>Weekly sync · Zoom · starts 14:30<small id="meetSub">Arms at 14:15 · 15 minutes before</small></div>
+            <div class="now"><span class="nowlbl">🕐 Time right now</span><span class="clock" id="clock">14:12</span></div>
           </div>
-          <button class="minibtn" id="runSim" style="width:100%;margin-top:10px">▶ Run the clock to the meeting</button>
+          <button class="minibtn" id="runSim" style="width:100%;margin-top:10px">▶ Start the clock — watch it arm at 14:15</button>
           <button class="snoozebtn" id="snooze">💤 Not now — protection returns at 14:30</button>
+          <div class="simnote">This is the time on the pretend Mac above — the menu bar shows the same clock. It starts at 14:12; press start and one second here is one minute there.</div>
         </div>
 
         <div class="verdict off" id="verdict" role="status" aria-live="polite">
@@ -640,6 +644,7 @@
     dotCap.classList.toggle('on', state.cam || state.cap);
 
     clockEl.textContent = hhmm(sim.min);
+    document.getElementById('mbclock').textContent = 'Wed ' + hhmm(sim.min);
     var cal = calendarState();
     var preMeetingArm = !!(cal && cal.on && sim.min < MEET_AT && !state.man && !state.pause);
     snoozeBtn.classList.toggle('show', preMeetingArm);
