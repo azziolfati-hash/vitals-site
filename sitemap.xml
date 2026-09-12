@@ -31,6 +31,12 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://www.hanncrest.com/vitals/license-faq.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.hanncrest.com/aura/</loc>
     <lastmod>2026-09-07</lastmod>
     <changefreq>weekly</changefreq>

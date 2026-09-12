@@ -16,8 +16,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Support — Vitals</title>
-<meta name="description" content="Get help with Vitals — the free 14-day Pro trial, restoring a purchase, or reaching us directly.">
+<title>Buying &amp; License FAQ — Vitals</title>
+<meta name="description" content="How to buy Vitals Pro directly, find your license key email, activate or deactivate it on a Mac, and why the 3-device limit works in your favor.">
 <link rel="icon" type="image/png" href="../assets/icon.png">
 <style>
   :root{
@@ -35,22 +35,30 @@
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-  
   main{padding:64px 0 90px}
   .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
   h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
   .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
 
   h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  p.lead{color:var(--mut);font-size:15px;margin-top:10px;max-width:62ch}
   .faq{display:flex;flex-direction:column;gap:14px;margin-top:20px}
   .qa{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 22px}
   .qa h3{font-size:15px;font-weight:700}
   .qa p{color:var(--mut);font-size:14.5px;margin-top:8px}
 
+  .steps{list-style:none;counter-reset:step;display:flex;flex-direction:column;gap:12px;margin-top:18px}
+  .steps li{counter-increment:step;position:relative;padding:14px 18px 14px 52px;background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:12px;font-size:14.5px;color:var(--mut)}
+  .steps li::before{content:counter(step);position:absolute;left:16px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--grad);color:#04121c;font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center}
+  .steps li strong{color:var(--tx)}
+  .steps li code{background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;color:var(--ice)}
+
+  .note-box{background:linear-gradient(135deg,rgba(52,211,153,.10),rgba(77,201,255,.06));border:1px solid rgba(52,211,153,.28);border-radius:12px;padding:14px 18px;margin-top:16px;font-size:14px;color:var(--mut)}
+  .note-box strong{color:var(--tx)}
+
   .contact{background:linear-gradient(135deg,rgba(77,201,255,.10),rgba(127,227,255,.06));border:1px solid var(--line);border-radius:20px;padding:32px;margin-top:20px;text-align:center}
   .contact h2{margin-top:0}
   .contact p{color:var(--mut);font-size:15px;margin-top:10px}
-  .ph{color:#c98a2a;font-size:13px;border:1px dashed rgba(201,138,42,.5);padding:3px 10px;border-radius:6px;background:rgba(201,138,42,.08);display:inline-block;margin-top:14px}
 
   footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px;background:rgba(5,11,20,.5)}
   .foot{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
@@ -58,18 +66,9 @@
   .foot .links{display:flex;gap:22px}
 
   /* Glassmorphism Chamfered Specular Edges */
-  .card, .qa, .fcard, .plan, .feat, .box, .pill, .vp-cell, .vp-net, .appwin {
+  .card, .qa, .fcard, .plan, .feat, .box, .pill, .vp-cell, .vp-net, .appwin, .steps li {
     box-shadow: inset 0 1px 0 rgba(255,255,255,.20), inset 0 -1px 0 rgba(0,0,0,.35), 0 18px 45px rgba(0,0,0,.4);
   }
-
-  /* 3D Mac Keycaps */
-  kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:22px;padding:0 6px;margin:0 2px;
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;font-size:11px;font-weight:600;
-    color:var(--ice);background:linear-gradient(180deg,#242d38 0%,#151d27 100%);border:1px solid rgba(255,255,255,.18);
-    border-bottom:2px solid rgba(0,0,0,.7);border-radius:5px;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 2px 5px rgba(0,0,0,.45);
-    vertical-align:middle;user-select:none;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease}
-  kbd:hover{background:linear-gradient(180deg,#2c3744 0%,#19232f 100%);border-color:rgba(127,227,255,.4)}
-  kbd:active,kbd.active{transform:translateY(1.5px);border-bottom-width:1px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1px 2px rgba(0,0,0,.3)}
 
   /* Ambient Aurora Mesh Glows */
   .aurora-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
@@ -110,7 +109,7 @@
   .aurora-ambient{position:fixed;inset:0;width:100%;max-width:100vw;height:100%;pointer-events:none;z-index:0;overflow:hidden;contain:paint;clip-path:inset(0)}
   .hero{overflow:hidden;max-width:100vw}
   .hero::before{max-width:100vw}
-  .card, .qa, .fcard, .plan, .feat, .box, .appwin, .shot-hero, .price, .privacy, .contact, .trust{
+  .card, .qa, .fcard, .plan, .feat, .box, .appwin, .shot-hero, .price, .privacy, .contact, .trust, .steps li{
     max-width:100%;box-sizing:border-box;overflow-wrap:break-word;word-break:break-word;
   }
 
@@ -127,24 +126,24 @@
     background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
   .content{position:relative;z-index:2}
 </style>
-<link rel="canonical" href="https://www.hanncrest.com/vitals/support.html">
+<link rel="canonical" href="https://www.hanncrest.com/vitals/license-faq.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="theme-color" content="#050b14">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HANNCREST">
 <meta property="og:locale" content="en_US">
-<meta property="og:url" content="https://www.hanncrest.com/vitals/support.html">
-<meta property="og:title" content="Support — Vitals">
-<meta property="og:description" content="Get help with Vitals — the free 14-day Pro trial, restoring a purchase, or reaching us directly.">
+<meta property="og:url" content="https://www.hanncrest.com/vitals/license-faq.html">
+<meta property="og:title" content="Buying &amp; License FAQ — Vitals">
+<meta property="og:description" content="How to buy Vitals Pro directly, find your license key email, activate or deactivate it on a Mac, and why the 3-device limit works in your favor.">
 <meta property="og:image" content="https://www.hanncrest.com/assets/og/og-vitals.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Support — Vitals">
+<meta property="og:image:alt" content="Buying & License FAQ — Vitals">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Support — Vitals">
-<meta name="twitter:description" content="Get help with Vitals — the free 14-day Pro trial, restoring a purchase, or reaching us directly.">
+<meta name="twitter:title" content="Buying &amp; License FAQ — Vitals">
+<meta name="twitter:description" content="How to buy Vitals Pro directly, find your license key email, activate or deactivate it on a Mac, and why the 3-device limit works in your favor.">
 <meta name="twitter:image" content="https://www.hanncrest.com/assets/og/og-vitals.png">
 <meta name="author" content="HANNCREST">
 <script type="application/ld+json">
@@ -154,79 +153,55 @@
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.hanncrest.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Vitals",
-          "item": "https://www.hanncrest.com/vitals/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Support",
-          "item": "https://www.hanncrest.com/vitals/support.html"
-        }
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.hanncrest.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Vitals", "item": "https://www.hanncrest.com/vitals/" },
+        { "@type": "ListItem", "position": 3, "name": "Buying & License FAQ", "item": "https://www.hanncrest.com/vitals/license-faq.html" }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://www.hanncrest.com/vitals/support.html#faq",
-      "name": "Vitals Support & FAQ",
+      "@id": "https://www.hanncrest.com/vitals/license-faq.html#faq",
+      "name": "Vitals Buying & License FAQ",
       "isPartOf": {
         "@type": "WebPage",
-        "@id": "https://www.hanncrest.com/vitals/support.html"
+        "@id": "https://www.hanncrest.com/vitals/license-faq.html"
       },
-      "about": {
-        "@type": "SoftwareApplication",
-        "name": "Vitals",
-        "url": "https://www.hanncrest.com/vitals/"
-      },
+      "about": { "@type": "SoftwareApplication", "name": "Vitals", "url": "https://www.hanncrest.com/vitals/" },
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "How does the free trial work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Every Pro feature unlocks automatically the moment you install Vitals — no card, no account, no sign-up. You get 14 full days to use everything: the performance dashboard, local-LLM tools, 30-day history, Bluetooth device battery, alerts, and the rest. After day 14 it returns to the free tier until you buy Vitals Pro with a single $14.99 purchase."
-          }
+          "name": "Is Vitals Pro a subscription?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Vitals Pro is a single $14.99 payment — yours forever, with every future update included. There's no recurring charge either way you buy it: through the Mac App Store or directly from us." }
         },
         {
           "@type": "Question",
-          "name": "My trial ended — can I get more time?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The trial is one per install and is meant to give you a fair, full look at Pro before deciding. If something went wrong with your specific trial (a crash, a bug, a Mac migration that reset it unexpectedly), get in touch and we'll sort it out."
-          }
+          "name": "What's the difference between the Mac App Store version and the direct-download version?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Same app, same price, same features overall. The one difference: Apple's App Store sandbox blocks direct access to a couple of system-level things, so the Crash & Panic watcher and the full Agents/Daemons listing under Startup Items aren't available in the Mac App Store build. The direct-download version has no such restriction, so those two work fully there." }
         },
         {
           "@type": "Question",
-          "name": "I bought Vitals Pro on another Mac — how do I restore it?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Open Vitals → Settings, and tap 'Restore' in the Pro section. If you bought through the Mac App Store, this restores your purchase from the same Apple ID with no extra charge."
-          }
+          "name": "I can't find my license key email — where do I look?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Check spam or promotions first — it arrives from Lemon Squeezy immediately after checkout. Your receipt also links to a customer portal where the same order (and key) is always available. If it's genuinely missing, contact us with the email you paid with and we'll look it up." }
         },
         {
           "@type": "Question",
-          "name": "Does Vitals slow down my Mac or drain the battery?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No — Vitals is built natively in Swift and SwiftUI to be featherweight. It samples system metrics on a lightweight timer and does no background processing beyond that."
-          }
+          "name": "Why is there a 3-device activation limit? Isn't that a downside?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It's the opposite of a downside: most one-time-purchase Mac apps tie a license to a single machine. Vitals lets one $14.99 purchase cover up to three Macs at once, and deactivating one instantly frees the slot for another — no repurchase, no support ticket, no waiting." }
         },
         {
           "@type": "Question",
-          "name": "Why don't I see a specific Pro feature?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A few advanced features (like detailed S.M.A.R.T. disk health) need direct hardware access that Apple's App Store sandbox doesn't allow — those work fully in the direct-download build. Everything else works the same in both."
-          }
+          "name": "How do I move my license to a new Mac?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Open Vitals on the old Mac, go to Preferences, and click 'Deactivate license on this Mac' (it now asks you to confirm first). That frees an activation slot immediately, which you can use right away on the new Mac by pasting the same key into its Preferences and clicking Activate." }
+        },
+        {
+          "@type": "Question",
+          "name": "I bought Vitals through the Mac App Store — do I need a license key?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Mac App Store purchases unlock automatically through your Apple ID — there's no key to paste in. If Pro doesn't show as unlocked, use the 'Restore' button in Preferences instead." }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to my license if I request a refund?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Vitals checks your license once per app launch, not continuously. Once a refund is processed, Pro locks the next time you open the app on that Mac." }
         }
       ]
     }
@@ -272,37 +247,69 @@
 </header>
 
 <main><div class="wrap">
-  <span class="kicker">Support</span>
-  <h1>Need a hand?</h1>
-  <p class="intro">Answers to the most common questions below — or reach us directly if you're still stuck. Bought Vitals directly (not through the Mac App Store)? See the <a href="license-faq.html" style="color:var(--teal2);text-decoration:underline">Buying &amp; License FAQ</a> for license-key activation, deactivation, and moving to a new Mac.</p>
+  <span class="kicker">Buying &amp; Licensing</span>
+  <h1>Buying, activating, and moving your Vitals Pro license</h1>
+  <p class="intro">Everything about the direct (non-App-Store) purchase: where your license key comes from, where to enter it, how to move it to another Mac, and why the 3-device limit is actually a good deal.</p>
+
+  <h2>Two ways to own Vitals Pro</h2>
+  <p class="lead">Vitals Pro is the same $14.99 one-time purchase either way — the only difference is how it's unlocked. The <strong style="color:var(--tx)">Mac App Store</strong> version unlocks automatically through your Apple ID (use "Restore" in Preferences if it doesn't — see <a href="support.html" style="color:var(--teal2);text-decoration:underline">Support</a>). The <strong style="color:var(--tx)">direct-download</strong> version — bought straight from us via Lemon Squeezy — unlocks with a license key instead. This page covers that second path.</p>
+
+  <h2>Buying directly</h2>
+  <ol class="steps">
+    <li>From the Vitals page, choose the direct-download option near <a href="index.html#pricing" style="color:var(--teal2);text-decoration:underline">Pricing</a> instead of the Mac App Store button.</li>
+    <li>Check out through Lemon Squeezy — card, and PayPal or Apple Pay where available. It's a single <strong>$14.99</strong> charge, no subscription, no recurring billing.</li>
+    <li>You'll land back on a confirmation page, and an email is on its way to the address you paid with.</li>
+  </ol>
+
+  <h2>Finding your license key</h2>
+  <p class="lead">Lemon Squeezy emails your receipt within a minute or two of paying. It contains your download link and your unique license key — a string you'll paste into Vitals once.</p>
+  <div class="note-box"><strong>Don't see it?</strong> Check spam or promotions first. The same receipt links to a customer portal where your order and key are always available afterward, so nothing is lost even if the email itself goes missing.</div>
+
+  <h2>Activating it in Vitals</h2>
+  <ol class="steps">
+    <li>Click the Vitals icon in the menu bar, then the gear icon for <strong>Preferences</strong>.</li>
+    <li>At the top, under the Pro section, paste your key into the <strong>License key</strong> field.</li>
+    <li>Click <strong>Activate</strong>. Within a couple of seconds the banner changes to "You're all set, thank you! Every Pro feature is on."</li>
+  </ol>
+  <div class="note-box">This step needs an internet connection once — it's the only time Vitals talks to Lemon Squeezy's servers to confirm the key. After that, it only re-checks quietly at each app launch.</div>
+
+  <h2>Deactivating a Mac</h2>
+  <p class="lead">Retiring a Mac, or want to move Pro somewhere else? In the same Preferences screen, click <strong style="color:var(--tx)">"Deactivate license on this Mac."</strong> It now asks you to confirm first — <em>"Deactivate this license on this Mac?"</em> — so a stray click can't lock you out by accident. Confirming frees that activation slot immediately, and you can use the same key on another Mac (or reactivate it here again) right away.</p>
+
+  <h2>Why the 3-device limit works in your favor</h2>
+  <p class="lead">Most one-time-purchase Mac utilities tie a license to a single machine. Vitals lets one $14.99 purchase cover <strong style="color:var(--tx)">up to three Macs at once</strong> — your laptop, a desktop, and a third Mac, all from one key. Outgrow that, or swap a device? Deactivate the one you're not using and that slot opens up instantly — no repurchase, no waiting on support.</p>
 
   <h2>Common questions</h2>
   <div class="faq">
     <div class="qa">
-      <h3>How does the free trial work?</h3>
-      <p>Every Pro feature unlocks automatically the moment you install Vitals — no card, no account, no sign-up. You get 14 full days to use everything: the performance dashboard, local-LLM tools, 30-day history, Bluetooth device battery, alerts, and the rest. After day 14 it returns to the free tier until you buy Vitals Pro with a single $14.99 purchase.</p>
+      <h3>Is Vitals Pro a subscription?</h3>
+      <p>No. It's a single $14.99 payment — yours forever, with every future update included, no matter which store you bought it through.</p>
     </div>
     <div class="qa">
-      <h3>My trial ended — can I get more time?</h3>
-      <p>The trial is one per install and is meant to give you a fair, full look at Pro before deciding. If something went wrong with your specific trial (a crash, a bug, a Mac migration that reset it unexpectedly), get in touch below and we'll sort it out.</p>
+      <h3>What's the difference between the Mac App Store version and the direct version?</h3>
+      <p>Same app, same price. Apple's App Store sandbox blocks direct access to a couple of system-level things, so the Crash &amp; Panic watcher and the full Agents/Daemons listing under Startup Items aren't available in the Mac App Store build specifically. The direct-download version has no such restriction, so those two features work fully there.</p>
     </div>
     <div class="qa">
-      <h3>I bought Vitals Pro on another Mac — how do I restore it?</h3>
-      <p>Open Vitals → Settings, and tap "Restore" in the Pro section. If you bought through the Mac App Store, this restores your purchase from the same Apple ID with no extra charge.</p>
+      <h3>I bought through the Mac App Store — do I need a license key?</h3>
+      <p>No — App Store purchases unlock automatically through your Apple ID. If Pro doesn't show as unlocked, use "Restore" in Preferences instead of a key.</p>
     </div>
     <div class="qa">
-      <h3>Does Vitals slow down my Mac or drain the battery?</h3>
-      <p>No — Vitals is built to be featherweight. It samples system metrics on a lightweight timer and does no background processing beyond that. If you ever see otherwise, please report it — that's a bug, not expected behavior.</p>
+      <h3>Can I use one license on both an Apple Silicon and an Intel Mac?</h3>
+      <p>Yes. Vitals is a universal binary and the license isn't tied to a chip architecture — only to how many Macs are activated at once.</p>
     </div>
     <div class="qa">
-      <h3>Why don't I see [a specific Pro feature]?</h3>
-      <p>A few advanced features (like detailed S.M.A.R.T. disk health) need direct hardware access that Apple's App Store sandbox doesn't allow — those work fully in the direct-download build. Everything else should work the same in both.</p>
+      <h3>What happens if I request a refund?</h3>
+      <p>Vitals checks your license once per app launch, not continuously in the background. Once a refund is processed on our end, Pro locks the next time you open the app on that Mac.</p>
+    </div>
+    <div class="qa">
+      <h3>I've used all 3 activations and need another — now what?</h3>
+      <p>Open Vitals on any Mac you're no longer using it on and click "Deactivate license on this Mac." That frees the slot instantly so you can activate elsewhere. No Vitals installed there anymore? Lemon Squeezy's customer portal (linked in your receipt email) can deactivate an instance from your order page directly.</p>
     </div>
   </div>
 
   <div class="contact">
-    <h2>Still need help?</h2>
-    <p>Send us a message and we'll get back to you, usually within a couple of business days.</p>
+    <h2>Still stuck?</h2>
+    <p>Send us your order email and what you're seeing, and we'll sort it out — usually within a couple of business days.</p>
     <p><a href="mailto:contact@hanncrest.com" style="font-weight:600">contact@hanncrest.com</a></p>
   </div>
 </div></main>
@@ -311,7 +318,7 @@
   <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/icon.png" alt="" style="width:24px;height:24px;border-radius:6px">Vitals</a>
   <div class="links">
     <a href="privacy.html">Privacy Policy</a>
-    <a href="license-faq.html">Buying &amp; License FAQ</a>
+    <a href="support.html">Support</a>
     <a href="index.html#pricing">Pricing</a>
     <a href="mailto:contact@hanncrest.com">Contact</a>
   </div>
@@ -356,12 +363,6 @@
       new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
     }
   })();
-document.querySelectorAll('kbd').forEach(k => {
-    k.addEventListener('click', () => {
-      k.classList.add('active');
-      setTimeout(() => k.classList.remove('active'), 150);
-    });
-  });
 </script>
 </body>
 </html>
