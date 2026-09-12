@@ -821,7 +821,7 @@
           "name": "What can StealthShare hide during a call and what are its technical boundaries?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "StealthShare blurs confidential windows (Slack, Mail, Messages, Notes), hides desktop icons and widgets, silences notification banners, and blocks accidental credential pastes. It operates via ScreenCaptureKit in RAM with zero video recording. It cannot hide sensitive tabs inside an unmasked shared browser window or system menu bar items."
+            "text": "StealthShare blurs confidential windows (Slack, Mail, Messages, Notes), hides desktop icons and widgets, silences notification banners, and blocks accidental credential pastes. It operates using native on-screen frosted overlay panels with zero video recording and does not require Screen Recording permission. It cannot hide sensitive tabs inside an unmasked shared browser window or system menu bar items."
           }
         }
       ]
@@ -1870,8 +1870,8 @@
               <td><span class="badge-zero">No</span></td>
               <td>None</td>
               <td><span class="badge-zero">0 KB · Zero SDKs</span></td>
-              <td>0 KB. Video streams filtered in RAM via ScreenCaptureKit</td>
-              <td>Never captures or saves screen recordings to disk or network</td>
+              <td>0 KB. Local native on-screen frosted overlay masks drawn via Core Graphics window coordinates</td>
+              <td>Never captures, streams, or records screen pixels to disk or network</td>
             </tr>
             <tr>
               <td><strong><a href="aura/" style="color:var(--ice)">Aura</a></strong></td>
@@ -1944,7 +1944,7 @@
           </div>
           <div class="before-buy-card">
             <h4><span style="color:var(--ice)">●</span> StealthShare Scope</h4>
-            <p>Requires macOS Screen Recording permission to filter windows during Zoom/Meet calls. StealthShare masks designated background apps and desktop items — but cannot censor sensitive information you deliberately type inside the active window you choose to share.</p>
+            <p>Does <strong>not</strong> require Screen Recording permission — it masks windows using native on-screen frosted overlay panels positioned via Core Graphics window coordinates. It masks designated background apps and desktop items, but cannot censor sensitive information or tabs inside an unmasked active window you choose to share.</p>
           </div>
           <div class="before-buy-card">
             <h4><span style="color:var(--ice)">●</span> Aura &amp; WhisperType AI Requirements</h4>

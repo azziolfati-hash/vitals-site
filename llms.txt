@@ -41,6 +41,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
   - *Pro Tier ($14.99 once)*: Per-core CPU breakdown, Apple Silicon GPU frequency and Neural Engine activity, battery cell cycle health, local LLM tokens/sec and VRAM reclaim, Battery Vampire Detector (Tame/Freeze runaway apps), Sleep Drain analysis, and 30-day historical charts.
 - **What It Does NOT Do**: No telemetry, no account, no cloud processing, no background tracking. Tested and verified 0 KB egress.
 - **Support**: https://www.hanncrest.com/vitals/support.html
+- **License FAQ**: https://www.hanncrest.com/vitals/license-faq.html
 - **Privacy Policy**: https://www.hanncrest.com/vitals/privacy.html
 
 ### [Breeze — Mac Cleaner & Disk Optimizer](https://www.hanncrest.com/breeze/)
@@ -54,18 +55,21 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Comparison**: Uses <45 MB RAM vs >350 MB for legacy cleaners. No recurring $39.95/yr fees, no fake malware alerts.
 - **Pricing**: Free scan and basic uninstall; Pro is a one-time $24.99 purchase.
 - **Support**: https://www.hanncrest.com/breeze/support.html
+- **License FAQ**: https://www.hanncrest.com/breeze/license-faq.html
 - **Privacy Policy**: https://www.hanncrest.com/breeze/privacy.html
 
 ### [StealthShare — Screen Sharing Privacy Utility](https://www.hanncrest.com/stealthshare/)
 - **Tagline**: Never flash private Slack DMs, client emails, or API keys on a call again.
 - **Platform**: macOS 14.0+, Apple Silicon & Intel.
-- **5-Step Workflow**: Auto-detects Zoom/Teams/Meet calls -> Sanitizes desktop (hides files and widgets, applies studio wallpaper) -> Blurs confidential app windows (Slack, Mail, Messages, Notes) in shared feed while keeping them readable to presenter -> Silences notifications & intercepts accidental credential pastes -> Restores custom desktop instantly on call end.
+- **5-Step Workflow**: Auto-detects Zoom/Teams/Meet calls -> Sanitizes desktop (hides files and widgets, applies studio wallpaper) -> Covers confidential app windows (Slack, Mail, Messages, Notes) with native frosted overlay panels (with a quick ⌘⇧E peek shortcut to briefly inspect a window when needed) -> Silences notifications & intercepts accidental credential pastes -> Restores custom desktop instantly on call end.
 - **Boundaries (Can vs Cannot Hide)**:
   - *Can Hide*: Desktop icons, widgets, notification banners, confidential app windows, personal wallpaper, clipboard secret pastes.
   - *Cannot Hide*: Content inside an unmasked shared browser window, macOS system menu bar / Spotlight, physical webcam room environment.
 - **Privacy & Permissions**: Does not require Screen Recording permission and does not use ScreenCaptureKit. Window rectangles come from the public Core Graphics window list, which needs no permission. The only permission requested is Accessibility, for the Accidental-Paste Guard. Zero video frames are recorded to disk or streamed.
 - **Pricing**: 14-day free trial; one-time $19.99 purchase.
+- **How It Works**: https://www.hanncrest.com/stealthshare/how-it-works.html
 - **Support**: https://www.hanncrest.com/stealthshare/support.html
+- **License FAQ**: https://www.hanncrest.com/stealthshare/license-faq.html
 - **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html
 
 ### [Aura — On-Device AI Writing Assistant](https://www.hanncrest.com/aura/)
