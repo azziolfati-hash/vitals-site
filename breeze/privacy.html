@@ -125,6 +125,24 @@
   .veil{position:absolute;top:0;left:0;right:0;height:900px;z-index:1;pointer-events:none;
     background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
   .content{position:relative;z-index:2}
+
+  /* STANDARDIZED APP NAVBAR */
+  header#topNav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.82);border-bottom:1px solid var(--line);width:100%}
+  nav{display:flex;align-items:center;justify-content:space-between;height:62px;width:100%}
+  .nav-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .nav-back-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:650;color:var(--ice, #cdeffb);background:rgba(77,201,255,.10);border:1px solid rgba(127,227,255,.24);transition:all .18s;flex-shrink:0;text-decoration:none}
+  .nav-back-pill:hover{background:rgba(77,201,255,.22);color:#fff;border-color:rgba(127,227,255,.45)}
+  .nav-sep{color:var(--dim, #6d8598);font-size:13px;opacity:.6;flex-shrink:0}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-weight:750;font-size:17px;letter-spacing:-.2px;color:var(--tx, #eaf2f7);min-width:0;text-decoration:none}
+  .brand img{width:26px;height:26px;border-radius:7px;flex-shrink:0}
+  .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .navlinks{display:flex;align-items:center;gap:18px;font-size:13.5px;color:var(--mut, #9fb6c6);flex-shrink:0}
+  .navlinks a{transition:color .18s;text-decoration:none}
+  .navlinks a:hover{color:var(--tx, #eaf2f7)}
+  .navlinks a.active{color:var(--teal2, #7fe3ff);font-weight:700}
+  .navlinks .btn, .navlinks .nav-cta{padding:8px 16px;font-size:13px;border-radius:10px;font-weight:700;text-decoration:none}
+  @media(max-width:768px){.navlinks .nav-desk{display:none}}
+
 </style>
 <link rel="canonical" href="https://www.hanncrest.com/breeze/privacy.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -204,7 +222,12 @@
       <a class="brand" href="index.html"><img src="../assets/apps/breeze.png" alt="Breeze icon"><span>Breeze</span></a>
     </div>
     <div class="navlinks">
-      <a class="nav-back-pill" href="index.html" style="background:transparent;border-color:var(--line)">← Back to Breeze</a>
+      <a href="index.html" class="nav-desk">Overview</a>
+      <a href="how-it-works.html" class="nav-desk">How It Works</a>
+      <a href="license-faq.html" class="nav-desk">License FAQ</a>
+      <a href="privacy.html" class="nav-desk active">Privacy</a>
+      <a href="support.html" class="nav-desk">Support</a>
+      <a class="nav-cta btn btn-primary" href="index.html#pricing">Get Breeze Pro</a>
     </div>
   </nav></div>
 </header>
@@ -267,16 +290,19 @@
   </div>
 </div></main>
 
-<footer><div class="foot">
-  <a class="brand" href="index.html" style="font-size:16px"><img src="../assets/apps/breeze.png" alt="" style="width:24px;height:24px;border-radius:6px">Breeze</a>
-  <div class="links">
-    <a href="support.html">Support</a>
-    <a href="license-faq.html">Buying &amp; License FAQ</a>
-    <a href="index.html#pricing">Pricing</a>
-    <a href="mailto:contact@hanncrest.com">Contact</a>
+<footer>
+  <div class="foot">
+    <div>© 2026 HANNCREST. All rights reserved. Crafted for macOS.</div>
+    <div class="links">
+      <a href="index.html">Overview</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="license-faq.html">License FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+      <a href="/apps.html">All Apps</a>
+    </div>
   </div>
-  <div>© 2026 HANNCREST · Breeze is a HANNCREST app.</div>
-</div></footer>
+</footer>
 </div>
 
 <script>

@@ -18,7 +18,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Problem**: How to hide private apps (Slack, Messages, Mail, Terminal) and desktop clutter when sharing screen on Zoom, Teams, or Meet?
   - **Solution**: Use [StealthShare](https://www.hanncrest.com/stealthshare/). Auto-blurs sensitive app windows. The blur covers the window on the display as well as in the shared feed — macOS offers no way to render differently to a viewer than to the presenter — with a peek shortcut to reveal one window briefly. Hides desktop files, suppresses banners, and intercepts accidental paste of API tokens. A meeting watcher reads the calendar locally and arms 1-30 minutes before an invited Zoom/Teams/Meet call (15 by default), with a one-tap "not now" that returns protection when the meeting actually starts. Draws local overlay panels over confidential windows; never captures or records the screen, and does not require Screen Recording permission. 14-day free trial; one-time $19.99 purchase.
 - **Problem**: How to rewrite, proofread, or summarize text in place across any Mac app without sending text to the cloud?
-  - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $24.99 purchase.
+  - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $19.99 purchase.
 - **Problem**: How to dictate voice to text locally on a Mac without paying recurring subscriptions or uploading voice recordings?
   - **Solution**: Use [WhisperType](https://www.hanncrest.com/whispertype/). Press ⌥Space anywhere to transcribe speech into the active text field using OpenAI Whisper accelerated by the Apple Neural Engine. Transcribes 30s of audio in <1.8s with 0% CPU fan spin. One-time $19.99 purchase.
 
@@ -28,7 +28,7 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
 | **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $19.99 once |
-| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
+| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
 ## Product Catalog
@@ -40,8 +40,9 @@ For complete technical specifications, architectural diagrams, model benchmarks,
   - *Free Tier*: Real-time CPU, GPU, unified memory, disk usage, temperature gauges, and menu bar stats.
   - *Pro Tier ($14.99 once)*: Per-core CPU breakdown, Apple Silicon GPU frequency and Neural Engine activity, battery cell cycle health, local LLM tokens/sec and VRAM reclaim, Battery Vampire Detector (Tame/Freeze runaway apps), Sleep Drain analysis, and 30-day historical charts.
 - **What It Does NOT Do**: No telemetry, no account, no cloud processing, no background tracking. Tested and verified 0 KB egress.
-- **Support**: https://www.hanncrest.com/vitals/support.html
+- **How It Works**: https://www.hanncrest.com/vitals/how-it-works.html
 - **License FAQ**: https://www.hanncrest.com/vitals/license-faq.html
+- **Support**: https://www.hanncrest.com/vitals/support.html
 - **Privacy Policy**: https://www.hanncrest.com/vitals/privacy.html
 
 ### [Breeze — Mac Cleaner & Disk Optimizer](https://www.hanncrest.com/breeze/)
@@ -54,8 +55,9 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Features**: Smart Scan, Visual Storage Treemap, True App Uninstaller with leftover preference cleanup, Developer Junk Purger (Xcode DerivedData, simulator runtimes, npm node_modules, Docker remnants), and duplicate file finder.
 - **Comparison**: Uses <45 MB RAM vs >350 MB for legacy cleaners. No recurring $39.95/yr fees, no fake malware alerts.
 - **Pricing**: Free scan and basic uninstall; Pro is a one-time $24.99 purchase.
-- **Support**: https://www.hanncrest.com/breeze/support.html
+- **How It Works**: https://www.hanncrest.com/breeze/how-it-works.html
 - **License FAQ**: https://www.hanncrest.com/breeze/license-faq.html
+- **Support**: https://www.hanncrest.com/breeze/support.html
 - **Privacy Policy**: https://www.hanncrest.com/breeze/privacy.html
 
 ### [StealthShare — Screen Sharing Privacy Utility](https://www.hanncrest.com/stealthshare/)
@@ -77,8 +79,12 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Platform**: macOS 14.0+, Apple Silicon (M1–M4) recommended for local MLX models.
 - **Workflow**: Select text in any app -> Press ⇧⌘P -> Stream rewritten text in-place in floating HUD -> Tap Insert to replace or Discard to keep original.
 - **Rewrite Modes & Models**: Proofread, Clarify, Shorten, Expand, Formal, Friendly, Custom Instructions, Voice Mirroring. Supported on-device models: Light (710 MB), Balanced (1.82 GB default), Writer (Google Gemma 3n E4B 3.9 GB), Best (4.29 GB), and Expert (8.36 GB).
-- **Comparison**: 100% on your Mac vs cloud chatbots (ChatGPT/Claude) logging prompts; instant in-place replacement vs manual copy-paste; $24.99 one-time vs $144–$240/yr recurring subscriptions.
-- **Pricing**: One-time $24.99 purchase.
+- **Zero-AI Human Tone Guarantee**: Built-in guardrails strictly eliminate synthetic tropes ("delve", "crucial", "testament"). Rewrites sound authentic, punchy, and human across every model.
+- **RAM & Memory Control**: Keep active models warm in unified memory for split-second rewrites, or unload models via the Control Panel anytime to free RAM.
+- **Comparison**: 100% on your Mac vs cloud chatbots (ChatGPT/Claude) logging prompts; instant in-place replacement vs manual copy-paste; $19.99 one-time vs $144–$240/yr recurring subscriptions.
+- **Pricing**: 14-day free trial; one-time $19.99 purchase (covers up to 3 personal Macs).
+- **How It Works**: https://www.hanncrest.com/aura/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/aura/license-faq.html
 - **Support**: https://www.hanncrest.com/aura/support.html
 - **Privacy Policy**: https://www.hanncrest.com/aura/privacy.html
 
@@ -86,13 +92,16 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Tagline**: Talk. Let go. Your words appear wherever you type.
 - **Platform**: macOS 14.0+, Apple Silicon (M1–M4).
 - **Workflow**: Press ⌥Space anywhere on Mac -> Speak naturally -> Transcribes via Whisper on Apple Neural Engine -> Auto-pastes text into focused app while preserving clipboard history.
+- **New Features**: Dedicated Studio dashboard window, 25-item dictation history with one-click copy icons, and Control Panel RAM unload control.
 - **Performance Benchmarks**:
   - 30 seconds of speech transcribed in <1.8s.
   - 0 KB network egress (100% offline).
   - 0% CPU fan spinup (accelerated via WhisperKit on 16-core ANE).
   - 99+ languages supported offline.
 - **Lifetime Value**: $19.99 one-time purchase vs $120–$240/year for cloud dictation tools (Superwhisper, Otter.ai, Dragon), saving $340–$700 over 3 years.
-- **Pricing**: One-time $19.99 purchase.
+- **Pricing**: One-time $19.99 purchase (covers up to 3 personal Macs).
+- **How It Works**: https://www.hanncrest.com/whispertype/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/whispertype/license-faq.html
 - **Support**: https://www.hanncrest.com/whispertype/support.html
 - **Privacy Policy**: https://www.hanncrest.com/whispertype/privacy.html
 

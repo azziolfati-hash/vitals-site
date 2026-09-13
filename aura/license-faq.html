@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NT8E8KFWJ1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NT8E8KFWJ1', {
+    'allow_google_signals': false,
+    'allow_ad_personalization_signals': false
+  });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buying &amp; License FAQ — Aura</title>
+<meta name="description" content="How to buy Aura directly, find your license key, activate or deactivate it on a Mac, and how the 14-day trial and 3-device limit work.">
+<link rel="icon" type="image/png" href="../assets/apps/aura.png">
+<style>
+  :root{
+    --bg:#050b14; --bg2:#081722; --card:#0c1a26; --card2:#0a1520;
+    --line:rgba(255,255,255,.10); --tx:#eaf2f7; --mut:#9fb6c6; --dim:#6d8598;
+    --teal:#a855f7; --teal2:#c084fc; --ice:#f3e8ff; --good:#34d399;
+    --g1:#c084fc; --g2:#38bdf8;
+    --grad:linear-gradient(135deg,#c084fc,#38bdf8);
+    --maxw:760px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  /* TOP STICKY NAV */
+  header#topNav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.82);border-bottom:1px solid var(--line);width:100%}
+  nav{display:flex;align-items:center;justify-content:space-between;height:62px;width:100%}
+  .nav-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .nav-back-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:650;color:var(--ice);background:rgba(192,132,252,.12);border:1px solid rgba(192,132,252,.26);transition:all .18s;flex-shrink:0}
+  .nav-back-pill:hover{background:rgba(192,132,252,.24);color:#fff;border-color:rgba(192,132,252,.48)}
+  .nav-sep{color:var(--dim);font-size:13px;opacity:.6;flex-shrink:0}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-weight:750;font-size:17px;letter-spacing:-.2px;color:var(--tx);min-width:0}
+  .brand img{width:26px;height:26px;border-radius:7px;flex-shrink:0}
+  .navlinks{display:flex;align-items:center;gap:18px;font-size:13.5px;color:var(--mut);flex-shrink:0}
+  .navlinks a{transition:color .18s}
+  .navlinks a:hover{color:var(--tx)}
+  .navlinks a.active{color:var(--teal2);font-weight:700}
+  .nav-cta{padding:7px 15px;border-radius:10px;background:var(--ice);color:#1c0430;font-weight:700;font-size:13px;transition:all .18s;box-shadow:0 4px 14px rgba(192,132,252,.25)}
+  .nav-cta:hover{background:#fff;transform:translateY(-1px);box-shadow:0 6px 18px rgba(192,132,252,.4)}
+  @media(max-width:768px){.navlinks .nav-desk{display:none}}
+
+  main{padding:64px 0 90px}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g1)}
+  h1{font-size:clamp(30px,4.6vw,44px);font-weight:800;letter-spacing:-.8px;margin-top:10px}
+  .intro{color:var(--mut);font-size:17px;margin-top:26px;max-width:60ch}
+
+  h2{font-size:20px;font-weight:750;letter-spacing:-.3px;margin-top:44px}
+  p.lead{color:var(--mut);font-size:15px;margin-top:10px;max-width:62ch}
+  .faq{display:flex;flex-direction:column;gap:14px;margin-top:20px}
+  .qa{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 18px 45px rgba(0,0,0,.4)}
+  .qa h3{font-size:15px;font-weight:700}
+  .qa p{color:var(--mut);font-size:14.5px;margin-top:8px}
+
+  .steps{list-style:none;counter-reset:step;display:flex;flex-direction:column;gap:12px;margin-top:18px}
+  .steps li{counter-increment:step;position:relative;padding:14px 18px 14px 52px;background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:12px;font-size:14.5px;color:var(--mut)}
+  .steps li::before{content:counter(step);position:absolute;left:16px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--grad);color:#1c0430;font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center}
+  .steps li strong{color:var(--tx)}
+  .steps li code{background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;color:var(--ice)}
+
+  .note-box{background:linear-gradient(135deg,rgba(52,211,153,.10),rgba(192,132,252,.06));border:1px solid rgba(52,211,153,.28);border-radius:12px;padding:14px 18px;margin-top:16px;font-size:14px;color:var(--mut)}
+  .note-box strong{color:var(--tx)}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;color:var(--dim);font-size:13.5px;background:rgba(5,11,20,.6);margin-top:60px}
+  .foot{max-width:var(--maxw);margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot a{color:var(--mut);transition:color .18s}.foot a:hover{color:var(--tx)}
+  .foot .links{display:flex;gap:20px;flex-wrap:wrap}
+
+  .aurora-ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .aurora-orb{position:absolute;border-radius:50%;filter:blur(115px);opacity:.20}
+  .orb-1{width:500px;height:500px;top:8%;left:-120px;background:radial-gradient(circle,#a855f7,#0c2233)}
+  .orb-2{width:580px;height:580px;top:45%;right:-140px;background:radial-gradient(circle,#6366f1,#050b14)}
+  .content{position:relative;z-index:2}
+
+  /* STANDARDIZED APP NAVBAR */
+  header#topNav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.82);border-bottom:1px solid var(--line);width:100%}
+  nav{display:flex;align-items:center;justify-content:space-between;height:62px;width:100%}
+  .nav-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .nav-back-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:650;color:var(--ice, #cdeffb);background:rgba(77,201,255,.10);border:1px solid rgba(127,227,255,.24);transition:all .18s;flex-shrink:0;text-decoration:none}
+  .nav-back-pill:hover{background:rgba(77,201,255,.22);color:#fff;border-color:rgba(127,227,255,.45)}
+  .nav-sep{color:var(--dim, #6d8598);font-size:13px;opacity:.6;flex-shrink:0}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-weight:750;font-size:17px;letter-spacing:-.2px;color:var(--tx, #eaf2f7);min-width:0;text-decoration:none}
+  .brand img{width:26px;height:26px;border-radius:7px;flex-shrink:0}
+  .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .navlinks{display:flex;align-items:center;gap:18px;font-size:13.5px;color:var(--mut, #9fb6c6);flex-shrink:0}
+  .navlinks a{transition:color .18s;text-decoration:none}
+  .navlinks a:hover{color:var(--tx, #eaf2f7)}
+  .navlinks a.active{color:var(--teal2, #7fe3ff);font-weight:700}
+  .navlinks .btn, .navlinks .nav-cta{padding:8px 16px;font-size:13px;border-radius:10px;font-weight:700;text-decoration:none}
+  @media(max-width:768px){.navlinks .nav-desk{display:none}}
+
+</style>
+<link rel="canonical" href="https://www.hanncrest.com/aura/license-faq.html">
+</head>
+<body>
+
+<div class="aurora-ambient" aria-hidden="true">
+  <div class="aurora-orb orb-1"></div>
+  <div class="aurora-orb orb-2"></div>
+</div>
+
+<div class="content">
+<header id="topNav">
+  <div class="wrap"><nav>
+    <div class="nav-left">
+      <a class="nav-back-pill" href="/" title="Back to All Apps">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <span>Apps</span>
+      </a>
+      <span class="nav-sep">/</span>
+      <a class="brand" href="index.html"><img src="../assets/apps/aura.png" alt="Aura icon"><span>Aura</span></a>
+    </div>
+    <div class="navlinks">
+      <a href="index.html" class="nav-desk">Overview</a>
+      <a href="how-it-works.html" class="nav-desk">How It Works</a>
+      <a href="license-faq.html" class="nav-desk active">License FAQ</a>
+      <a href="privacy.html" class="nav-desk">Privacy</a>
+      <a href="support.html" class="nav-desk">Support</a>
+      <a class="nav-cta btn btn-primary" href="index.html#pricing">Get Aura</a>
+    </div>
+  </nav></div>
+</header>
+
+<main><div class="wrap">
+  <span class="kicker">Buying &amp; Licensing</span>
+  <h1>Buying, activating, and moving your Aura license</h1>
+  <p class="intro">Everything about owning Aura directly: how your license key operates, activating your seat, transferring to a new Mac, and our 3-device personal license policy.</p>
+
+  <h2>No Subscriptions. Own it Forever.</h2>
+  <p class="lead">Aura is a single <strong>$19.99 one-time payment</strong>. There are no monthly subscriptions, token fees, or paid tiers. Every future engine update and model enhancement is included.</p>
+
+  <h2>Try It Free for 14 Days</h2>
+  <p class="lead">Aura begins a <strong>14-day free trial</strong> automatically upon initial launch. Every rewrite mode (Proofread, Clarify, Shorten, Formal, Casual, Custom) and all supported local engines are fully unlocked. No credit card or account creation is required.</p>
+
+  <h2>Activating Your License Key</h2>
+  <ol class="steps">
+    <li>Purchase Aura directly from <a href="https://store.hanncrest.com" target="_blank" rel="noopener" style="color:var(--teal2);text-decoration:underline">store.hanncrest.com</a>.</li>
+    <li>Your confirmation receipt containing your unique license key arrives immediately in your inbox.</li>
+    <li>Open Aura, click the menu bar icon, open <strong>Settings / Control Panel</strong>, and select the <strong>License</strong> tab.</li>
+    <li>Paste your license key and click <strong>Activate</strong>. Aura confirms the key and unlocks permanently.</li>
+  </ol>
+  <div class="note-box">
+    <strong>Offline Tolerance:</strong> Aura confirms your license with Lemon Squeezy once during activation. It checks quietly at launch, and if you are traveling offline or without an active internet connection, Aura <strong>fails open</strong> so you can keep writing without interruption.
+  </div>
+
+  <h2>Why the 3-Device Limit Works in Your Favor</h2>
+  <p class="lead">A single Aura license key permits activation on <strong>up to three personal Macs</strong> simultaneously (e.g., your MacBook Air, work laptop, and desktop Mac). Upgrading or selling a computer? Choose <strong>"Deactivate on this Mac…"</strong> under Settings ▸ License, and the activation slot is returned immediately.</p>
+
+  <div class="faq" style="margin-top:36px">
+    <div class="qa">
+      <h3>Can I transfer my license to a new Mac?</h3>
+      <p>Yes. Just click "Deactivate on this Mac" in Settings ▸ License on your old Mac. If that computer is no longer accessible, you can revoke any individual activation from Lemon Squeezy's customer portal linked in your original receipt email.</p>
+    </div>
+    <div class="qa">
+      <h3>Does Aura require internet to rewrite text?</h3>
+      <p>No. After the initial one-time model weight download, all inference runs entirely locally on your Mac's Apple Silicon unified memory using MLX or Apple Intelligence.</p>
+    </div>
+    <div class="qa">
+      <h3>What happens after the 14-day trial?</h3>
+      <p>When the trial period concludes, in-place rewriting pauses until a license key is entered. Your custom presets, voice profiles, and downloaded models remain saved.</p>
+    </div>
+  </div>
+</div></main>
+
+<footer>
+  <div class="foot">
+    <div>© 2026 HANNCREST. All rights reserved. Crafted for macOS.</div>
+    <div class="links">
+      <a href="index.html">Overview</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="license-faq.html">License FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+      <a href="/apps.html">All Apps</a>
+    </div>
+  </div>
+</footer>
+</div>
+
+</body>
+</html>

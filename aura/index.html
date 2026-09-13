@@ -235,6 +235,24 @@
   .veil{position:absolute;top:0;left:0;right:0;height:1180px;z-index:1;pointer-events:none;
     background:radial-gradient(120% 70% at 50% 26%,rgba(29,90,115,.22),transparent 60%)}
   .content{position:relative;z-index:2}
+
+  /* STANDARDIZED APP NAVBAR */
+  header#topNav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.82);border-bottom:1px solid var(--line);width:100%}
+  nav{display:flex;align-items:center;justify-content:space-between;height:62px;width:100%}
+  .nav-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .nav-back-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:650;color:var(--ice, #cdeffb);background:rgba(77,201,255,.10);border:1px solid rgba(127,227,255,.24);transition:all .18s;flex-shrink:0;text-decoration:none}
+  .nav-back-pill:hover{background:rgba(77,201,255,.22);color:#fff;border-color:rgba(127,227,255,.45)}
+  .nav-sep{color:var(--dim, #6d8598);font-size:13px;opacity:.6;flex-shrink:0}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-weight:750;font-size:17px;letter-spacing:-.2px;color:var(--tx, #eaf2f7);min-width:0;text-decoration:none}
+  .brand img{width:26px;height:26px;border-radius:7px;flex-shrink:0}
+  .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .navlinks{display:flex;align-items:center;gap:18px;font-size:13.5px;color:var(--mut, #9fb6c6);flex-shrink:0}
+  .navlinks a{transition:color .18s;text-decoration:none}
+  .navlinks a:hover{color:var(--tx, #eaf2f7)}
+  .navlinks a.active{color:var(--teal2, #7fe3ff);font-weight:700}
+  .navlinks .btn, .navlinks .nav-cta{padding:8px 16px;font-size:13px;border-radius:10px;font-weight:700;text-decoration:none}
+  @media(max-width:768px){.navlinks .nav-desk{display:none}}
+
 </style>
 <link rel="canonical" href="https://www.hanncrest.com/aura/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -290,7 +308,7 @@
         {
           "@type": "Offer",
           "name": "Aura (one-time purchase)",
-          "price": "24.99",
+          "price": "19.99",
           "priceCurrency": "USD"
         }
       ]
@@ -330,7 +348,7 @@
           "name": "Is Aura a subscription or a one-time purchase?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Aura is a one-time purchase of $24.99 with no recurring fees, no accounts, and lifetime access to future updates."
+            "text": "Aura is a one-time purchase of $19.99 with no recurring fees, no accounts, and lifetime access to future updates."
           }
         },
         {
@@ -376,11 +394,15 @@
         <span>Apps</span>
       </a>
       <span class="nav-sep">/</span>
-      <a class="brand" href="#top"><img src="../assets/apps/aura.png" alt="Aura icon"><span>Aura</span></a>
+      <a class="brand" href="index.html"><img src="../assets/apps/aura.png" alt="Aura icon"><span>Aura</span></a>
     </div>
     <div class="navlinks">
-      <a href="#features" class="nav-desk">Features</a><a href="#engines" class="nav-desk">Models</a><a href="#privacy" class="nav-desk">Privacy</a><a href="#pricing" class="nav-desk">Pricing</a>
-      <a class="btn btn-primary" href="#pricing">Get Aura</a>
+      <a href="index.html" class="nav-desk active">Overview</a>
+      <a href="how-it-works.html" class="nav-desk">How It Works</a>
+      <a href="license-faq.html" class="nav-desk">License FAQ</a>
+      <a href="privacy.html" class="nav-desk">Privacy</a>
+      <a href="support.html" class="nav-desk">Support</a>
+      <a class="nav-cta btn btn-primary" href="#pricing">Get Aura</a>
     </div>
   </nav></div>
 </header>
@@ -397,7 +419,7 @@
         <a class="btn btn-primary" href="#pricing">Get Aura</a>
         <a class="btn btn-ghost" href="#features">See what it does</a>
       </div>
-      <p class="note">macOS 14+ · one-time $24.99, no subscription · runs 100% locally on your Mac</p>
+      <p class="note">macOS 14+ · one-time $19.99, no subscription · runs 100% locally on your Mac</p>
 
       <div class="shot-hero" style="border:0;box-shadow:none;background:transparent;margin-top:48px">
         <div class="appwin">
@@ -672,6 +694,35 @@
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5v14M7 5v14M2 9v6M22 9v6"/></svg></div><h3>Voice Mirroring</h3><p>Give Aura 3 samples of your writing and it measures your sentence length, contractions, and punctuation quirks — rewriting drafts so they sound like you, not a robot.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg></div><h3>Word-level diffs</h3><p>Longer rewrites pop up a clear card with deletions in red and insertions in green. Tap Insert to replace, or Discard to keep what you had.</p></div>
         <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><h3>Prompt-injection safe</h3><p>Your selected text is strictly treated as copy to edit, never as instructions to the AI. A prompt injection hidden in an email can't hijack Aura.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Zero-AI Human Tone</h3><p>Never sounds like a robot. Rigorous built-in guardrails ban clichés ("delve", "crucial", "testament"). Rewrites stay punchy, natural, and authentically human.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div><h3>Engine vs Model Clarity</h3><p>Crystal-clear architecture: see how runtime inference frameworks (MLX on Apple Silicon vs Apple Intelligence) differ from neural model weights (Gemma 3n, Balanced, Expert).</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div><h3>Unified RAM &amp; Memory Control</h3><p>Keep your favorite model warm in memory for instant hotkey response, or hit Unload Model in the Control Panel anytime to instantly free system RAM.</p></div>
+        <div class="fcard"><div class="fico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><h3>Color-Coded Control Panel</h3><p>Intuitive macOS menu bar interface with distinctive vibrant tinted icons for Quick Actions, Modes, Presets, Engines, Models, and License management.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZERO-AI HUMAN TONE GUARANTEE -->
+  <section id="human-tone" style="padding-top:20px">
+    <div class="wrap">
+      <div style="background:linear-gradient(135deg,rgba(77,201,255,.08),rgba(186,134,255,.08));border:1px solid rgba(127,227,255,.3);border-radius:20px;padding:36px;box-shadow:inset 0 1px 0 rgba(255,255,255,.2), 0 20px 50px rgba(0,0,0,.45)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+          <span class="pill" style="border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.12);color:#34d399">✓ Anti-Robotic Standard</span>
+          <span style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ice)">Zero-AI Tone Guarantee</span>
+        </div>
+        <h2 style="font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-.5px;margin-bottom:14px">Never sounds like an AI. <span class="grad-text">Always sounds like a human.</span></h2>
+        <p style="color:var(--mut);font-size:16px;line-height:1.6;max-width:76ch;margin-bottom:24px">Standard AI tools flood drafts with synthetic fluff, stiff transitions, and predictable robot clichés. Aura hardcodes strict tone guardrails into every rewrite prompt — rigorously banning tropes like <em>"delve"</em>, <em>"crucial"</em>, <em>"testament"</em>, <em>"tapestry"</em>, and artificial filler. Regardless of which model you choose, your rewritten text reads authentic, punchy, and human.</p>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+          <div style="background:rgba(255,95,87,.06);border:1px solid rgba(255,95,87,.25);border-radius:12px;padding:18px">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ff5f57;margin-bottom:8px">❌ Generic Cloud AI Rewrite</div>
+            <p style="font-size:13.5px;color:#f1f5f9;line-height:1.5;margin:0"><em>"It is crucial to delve into this matter, as it stands as a testament to our ongoing commitment to foster synergy across key stakeholders."</em></p>
+          </div>
+          <div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.35);border-radius:12px;padding:18px">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#34d399;margin-bottom:8px">✓ Aura Humanized Rewrite</div>
+            <p style="font-size:13.5px;color:#f1f5f9;line-height:1.5;margin:0"><strong>"We need to address this directly so everyone stays aligned on next steps."</strong></p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -774,6 +825,34 @@
           </div>
         </div>
       </div>
+
+      <!-- EDUCATIONAL ENGINE VS MODEL GUIDE -->
+      <div style="margin-top:40px;background:rgba(12,24,36,.65);border:1px solid rgba(77,201,255,.2);border-radius:16px;padding:28px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span class="pill" style="font-size:11px">Architecture Guide</span>
+          <h3 style="font-size:18px;font-weight:750;color:var(--tx);margin:0">Engines vs. Models: What's the Difference?</h3>
+        </div>
+        <p style="font-size:14px;color:var(--mut);line-height:1.6;margin-bottom:20px">In Aura, execution is cleanly decoupled so you always know exactly how your Mac's hardware is being utilized:</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px">
+          <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px">
+            <div style="font-size:14px;font-weight:750;color:var(--ice);display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal2)"></span>
+              The Engine (The Runtime Pipeline)
+            </div>
+            <p style="font-size:13px;color:var(--mut);line-height:1.55;margin:0">The software backend executing tensor mathematics on your Mac. Aura uses <strong>Apple MLX</strong> to tap Apple Silicon unified memory directly via Metal. You can also switch to <strong>Apple Intelligence</strong> (macOS 15+) or connect to an existing <strong>Local Server</strong> (LM Studio / Ollama).</p>
+          </div>
+          <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:18px">
+            <div style="font-size:14px;font-weight:750;color:var(--ice);display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#BA86FF"></span>
+              The Model (The Neural Weights)
+            </div>
+            <p style="font-size:13px;color:var(--mut);line-height:1.55;margin:0">The downloaded quantized weights that determine reasoning depth and vocabulary. Pick <strong>Balanced (1.82 GB)</strong> for ~1s proofreading, <strong>Writer (3.9 GB Gemma 3n)</strong> for nuanced human tone, or <strong>Expert (8.36 GB)</strong> for high-parameter excellence.</p>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding:12px 16px;background:rgba(77,201,255,.06);border-radius:10px;font-size:12.5px;color:var(--ice);display:flex;align-items:center;gap:8px">
+          <span>💡 <strong>RAM Management:</strong> Keep your model loaded in memory for instant hotkey rewrites, or click <strong>Unload Model</strong> in the Control Panel anytime to immediately release system RAM.</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -829,7 +908,7 @@
             </tr>
             <tr>
               <td><strong>Price &amp; License</strong></td>
-              <td class="col-aura"><span class="tag-win">✓ $24.99 once</span><br><small style="color:var(--mut)">Lifetime license &amp; updates</small></td>
+              <td class="col-aura"><span class="tag-win">✓ $19.99 once</span><br><small style="color:var(--mut)">Lifetime license &amp; updates</small></td>
               <td><span class="tag-loss">$20/month</span><br><small style="color:var(--dim)">$240/yr recurring</small></td>
               <td><span class="tag-loss">$12–$30/month</span><br><small style="color:var(--dim)">$144–$360/yr recurring</small></td>
             </tr>
@@ -855,13 +934,14 @@
         <div class="price pro">
           <span class="pill tag">One-time purchase</span>
           <h3 class="grad-text">Aura</h3>
-          <div class="amt">$24.99<small> once</small></div>
+          <div class="amt">$19.99<small> once</small></div>
           <ul>
             <li><span class="ck">✓</span>All eight rewrite modes + custom instructions</li>
             <li><span class="ck">✓</span>Unlimited presets, each with its own shortcut</li>
             <li><span class="ck">✓</span>All five on-device models, including Gemma 3n &amp; Expert</li>
             <li><span class="ck">✓</span>Right-click Services &amp; the floating HUD</li>
             <li><span class="ck">✓</span>Runs fully offline — nothing ever leaves your Mac</li>
+            <li><span class="ck">✓</span>14-day full free trial · 3 Macs per license</li>
             <li><span class="ck">✓</span>Free updates, no subscription</li>
           </ul>
           <a class="btn btn-primary" href="#download">Get Aura <span class="ph">link soon</span></a>
@@ -898,16 +978,19 @@
   </div></section>
 </main>
 
-<footer><div class="wrap"><div class="foot">
-  <a class="brand" href="#top" style="font-size:16px"><img src="../assets/apps/aura.png" alt="" style="width:24px;height:24px;border-radius:6px">Aura</a>
-  <div class="links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="support.html">Support</a>
-    <a href="#pricing">Pricing</a>
-    <a href="mailto:contact@hanncrest.com">Contact</a>
+<footer>
+  <div class="foot">
+    <div>© 2026 HANNCREST. All rights reserved. Crafted for macOS.</div>
+    <div class="links">
+      <a href="index.html">Overview</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="license-faq.html">License FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+      <a href="/apps.html">All Apps</a>
+    </div>
   </div>
-  <div>© 2026 HANNCREST · Aura is a HANNCREST app.</div>
-</div></div></footer>
+</footer>
 </div>
 
 <script>

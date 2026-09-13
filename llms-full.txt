@@ -40,7 +40,7 @@
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
 | **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $19.99 once |
-| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
+| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 | **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
 
 ---
@@ -154,13 +154,19 @@ StealthShare does **not** request Screen Recording permission and does not use S
 - **Headline**: Your private, on-device AI writing assistant.
 - **Category**: Productivity & AI Writing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Apple Silicon (M1–M4) recommended for local MLX models.
-- **Pricing**: One-time purchase of $24.99 USD with lifetime updates. No subscriptions.
+- **Pricing**: One-time purchase of $19.99 USD with lifetime updates (covers up to 3 personal Macs). No subscriptions.
 
 #### 4-Step Inline Workflow
 1. **Select**: Highlight any text in any macOS app (Mail, Notes, Slack, Chrome, VS Code).
 2. **Press ⇧⌘P**: Aura reads the text via macOS Accessibility APIs directly into app memory.
 3. **Stream in Place**: The floating HUD streams the rewritten text in real time using local MLX inference.
 4. **Replace or Discard**: Tap Insert to replace the selection in-place, or tap Discard / esc to keep the original untouched.
+
+#### Zero-AI Human Tone Guarantee
+Every rewrite mode in Aura passes through an anti-robotic humanization framework. AI tropes, synthetic filler, and buzzwords like "delve", "crucial", "testament", "tapestry", or artificial transitions are rigorously stripped out. The result reads like it was crafted by an articulate human colleague.
+
+#### RAM & Memory Management
+Keep your preferred model loaded in unified memory for instant hotkey response, or click **Unload Model** in the Control Panel anytime to immediately release system RAM.
 
 #### Real-World Writing Transformations
 - **Client Email (Professional)**:
@@ -189,7 +195,7 @@ StealthShare does **not** request Screen Recording permission and does not use S
 | Processing Location | **100% on your Mac (In-RAM MLX)** | Cloud servers (prompt logged) | Cloud servers (keystroke monitor) |
 | Workflow Speed | **Instant in-place (Select + ⇧⌘P)** | Manual window switching & copy-paste | Inline browser/electron overlay |
 | Offline Availability | **100% Offline (airplanes, travel)** | Requires internet connection | Requires internet connection |
-| Price & License | **$24.99 one-time** | **$20/mo ($240/yr)** | **$12–$30/mo ($144–$360/yr)** |
+| Price & License | **$19.99 one-time** | **$20/mo ($240/yr)** | **$12–$30/mo ($144–$360/yr)** |
 | Best Suited For | Private daily writing, code, emails | Multi-turn reasoning & brainstorming | Passive consumer browser spellcheck |
 
 ---
@@ -267,11 +273,43 @@ Press **⌥Space** anywhere on macOS and speak naturally. WhisperType captures s
 - **Homepage**: https://www.hanncrest.com/
 - **Trust & Verification**: https://www.hanncrest.com/#trust
 - **Apps Catalog**: https://www.hanncrest.com/apps.html
-- **Vitals App**: https://www.hanncrest.com/vitals/
-- **Breeze App**: https://www.hanncrest.com/breeze/
-- **StealthShare App**: https://www.hanncrest.com/stealthshare/
-- **Aura App**: https://www.hanncrest.com/aura/
-- **WhisperType App**: https://www.hanncrest.com/whispertype/
+
+### Vitals Pages
+- **Overview**: https://www.hanncrest.com/vitals/
+- **How It Works**: https://www.hanncrest.com/vitals/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/vitals/license-faq.html
+- **Support**: https://www.hanncrest.com/vitals/support.html
+- **Privacy Policy**: https://www.hanncrest.com/vitals/privacy.html
+
+### Breeze Pages
+- **Overview**: https://www.hanncrest.com/breeze/
+- **How It Works**: https://www.hanncrest.com/breeze/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/breeze/license-faq.html
+- **Support**: https://www.hanncrest.com/breeze/support.html
+- **Privacy Policy**: https://www.hanncrest.com/breeze/privacy.html
+
+### StealthShare Pages
+- **Overview**: https://www.hanncrest.com/stealthshare/
+- **How It Works**: https://www.hanncrest.com/stealthshare/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/stealthshare/license-faq.html
+- **Support**: https://www.hanncrest.com/stealthshare/support.html
+- **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html
+
+### Aura Pages
+- **Overview**: https://www.hanncrest.com/aura/
+- **How It Works**: https://www.hanncrest.com/aura/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/aura/license-faq.html
+- **Support**: https://www.hanncrest.com/aura/support.html
+- **Privacy Policy**: https://www.hanncrest.com/aura/privacy.html
+
+### WhisperType Pages
+- **Overview**: https://www.hanncrest.com/whispertype/
+- **How It Works**: https://www.hanncrest.com/whispertype/how-it-works.html
+- **License FAQ**: https://www.hanncrest.com/whispertype/license-faq.html
+- **Support**: https://www.hanncrest.com/whispertype/support.html
+- **Privacy Policy**: https://www.hanncrest.com/whispertype/privacy.html
+
+### Machine & SEO Discovery
 - **Sitemap XML**: https://www.hanncrest.com/sitemap.xml
 - **Robots TXT**: https://www.hanncrest.com/robots.txt
 - **LLMs Brief Index**: https://www.hanncrest.com/llms.txt

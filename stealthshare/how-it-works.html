@@ -195,18 +195,47 @@
   @media(max-width:900px){
     .split,.layers,.demo,.grid2{grid-template-columns:1fr}
   }
+
+  /* STANDARDIZED APP NAVBAR */
+  header#topNav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(14px);background:rgba(5,11,20,.82);border-bottom:1px solid var(--line);width:100%}
+  nav{display:flex;align-items:center;justify-content:space-between;height:62px;width:100%}
+  .nav-left{display:flex;align-items:center;gap:10px;min-width:0}
+  .nav-back-pill{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:999px;font-size:12.5px;font-weight:650;color:var(--ice, #cdeffb);background:rgba(77,201,255,.10);border:1px solid rgba(127,227,255,.24);transition:all .18s;flex-shrink:0;text-decoration:none}
+  .nav-back-pill:hover{background:rgba(77,201,255,.22);color:#fff;border-color:rgba(127,227,255,.45)}
+  .nav-sep{color:var(--dim, #6d8598);font-size:13px;opacity:.6;flex-shrink:0}
+  .brand{display:inline-flex;align-items:center;gap:9px;font-weight:750;font-size:17px;letter-spacing:-.2px;color:var(--tx, #eaf2f7);min-width:0;text-decoration:none}
+  .brand img{width:26px;height:26px;border-radius:7px;flex-shrink:0}
+  .brand span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .navlinks{display:flex;align-items:center;gap:18px;font-size:13.5px;color:var(--mut, #9fb6c6);flex-shrink:0}
+  .navlinks a{transition:color .18s;text-decoration:none}
+  .navlinks a:hover{color:var(--tx, #eaf2f7)}
+  .navlinks a.active{color:var(--teal2, #7fe3ff);font-weight:700}
+  .navlinks .btn, .navlinks .nav-cta{padding:8px 16px;font-size:13px;border-radius:10px;font-weight:700;text-decoration:none}
+  @media(max-width:768px){.navlinks .nav-desk{display:none}}
+
 </style>
 </head>
 <body>
 
-<header class="brandbar">
-  <div class="wrap brandrow">
-    <a class="brand" href="./">
-      <img src="../assets/apps/stealthshare.png" width="30" height="30" alt="StealthShare app icon">
-      <span>StealthShare</span>
-    </a>
-    <a class="brandcta" href="./">Get StealthShare →</a>
-  </div>
+<header id="topNav">
+  <div class="wrap"><nav>
+    <div class="nav-left">
+      <a class="nav-back-pill" href="/" title="Back to All Apps">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        <span>Apps</span>
+      </a>
+      <span class="nav-sep">/</span>
+      <a class="brand" href="index.html"><img src="../assets/apps/stealthshare.png" alt="StealthShare icon"><span>StealthShare</span></a>
+    </div>
+    <div class="navlinks">
+      <a href="index.html" class="nav-desk">Overview</a>
+      <a href="how-it-works.html" class="nav-desk active">How It Works</a>
+      <a href="license-faq.html" class="nav-desk">License FAQ</a>
+      <a href="privacy.html" class="nav-desk">Privacy</a>
+      <a href="support.html" class="nav-desk">Support</a>
+      <a class="nav-cta btn btn-primary" href="index.html#pricing">Get StealthShare</a>
+    </div>
+  </nav></div>
 </header>
 
 <div class="hero">
@@ -546,8 +575,16 @@
 </section>
 
 <footer>
-  <div class="wrap">
-    Internal reference page — behaviour verified on macOS 26, September 2026. Screen-share detection tested against ScreenCaptureKit, the API Zoom, Teams and browser screen sharing all use.
+  <div class="foot">
+    <div>© 2026 HANNCREST. All rights reserved. Crafted for macOS.</div>
+    <div class="links">
+      <a href="index.html">Overview</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="license-faq.html">License FAQ</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+      <a href="/apps.html">All Apps</a>
+    </div>
   </div>
 </footer>
 
