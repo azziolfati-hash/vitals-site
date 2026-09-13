@@ -271,7 +271,10 @@
   .navlinks a.active{color:var(--teal2, #7fe3ff);font-weight:700}
   .navlinks .btn, .navlinks .nav-cta{padding:8px 16px;font-size:13px;border-radius:10px;font-weight:700;text-decoration:none}
   @media(max-width:768px){.navlinks .nav-desk{display:none}}
-
+  #speech-to-text, #features, #insertion, #model, #benchmarks, #value, #pricing, .final, footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 600px;
+  }
 </style>
 <link rel="canonical" href="https://www.hanncrest.com/whispertype/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -412,7 +415,7 @@
         <span>Apps</span>
       </a>
       <span class="nav-sep">/</span>
-      <a class="brand" href="index.html"><img src="../assets/apps/whispertype.png" alt="WhisperType icon"><span>WhisperType</span></a>
+      <a class="brand" href="index.html"><picture><source srcset="../assets/apps/whispertype-thumb.webp" type="image/webp"><img src="../assets/apps/whispertype-thumb.png" alt="WhisperType icon" width="28" height="28" decoding="async"></picture><span>WhisperType</span></a>
     </div>
     <div class="navlinks">
       <a href="index.html" class="nav-desk active">Overview</a>

@@ -19,11 +19,8 @@
 <title>HANNCREST — native, private Mac apps</title>
 <meta name="description" content="HANNCREST builds native, private, local-first apps for macOS. Fast, featherweight, no accounts, no telemetry — your data never leaves your Mac. Starting with Vitals, a menu-bar system monitor.">
 <link rel="icon" type="image/svg+xml" href="assets/hanncrest-mark-light.svg">
-<link rel="preload" as="image" href="assets/apps/vitals-thumb.png">
-<link rel="preload" as="image" href="assets/apps/breeze-thumb.png">
-<link rel="preload" as="image" href="assets/apps/stealthshare-thumb.png">
-<link rel="preload" as="image" href="assets/apps/aura-thumb.png">
-<link rel="preload" as="image" href="assets/apps/whispertype-thumb.png">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preload" as="image" href="assets/hanncrest-mark-light.svg" type="image/svg+xml" fetchpriority="high">
 <script>
   // Ensure local file:// browsing navigates to index.html instead of opening macOS Finder folder windows
   if(window.location.protocol === 'file:') {
@@ -52,6 +49,10 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #apps, #compare, #values, #trust, footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
 
   /* ---------- MOUNTAIN SCENE (top-anchored) ---------- */
   .scene{position:absolute;top:0;left:0;right:0;width:100%;max-width:100vw;height:1180px;z-index:0;overflow:hidden;contain:paint;
@@ -867,7 +868,7 @@
   <!-- HERO -->
   <div class="hero">
     <span class="pill">◆ Native · Private · Local-first</span>
-    <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo">
+    <img class="hero-logo" src="assets/hanncrest-mark-light.svg" alt="HANNCREST logo" width="150" height="115" fetchpriority="high" decoding="async">
     <h1>Native Mac apps, built on <span class="grad-text">higher ground.</span></h1>
     <p class="sub">A small studio crafting fast, featherweight macOS tools — no accounts, no telemetry, no subscriptions. Everything runs and stays on your Mac.</p>
     <div class="cta">
@@ -896,23 +897,23 @@
       <!-- Playground Tabs -->
       <div class="play-tabs">
         <button class="play-tab active" data-tab="vitals">
-          <img class="tab-app-ico" src="assets/apps/vitals-thumb.png" alt="Vitals icon" width="18" height="18" loading="eager" decoding="async">
+          <picture><source srcset="assets/apps/vitals-thumb.webp" type="image/webp"><img class="tab-app-ico" src="assets/apps/vitals-thumb.png" alt="Vitals icon" width="18" height="18" decoding="async"></picture>
           <span>Vitals</span>
         </button>
         <button class="play-tab" data-tab="breeze">
-          <img class="tab-app-ico" src="assets/apps/breeze-thumb.png" alt="Breeze icon" width="18" height="18" loading="eager" decoding="async">
+          <picture><source srcset="assets/apps/breeze-thumb.webp" type="image/webp"><img class="tab-app-ico" src="assets/apps/breeze-thumb.png" alt="Breeze icon" width="18" height="18" decoding="async"></picture>
           <span>Breeze</span>
         </button>
         <button class="play-tab" data-tab="stealth">
-          <img class="tab-app-ico" src="assets/apps/stealthshare-thumb.png" alt="StealthShare icon" width="18" height="18" loading="eager" decoding="async">
+          <picture><source srcset="assets/apps/stealthshare-thumb.webp" type="image/webp"><img class="tab-app-ico" src="assets/apps/stealthshare-thumb.png" alt="StealthShare icon" width="18" height="18" decoding="async"></picture>
           <span>StealthShare</span>
         </button>
         <button class="play-tab" data-tab="aura">
-          <img class="tab-app-ico" src="assets/apps/aura-thumb.png" alt="Aura icon" width="18" height="18" loading="eager" decoding="async">
+          <picture><source srcset="assets/apps/aura-thumb.webp" type="image/webp"><img class="tab-app-ico" src="assets/apps/aura-thumb.png" alt="Aura icon" width="18" height="18" decoding="async"></picture>
           <span>Aura</span>
         </button>
         <button class="play-tab" data-tab="whisper">
-          <img class="tab-app-ico" src="assets/apps/whispertype-thumb.png" alt="WhisperType icon" width="18" height="18" loading="eager" decoding="async">
+          <picture><source srcset="assets/apps/whispertype-thumb.webp" type="image/webp"><img class="tab-app-ico" src="assets/apps/whispertype-thumb.png" alt="WhisperType icon" width="18" height="18" decoding="async"></picture>
           <span>WhisperType</span>
         </button>
       </div>
@@ -921,7 +922,7 @@
         <div class="play-pane active" id="pane-vitals">
           <div class="play-pane-head">
             <div class="pane-title-wrap">
-              <img src="assets/apps/vitals-thumb.png" class="pane-head-ico" alt="Vitals icon" width="32" height="32" loading="eager" decoding="async">
+              <picture><source srcset="assets/apps/vitals-thumb.webp" type="image/webp"><img src="assets/apps/vitals-thumb.png" class="pane-head-ico" alt="Vitals icon" width="32" height="32" decoding="async"></picture>
               <div>
                 <h4>Vitals — Real-time Mac Health Monitor</h4>
                 <p>Dual-ring telemetry with zero CPU footprint. Lives in your menu bar — click to open.</p>
@@ -1026,7 +1027,7 @@
         <div class="play-pane" id="pane-breeze">
           <div class="play-pane-head">
             <div class="pane-title-wrap">
-              <img src="assets/apps/breeze-thumb.png" class="pane-head-ico" alt="Breeze icon" width="32" height="32" loading="eager" decoding="async">
+              <picture><source srcset="assets/apps/breeze-thumb.webp" type="image/webp"><img src="assets/apps/breeze-thumb.png" class="pane-head-ico" alt="Breeze icon" width="32" height="32" loading="lazy" decoding="async"></picture>
               <div>
                 <h4>Breeze — Smart Mac System Cleaner</h4>
                 <p>Reclaim gigabytes of stale caches, Xcode build clutter, and system junk safely.</p>
@@ -1048,7 +1049,7 @@
         <div class="play-pane" id="pane-stealth">
           <div class="play-pane-head">
             <div class="pane-title-wrap">
-              <img src="assets/apps/stealthshare-thumb.png" class="pane-head-ico" alt="StealthShare icon" width="32" height="32" loading="eager" decoding="async">
+              <picture><source srcset="assets/apps/stealthshare-thumb.webp" type="image/webp"><img src="assets/apps/stealthshare-thumb.png" class="pane-head-ico" alt="StealthShare icon" width="32" height="32" loading="lazy" decoding="async"></picture>
               <div>
                 <h4>StealthShare — Privacy Screen for Calls</h4>
                 <p>Automatically masks private windows during Zoom, Meet, &amp; Slack. Shortcut: <kbd>⌘</kbd><kbd>⇧</kbd><kbd>P</kbd></p>
@@ -1090,7 +1091,7 @@
         <div class="play-pane" id="pane-aura">
           <div class="play-pane-head">
             <div class="pane-title-wrap">
-              <img src="assets/apps/aura-thumb.png" class="pane-head-ico" alt="Aura icon" width="32" height="32" loading="eager" decoding="async">
+              <picture><source srcset="assets/apps/aura-thumb.webp" type="image/webp"><img src="assets/apps/aura-thumb.png" class="pane-head-ico" alt="Aura icon" width="32" height="32" loading="lazy" decoding="async"></picture>
               <div>
                 <h4>Aura — Offline AI Writing Assistant</h4>
                 <p>Select text in any Mac app, press <kbd>⇧</kbd><kbd>⌥</kbd><kbd>R</kbd>, and watch it refine locally.</p>
@@ -1122,7 +1123,7 @@
         <div class="play-pane" id="pane-whisper">
           <div class="play-pane-head">
             <div class="pane-title-wrap">
-              <img src="assets/apps/whispertype-thumb.png" class="pane-head-ico" alt="WhisperType icon" width="32" height="32" loading="eager" decoding="async">
+              <picture><source srcset="assets/apps/whispertype-thumb.webp" type="image/webp"><img src="assets/apps/whispertype-thumb.png" class="pane-head-ico" alt="WhisperType icon" width="32" height="32" loading="lazy" decoding="async"></picture>
               <div>
                 <h4>WhisperType — Offline Voice Dictation</h4>
                 <p>Apple Neural Engine transcribes speech locally in milliseconds. Shortcut: <kbd>⌥</kbd> <kbd>Space</kbd></p>
@@ -1178,7 +1179,7 @@
     <div class="wrap">
       <div class="apps">
         <a class="app lead-app reveal" href="vitals/">
-          <img class="ico" src="assets/apps/vitals.png" alt="Vitals">
+          <picture><source srcset="assets/apps/vitals.webp" type="image/webp"><img class="ico" src="assets/apps/vitals.png" alt="Vitals" width="60" height="60" loading="lazy" decoding="async"></picture>
           <div class="meta">
             <h3>Vitals <span class="chip">Available now</span></h3>
             <div class="tagline">Your Mac's vital signs, in the menu bar</div>
@@ -1259,7 +1260,7 @@
           </div>
         </a>
         <a class="app reveal" href="breeze/">
-          <img class="ico" src="assets/apps/breeze.png" alt="Breeze">
+          <picture><source srcset="assets/apps/breeze.webp" type="image/webp"><img class="ico" src="assets/apps/breeze.png" alt="Breeze" width="60" height="60" loading="lazy" decoding="async"></picture>
           <div class="meta">
             <h3>Breeze <span class="chip">Available now</span></h3>
             <div class="tagline">Clean up &amp; speed up your Mac</div>
@@ -1274,7 +1275,7 @@
           </div>
         </a>
         <a class="app reveal" href="stealthshare/">
-          <img class="ico" src="assets/apps/stealthshare.png" alt="StealthShare">
+          <picture><source srcset="assets/apps/stealthshare.webp" type="image/webp"><img class="ico" src="assets/apps/stealthshare.png" alt="StealthShare" width="60" height="60" loading="lazy" decoding="async"></picture>
           <div class="meta">
             <h3>StealthShare <span class="chip">Available now</span></h3>
             <div class="tagline">Screen privacy for screen sharing</div>
@@ -1312,7 +1313,7 @@
           </div>
         </a>
         <a class="app reveal" href="aura/">
-          <img class="ico" src="assets/apps/aura.png" alt="Aura">
+          <picture><source srcset="assets/apps/aura.webp" type="image/webp"><img class="ico" src="assets/apps/aura.png" alt="Aura" width="60" height="60" loading="lazy" decoding="async"></picture>
           <div class="meta">
             <h3>Aura <span class="chip">Available now</span></h3>
             <div class="tagline">Offline AI text assistant</div>
@@ -1325,7 +1326,7 @@
           </div>
         </a>
         <a class="app reveal" href="whispertype/">
-          <img class="ico" src="assets/apps/whispertype.png" alt="WhisperType">
+          <picture><source srcset="assets/apps/whispertype.webp" type="image/webp"><img class="ico" src="assets/apps/whispertype.png" alt="WhisperType" width="60" height="60" loading="lazy" decoding="async"></picture>
           <div class="meta">
             <h3>WhisperType <span class="chip">Available now</span></h3>
             <div class="tagline">Local voice dictation</div>
@@ -1354,35 +1355,35 @@
       <div class="compare-tabs-wrap reveal d2">
         <div class="compare-tabs" role="tablist" aria-label="App Comparisons">
           <button class="cmp-tab active" data-cmp="vitals" role="tab" aria-selected="true">
-            <img class="cmp-tab-img" src="assets/apps/vitals-thumb.png" alt="Vitals icon" width="26" height="26" loading="eager" decoding="async">
+            <picture><source srcset="assets/apps/vitals-thumb.webp" type="image/webp"><img class="cmp-tab-img" src="assets/apps/vitals-thumb.png" alt="Vitals icon" width="26" height="26" loading="lazy" decoding="async"></picture>
             <span class="cmp-tab-text">
               <span class="cmp-tab-title">Vitals</span>
               <span class="cmp-tab-sub">vs iStat Menus</span>
             </span>
           </button>
           <button class="cmp-tab" data-cmp="breeze" role="tab" aria-selected="false">
-            <img class="cmp-tab-img" src="assets/apps/breeze-thumb.png" alt="Breeze icon" width="26" height="26" loading="eager" decoding="async">
+            <picture><source srcset="assets/apps/breeze-thumb.webp" type="image/webp"><img class="cmp-tab-img" src="assets/apps/breeze-thumb.png" alt="Breeze icon" width="26" height="26" loading="lazy" decoding="async"></picture>
             <span class="cmp-tab-text">
               <span class="cmp-tab-title">Breeze</span>
               <span class="cmp-tab-sub">vs CleanMyMac</span>
             </span>
           </button>
           <button class="cmp-tab" data-cmp="stealth" role="tab" aria-selected="false">
-            <img class="cmp-tab-img" src="assets/apps/stealthshare-thumb.png" alt="StealthShare icon" width="26" height="26" loading="eager" decoding="async">
+            <picture><source srcset="assets/apps/stealthshare-thumb.webp" type="image/webp"><img class="cmp-tab-img" src="assets/apps/stealthshare-thumb.png" alt="StealthShare icon" width="26" height="26" loading="lazy" decoding="async"></picture>
             <span class="cmp-tab-text">
               <span class="cmp-tab-title">StealthShare</span>
               <span class="cmp-tab-sub">vs Zoom Sharing</span>
             </span>
           </button>
           <button class="cmp-tab" data-cmp="aura" role="tab" aria-selected="false">
-            <img class="cmp-tab-img" src="assets/apps/aura-thumb.png" alt="Aura icon" width="26" height="26" loading="eager" decoding="async">
+            <picture><source srcset="assets/apps/aura-thumb.webp" type="image/webp"><img class="cmp-tab-img" src="assets/apps/aura-thumb.png" alt="Aura icon" width="26" height="26" loading="lazy" decoding="async"></picture>
             <span class="cmp-tab-text">
               <span class="cmp-tab-title">Aura</span>
               <span class="cmp-tab-sub">vs Grammarly</span>
             </span>
           </button>
           <button class="cmp-tab" data-cmp="whisper" role="tab" aria-selected="false">
-            <img class="cmp-tab-img" src="assets/apps/whispertype-thumb.png" alt="WhisperType icon" width="26" height="26" loading="eager" decoding="async">
+            <picture><source srcset="assets/apps/whispertype-thumb.webp" type="image/webp"><img class="cmp-tab-img" src="assets/apps/whispertype-thumb.png" alt="WhisperType icon" width="26" height="26" loading="lazy" decoding="async"></picture>
             <span class="cmp-tab-text">
               <span class="cmp-tab-title">WhisperType</span>
               <span class="cmp-tab-sub">vs Otter.ai</span>

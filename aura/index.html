@@ -251,8 +251,10 @@
   .navlinks a:hover{color:var(--tx, #eaf2f7)}
   .navlinks a.active{color:var(--teal2, #7fe3ff);font-weight:700}
   .navlinks .btn, .navlinks .nav-cta{padding:8px 16px;font-size:13px;border-radius:10px;font-weight:700;text-decoration:none}
-  @media(max-width:768px){.navlinks .nav-desk{display:none}}
-
+  #showcase, #usecases, #features, #human-tone, #engines, #compare, #pricing, #privacy, .final, footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 600px;
+  }
 </style>
 <link rel="canonical" href="https://www.hanncrest.com/aura/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -394,7 +396,7 @@
         <span>Apps</span>
       </a>
       <span class="nav-sep">/</span>
-      <a class="brand" href="index.html"><img src="../assets/apps/aura.png" alt="Aura icon"><span>Aura</span></a>
+      <a class="brand" href="index.html"><picture><source srcset="../assets/apps/aura-thumb.webp" type="image/webp"><img src="../assets/apps/aura-thumb.png" alt="Aura icon" width="28" height="28" decoding="async"></picture><span>Aura</span></a>
     </div>
     <div class="navlinks">
       <a href="index.html" class="nav-desk active">Overview</a>
@@ -593,11 +595,19 @@
       <h2 class="title">The whole app, one keystroke away.</h2>
       <p class="lead">No window to manage. Aura sits in your menu bar with every mode, engine and quick action a click away — and each rewrite appears in a floating HUD, right over your work.</p>
       <div style="display:flex;gap:44px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:48px">
-        <img src="../assets/shots/aura/01-panel.png" alt="Aura's menu-bar panel — rewrite modes, engine status and quick actions"
-             style="width:300px;max-width:78vw;height:auto;filter:drop-shadow(0 30px 70px rgba(0,0,0,.6))">
+        <picture>
+          <source srcset="../assets/shots/aura/01-panel.webp" type="image/webp">
+          <img src="../assets/shots/aura/01-panel.png" alt="Aura's menu-bar panel — rewrite modes, engine status and quick actions"
+               width="680" height="1058" loading="lazy" decoding="async"
+               style="width:300px;max-width:78vw;height:auto;filter:drop-shadow(0 30px 70px rgba(0,0,0,.6))">
+        </picture>
         <div style="max-width:430px;display:flex;flex-direction:column;gap:22px">
-          <img src="../assets/shots/aura/02-hud.png" alt="Aura's floating HUD showing a rewrite streaming in"
-               style="width:100%;height:auto;border-radius:16px;filter:drop-shadow(0 26px 56px rgba(0,0,0,.55))">
+          <picture>
+            <source srcset="../assets/shots/aura/02-hud.webp" type="image/webp">
+            <img src="../assets/shots/aura/02-hud.png" alt="Aura's floating HUD showing a rewrite streaming in"
+                 width="840" height="464" loading="lazy" decoding="async"
+                 style="width:100%;height:auto;border-radius:16px;filter:drop-shadow(0 26px 56px rgba(0,0,0,.55))">
+          </picture>
           <p style="color:var(--mut);font-size:15.5px;line-height:1.55">The floating HUD streams each rewrite in as it's generated — press <strong>esc</strong> to cancel, or review longer rewrites with <strong>Insert / Discard</strong> before a single character changes.</p>
         </div>
       </div>

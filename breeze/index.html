@@ -34,6 +34,10 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #dashboard, #safety, #features, #pricing, #faq, footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
   .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:650;font-size:15px;transition:transform .18s ease,box-shadow .18s ease;cursor:pointer;border:0}
   .btn-primary{background:#eef7fc;color:#0a1a24;box-shadow:0 12px 34px rgba(77,201,255,.28)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px rgba(77,201,255,.42)}
@@ -408,7 +412,7 @@
         <span>Apps</span>
       </a>
       <span class="nav-sep">/</span>
-      <a class="brand" href="index.html"><img src="../assets/apps/breeze.png" alt="Breeze icon"><span>Breeze</span></a>
+      <a class="brand" href="index.html"><picture><source srcset="../assets/apps/breeze-thumb.webp" type="image/webp"><img src="../assets/apps/breeze-thumb.png" alt="Breeze icon" width="28" height="28" decoding="async"></picture><span>Breeze</span></a>
     </div>
     <div class="navlinks">
       <a href="index.html" class="nav-desk active">Overview</a>
@@ -543,7 +547,7 @@
       <p class="eyebrow">One window, the whole Mac</p>
       <h2 class="title">A health score, and one click to act on it.</h2>
       <p class="lead">Open Breeze and see your Mac's health, every volume's free space, live memory and disk S.M.A.R.T. — with a single Clean that sweeps caches, logs and leftovers to the Trash.</p>
-      <div class="shot-hero" style="margin-top:34px"><img src="../assets/shots/breeze/01-smart-scan.png" alt="Breeze Smart Scan — health score, storage volumes, memory and disk health"></div>
+      <div class="shot-hero" style="margin-top:34px"><picture><source srcset="../assets/shots/breeze/01-smart-scan.webp" type="image/webp"><img src="../assets/shots/breeze/01-smart-scan.png" alt="Breeze Smart Scan — health score, storage volumes, memory and disk health" loading="lazy" decoding="async"></picture></div>
     </div>
   </section>
 

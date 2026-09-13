@@ -34,6 +34,10 @@
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
   .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gallery, .split, .faq, footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
   .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:12px;font-weight:650;font-size:15px;transition:transform .18s ease,box-shadow .18s ease;cursor:pointer;border:0}
   .btn-primary{background:#eef7fc;color:#0a1a24;box-shadow:0 12px 34px rgba(77,201,255,.28)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 46px rgba(77,201,255,.42)}
@@ -396,7 +400,7 @@
         <span>Apps</span>
       </a>
       <span class="nav-sep">/</span>
-      <a class="brand" href="index.html"><img src="../assets/icon.png" alt="Vitals icon"><span>Vitals</span></a>
+      <a class="brand" href="index.html"><picture><source srcset="../assets/apps/vitals-thumb.webp" type="image/webp"><img src="../assets/apps/vitals-thumb.png" alt="Vitals icon" width="28" height="28" decoding="async"></picture><span>Vitals</span></a>
     </div>
     <div class="navlinks">
       <a href="index.html" class="nav-desk active">Overview</a>
@@ -1817,7 +1821,7 @@
             <li><span class="ck">✓</span><span>All local. It talks only to servers already on your machine — nothing is uploaded.</span></li>
           </ul>
         </div>
-        <img class="shot" src="../assets/shots/03-local-ai.png" alt="Vitals local LLM detection and speed test">
+        <picture><source srcset="../assets/shots/03-local-ai.webp" type="image/webp"><img class="shot" src="../assets/shots/03-local-ai.png" alt="Vitals local LLM detection and speed test" loading="lazy" decoding="async"></picture>
       </div>
     </div>
   </section>
@@ -1828,16 +1832,16 @@
       <p class="eyebrow">A closer look</p>
       <h2 class="title">Depth when you want it.</h2>
       <div class="gallery">
-        <figure><img src="../assets/shots/01-menu-bar.png" alt="Menu bar readout"><figcaption>Live menu-bar readout &amp; popover snapshot</figcaption></figure>
-        <figure><img src="../assets/shots/07-health.png" alt="Health score"><figcaption>A health score that names what's wrong</figcaption></figure>
-        <figure><img src="../assets/shots/05-network.png" alt="Network tools"><figcaption>Network quality, Wi-Fi scan &amp; per-app traffic</figcaption></figure>
-        <figure><img src="../assets/shots/06-history.png" alt="30-day history"><figcaption>30 days of every metric, charted</figcaption></figure>
-        <figure><img src="../assets/shots/04-energy.png" alt="Energy and battery"><figcaption>Live power draw &amp; energy by app</figcaption></figure>
-        <figure><img src="../assets/shots/10-vampire.png" alt="Battery vampire detector with Tame, Freeze and Force Quit"><figcaption>Tame, Freeze &amp; Resume, or Force Quit — your call</figcaption></figure>
-        <figure><img src="../assets/shots/11-sleep-drain.png" alt="Sleep drain report"><figcaption>Who woke your Mac, and what it cost you</figcaption></figure>
-        <figure><img src="../assets/shots/12-vram-reclaim.png" alt="One-tap VRAM reclaim from Model watch"><figcaption>Forgot a model was loaded? Reclaim the VRAM in one tap</figcaption></figure>
-        <figure><img src="../assets/shots/08-thermals.png" alt="Thermals and fans"><figcaption>Per-component temperatures &amp; fan control</figcaption></figure>
-        <figure><img src="../assets/shots/09-themes.png" alt="Themes"><figcaption>Twelve themes to match your setup</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/01-menu-bar.webp" type="image/webp"><img src="../assets/shots/01-menu-bar.png" alt="Menu bar readout" loading="lazy" decoding="async"></picture><figcaption>Live menu-bar readout &amp; popover snapshot</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/07-health.webp" type="image/webp"><img src="../assets/shots/07-health.png" alt="Health score" loading="lazy" decoding="async"></picture><figcaption>A health score that names what's wrong</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/05-network.webp" type="image/webp"><img src="../assets/shots/05-network.png" alt="Network tools" loading="lazy" decoding="async"></picture><figcaption>Network quality, Wi-Fi scan &amp; per-app traffic</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/06-history.webp" type="image/webp"><img src="../assets/shots/06-history.png" alt="30-day history" loading="lazy" decoding="async"></picture><figcaption>30 days of every metric, charted</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/04-energy.webp" type="image/webp"><img src="../assets/shots/04-energy.png" alt="Energy and battery" loading="lazy" decoding="async"></picture><figcaption>Live power draw &amp; energy by app</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/10-vampire.webp" type="image/webp"><img src="../assets/shots/10-vampire.png" alt="Battery vampire detector with Tame, Freeze and Force Quit" loading="lazy" decoding="async"></picture><figcaption>Tame, Freeze &amp; Resume, or Force Quit — your call</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/11-sleep-drain.webp" type="image/webp"><img src="../assets/shots/11-sleep-drain.png" alt="Sleep drain report" loading="lazy" decoding="async"></picture><figcaption>Who woke your Mac, and what it cost you</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/12-vram-reclaim.webp" type="image/webp"><img src="../assets/shots/12-vram-reclaim.png" alt="One-tap VRAM reclaim from Model watch" loading="lazy" decoding="async"></picture><figcaption>Forgot a model was loaded? Reclaim the VRAM in one tap</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/08-thermals.webp" type="image/webp"><img src="../assets/shots/08-thermals.png" alt="Thermals and fans" loading="lazy" decoding="async"></picture><figcaption>Per-component temperatures &amp; fan control</figcaption></figure>
+        <figure><picture><source srcset="../assets/shots/09-themes.webp" type="image/webp"><img src="../assets/shots/09-themes.png" alt="Themes" loading="lazy" decoding="async"></picture><figcaption>Twelve themes to match your setup</figcaption></figure>
       </div>
     </div>
   </section>
