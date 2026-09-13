@@ -2006,7 +2006,10 @@
         ctx.beginPath(); ctx.fillStyle='rgba('+s.c+','+Math.max(0.05,Math.min(1,tw))+')'; ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fill(); }
       requestAnimationFrame(frame);
     }
-    resize(); frame(); addEventListener('resize',resize);
+    const startStarfield = () => { resize(); frame(); };
+    if('requestIdleCallback' in window) { requestIdleCallback(startStarfield); }
+    else { addEventListener('load', startStarfield, { once: true }); }
+    addEventListener('resize',resize);
     const sceneEl=document.querySelector('.scene');
     if(sceneEl&&'IntersectionObserver'in window){
       new IntersectionObserver(es=>es.forEach(e=>{const was=running;running=e.isIntersecting;if(running&&!was)requestAnimationFrame(frame);}),{threshold:0}).observe(sceneEl);
@@ -2026,7 +2029,8 @@
         w.style.strokeDashoffset=Math.max(0,Math.min(1,1-prog)).toFixed(3);
       });
     };
-    draw(); addEventListener('scroll',()=>requestAnimationFrame(draw),{passive:true}); addEventListener('resize',draw);
+    addEventListener('load', draw, { once: true });
+    addEventListener('scroll',()=>requestAnimationFrame(draw),{passive:true}); addEventListener('resize',draw);
   })();
 
   // Box-to-box routed traces between the zig-zag app cards
@@ -2061,124 +2065,148 @@
         if(prog>0.002&&len){const pt=w.p.getPointAtLength(prog*len);w.dot.setAttribute('cx',pt.x.toFixed(1));w.dot.setAttribute('cy',pt.y.toFixed(1));w.dot.style.opacity='1';}else w.dot.style.opacity='0';
       }
     }
-    build(); addEventListener('scroll',()=>requestAnimationFrame(drawBW),{passive:true});
-    let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(build,150);}); addEventListener('load',build);
+    // Defer synchronous layout calculations until after page load
+    if(document.readyState === 'complete') { build(); }
+    else { addEventListener('load', build, { once: true }); }
+    addEventListener('scroll',()=>requestAnimationFrame(drawBW),{passive:true});
+    let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(build,150);});
   })();
 
-  // ---------- Per-app preview animations ----------
-  // Vitals — concentric dual ring & live sparklines in app preview
+  // ---------- Per-app preview animations (lazy-activated when in view) ----------
   (function(){
-    const cOut = document.getElementById('pvCpuOut'), cIn = document.getElementById('pvCpuIn'), cVal = document.getElementById('pvCpuVal');
-    const gOut = document.getElementById('pvGpuOut'), gIn = document.getElementById('pvGpuIn'), gVal = document.getElementById('pvGpuVal');
-    if(!cOut) return;
-    const C_OUT = 2 * Math.PI * 21; // 131.95
-    const C_IN = 2 * Math.PI * 14.5; // 91.11
-    [cOut, gOut].forEach(el => { el.style.strokeDasharray = C_OUT; });
-    [cIn, gIn].forEach(el => { el.style.strokeDasharray = C_IN; });
+    let started = false;
+    function initPreviews(){
+      if(started) return;
+      started = true;
 
-    function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
-    function series(v, W, H, peak){
-      const n = v.length, p = [];
-      for(let i = 0; i < n; i++){
-        const x = n === 1 ? W : W * i / (n - 1);
-        const y = Math.max(2, H * (1 - (v[i] / peak) * 0.88) - 2);
-        p.push([x, y]);
-      }
-      const c = p.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1));
-      return {
-        line: 'M ' + c.join(' L '),
-        area: 'M ' + p[0][0].toFixed(1) + ',' + H + ' L ' + c.join(' L ') + ' L ' + p[n-1][0].toFixed(1) + ',' + H + ' Z',
-        last: p[n-1]
-      };
+      // Vitals — concentric dual ring & live sparklines in app preview
+      (function(){
+        const cOut = document.getElementById('pvCpuOut'), cIn = document.getElementById('pvCpuIn'), cVal = document.getElementById('pvCpuVal');
+        const gOut = document.getElementById('pvGpuOut'), gIn = document.getElementById('pvGpuIn'), gVal = document.getElementById('pvGpuVal');
+        if(!cOut) return;
+        const C_OUT = 2 * Math.PI * 21; // 131.95
+        const C_IN = 2 * Math.PI * 14.5; // 91.11
+        [cOut, gOut].forEach(el => { el.style.strokeDasharray = C_OUT; });
+        [cIn, gIn].forEach(el => { el.style.strokeDasharray = C_IN; });
+
+        function clamp(val, min, max){ return Math.max(min, Math.min(max, val)); }
+        function series(v, W, H, peak){
+          const n = v.length, p = [];
+          for(let i = 0; i < n; i++){
+            const x = n === 1 ? W : W * i / (n - 1);
+            const y = Math.max(2, H * (1 - (v[i] / peak) * 0.88) - 2);
+            p.push([x, y]);
+          }
+          const c = p.map(q => q[0].toFixed(1) + ',' + q[1].toFixed(1));
+          return {
+            line: 'M ' + c.join(' L '),
+            area: 'M ' + p[0][0].toFixed(1) + ',' + H + ' L ' + c.join(' L ') + ' L ' + p[n-1][0].toFixed(1) + ',' + H + ' Z',
+            last: p[n-1]
+          };
+        }
+
+        const N = 24;
+        let u = 19, s = 15, g = 85, v = 80;
+        const cpuWaves = [], gpuWaves = [];
+        for(let i = 0; i < N; i++){
+          cpuWaves.push(clamp(34 + Math.sin(i * 0.5) * 12 + (Math.random() * 6 - 3), 12, 85));
+          gpuWaves.push(clamp(85 + Math.cos(i * 0.4) * 8 + (Math.random() * 6 - 3), 30, 96));
+        }
+
+        function updateMini(){
+          u = Math.round(clamp(u + (Math.random() * 8 - 4), 10, 65));
+          s = Math.round(clamp(s + (Math.random() * 4 - 2), 6, 28));
+          const totalCpu = Math.min(100, u + s);
+          cpuWaves.push(totalCpu); cpuWaves.shift();
+
+          g = Math.round(clamp(g + (Math.random() * 10 - 5), 30, 96));
+          v = Math.round(clamp(v + (Math.random() * 3 - 1.5), 70, 90));
+          gpuWaves.push(g); gpuWaves.shift();
+
+          // Dual rings
+          cOut.style.strokeDashoffset = C_OUT * (1 - u / 100);
+          cIn.style.strokeDashoffset = C_IN * (1 - s / 100);
+          cVal.textContent = totalCpu + '%';
+
+          gOut.style.strokeDashoffset = C_OUT * (1 - g / 100);
+          gIn.style.strokeDashoffset = C_IN * (1 - v / 100);
+          gVal.textContent = g + '%';
+
+          // Stats
+          const cpuStat = document.getElementById('pvCpuStat');
+          if(cpuStat) cpuStat.textContent = totalCpu + '%';
+          const gpuStat = document.getElementById('pvGpuStat');
+          if(gpuStat) gpuStat.textContent = g + '%';
+
+          // CPU Sparkline Wave
+          const sCpu = series(cpuWaves, 200, 44, 100);
+          const ca = document.getElementById('pvCpuArea'); if(ca) ca.setAttribute('d', sCpu.area);
+          const cl = document.getElementById('pvCpuLine'); if(cl) cl.setAttribute('d', sCpu.line);
+          const cd = document.getElementById('pvCpuDot'); if(cd){ cd.setAttribute('cx', sCpu.last[0]); cd.setAttribute('cy', sCpu.last[1]); }
+
+          // GPU Sparkline Wave
+          const sGpu = series(gpuWaves, 200, 44, 100);
+          const ga = document.getElementById('pvGpuArea'); if(ga) ga.setAttribute('d', sGpu.area);
+          const gl = document.getElementById('pvGpuLine'); if(gl) gl.setAttribute('d', sGpu.line);
+          const gd = document.getElementById('pvGpuDot'); if(gd){ gd.setAttribute('cx', sGpu.last[0]); gd.setAttribute('cy', sGpu.last[1]); }
+        }
+        updateMini();
+        if(!reduce) setInterval(updateMini, 1200);
+      })();
+
+      // Breeze — clear junk, count GB freed
+      document.querySelectorAll('.pv-breeze').forEach(b=>{
+        const cells=[...b.querySelectorAll('.cell')], num=b.querySelector('.bnum'), stat=b.querySelector('.bstat');
+        if(reduce){num.textContent='12.4 GB freed'; stat.textContent='Cleaned ✓'; return;}
+        let i=0, target=+(7+Math.random()*8).toFixed(1);
+        function step(){
+          if(i<cells.length){ cells[i].style.opacity=0; cells[i].style.transform='translateY(-9px) scale(.3)'; i++;
+            num.textContent=(target*i/cells.length).toFixed(1)+' GB freed'; setTimeout(step,165); }
+          else { stat.textContent='Cleaned ✓'; setTimeout(reset,1500); }
+        }
+        function reset(){ cells.forEach(c=>{c.style.opacity=1;c.style.transform='';}); i=0; target=+(7+Math.random()*8).toFixed(1);
+          num.textContent='0.0 GB freed'; stat.textContent='Cleaning up junk…'; setTimeout(step,500); }
+        setTimeout(step,700);
+      });
+
+      // Aura — rewrite messy text to clean
+      document.querySelectorAll('.pv-aura .atext').forEach(el=>{
+        const pairs=[["i cant recieve the email","I can't receive the email."],
+                     ["make this sound more better","Make this sound better."],
+                     ["we was going their yesterday","We were going there yesterday."]];
+        if(reduce){el.textContent=pairs[0][1]; el.className='atext good'; return;}
+        let k=0;
+        (function loop(){ const [bad,good]=pairs[k%pairs.length];
+          el.textContent=bad; el.className='atext bad';
+          setTimeout(()=>{el.textContent=good; el.className='atext good';},1600);
+          setTimeout(()=>{k++;loop();},3600); })();
+      });
+
+      // WhisperType — dictate: waveform + typewriter
+      document.querySelectorAll('.pv-whisper .wtext').forEach(el=>{
+        const lines=["Remind me to call the bank at 3.","Add oat milk to the shopping list.","Reply: sounds good, see you soon."];
+        if(reduce){el.textContent=lines[0]; return;}
+        let li=0;
+        function type(){ const s=lines[li%lines.length]; let i=0;
+          (function ch(){ el.textContent=s.slice(0,i); if(i++<=s.length) setTimeout(ch,42+Math.random()*45); else setTimeout(erase,1500); })(); }
+        function erase(){ let s=el.textContent; (function d(){ s=s.slice(0,-1); el.textContent=s; if(s.length) setTimeout(d,20); else {li++; setTimeout(type,340);} })(); }
+        type();
+      });
     }
 
-    const N = 24;
-    let u = 19, s = 15, g = 85, v = 80;
-    const cpuWaves = [], gpuWaves = [];
-    for(let i = 0; i < N; i++){
-      cpuWaves.push(clamp(34 + Math.sin(i * 0.5) * 12 + (Math.random() * 6 - 3), 12, 85));
-      gpuWaves.push(clamp(85 + Math.cos(i * 0.4) * 8 + (Math.random() * 6 - 3), 30, 96));
+    const appsSec = document.getElementById('apps');
+    if('IntersectionObserver' in window && appsSec) {
+      const pIo = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+          initPreviews();
+          pIo.disconnect();
+        }
+      }, { rootMargin: '250px' });
+      pIo.observe(appsSec);
+    } else {
+      addEventListener('load', initPreviews, { once: true });
     }
-
-    function updateMini(){
-      u = Math.round(clamp(u + (Math.random() * 8 - 4), 10, 65));
-      s = Math.round(clamp(s + (Math.random() * 4 - 2), 6, 28));
-      const totalCpu = Math.min(100, u + s);
-      cpuWaves.push(totalCpu); cpuWaves.shift();
-
-      g = Math.round(clamp(g + (Math.random() * 10 - 5), 30, 96));
-      v = Math.round(clamp(v + (Math.random() * 3 - 1.5), 70, 90));
-      gpuWaves.push(g); gpuWaves.shift();
-
-      // Dual rings
-      cOut.style.strokeDashoffset = C_OUT * (1 - u / 100);
-      cIn.style.strokeDashoffset = C_IN * (1 - s / 100);
-      cVal.textContent = totalCpu + '%';
-
-      gOut.style.strokeDashoffset = C_OUT * (1 - g / 100);
-      gIn.style.strokeDashoffset = C_IN * (1 - v / 100);
-      gVal.textContent = g + '%';
-
-      // Stats
-      const cpuStat = document.getElementById('pvCpuStat');
-      if(cpuStat) cpuStat.textContent = totalCpu + '%';
-      const gpuStat = document.getElementById('pvGpuStat');
-      if(gpuStat) gpuStat.textContent = g + '%';
-
-      // CPU Sparkline Wave
-      const sCpu = series(cpuWaves, 200, 44, 100);
-      const ca = document.getElementById('pvCpuArea'); if(ca) ca.setAttribute('d', sCpu.area);
-      const cl = document.getElementById('pvCpuLine'); if(cl) cl.setAttribute('d', sCpu.line);
-      const cd = document.getElementById('pvCpuDot'); if(cd){ cd.setAttribute('cx', sCpu.last[0]); cd.setAttribute('cy', sCpu.last[1]); }
-
-      // GPU Sparkline Wave
-      const sGpu = series(gpuWaves, 200, 44, 100);
-      const ga = document.getElementById('pvGpuArea'); if(ga) ga.setAttribute('d', sGpu.area);
-      const gl = document.getElementById('pvGpuLine'); if(gl) gl.setAttribute('d', sGpu.line);
-      const gd = document.getElementById('pvGpuDot'); if(gd){ gd.setAttribute('cx', sGpu.last[0]); gd.setAttribute('cy', sGpu.last[1]); }
-    }
-    updateMini();
-    if(!reduce) setInterval(updateMini, 1200);
   })();
-
-  // Breeze — clear junk, count GB freed
-  document.querySelectorAll('.pv-breeze').forEach(b=>{
-    const cells=[...b.querySelectorAll('.cell')], num=b.querySelector('.bnum'), stat=b.querySelector('.bstat');
-    if(reduce){num.textContent='12.4 GB freed'; stat.textContent='Cleaned ✓'; return;}
-    let i=0, target=+(7+Math.random()*8).toFixed(1);
-    function step(){
-      if(i<cells.length){ cells[i].style.opacity=0; cells[i].style.transform='translateY(-9px) scale(.3)'; i++;
-        num.textContent=(target*i/cells.length).toFixed(1)+' GB freed'; setTimeout(step,165); }
-      else { stat.textContent='Cleaned ✓'; setTimeout(reset,1500); }
-    }
-    function reset(){ cells.forEach(c=>{c.style.opacity=1;c.style.transform='';}); i=0; target=+(7+Math.random()*8).toFixed(1);
-      num.textContent='0.0 GB freed'; stat.textContent='Cleaning up junk…'; setTimeout(step,500); }
-    setTimeout(step,700);
-  });
-
-  // Aura — rewrite messy text to clean
-  document.querySelectorAll('.pv-aura .atext').forEach(el=>{
-    const pairs=[["i cant recieve the email","I can't receive the email."],
-                 ["make this sound more better","Make this sound better."],
-                 ["we was going their yesterday","We were going there yesterday."]];
-    if(reduce){el.textContent=pairs[0][1]; el.className='atext good'; return;}
-    let k=0;
-    (function loop(){ const [bad,good]=pairs[k%pairs.length];
-      el.textContent=bad; el.className='atext bad';
-      setTimeout(()=>{el.textContent=good; el.className='atext good';},1600);
-      setTimeout(()=>{k++;loop();},3600); })();
-  });
-
-  // WhisperType — dictate: waveform + typewriter
-  document.querySelectorAll('.pv-whisper .wtext').forEach(el=>{
-    const lines=["Remind me to call the bank at 3.","Add oat milk to the shopping list.","Reply: sounds good, see you soon."];
-    if(reduce){el.textContent=lines[0]; return;}
-    let li=0;
-    function type(){ const s=lines[li%lines.length]; let i=0;
-      (function ch(){ el.textContent=s.slice(0,i); if(i++<=s.length) setTimeout(ch,42+Math.random()*45); else setTimeout(erase,1500); })(); }
-    function erase(){ let s=el.textContent; (function d(){ s=s.slice(0,-1); el.textContent=s; if(s.length) setTimeout(d,20); else {li++; setTimeout(type,340);} })(); }
-    type();
-  });
 
   // ---------- A: Interactive Cursor Spotlight & B: 3D Perspective Tilt ----------
   (function(){
@@ -2335,8 +2363,10 @@
         const gd = document.getElementById('hGpuWaveDot'); if(gd){ gd.setAttribute('cx', sGpu.last[0]); gd.setAttribute('cy', sGpu.last[1]); }
       }
 
-      updatePlayVitals();
-      if(!reduce) setInterval(updatePlayVitals, 1000);
+      requestAnimationFrame(() => {
+        updatePlayVitals();
+        if(!reduce) setInterval(updatePlayVitals, 1000);
+      });
     }
 
     // 3. Breeze Cleaner Demo
