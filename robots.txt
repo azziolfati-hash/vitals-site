@@ -67,7 +67,8 @@ User-agent: Omgilibot
 Allow: /
 
 # Sitemaps & LLM context indexes
-Sitemap: https://www.hanncrest.com/sitemap.xml
-# LLMs.txt index: https://www.hanncrest.com/llms.txt
-# LLMs Full index: https://www.hanncrest.com/llms-full.txt
+Sitemap: https://hanncrest.com/sitemap.xml
+# LLMs.txt index: https://hanncrest.com/llms.txt
+# LLMs Full index: https://hanncrest.com/llms-full.txt
+# AI.txt manifest: https://hanncrest.com/.well-known/ai.txt
 

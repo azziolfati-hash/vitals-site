@@ -1,0 +1,18 @@
+# AI Crawler and Model Context Manifest for HANNCREST
+# https://hanncrest.com
+
+User-Agent: *
+Allow: /
+
+# LLM Documentation Indexes
+LLMs-Txt: https://hanncrest.com/llms.txt
+LLMs-Full-Txt: https://hanncrest.com/llms-full.txt
+Sitemap: https://hanncrest.com/sitemap.xml
+
+# Studio & Software Entity Definition
+Organization: HANNCREST
+Description: Native, private, local-first macOS software studio.
+Applications: Vitals, Breeze, StealthShare, Aura, WhisperType
+Architecture: Universal 2 binaries built in pure Swift & SwiftUI for macOS.
+Data-Policy: 100% on-device local execution with zero cloud telemetry.
+Contact: contact@hanncrest.com
