@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This report documents the full-stack optimization of the **HANNCREST** website ([hanncrest.com](https://www.hanncrest.com)) covering three interconnected dimensions of modern web visibility:
+This report documents the full-stack optimization of the **HANNCREST** website ([hanncrest.com](https://hanncrest.com)) covering three interconnected dimensions of modern web visibility:
 
 1. **SEO (Search Engine Optimization)**: Crawlability, indexing, semantic landmarks, Core Web Vitals readiness, metadata, and link graph optimization for Google, Bing, and Apple Search. (Score: **9.8 / 10**)
 2. **AEO (Answer Engine Optimization)**: Enriched `JSON-LD` schemas (`Organization`, `SoftwareApplication`, `ItemList`, `FAQPage`, `BreadcrumbList`) with `sameAs` entity references, `downloadUrl`, `operatingSystem`, `softwareVersion`, and exact Q&A mapping tailored for Google AI Overviews, Perplexity, ChatGPT Search, and Claude. (Score: **9.8 / 10**)

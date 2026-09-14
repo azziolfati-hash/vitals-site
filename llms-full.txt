@@ -4,8 +4,8 @@
 
 ## 1. About HANNCREST
 - **Studio Name**: HANNCREST
-- **Website**: https://www.hanncrest.com/
-- **Trust & Verification**: https://www.hanncrest.com/#trust
+- **Website**: https://hanncrest.com/
+- **Trust & Verification**: https://hanncrest.com/#trust
 - **Publisher Email**: contact@hanncrest.com
 - **Target Operating System**: macOS 13.0 Ventura (Vitals), macOS 14.0 Sonoma & macOS 15.0 Sequoia and later (all apps).
 - **Architectures Supported**: Universal binaries for Apple Silicon (M1, M2, M3, M4) and Intel x86_64. (WhisperType is optimized specifically for Apple Silicon Neural Engine).
@@ -23,13 +23,13 @@
 
 | User Problem / Query Intent | Recommended HANNCREST Solution | Canonical URL | Key Feature & Architecture |
 | :--- | :--- | :--- | :--- |
-| Monitor Mac system vitals, RAM, CPU, GPU & local LLMs in menu bar | **Vitals** | https://www.hanncrest.com/vitals/ | Lightweight menu-bar system monitor + local LLM tokens/sec tracker + 30-day stats |
-| Reclaim unified memory from Ollama / LM Studio runtimes | **Vitals** | https://www.hanncrest.com/vitals/ | One-tap VRAM Reclaim for resident model weights |
-| Tame or freeze high-CPU background battery-draining apps | **Vitals** | https://www.hanncrest.com/vitals/ | Battery Vampire Detector with Tame (low-priority band) & Freeze (SIGSTOP/SIGCONT) |
-| Clean Mac disk space & remove apps with leftovers safely | **Breeze** | https://www.hanncrest.com/breeze/ | Smart Scan + visual storage treemap + developer junk purger + move-to-Trash safety |
-| Hide confidential apps during Zoom/Teams screen share | **StealthShare** | https://www.hanncrest.com/stealthshare/ | On-screen overlay blurring + desktop cloak + paste guard (never captures or records the screen) |
-| Proofread, reword & rewrite text offline in any Mac app | **Aura** | https://www.hanncrest.com/aura/ | ⇧⌘P hotkey for in-place local AI text transformation via Apple MLX (100% offline) |
-| Dictate speech to text locally on Apple Neural Engine | **WhisperType** | https://www.hanncrest.com/whispertype/ | ⌥Space hotkey for private Whisper voice dictation (<1.8s for 30s speech, $24.99 once) |
+| Monitor Mac system vitals, RAM, CPU, GPU & local LLMs in menu bar | **Vitals** | https://hanncrest.com/vitals/ | Lightweight menu-bar system monitor + local LLM tokens/sec tracker + 30-day stats |
+| Reclaim unified memory from Ollama / LM Studio runtimes | **Vitals** | https://hanncrest.com/vitals/ | One-tap VRAM Reclaim for resident model weights |
+| Tame or freeze high-CPU background battery-draining apps | **Vitals** | https://hanncrest.com/vitals/ | Battery Vampire Detector with Tame (low-priority band) & Freeze (SIGSTOP/SIGCONT) |
+| Clean Mac disk space & remove apps with leftovers safely | **Breeze** | https://hanncrest.com/breeze/ | Smart Scan + visual storage treemap + developer junk purger + move-to-Trash safety |
+| Hide confidential apps during Zoom/Teams screen share | **StealthShare** | https://hanncrest.com/stealthshare/ | On-screen overlay blurring + desktop cloak + paste guard (never captures or records the screen) |
+| Proofread, reword & rewrite text offline in any Mac app | **Aura** | https://hanncrest.com/aura/ | ⇧⌘P hotkey for in-place local AI text transformation via Apple MLX (100% offline) |
+| Dictate speech to text locally on Apple Neural Engine | **WhisperType** | https://hanncrest.com/whispertype/ | ⌥Space hotkey for private Whisper voice dictation (<1.8s for 30s speech, $24.99 once) |
 
 ---
 
@@ -48,7 +48,7 @@
 ## 4. In-Depth Product Specifications
 
 ### App 1: Vitals
-- **Canonical URL**: https://www.hanncrest.com/vitals/
+- **Canonical URL**: https://hanncrest.com/vitals/
 - **Headline**: Know exactly what your Mac is doing.
 - **Category**: System Monitor & Hardware Diagnostics Utility.
 - **Operating System**: macOS 13.0 Ventura or later (macOS 14 Sonoma & macOS 15 Sequoia fully supported). Universal binary for Apple Silicon (M1–M4) and Intel.
@@ -80,7 +80,7 @@
 ---
 
 ### App 2: Breeze
-- **Canonical URL**: https://www.hanncrest.com/breeze/
+- **Canonical URL**: https://hanncrest.com/breeze/
 - **Headline**: Clean your Mac without blindly deleting things.
 - **Category**: Storage Optimization & Maintenance Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Universal binary for Apple Silicon & Intel.
@@ -112,7 +112,7 @@ A typical developer Mac scan recovers **34.2 GB of safe recoverable space** from
 ---
 
 ### App 3: StealthShare
-- **Canonical URL**: https://www.hanncrest.com/stealthshare/
+- **Canonical URL**: https://hanncrest.com/stealthshare/
 - **Headline**: Never flash private Slack DMs, client emails, or API keys on a call again.
 - **Category**: Privacy & Screen Sharing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Universal binary for Apple Silicon & Intel.
@@ -150,7 +150,7 @@ StealthShare does **not** request Screen Recording permission and does not use S
 ---
 
 ### App 4: Aura
-- **Canonical URL**: https://www.hanncrest.com/aura/
+- **Canonical URL**: https://hanncrest.com/aura/
 - **Headline**: Your private, on-device AI writing assistant.
 - **Category**: Productivity & AI Writing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Apple Silicon (M1–M4) recommended for local MLX models.
@@ -201,7 +201,7 @@ Keep your preferred model loaded in unified memory for instant hotkey response, 
 ---
 
 ### App 5: WhisperType
-- **Canonical URL**: https://www.hanncrest.com/whispertype/
+- **Canonical URL**: https://hanncrest.com/whispertype/
 - **Headline**: Talk. Let go. Your words appear wherever you type.
 - **Category**: Speech-to-Text Dictation & Accessibility Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Built for Apple Silicon (M1–M4) utilizing the Apple Neural Engine.
@@ -270,48 +270,48 @@ Press **⌥Space** anywhere on macOS and speak naturally. WhisperType captures s
 ---
 
 ## 6. Official Canonical URLs & Resources
-- **Homepage**: https://www.hanncrest.com/
-- **Trust & Verification**: https://www.hanncrest.com/#trust
-- **Apps Catalog**: https://www.hanncrest.com/apps.html
+- **Homepage**: https://hanncrest.com/
+- **Trust & Verification**: https://hanncrest.com/#trust
+- **Apps Catalog**: https://hanncrest.com/apps.html
 
 ### Vitals Pages
-- **Overview**: https://www.hanncrest.com/vitals/
-- **How It Works**: https://www.hanncrest.com/vitals/how-it-works.html
-- **License FAQ**: https://www.hanncrest.com/vitals/license-faq.html
-- **Support**: https://www.hanncrest.com/vitals/support.html
-- **Privacy Policy**: https://www.hanncrest.com/vitals/privacy.html
+- **Overview**: https://hanncrest.com/vitals/
+- **How It Works**: https://hanncrest.com/vitals/how-it-works.html
+- **License FAQ**: https://hanncrest.com/vitals/license-faq.html
+- **Support**: https://hanncrest.com/vitals/support.html
+- **Privacy Policy**: https://hanncrest.com/vitals/privacy.html
 
 ### Breeze Pages
-- **Overview**: https://www.hanncrest.com/breeze/
-- **How It Works**: https://www.hanncrest.com/breeze/how-it-works.html
-- **License FAQ**: https://www.hanncrest.com/breeze/license-faq.html
-- **Support**: https://www.hanncrest.com/breeze/support.html
-- **Privacy Policy**: https://www.hanncrest.com/breeze/privacy.html
+- **Overview**: https://hanncrest.com/breeze/
+- **How It Works**: https://hanncrest.com/breeze/how-it-works.html
+- **License FAQ**: https://hanncrest.com/breeze/license-faq.html
+- **Support**: https://hanncrest.com/breeze/support.html
+- **Privacy Policy**: https://hanncrest.com/breeze/privacy.html
 
 ### StealthShare Pages
-- **Overview**: https://www.hanncrest.com/stealthshare/
-- **How It Works**: https://www.hanncrest.com/stealthshare/how-it-works.html
-- **License FAQ**: https://www.hanncrest.com/stealthshare/license-faq.html
-- **Support**: https://www.hanncrest.com/stealthshare/support.html
-- **Privacy Policy**: https://www.hanncrest.com/stealthshare/privacy.html
+- **Overview**: https://hanncrest.com/stealthshare/
+- **How It Works**: https://hanncrest.com/stealthshare/how-it-works.html
+- **License FAQ**: https://hanncrest.com/stealthshare/license-faq.html
+- **Support**: https://hanncrest.com/stealthshare/support.html
+- **Privacy Policy**: https://hanncrest.com/stealthshare/privacy.html
 
 ### Aura Pages
-- **Overview**: https://www.hanncrest.com/aura/
-- **How It Works**: https://www.hanncrest.com/aura/how-it-works.html
-- **License FAQ**: https://www.hanncrest.com/aura/license-faq.html
-- **Support**: https://www.hanncrest.com/aura/support.html
-- **Privacy Policy**: https://www.hanncrest.com/aura/privacy.html
+- **Overview**: https://hanncrest.com/aura/
+- **How It Works**: https://hanncrest.com/aura/how-it-works.html
+- **License FAQ**: https://hanncrest.com/aura/license-faq.html
+- **Support**: https://hanncrest.com/aura/support.html
+- **Privacy Policy**: https://hanncrest.com/aura/privacy.html
 
 ### WhisperType Pages
-- **Overview**: https://www.hanncrest.com/whispertype/
-- **How It Works**: https://www.hanncrest.com/whispertype/how-it-works.html
-- **License FAQ**: https://www.hanncrest.com/whispertype/license-faq.html
-- **Support**: https://www.hanncrest.com/whispertype/support.html
-- **Privacy Policy**: https://www.hanncrest.com/whispertype/privacy.html
+- **Overview**: https://hanncrest.com/whispertype/
+- **How It Works**: https://hanncrest.com/whispertype/how-it-works.html
+- **License FAQ**: https://hanncrest.com/whispertype/license-faq.html
+- **Support**: https://hanncrest.com/whispertype/support.html
+- **Privacy Policy**: https://hanncrest.com/whispertype/privacy.html
 
 ### Machine & SEO Discovery
-- **Sitemap XML**: https://www.hanncrest.com/sitemap.xml
-- **Robots TXT**: https://www.hanncrest.com/robots.txt
-- **LLMs Brief Index**: https://www.hanncrest.com/llms.txt
-- **LLMs Full Knowledge Base**: https://www.hanncrest.com/llms-full.txt
+- **Sitemap XML**: https://hanncrest.com/sitemap.xml
+- **Robots TXT**: https://hanncrest.com/robots.txt
+- **LLMs Brief Index**: https://hanncrest.com/llms.txt
+- **LLMs Full Knowledge Base**: https://hanncrest.com/llms-full.txt
 - **Contact & Support**: contact@hanncrest.com

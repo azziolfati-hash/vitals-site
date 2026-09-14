@@ -32,7 +32,7 @@ Submit each app to AlternativeTo with explicit competitive tagging:
 ### C. Hacker News (Show HN) Template
 - **Title**: `Show HN: Vitals – Native macOS menu-bar monitor with local-LLM VRAM tracking`
 - **Post Body**:
-  > *"Hi HN! Developer of HANNCREST here. I built Vitals because I wanted a featherweight Swift/SwiftUI menu bar tool that tracks CPU, GPU, RAM, thermals, and local LLM inference engines (Ollama, LM Studio, Apple Intelligence) with zero analytics and zero subscriptions. Universal binary downloads are available at https://www.hanncrest.com/vitals/ . Excited to answer any questions!"*
+  > *"Hi HN! Developer of HANNCREST here. I built Vitals because I wanted a featherweight Swift/SwiftUI menu bar tool that tracks CPU, GPU, RAM, thermals, and local LLM inference engines (Ollama, LM Studio, Apple Intelligence) with zero analytics and zero subscriptions. Universal binary downloads are available at https://hanncrest.com/vitals/ . Excited to answer any questions!"*
 
 ### D. Reddit Launch (`r/macapps`, `r/mac`, `r/AppleSilicon`)
 - **Title**: `I built a 100% native, private macOS system monitor (Vitals) with local-LLM VRAM tracking & 0 subscriptions`

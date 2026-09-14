@@ -78,7 +78,7 @@ Every app embeds the **same** hub page, so this code is nearly identical across 
 Copy `MoreAppsView.swift` into the app and adjust three things:
 ```swift
 enum AppLinks {
-    static let defaultHubURL = "https://www.hanncrest.com/apps.html"   // same hub for every app
+    static let defaultHubURL = "https://hanncrest.com/apps.html"   // same hub for every app
     static var hubURL: URL {
         let s = UserDefaults.standard.string(forKey: "APP.hubURL") ?? defaultHubURL   // per-app key
         return URL(string: s) ?? URL(string: defaultHubURL)!
