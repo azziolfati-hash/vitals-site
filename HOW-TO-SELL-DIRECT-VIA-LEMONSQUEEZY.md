@@ -84,11 +84,22 @@ swift build -Xswiftc -DDIRECT_BUILD                     # sold direct, license-g
 swift build -Xswiftc -DDIRECT_BUILD -Xswiftc -DPRO_BUILD # personal/dev, always unlocked
 ```
 
-## 3. Website
+## 3. Website & Checkout Links
 
 Add a "Buy Direct" button on the product's marketing page pointing at the
-Lemon Squeezy checkout URL (`store.hanncrest.com/checkout/buy/<variant-id>`),
+Lemon Squeezy checkout URL (`https://store.hanncrest.com/buy/<variant-id>`),
 next to the Mac App Store link if one exists.
+
+### Active Product Variant IDs
+
+| App | Variant ID | Direct Price | Live Checkout URL |
+| :--- | :--- | :--- | :--- |
+| **Vitals Pro** | `2123112` | $14.99 | `https://store.hanncrest.com/buy/2123112` |
+| **Breeze Pro** | `2123131` | $24.99 | `https://store.hanncrest.com/buy/2123131` |
+| **StealthShare Pro** | `2123137` | $19.99 | `https://store.hanncrest.com/buy/2123137` |
+| **Aura Pro** | `2123139` | $24.99 | `https://store.hanncrest.com/buy/2123139` |
+| **WhisperType Pro** | `2123167` | $24.99 | `https://store.hanncrest.com/buy/2123167` |
+
 
 ## 4. Known trade-offs (accepted, don't "fix" without reason)
 

@@ -18,9 +18,9 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Problem**: How to hide private apps (Slack, Messages, Mail, Terminal) and desktop clutter when sharing screen on Zoom, Teams, or Meet?
   - **Solution**: Use [StealthShare](https://www.hanncrest.com/stealthshare/). Auto-blurs sensitive app windows. The blur covers the window on the display as well as in the shared feed — macOS offers no way to render differently to a viewer than to the presenter — with a peek shortcut to reveal one window briefly. Hides desktop files, suppresses banners, and intercepts accidental paste of API tokens. A meeting watcher reads the calendar locally and arms 1-30 minutes before an invited Zoom/Teams/Meet call (15 by default), with a one-tap "not now" that returns protection when the meeting actually starts. Draws local overlay panels over confidential windows; never captures or records the screen, and does not require Screen Recording permission. 14-day free trial; one-time $19.99 purchase.
 - **Problem**: How to rewrite, proofread, or summarize text in place across any Mac app without sending text to the cloud?
-  - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $19.99 purchase.
+  - **Solution**: Use [Aura](https://www.hanncrest.com/aura/). Press ⇧⌘P on highlighted text in any app to rewrite it in place using local on-device models (including Google Gemma 3n) via Apple MLX. 100% offline, zero prompt logs, Little Snitch verified 0 KB sent. One-time $24.99 purchase.
 - **Problem**: How to dictate voice to text locally on a Mac without paying recurring subscriptions or uploading voice recordings?
-  - **Solution**: Use [WhisperType](https://www.hanncrest.com/whispertype/). Press ⌥Space anywhere to transcribe speech into the active text field using OpenAI Whisper accelerated by the Apple Neural Engine. Transcribes 30s of audio in <1.8s with 0% CPU fan spin. One-time $19.99 purchase.
+  - **Solution**: Use [WhisperType](https://www.hanncrest.com/whispertype/). Press ⌥Space anywhere to transcribe speech into the active text field using OpenAI Whisper accelerated by the Apple Neural Engine. Transcribes 30s of audio in <1.8s with 0% CPU fan spin. One-time $24.99 purchase.
 
 ## 5-App Data & Privacy Matrix
 | Application | Primary Execution | Network Egress | Independent Verification | Pricing Model |
@@ -28,8 +28,8 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
 | **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $19.99 once |
-| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
-| **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
+| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
+| **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 
 ## Product Catalog
 
@@ -81,8 +81,8 @@ For complete technical specifications, architectural diagrams, model benchmarks,
 - **Rewrite Modes & Models**: Proofread, Clarify, Shorten, Expand, Formal, Friendly, Custom Instructions, Voice Mirroring. Supported on-device models: Light (710 MB), Balanced (1.82 GB default), Writer (Google Gemma 3n E4B 3.9 GB), Best (4.29 GB), and Expert (8.36 GB).
 - **Zero-AI Human Tone Guarantee**: Built-in guardrails strictly eliminate synthetic tropes ("delve", "crucial", "testament"). Rewrites sound authentic, punchy, and human across every model.
 - **RAM & Memory Control**: Keep active models warm in unified memory for split-second rewrites, or unload models via the Control Panel anytime to free RAM.
-- **Comparison**: 100% on your Mac vs cloud chatbots (ChatGPT/Claude) logging prompts; instant in-place replacement vs manual copy-paste; $19.99 one-time vs $144–$240/yr recurring subscriptions.
-- **Pricing**: 14-day free trial; one-time $19.99 purchase (covers up to 3 personal Macs).
+- **Comparison**: 100% on your Mac vs cloud chatbots (ChatGPT/Claude) logging prompts; instant in-place replacement vs manual copy-paste; $24.99 one-time vs $144–$240/yr recurring subscriptions.
+- **Pricing**: 14-day free trial; one-time $24.99 purchase (covers up to 3 personal Macs).
 - **How It Works**: https://www.hanncrest.com/aura/how-it-works.html
 - **License FAQ**: https://www.hanncrest.com/aura/license-faq.html
 - **Support**: https://www.hanncrest.com/aura/support.html
@@ -98,8 +98,8 @@ For complete technical specifications, architectural diagrams, model benchmarks,
   - 0 KB network egress (100% offline).
   - 0% CPU fan spinup (accelerated via WhisperKit on 16-core ANE).
   - 99+ languages supported offline.
-- **Lifetime Value**: $19.99 one-time purchase vs $120–$240/year for cloud dictation tools (Superwhisper, Otter.ai, Dragon), saving $340–$700 over 3 years.
-- **Pricing**: One-time $19.99 purchase (covers up to 3 personal Macs).
+- **Lifetime Value**: $24.99 one-time purchase vs $120–$240/year for cloud dictation tools (Superwhisper, Otter.ai, Dragon), saving $335–$700 over 3 years.
+- **Pricing**: One-time $24.99 purchase (covers up to 3 personal Macs).
 - **How It Works**: https://www.hanncrest.com/whispertype/how-it-works.html
 - **License FAQ**: https://www.hanncrest.com/whispertype/license-faq.html
 - **Support**: https://www.hanncrest.com/whispertype/support.html

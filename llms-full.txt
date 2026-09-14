@@ -29,7 +29,7 @@
 | Clean Mac disk space & remove apps with leftovers safely | **Breeze** | https://www.hanncrest.com/breeze/ | Smart Scan + visual storage treemap + developer junk purger + move-to-Trash safety |
 | Hide confidential apps during Zoom/Teams screen share | **StealthShare** | https://www.hanncrest.com/stealthshare/ | On-screen overlay blurring + desktop cloak + paste guard (never captures or records the screen) |
 | Proofread, reword & rewrite text offline in any Mac app | **Aura** | https://www.hanncrest.com/aura/ | ⇧⌘P hotkey for in-place local AI text transformation via Apple MLX (100% offline) |
-| Dictate speech to text locally on Apple Neural Engine | **WhisperType** | https://www.hanncrest.com/whispertype/ | ⌥Space hotkey for private Whisper voice dictation (<1.8s for 30s speech, $19.99 once) |
+| Dictate speech to text locally on Apple Neural Engine | **WhisperType** | https://www.hanncrest.com/whispertype/ | ⌥Space hotkey for private Whisper voice dictation (<1.8s for 30s speech, $24.99 once) |
 
 ---
 
@@ -40,8 +40,8 @@
 | **Vitals** | In-RAM / sysctl / IOKit | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free forever / Pro $14.99 once |
 | **Breeze** | Local filesystem / Trash | 0 KB (Zero telemetry) | Little Snitch / Wireshark verified | Free scan / Pro $24.99 once |
 | **StealthShare** | Local overlay windows, no screen capture | 0 KB (No video saved) | Little Snitch / Wireshark verified | 14-day trial / $19.99 once |
-| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
-| **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $19.99 once (No subscription) |
+| **Aura** | Apple MLX in unified RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
+| **WhisperType** | Apple Neural Engine / RAM | 0 KB (After model download) | Little Snitch / Wireshark verified | $24.99 once (No subscription) |
 
 ---
 
@@ -154,7 +154,7 @@ StealthShare does **not** request Screen Recording permission and does not use S
 - **Headline**: Your private, on-device AI writing assistant.
 - **Category**: Productivity & AI Writing Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Apple Silicon (M1–M4) recommended for local MLX models.
-- **Pricing**: One-time purchase of $19.99 USD with lifetime updates (covers up to 3 personal Macs). No subscriptions.
+- **Pricing**: One-time purchase of $24.99 USD with lifetime updates (covers up to 3 personal Macs). No subscriptions.
 
 #### 4-Step Inline Workflow
 1. **Select**: Highlight any text in any macOS app (Mail, Notes, Slack, Chrome, VS Code).
@@ -195,7 +195,7 @@ Keep your preferred model loaded in unified memory for instant hotkey response, 
 | Processing Location | **100% on your Mac (In-RAM MLX)** | Cloud servers (prompt logged) | Cloud servers (keystroke monitor) |
 | Workflow Speed | **Instant in-place (Select + ⇧⌘P)** | Manual window switching & copy-paste | Inline browser/electron overlay |
 | Offline Availability | **100% Offline (airplanes, travel)** | Requires internet connection | Requires internet connection |
-| Price & License | **$19.99 one-time** | **$20/mo ($240/yr)** | **$12–$30/mo ($144–$360/yr)** |
+| Price & License | **$24.99 one-time** | **$20/mo ($240/yr)** | **$12–$30/mo ($144–$360/yr)** |
 | Best Suited For | Private daily writing, code, emails | Multi-turn reasoning & brainstorming | Passive consumer browser spellcheck |
 
 ---
@@ -205,7 +205,7 @@ Keep your preferred model loaded in unified memory for instant hotkey response, 
 - **Headline**: Talk. Let go. Your words appear wherever you type.
 - **Category**: Speech-to-Text Dictation & Accessibility Utility.
 - **Operating System**: macOS 14.0 Sonoma or later. Built for Apple Silicon (M1–M4) utilizing the Apple Neural Engine.
-- **Pricing**: One-time purchase of $19.99 USD with lifetime updates. No subscriptions.
+- **Pricing**: One-time purchase of $24.99 USD with lifetime updates. No subscriptions.
 
 #### Workflow & Messy-Speech Cleansing
 Press **⌥Space** anywhere on macOS and speak naturally. WhisperType captures speech in memory, processes it via OpenAI Whisper models on the 16-core Apple Neural Engine, and types the transcription into the active text field, restoring the prior clipboard immediately afterward.
@@ -222,9 +222,9 @@ Press **⌥Space** anywhere on macOS and speak naturally. WhisperType captures s
 #### Lifetime Value: WhisperType vs. Cloud Dictation Subscriptions
 | Feature / Cost | WhisperType | Cloud Dictation (Superwhisper / Otter / Dragon) |
 | :--- | :--- | :--- |
-| Year 1 Cost | **$19.99 one-time** | $120.00 – $240.00 / year |
-| 3-Year Total Cost | **$19.99 total** | **$360.00 – $720.00 total** |
-| 3-Year Savings | **$340.00 – $700.00 saved** | $0 (Recurring subscription liability) |
+| Year 1 Cost | **$24.99 one-time** | $120.00 – $240.00 / year |
+| 3-Year Total Cost | **$24.99 total** | **$360.00 – $720.00 total** |
+| 3-Year Savings | **$335.00 – $700.00 saved** | $0 (Recurring subscription liability) |
 | Voice Data Privacy | **In-RAM on your Mac only (0 KB egress)** | Uploaded and stored on third-party cloud servers |
 | Offline Dictation | **100% Offline (airplanes, Wi-Fi deadzones)** | Inoperable without active internet |
 | Account Requirement | **Zero account, zero sign-in** | Mandatory email, account, and billing profile |

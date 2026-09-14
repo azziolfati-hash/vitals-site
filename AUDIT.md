@@ -4,7 +4,12 @@
 **Repository**: `vitals-site`  
 **Domains**: `hanncrest.com` · `store.hanncrest.com`  
 **Suite Portfolio**: Vitals, Breeze, StealthShare, Aura, WhisperType  
-**Standard Pricing**: $19.99 one-time · 14-day free trial · 3-Mac license limit across all apps  
+**Product Pricing & Variant IDs**:
+- **Vitals Pro**: $14.99 one-time (Variant ID: `2123112`) · 14-day free trial · 3-Mac license limit
+- **Breeze Pro**: $24.99 one-time (Variant ID: `2123131`) · 14-day free trial · 3-Mac license limit
+- **StealthShare Pro**: $19.99 one-time (Variant ID: `2123137`) · 14-day free trial · 3-Mac license limit
+- **Aura Pro**: $24.99 one-time (Variant ID: `2123139`) · 14-day free trial · 3-Mac license limit
+- **WhisperType Pro**: $24.99 one-time (Variant ID: `2123167`) · 14-day free trial · 3-Mac license limit
 
 ---
 
@@ -57,8 +62,14 @@
      - `https://store.hanncrest.com/downloads/StealthShare-Latest.pkg`
      - `https://store.hanncrest.com/downloads/Aura-Latest.pkg`
      - `https://store.hanncrest.com/downloads/WhisperType-Latest.pkg`
-2. **Unified Pricing Consistency**:
-   - Every product page, comparison table, and checkout callout must state **$19.99 one-time**, with a **14-day free trial** and a **3-Mac license limit**.
+2. **Pricing Consistency Across All Channels**:
+   - Every product page, comparison table, and checkout callout must strictly match the agreed pricing:
+     - **Vitals Pro**: $14.99 one-time (Variant ID: `2123112`)
+     - **Breeze Pro**: $24.99 one-time (Variant ID: `2123131`)
+     - **StealthShare Pro**: $19.99 one-time (Variant ID: `2123137`)
+     - **Aura Pro**: $24.99 one-time (Variant ID: `2123139`)
+     - **WhisperType Pro**: $24.99 one-time (Variant ID: `2123167`)
+   - All apps share a **14-day free trial** and a **3-Mac license limit**.
 3. **Template & Menu Consistency**:
    - Whenever a navigation element, header, or footer is updated, the change must be mirrored across all 5 app subpages and auxiliary FAQ/How-To pages.
 4. **App Feature Parity**:

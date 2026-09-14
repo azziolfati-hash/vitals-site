@@ -184,7 +184,7 @@ macOS 14+ · one-time $24.99 · full docs: [`Aura/README.md`](../Aura/README.md)
 
 ## WhisperType — local voice dictation
 
-macOS, Apple Silicon (Neural Engine) · one-time $19.99 · full docs:
+macOS, Apple Silicon (Neural Engine) · one-time $24.99 · full docs:
 [`WhisperType/README.md`](../WhisperType/README.md)
 
 - Global hotkey (default ⌥Space) — toggle mode (press to start, press to stop
